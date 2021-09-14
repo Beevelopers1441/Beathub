@@ -1,5 +1,6 @@
 package com.beeveloper.beathub.group.domain;
 
+import com.beeveloper.beathub.music.domain.Bucket;
 import com.beeveloper.beathub.post.domain.Post;
 import com.beeveloper.beathub.user.domain.User;
 import lombok.Getter;
@@ -24,6 +25,12 @@ public class Group {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User leader;
+
+    @OneToMany(mappedBy = "group")
+    private List<GroupMember> members = new ArrayList<GroupMember>();
+
+    @OneToMany(mappedBy = "ownerGroup")
+    private List<Bucket> buckets = new ArrayList<Bucket>();
 
     @OneToMany(mappedBy = "authorGroup")
     private List<Post> posts = new ArrayList<Post>();

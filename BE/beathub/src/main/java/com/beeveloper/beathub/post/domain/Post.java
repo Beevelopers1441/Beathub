@@ -32,6 +32,9 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     private Group authorGroup;
 
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments = new ArrayList<Comment>();
+
 
     @ManyToMany
     private List<User> likeUsers = new ArrayList<User>();

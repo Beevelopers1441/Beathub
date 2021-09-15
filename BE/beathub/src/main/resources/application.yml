@@ -1,5 +1,3 @@
-
-
 spring:
   datasource:
     url: jdbc:mysql://localhost:13306/beathub_db?serverTimezone=UTC&characterEncoding=UTF-8
@@ -15,5 +13,3 @@ spring:
     hibernate:
       format_sql: true
       ddl-auto: create
-server:
-  port: 8100

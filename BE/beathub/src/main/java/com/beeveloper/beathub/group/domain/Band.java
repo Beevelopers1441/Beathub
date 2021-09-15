@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Getter
-public class Group {
+public class Band {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,15 +26,15 @@ public class Group {
     @ManyToOne(fetch = FetchType.LAZY)
     private User leader;
 
-    @OneToMany(mappedBy = "group")
-    private List<GroupMember> members = new ArrayList<GroupMember>();
+    @OneToMany(mappedBy = "band")
+    private List<BandMember> members = new ArrayList<BandMember>();
 
-    @OneToMany(mappedBy = "ownerGroup")
+    @OneToMany(mappedBy = "ownerBand")
     private List<Bucket> buckets = new ArrayList<Bucket>();
 
-    @OneToMany(mappedBy = "authorGroup")
+    @OneToMany(mappedBy = "authorBand")
     private List<Post> posts = new ArrayList<Post>();
 
-    @ManyToMany(mappedBy = "followGroups")
+    @ManyToMany(mappedBy = "followBands")
     private List<User> followers = new ArrayList<User>();
 }

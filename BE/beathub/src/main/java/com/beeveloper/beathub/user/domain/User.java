@@ -1,14 +1,13 @@
 package com.beeveloper.beathub.user.domain;
 
-import com.beeveloper.beathub.group.domain.Group;
-import com.beeveloper.beathub.group.domain.GroupMember;
+import com.beeveloper.beathub.group.domain.Band;
+import com.beeveloper.beathub.group.domain.BandMember;
 import com.beeveloper.beathub.music.domain.Audio;
 import com.beeveloper.beathub.music.domain.Bucket;
 import com.beeveloper.beathub.music.domain.Commit;
 import com.beeveloper.beathub.post.domain.Comment;
 import com.beeveloper.beathub.post.domain.Post;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -30,19 +29,19 @@ public class User {
     private String introduction;
 
     /**
-     *  Group 관련
+     *  Band 관련
      */
     @OneToMany(mappedBy = "leader")
-    private List<Group> leadingGroups = new ArrayList<Group>();
+    private List<Band> leadingBands = new ArrayList<Band>();
 
     @ManyToMany
-    @JoinTable(name = "follow_group",
+    @JoinTable(name = "follow_band",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "group_id"))
-    private List<Group> followGroups = new ArrayList<Group>();
+            inverseJoinColumns = @JoinColumn(name = "band_id"))
+    private List<Band> followBands = new ArrayList<Band>();
 
-    @OneToMany(mappedBy = "group")
-    private List<GroupMember> participatingGroups = new ArrayList<GroupMember>();
+    @OneToMany(mappedBy = "band")
+    private List<BandMember> participatingBands = new ArrayList<BandMember>();
 
     /**
      * Post 관련
@@ -111,7 +110,7 @@ public class User {
         }
     }
 
-    public void addFollowingGroup(Group following) {
-        this.followGroups.add(following);
+    public void addFollowingBand(Band following) {
+        this.followBands.add(following);
     }
 }

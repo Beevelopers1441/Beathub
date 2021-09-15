@@ -1,6 +1,6 @@
 package com.beeveloper.beathub.music.domain;
 
-import com.beeveloper.beathub.group.domain.Group;
+import com.beeveloper.beathub.group.domain.Band;
 import com.beeveloper.beathub.user.domain.User;
 import lombok.Getter;
 
@@ -39,6 +39,6 @@ public class Bucket {
     private User ownerUser;
 
     @ManyToOne
-    private Group ownerGroup;
+    private Band ownerBand;
 
 }

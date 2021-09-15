@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-public class GroupMember {
+public class BandMember {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,7 @@ public class GroupMember {
     private User user;
 
     @ManyToOne
-    private Group group;
+    private Band band;
 
     @ManyToOne
     private Instrument instrument;

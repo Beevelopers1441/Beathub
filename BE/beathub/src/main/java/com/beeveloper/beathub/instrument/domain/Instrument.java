@@ -1,6 +1,5 @@
 package com.beeveloper.beathub.instrument.domain;
 
-import com.beeveloper.beathub.group.domain.GroupMember;
 import com.beeveloper.beathub.music.domain.Audio;
 import com.beeveloper.beathub.post.domain.Post;
 import com.beeveloper.beathub.user.domain.UserInstrument;

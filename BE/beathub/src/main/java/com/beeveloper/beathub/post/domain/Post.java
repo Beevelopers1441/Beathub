@@ -1,9 +1,8 @@
 package com.beeveloper.beathub.post.domain;
 
-import com.beeveloper.beathub.group.domain.Group;
+import com.beeveloper.beathub.group.domain.Band;
 import com.beeveloper.beathub.instrument.domain.Instrument;
 import com.beeveloper.beathub.user.domain.User;
-import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -30,7 +29,7 @@ public class Post {
     private User authorUser;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Group authorGroup;
+    private Band authorBand;
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<Comment>();

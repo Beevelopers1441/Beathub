@@ -1,7 +1,8 @@
 package com.beeveloper.beathub.post.domain;
 
-import com.beeveloper.beathub.group.domain.Band;
+import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.instrument.domain.Instrument;
+import com.beeveloper.beathub.post.dto.PostCreateRequestDto;
 import com.beeveloper.beathub.user.domain.User;
 
 import javax.persistence.*;
@@ -41,5 +42,8 @@ public class Post {
     @ManyToOne
     private Instrument tag;
 
-
+    public Post(PostCreateRequestDto requestInfo) {
+        this.title = requestInfo.getTitle();
+        this.content = requestInfo.getContent();
+    }
 }

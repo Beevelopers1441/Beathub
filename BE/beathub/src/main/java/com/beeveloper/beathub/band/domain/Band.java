@@ -1,4 +1,4 @@
-package com.beeveloper.beathub.group.domain;
+package com.beeveloper.beathub.band.domain;
 
 import com.beeveloper.beathub.music.domain.Bucket;
 import com.beeveloper.beathub.post.domain.Post;

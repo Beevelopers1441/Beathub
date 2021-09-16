@@ -1,7 +1,7 @@
 package com.beeveloper.beathub.user.domain;
 
-import com.beeveloper.beathub.group.domain.Band;
-import com.beeveloper.beathub.group.domain.BandMember;
+import com.beeveloper.beathub.band.domain.Band;
+import com.beeveloper.beathub.band.domain.BandMember;
 import com.beeveloper.beathub.music.domain.Audio;
 import com.beeveloper.beathub.music.domain.Bucket;
 import com.beeveloper.beathub.music.domain.Commit;

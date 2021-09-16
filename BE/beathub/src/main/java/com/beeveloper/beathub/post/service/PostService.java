@@ -1,5 +1,7 @@
 package com.beeveloper.beathub.post.service;
 
-public interface PostService {
+import com.beeveloper.beathub.post.dto.PostCreateRequestDto;
 
+public interface PostService {
+    void createMemberPost(PostCreateRequestDto requestInfo);
 }

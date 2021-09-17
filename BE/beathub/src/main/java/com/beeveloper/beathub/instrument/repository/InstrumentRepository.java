@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface InstrumentRepository  extends JpaRepository<Long, Instrument> {
+public interface InstrumentRepository  extends JpaRepository<Instrument, Long> {
     Optional<Instrument> findByType(String typeName);
 }

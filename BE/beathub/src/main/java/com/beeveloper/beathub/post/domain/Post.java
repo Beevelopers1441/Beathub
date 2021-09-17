@@ -4,6 +4,7 @@ import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.instrument.domain.Instrument;
 import com.beeveloper.beathub.post.dto.PostCreateRequestDto;
 import com.beeveloper.beathub.user.domain.User;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NoArgsConstructor
 public class Post {
 
     @Id

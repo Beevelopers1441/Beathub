@@ -33,8 +33,8 @@ function Posts({ tabsIdx, posts }: Props): React.ReactElement {
   return (
     <Wrapper>
       {currPosts ? (
-        currPosts.map(post => (
-          <Post post={post} />
+        currPosts.map((post, idx) => (
+          <Post post={post} key={idx} />
         ))
       ) : (
         <p>없습니다.</p>

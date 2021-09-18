@@ -28,7 +28,7 @@ const Community: FC<Props> = props => {
           <Grid item xs={10}>
             <div className="linktab-container">
               {[0, 1, 2].map(value => {
-                return <LinkTab setTabsIdx={setTabsIdx} tabsIdx={value} />;
+                return <LinkTab setTabsIdx={setTabsIdx} tabsIdx={value} key={value}/>;
               })}
             </div>
             <Posts tabsIdx={tabsIdx} posts={posts} />

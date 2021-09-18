@@ -1,15 +1,20 @@
-import { css } from 'styled-components';
+// import { css } from 'styled-components';
 
-const fontWeight = {
-  regular: 400,
-  medium: 500,
-  bold: 'bold',
-};
+// const fontWeight = {
+//   regular: 400,
+//   medium: 500,
+//   bold: 'bold',
+// };
 
 const theme = {
   colors: {
     black: '#000000',
     white: '#ffffff',
+    darkBlue: '#212C4F',
+    purple: '#7B42F6',
+    violet: '#B01EFF',
+    pink: 'FF6780',
+    subGrey: 'ABB0B5'
   },
 
 /* example style */

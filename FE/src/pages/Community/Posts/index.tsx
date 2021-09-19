@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 // Components
 import Post from './Post';
@@ -11,24 +11,10 @@ import Wrapper from './styles';
 
 
 interface Props {
-  tabsIdx: number;
-  posts: IPost[]
+  currPosts: IPost[] | null;
 }
 
-function Posts({ tabsIdx, posts }: Props): React.ReactElement {
-  const [currPosts, setCurrPosts] = useState<IPost[] | null | undefined>(null);
-
-  useEffect(() => {
-    if (!posts) return
-
-    let newCurrPosts: IPost[] = posts;
-    if (tabsIdx === 1) {  // proceeding
-      newCurrPosts = posts.filter(post => post.status === 'proceeding');
-    } else if (tabsIdx === 2) {  // done
-      newCurrPosts = posts.filter(post => post.status === 'done');
-    }
-    setCurrPosts(newCurrPosts);
-  }, [posts, tabsIdx]);
+function Posts({ currPosts }: Props): React.ReactElement {
 
   return (
     <Wrapper>

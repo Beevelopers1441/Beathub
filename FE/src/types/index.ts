@@ -3,8 +3,9 @@ export interface Itmp {
 }
 
 export interface IPost {
-  title: String,
-  content: String,
-  tags: String[],
-  status: String
+  title: string,
+  content: string,
+  tags: string[],
+  status: string,
+  recruitStatus: string;
 }

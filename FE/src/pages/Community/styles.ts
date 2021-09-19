@@ -5,6 +5,10 @@ const Wrapper = styled.div`
 
   & .community-container {
     display: flex;
+
+    & .leftbar {
+      cursor: pointer;
+    }
   }
 
   /* LinkTab */

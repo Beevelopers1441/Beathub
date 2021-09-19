@@ -6,7 +6,32 @@
       "밴드",
       "드럼"
     ],
-    "status": "proceeding"
+    "status": "proceeding",
+    "recruitStatus": "T",
+    "created_at": "2021-09-10 11:00",
+    "likes": 7,
+    "comments": [
+      {
+        "content": "혹시 드럼 구하셨나요?",
+        "userInfo": {
+          "name": "user2",
+          "imageUrl": "https://api.thecatapi.com/v1/images/search"
+        },
+        "created_at": "2021-09-10 11:00"
+      },
+      {
+        "content": "디엠주세요!",
+        "userInfo": {
+          "name": "user1",
+          "imageUrl": "https://api.thecatapi.com/v1/images/search"
+        },
+        "created_at": "2021-09-10 11:01"
+      }
+    ],
+    "userInfo": {
+      "name": "user1",
+      "imageUrl": "https://api.thecatapi.com/v1/images/search"
+    }
   },
   {
     "title": "제목 2",
@@ -17,7 +42,32 @@
       "서울",
       "사당"
     ],
-    "status": "done"
+    "status": "done",
+    "recruitStatus": "T",
+    "created_at": "2021-09-10 11:00",
+    "likes": 5,
+    "comments": [
+      {
+        "content": "혹시 드럼 구하셨나요?22222",
+        "userInfo": {
+          "name": "user3",
+          "imageUrl": "https://api.thecatapi.com/v1/images/search"
+        },
+        "created_at": "2021-09-10 11:00"
+      },
+      {
+        "content": "디엠주세요!",
+        "userInfo": {
+          "name": "user2",
+          "imageUrl": "https://api.thecatapi.com/v1/images/search"
+        },
+        "created_at": "2021-09-10 11:01"
+      }
+    ],
+    "userInfo": {
+      "name": "user2",
+      "imageUrl": "https://api.thecatapi.com/v1/images/search"
+    }
   },
   {
     "title": "제목 3",
@@ -27,6 +77,31 @@
       "서울",
       "사당"
     ],
-    "status": "done"
+    "status": "done",
+    "recruitStatus": "M",
+    "created_at": "2021-09-10 11:00",
+    "likes": 123,
+    "comments": [
+      {
+        "content": "드럼 구하고 계신가요요오오",
+        "userInfo": {
+          "name": "user5",
+          "imageUrl": "https://api.thecatapi.com/v1/images/search"
+        },
+        "created_at": "2021-09-10 11:00"
+      },
+      {
+        "content": "디엠주세요!",
+        "userInfo": {
+          "name": "user3",
+          "imageUrl": "https://api.thecatapi.com/v1/images/search"
+        },
+        "created_at": "2021-09-10 11:01"
+      }
+    ],
+    "userInfo": {
+      "name": "user3",
+      "imageUrl": "https://api.thecatapi.com/v1/images/search"
+    }
   }
 ]

@@ -16,12 +16,11 @@ function CommunitySearch({
   currTags,
   setCurrTags,
 }: Props): React.ReactElement {
-
   const titleRef: any = useRef();
   const tagRef: any = useRef();
 
   const handleInputs = (e: any) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' || e.target.id === 'search-button') {
       const newTitleValue = titleRef?.current.value.trim();
       const newTagValue = tagRef?.current.value.trim();
 
@@ -60,7 +59,13 @@ function CommunitySearch({
           placeholder="태그를 추가해 검색해보세요!"
         ></input>
       </div>
-      <button className="search-button">검색</button>
+      <button
+        id="search-button"
+        className="search-button"
+        onClick={handleInputs}
+      >
+        검색
+      </button>
     </Wrapper>
   );
 }

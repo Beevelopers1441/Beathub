@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 // styles
+import { Container } from '@mui/material';
 import Wrapper from './styles';
 
 interface Props {
@@ -12,14 +13,16 @@ interface ParamTypes {
   postId: string;
 }
 
-function Community(props: Props): React.ReactElement {
+function PostDetail(props: Props): React.ReactElement {
   const { postId } = useParams<ParamTypes>();
 
   return (
     <Wrapper>
-      {postId}
+      <Container>
+        {postId}
+      </Container>
     </Wrapper>
   );
 };
 
-export default Community;
+export default PostDetail;

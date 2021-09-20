@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-  margin: 100px 0 0 0;
+  margin-top: 100px;
 
   & .community-container {
     display: flex;

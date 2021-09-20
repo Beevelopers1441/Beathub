@@ -1,4 +1,4 @@
 import Community from './Community';
-import Post from './Post';
+import { PostDetail, PostCreate } from './Post';
 
-export { Community, Post };
+export { Community, PostDetail, PostCreate };

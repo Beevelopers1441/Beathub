@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
+
+// component
+import { ProfileImage } from 'components/atoms';
 
 // types
 import { IPost } from 'types';
 
 // styles
 import { Grid } from '@mui/material';
-import { Favorite, FavoriteBorder } from '@mui/icons-material';
+import { Favorite } from '@mui/icons-material';
 import Wrapper from './styles';
 
 interface Props {
@@ -16,23 +19,11 @@ interface Props {
 function Post({ post }: Props): React.ReactElement {
   const history = useHistory();
 
-  // imageUrl tmp
-  const [imageUrl, setImageUrl] = useState('')
-  useEffect(() => {
-    console.log('???')
-    const request = async () => {
-      const res = await fetch(post.userInfo.imageUrl, {
-        method: 'GET'
-      })
-      const data = await res.json()
-      const _imageUrl = data[0].url;
-      setImageUrl(_imageUrl)
-    }
-    request()
-  }, [post])
-
   const handlePostDetail = (postId: number) => {
-    const location = { pathname: `/post/${postId}`};
+    const location = { 
+      pathname: `/post/${postId}`,
+      state: { post, }
+    };
     history.push(location);
   }
 
@@ -69,11 +60,7 @@ function Post({ post }: Props): React.ReactElement {
           className="user-container"
         >
           <p className="user-name">{post.userInfo.name}</p>
-          <img 
-            src={imageUrl}
-            alt="img"
-            className="user-image"
-          />
+          <ProfileImage url={post.userInfo.imageUrl} />
         </Grid>
       </Grid>
       

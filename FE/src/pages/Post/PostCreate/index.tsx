@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 // components
 import { TagList } from 'components';
@@ -94,7 +95,9 @@ function PostCreate(props: Props): React.ReactElement {
           />
         </div>
         <div className="bottom-btn-container">
-          <button className="btn-cancel">취소</button>
+          <Link to="/community">
+            <button className="btn-cancel">취소</button>
+          </Link>
           <button className="btn">저장</button>
         </div>
       </Container>

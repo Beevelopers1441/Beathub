@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 // Components
 import { Posts, LinkTab, TagList, CommunitySearch } from 'components/Community';
@@ -50,7 +51,9 @@ function Community(props: Props): React.ReactElement {
     } else {
       // set current title
       if (currTitle) {
-        newCurrPosts = newCurrPosts.filter(post => post.title.indexOf(currTitle) !== -1);
+        newCurrPosts = newCurrPosts.filter(
+          post => post.title.indexOf(currTitle) !== -1,
+        );
       }
 
       // set current posts
@@ -73,7 +76,7 @@ function Community(props: Props): React.ReactElement {
 
   const handleTeamFlag = (idx: number): void => {
     const newTeamFlag: number = idx === 1 ? 0 : 1;
-    setTeamFlag(newTeamFlag)
+    setTeamFlag(newTeamFlag);
   };
 
   return (
@@ -81,8 +84,12 @@ function Community(props: Props): React.ReactElement {
       <Container className="community-container">
         <Grid container>
           <Grid item xs={2}>
-            <p onClick={() => handleTeamFlag(0)} className="teamFlag">팀 구하기</p>
-            <p onClick={() => handleTeamFlag(1)} className="teamFlag">팀원 구하기</p>
+            <p onClick={() => handleTeamFlag(0)} className="teamFlag">
+              팀 구하기
+            </p>
+            <p onClick={() => handleTeamFlag(1)} className="teamFlag">
+              팀원 구하기
+            </p>
           </Grid>
 
           <Grid item xs={10}>
@@ -104,7 +111,9 @@ function Community(props: Props): React.ReactElement {
             />
             <TagList currTags={currTags} setCurrTags={setCurrTags} />
             <div className="create-container">
-              <button className="create-btn">글쓰기</button>
+              <Link to="/post">
+                <button className="create-btn">글쓰기</button>
+              </Link>
             </div>
             <Posts currPosts={currPosts} />
           </Grid>
@@ -112,6 +121,6 @@ function Community(props: Props): React.ReactElement {
       </Container>
     </Wrapper>
   );
-};
+}
 
 export default Community;

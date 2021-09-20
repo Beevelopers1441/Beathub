@@ -2,8 +2,9 @@ package com.beeveloper.beathub.post.domain;
 
 import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.instrument.domain.Instrument;
-import com.beeveloper.beathub.post.dto.PostCreateRequestDto;
+import com.beeveloper.beathub.post.dto.request.MemberPostCreateDto;
 import com.beeveloper.beathub.user.domain.User;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -44,8 +45,12 @@ public class Post {
     @ManyToOne
     private Instrument tag;
 
-    public Post(PostCreateRequestDto requestInfo) {
-        this.title = requestInfo.getTitle();
-        this.content = requestInfo.getContent();
+    @Builder
+    public Post(String title, String content, User authorUser, Band authorBand, LocalDateTime createTime) {
+        this.title = title;
+        this.content = content;
+        this.authorUser = authorUser;
+        this.authorBand = authorBand;
+        this.createTime = createTime;
     }
 }

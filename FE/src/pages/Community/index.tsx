@@ -16,7 +16,7 @@ import dumpdata from './dump.json';
 interface Props {}
 
 function Community(props: Props): React.ReactElement {
-  const [leftbar, setLeftbar] = useState<number>(0);
+  const [teamFlag, setTeamFlag] = useState<number>(0);
   const [tabsIdx, setTabsIdx] = useState<number>(0);
   const [posts, setPosts] = useState(dumpdata);
   const [currPosts, setCurrPosts] = useState<IPost[] | null>(null);
@@ -29,8 +29,8 @@ function Community(props: Props): React.ReactElement {
 
     let newCurrPosts: IPost[] = [...posts];
 
-    // leftbar index
-    if (leftbar === 0) {
+    // teamFlag index
+    if (teamFlag === 0) {
       newCurrPosts = posts.filter(post => post.recruitStatus === 'T');
     } else {
       newCurrPosts = posts.filter(post => post.recruitStatus === 'M');
@@ -69,11 +69,11 @@ function Community(props: Props): React.ReactElement {
         setCurrPosts(newCurrPosts);
       }
     }
-  }, [posts, leftbar, tabsIdx, currTitle, currTags]);
+  }, [posts, teamFlag, tabsIdx, currTitle, currTags]);
 
-  const handleLeftbar = (idx: number): void => {
-    const newLeftbar: number = idx === 1 ? 0 : 1;
-    setLeftbar(newLeftbar)
+  const handleTeamFlag = (idx: number): void => {
+    const newTeamFlag: number = idx === 1 ? 0 : 1;
+    setTeamFlag(newTeamFlag)
   };
 
   return (
@@ -81,8 +81,8 @@ function Community(props: Props): React.ReactElement {
       <Container className="community-container">
         <Grid container>
           <Grid item xs={2}>
-            <p onClick={() => handleLeftbar(0)} className="leftbar">팀 구하기</p>
-            <p onClick={() => handleLeftbar(1)} className="leftbar">팀원 구하기</p>
+            <p onClick={() => handleTeamFlag(0)} className="teamFlag">팀 구하기</p>
+            <p onClick={() => handleTeamFlag(1)} className="teamFlag">팀원 구하기</p>
           </Grid>
 
           <Grid item xs={10}>

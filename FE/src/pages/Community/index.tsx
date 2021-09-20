@@ -1,9 +1,7 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Components
-import Posts from './Posts';
-import LinkTab from './LinkTab';
-import TagList from './TagList';
+import { Posts, LinkTab, TagList, CommunitySearch } from 'components/Community';
 
 // styles
 import { Container, Grid } from '@mui/material';
@@ -14,11 +12,10 @@ import { IPost } from 'types';
 
 // tmp dump datas
 import dumpdata from './dump.json';
-import CommunitySearch from './Search';
 
 interface Props {}
 
-const Community: FC<Props> = props => {
+function Community(props: Props): React.ReactElement {
   const [leftbar, setLeftbar] = useState<number>(0);
   const [tabsIdx, setTabsIdx] = useState<number>(0);
   const [posts, setPosts] = useState(dumpdata);

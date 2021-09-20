@@ -103,6 +103,9 @@ function Community(props: Props): React.ReactElement {
               setCurrTags={setCurrTags}
             />
             <TagList currTags={currTags} setCurrTags={setCurrTags} />
+            <div className="create-container">
+              <button className="create-btn">글쓰기</button>
+            </div>
             <Posts currPosts={currPosts} />
           </Grid>
         </Grid>

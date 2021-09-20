@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body{
     color: #ffffff;
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
     background-color: #212C4F;
   }
   

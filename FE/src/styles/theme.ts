@@ -11,10 +11,11 @@ const theme = {
     black: '#000000',
     white: '#ffffff',
     darkBlue: '#212C4F',
+    lightGrey: '#F0F3F5',
     purple: '#7B42F6',
     violet: '#B01EFF',
-    pink: 'FF6780',
-    subGrey: 'ABB0B5'
+    pink: '#FF6780',
+    subGrey: '#ABB0B5'
   },
 
 /* example style */

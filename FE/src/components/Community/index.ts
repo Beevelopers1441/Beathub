@@ -1,6 +1,6 @@
 import LinkTab from './LinkTab';
 import Posts from './Posts';
-import TagList from './TagList';
+import TagList from 'components/TagList';
 import CommunitySearch from './Search';
 
 

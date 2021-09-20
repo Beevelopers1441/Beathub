@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   border-radius: 20px;
 
   & p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     align-self: center;
     margin: 0 0.3rem;
   }

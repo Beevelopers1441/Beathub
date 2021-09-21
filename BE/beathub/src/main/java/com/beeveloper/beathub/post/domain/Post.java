@@ -6,6 +6,7 @@ import com.beeveloper.beathub.post.dto.request.MemberPostCreateDto;
 import com.beeveloper.beathub.user.domain.User;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

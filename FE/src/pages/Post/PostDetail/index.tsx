@@ -10,16 +10,18 @@ import { IPost, IComment } from 'types';
 
 // styles
 import { Container, Grid } from '@mui/material';
-import { ArrowBackIosNew, Favorite } from '@mui/icons-material';
+import { ArrowBackIosNew, Favorite, FavoriteBorder } from '@mui/icons-material';
 import Wrapper from './styles';
 
 function PostDetail(): React.ReactElement {
   const [post, setPost] = useState<IPost | null>(null);
   const [comments, setComments] = useState<IComment[]>([]);
+  const [isLike, setIsLike] = useState<Boolean>(false);
 
   const { state } = useLocation<any>();
   const history = useHistory();
 
+  // update current post info
   useEffect(() => {
     if (!state) return;
 
@@ -28,6 +30,18 @@ function PostDetail(): React.ReactElement {
     setPost(newPost);
     setComments(newComments)
   }, [state]);
+
+  // likes
+  const handleLike = () => {
+    const newPost = JSON.parse(JSON.stringify(post))
+    if (isLike) {
+      newPost.likes -= 1
+    } else {
+      newPost.likes += 1
+    }
+    setPost(newPost)
+    setIsLike(!isLike)
+  }
 
   const handleBack = () => {
     history.goBack();
@@ -47,8 +61,12 @@ function PostDetail(): React.ReactElement {
               <p className="title">{post.title}</p>
               <div className="time-like-container">
                 <p className="time">{post.created_at}</p>
-                <Favorite className="likes-icon" />
-                <p>{post.likes}</p>
+                { isLike ? (
+                  <Favorite onClick={handleLike} className="likes-icon-active" />
+                ) : (
+                  <FavoriteBorder onClick={handleLike} className="likes-icon-inactive" />
+                )}
+                <p className="likes">{post.likes}</p>
               </div>
               <div className="tag-container">
                 <TagListReadOnly tags={post.tags} />
@@ -60,7 +78,7 @@ function PostDetail(): React.ReactElement {
                   <button className="comment-btn">댓글 등록</button> 
                 </div>
                 <textarea className="comment-input" placeholder="댓글을 작성하세요." />
-                { comments.map(comment => <Comment comment={comment} />)}
+                { comments.map((comment, idx) => <Comment comment={comment} key={idx} />)}
               </div>
             </Grid>
             <Grid item xs={1}>

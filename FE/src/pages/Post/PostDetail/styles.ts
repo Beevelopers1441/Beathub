@@ -31,9 +31,20 @@ const Wrapper = styled.div`
         margin-right: 1rem;
         color: ${({ theme }) => theme.colors.subGrey };
       }
-      & .likes-icon {
+      & .likes-icon-inactive {
         font-size: 0.8rem;
         margin-right: 0.2rem;
+        cursor: pointer;
+      }
+      & .likes-icon-active {
+        color: ${({ theme }) => theme.colors.pink };
+        font-size: 0.8rem;
+        margin-right: 0.2rem;
+        cursor: pointer;
+      }
+      & .likes {
+        line-height: 1.1;
+        font-size: 0.8rem;
       }
     }
 

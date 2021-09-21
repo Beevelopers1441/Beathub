@@ -2,11 +2,10 @@ package com.beeveloper.beathub.post.domain;
 
 import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.instrument.domain.Instrument;
-import com.beeveloper.beathub.post.dto.request.MemberPostCreateDto;
 import com.beeveloper.beathub.user.domain.User;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,8 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 @NoArgsConstructor
-public class Post {
+public abstract class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

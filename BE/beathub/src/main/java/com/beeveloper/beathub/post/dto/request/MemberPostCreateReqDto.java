@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @ApiModel("개인 구인글 생성 정보")
-public class MemberPostCreateDto {
+public class MemberPostCreateReqDto {
     private String title;
     private String content;
     private String tag;

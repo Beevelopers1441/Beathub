@@ -2,13 +2,13 @@ import GlobalStyle from './styles/GlobalStyle'
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Community, PostDetail, PostCreate } from 'pages';
-import { ChatBtn } from 'components/Chat';
+import { ChatWrapper } from 'components';
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <ChatBtn />
+      <ChatWrapper />
       <BrowserRouter>
         <Switch>
           <Route exact path="/community" component={Community} />

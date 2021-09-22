@@ -13,9 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn
 @Getter
 @NoArgsConstructor
-public abstract class Post {
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,16 +31,9 @@ public abstract class Post {
 
     private LocalDateTime createTime;
 
-    // 아래 User와 Group 둘 중 하나는 빈 값이 될 수 있음
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User authorUser;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Band authorBand;
-
+    // 아래 User와 Group 둘 중 하나는 빈 값이 될 수 있
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<Comment>();
-
 
     @ManyToMany
     private List<User> likeUsers = new ArrayList<User>();
@@ -46,12 +41,9 @@ public abstract class Post {
     @ManyToOne
     private Instrument tag;
 
-    @Builder
-    public Post(String title, String content, User authorUser, Band authorBand, LocalDateTime createTime) {
+    public Post(String title, String content, LocalDateTime createTime) {
         this.title = title;
         this.content = content;
-        this.authorUser = authorUser;
-        this.authorBand = authorBand;
         this.createTime = createTime;
     }
 }

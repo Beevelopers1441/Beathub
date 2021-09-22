@@ -1,10 +1,14 @@
 package com.beeveloper.beathub.post.service;
 
 import com.beeveloper.beathub.band.service.BandService;
+import com.beeveloper.beathub.post.domain.BandPost;
+import com.beeveloper.beathub.post.domain.MemberPost;
 import com.beeveloper.beathub.post.domain.Post;
 import com.beeveloper.beathub.post.dto.request.BandPostCreateReqDto;
 import com.beeveloper.beathub.post.dto.request.MemberPostCreateReqDto;
+import com.beeveloper.beathub.post.repository.BandPostRepository;
 import com.beeveloper.beathub.post.repository.CommentRepository;
+import com.beeveloper.beathub.post.repository.MemberPostRepository;
 import com.beeveloper.beathub.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +21,8 @@ import java.util.List;
 public class PostServiceImpl implements PostService{
 
     private final PostRepository postRepository;
+    private final MemberPostRepository memberPostRepository;
+    private final BandPostRepository bandPostRepository;
     private final CommentRepository commentRepository;
     private final BandService bandService;
 
@@ -24,50 +30,50 @@ public class PostServiceImpl implements PostService{
     포스트 멤버, 밴드로 분리(single table strategy)
      */
     @Override
-    public Post createMemberPost(MemberPostCreateReqDto requestInfo) {
-        Post post = new Post().builder()
+    public MemberPost createMemberPost(MemberPostCreateReqDto requestInfo) {
+        MemberPost memberPost = new MemberPost().builder()
                 .title(requestInfo.getTitle())
                 .content(requestInfo.getContent())
                 .createTime(LocalDateTime.now())
 //                .authorUser()
                 .build();
-        return postRepository.save(post);
+        return memberPostRepository.save(memberPost);
     }
 
     @Override
-    public Post createBandPost(BandPostCreateReqDto requestInfo) {
+    public BandPost createBandPost(BandPostCreateReqDto requestInfo) {
 //        Band band = bandService.findById(requestInfo.getBandId());
-        Post post = new Post().builder()
+        BandPost bandPost = new BandPost().builder()
                 .title(requestInfo.getTitle())
                 .content(requestInfo.getContent())
                 .createTime(LocalDateTime.now())
 //                .authorBand(band)
                 .build();
-        return postRepository.save(post);
+        return bandPostRepository.save(bandPost);
     }
 
     @Override
-    public List<Post> findAllMemberPost() {
-        List<Post> posts = postRepository.findAll();
-        return posts;
+    public List<MemberPost> findAllMemberPost() {
+        List<MemberPost> memberPosts = memberPostRepository.findAll();
+        return memberPosts;
     }
 
     @Override
-    public List<Post> findAllBandPost() {
-        List<Post> posts = postRepository.findAll();
-        return posts;
+    public List<BandPost> findAllBandPost() {
+        List<BandPost> bandPosts = bandPostRepository.findAll();
+        return bandPosts;
     }
 
     /*
     멤버와 밴드 작성글 상속 이용해 분리
      */
     @Override
-    public Post findMemberPost(Long postId) {
-        return postRepository.findById(postId).orElseThrow(RuntimeException::new);
+    public MemberPost findMemberPost(Long postId) {
+        return memberPostRepository.findById(postId).orElseThrow(RuntimeException::new);
     }
 
     @Override
-    public Post findBandPost(Long postId) {
-        return postRepository.findById(postId).orElseThrow(RuntimeException::new);
+    public BandPost findBandPost(Long postId) {
+        return bandPostRepository.findById(postId).orElseThrow(RuntimeException::new);
     }
 }

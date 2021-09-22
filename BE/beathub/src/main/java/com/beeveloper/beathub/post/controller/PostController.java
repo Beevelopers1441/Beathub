@@ -1,7 +1,10 @@
 package com.beeveloper.beathub.post.controller;
 
+import com.beeveloper.beathub.post.domain.BandPost;
+import com.beeveloper.beathub.post.domain.MemberPost;
 import com.beeveloper.beathub.post.domain.Post;
 import com.beeveloper.beathub.post.dto.request.MemberPostCreateReqDto;
+import com.beeveloper.beathub.post.dto.response.BandPostResDto;
 import com.beeveloper.beathub.post.dto.response.BandPostSimpleResDto;
 import com.beeveloper.beathub.post.dto.response.MemberPostResDto;
 import com.beeveloper.beathub.post.dto.response.MemberPostSimpleResDto;
@@ -42,26 +45,26 @@ public class PostController {
 
     // 조회
     @GetMapping("/members")
-    public ResponseEntity<List<MemberPostSimpleResDto>> readAllMemberPost() {
-        List<Post> post = postService.findAllMemberPost();
-        return new
+    public ResponseEntity<List<MemberPostResDto>> readAllMemberPost() {
+        List<MemberPost> memberPosts = postService.findAllMemberPost();
+        return ResponseEntity.status(200).body(MemberPostResDto.of(memberPosts));
     }
 
     @GetMapping("/bands")
-    public ResponseEntity<List<BandPostSimpleResDto>> readAllBandPost() {
-        List<Post> post = postService.findAllBandPost();
-        return new
+    public ResponseEntity<List<BandPostResDto>> readAllBandPost() {
+        List<BandPost> bandPosts = postService.findAllBandPost();
+        return ResponseEntity.status(200).body(BandPostResDto.of(bandPosts));
     }
 
-    @GetMapping("/members/{memberId}")
-    public ResponseEntity<List<MemberPostResDto>> readMemberPost(@PathVariable Long memberId) {
-        List<Post> post = postService.findAllMemberPost();
-        return new
+    @GetMapping("/members/{postId}")
+    public ResponseEntity<MemberPostResDto> readMemberPost(@PathVariable Long postId) {
+        MemberPost memberPost = postService.findMemberPost(postId);
+        return ResponseEntity.status(200).body(MemberPostResDto.of(memberPost));
     }
 
-    @GetMapping("/bands/{bandId}")
-    public ResponseEntity<List<MemberPostResDto>> readBandPost(@PathVariable Long bandId) {
-        List<Post> post = postService.findAllMemberPost();
-        return new
+    @GetMapping("/bands/{postId}")
+    public ResponseEntity<BandPostResDto> readBandPost(@PathVariable Long postId) {
+        BandPost bandPost = postService.findBandPost(postId);
+        return ResponseEntity.status(200).body(BandPostResDto.of(bandPost));
     }
 }

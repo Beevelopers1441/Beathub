@@ -25,6 +25,6 @@ public class InstrumentController {
     @ApiOperation(value = "악기 목록 조회", notes = "DB에 등록된 악기 목록 조회")
     public ResponseEntity<List<InstrumentResDto>> readAllInstruments() {
         List<Instrument> instruments = instrumentService.findAllInstruments();
-
+        return ResponseEntity.status(200).body(InstrumentResDto.of(instruments));
     }
 }

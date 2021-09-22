@@ -1,3 +1,4 @@
-import Chat from './Chat'
+import Chat from './Chat';
+import Auth from './Auth';
 
-export { Chat };
+export { Chat, Auth };

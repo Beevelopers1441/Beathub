@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { KakaoAuthBtn } from "./KakaoAuth/index";
+import { KakaoAuthBtn } from './KakaoAuthBtn/index';
 
 
 const Auth: FC = () => {

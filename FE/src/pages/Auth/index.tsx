@@ -1,9 +1,12 @@
 import { FC } from 'react';
 import SocialAuth from '../../components/SocialAuth'
+import Wrapper from './styles';
 
 const Auth: FC = () => {
   return (
-    <SocialAuth></SocialAuth>
+    <Wrapper>
+      <SocialAuth></SocialAuth>
+    </Wrapper>
   );
 };
 

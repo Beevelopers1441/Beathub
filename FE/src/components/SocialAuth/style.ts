@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-// 기존파일 복붙. 수정 필요
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;

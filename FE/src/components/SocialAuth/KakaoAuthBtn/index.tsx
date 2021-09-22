@@ -19,6 +19,6 @@ export const KakaoAuthBtn = () => (
     onFail={result => (onFail(result))}
     onLogout={result => (onLogout(result))}
   >
-    <div>카카오톡 로그인</div>
+    <div className="btn-kakao">카카오톡 로그인</div>
   </KakaoLogin>
 );

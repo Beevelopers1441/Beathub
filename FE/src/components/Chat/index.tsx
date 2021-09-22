@@ -1,9 +1,4 @@
-import React, { FC } from 'react';
+import ChatList from './ChatList';
+import ChatBtn from './ChatBtn';
 
-interface Props {}
-
-const Chat: FC<Props> = props => {
-  return <div>Chat component</div>;
-};
-
-export default Chat;
+export { ChatList, ChatBtn };

@@ -1,7 +1,7 @@
 import GlobalStyle from './styles/GlobalStyle'
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Community } from './pages';
+import { Community, UserProfile} from './pages';
 
 function App() {
   return (
@@ -10,6 +10,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/community" component={Community} />
+          <Route exact path="/profile/:id" component={UserProfile} />
         </Switch>
       </BrowserRouter>
     </>

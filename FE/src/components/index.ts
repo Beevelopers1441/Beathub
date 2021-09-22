@@ -1,3 +1,4 @@
 import Chat from './Chat'
+import UserProfileInfo from './UserProfileInfo';
 
-export { Chat };
+export { Chat, UserProfileInfo };

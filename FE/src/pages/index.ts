@@ -1,3 +1,4 @@
 import Community from './Community';
+import UserProfile from './UserProfile';
 
-export { Community };
+export { Community, UserProfile };

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 // components
 import ChatBtn from './ChatBtn';
+import ChatList from './ChatList';
 
 // styles
 import styled from 'styled-components';
@@ -15,9 +16,18 @@ const Wrapper = styled.button`
 `;
 
 function ChatWrapper(props: Props): React.ReactElement {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const handleOpen = () => {
+    setIsOpen(!isOpen);
+  }
+
   return (
     <Wrapper>
-      <ChatBtn />
+      <div onClick={handleOpen}>
+        <ChatBtn />
+      </div>
+      <ChatList isOpen={isOpen} />
     </Wrapper>
   );
 };

@@ -3,13 +3,21 @@ import React from 'react';
 // styles
 import Wrapper from './styles';
 
-interface Props {}
+interface Props {
+  isOpen: boolean;
+}
 
-function ChatList(props: Props): React.ReactElement {
+function ChatList({ isOpen }: Props): React.ReactElement {
   return (
-    <Wrapper>
-      Chat component
-    </Wrapper>
+    <>
+      { isOpen ? (
+        <Wrapper>
+          
+        </Wrapper>
+      ) : (
+        null
+      )}
+    </>
   );
 };
 

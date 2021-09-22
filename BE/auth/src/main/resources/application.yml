@@ -37,7 +37,7 @@ spring:
       registration:
         google:
           clientId: 570587036199-8pa51o0l4r9fo9ip89s4c6ugaml9kudg.apps.googleusercontent.com
-          clientSecret: B4M52TUvMpNnGbyZu8NLCDjg
+          clientSecret: 'Google client secret'
           scope:
             - email
             - profile
@@ -60,7 +60,7 @@ spring:
 #          clientName: Naver
         kakao:
           clientId: 4b3b25c301bc9285b90b27cf7a816430
-          clientSecret: EWWuu8WAjjX9xWLghNCQU7yqxJdGFy6h
+          clientSecret: 'kakao client secret'
           clientAuthenticationMethod: post
           authorizationGrantType: authorization_code
           redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"

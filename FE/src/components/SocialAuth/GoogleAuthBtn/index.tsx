@@ -17,7 +17,7 @@ export const GoogleAuthBtn = () => {
     <GoogleLogin
       clientId="618018607779-hhtaqof2ufm6ultf5baei97pthlm7d6q.apps.googleusercontent.com"
       render={renderProps => (
-        <button className="btn-google" onClick={renderProps.onClick} disabled={renderProps.disabled}>This is my custom Google button</button>
+        <button className="btn-google" onClick={renderProps.onClick} disabled={renderProps.disabled}>구글로 로그인 하기</button>
       )}
       buttonText="Login"
       onSuccess={result => (onSuccess(result))}

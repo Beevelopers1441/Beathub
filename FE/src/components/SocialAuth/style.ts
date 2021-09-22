@@ -30,6 +30,7 @@ const Wrapper = styled.div`
     height: 25rem;
     padding: 2rem 0;
     color: ${({ theme }) => theme.colors.darkBlue };
+
     & .btn {
       &-kakao {
         width: 18rem;

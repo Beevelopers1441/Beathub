@@ -23,8 +23,6 @@ function index() {
               <h1>Beathub</h1>
               <p>Find your team and Play together</p>
               <SocialAuth></SocialAuth>
-              <button className="btn-kakao">카카오로 로그인 하기</button>
-              <button className="btn-google">구글로 로그인 하기</button>
             </div>
             {/* <p onClick={() => handleTeamFlag(0)} className="teamFlag">팀 구하기</p> */}
             {/* <p onClick={() => handleTeamFlag(0)} className="teamFlag">팀 구하기</p> */}

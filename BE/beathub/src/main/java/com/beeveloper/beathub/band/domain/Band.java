@@ -1,6 +1,7 @@
 package com.beeveloper.beathub.band.domain;
 
 import com.beeveloper.beathub.music.domain.Bucket;
+import com.beeveloper.beathub.post.domain.BandPost;
 import com.beeveloper.beathub.post.domain.Post;
 import com.beeveloper.beathub.user.domain.User;
 import lombok.Getter;
@@ -33,7 +34,7 @@ public class Band {
     private List<Bucket> buckets = new ArrayList<Bucket>();
 
     @OneToMany(mappedBy = "authorBand")
-    private List<Post> posts = new ArrayList<Post>();
+    private List<BandPost> bandPosts = new ArrayList<BandPost>();
 
     @ManyToMany(mappedBy = "followBands")
     private List<User> followers = new ArrayList<User>();

@@ -14,4 +14,9 @@ public class BandServiceImpl implements BandService{
     public Band findById(Long bandId) {
         return bandRepository.findById(bandId).orElseThrow(NullPointerException::new);
     }
+
+    @Override
+    public Band createBand() {
+        return new Band();
+    }
 }

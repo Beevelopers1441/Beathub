@@ -16,7 +16,7 @@ const Wrapper = styled.div`
     line-height: 45px;
 
     // color: #FFFFFF;
-}
+  }
 `
 
 export default Wrapper

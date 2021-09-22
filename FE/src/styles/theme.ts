@@ -18,6 +18,13 @@ const theme = {
     subGrey: '#ABB0B5'
   },
 
+  // font: {
+  //   n36m: css`
+  //     font-style: normal;
+  //     font-weight: bold;
+  //   `,
+  // }
+
 /* example style */
 //   flexCol: (justifyContent = 'center', alignItems = 'center') => css`
 //     display: flex;

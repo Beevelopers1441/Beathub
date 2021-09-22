@@ -1,4 +1,4 @@
 import Chat from './Chat';
-import Auth from './Auth';
+import SocialAuth from './SocialAuth';
 
-export { Chat, Auth };
+export { Chat, SocialAuth };

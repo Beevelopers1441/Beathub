@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import Auth from '../../components/Auth'
+import SocialAuth from '../../components/SocialAuth'
 
 const Auth: FC = () => {
   return (
-    <Auth></Auth>
+    <SocialAuth></SocialAuth>
   );
 };
 

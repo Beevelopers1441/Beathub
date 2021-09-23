@@ -102,3 +102,5 @@ jwt.secret: '8sknjlO3NPTBqo319DHLNqsQAfRJEdKsETOds'
 #  oauth2:
 #    authorizedRedirectUris:
 #      - http://localhost:3000/oauth/redirect
+server:
+  port: 8100

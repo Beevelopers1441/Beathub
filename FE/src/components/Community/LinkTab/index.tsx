@@ -9,6 +9,14 @@ interface Props {
 
 const Wrapper = styled.div`
   cursor: pointer;
+  margin: 0 1rem 0.7rem 1rem;
+
+  & .tabs-title {
+    color: #ABB0B5;
+  }
+  & .tabs-title-active {
+    color: white;
+  }
 `
 
 function LinkTab({ tabsIdx, setTabsIdx }: Props): React.ReactElement {
@@ -30,7 +38,7 @@ function LinkTab({ tabsIdx, setTabsIdx }: Props): React.ReactElement {
 
   return (
     <Wrapper onClick={handleTabsIdx}>
-      <p>{title}</p>
+      <p className="tabs-title">{title}</p>
     </Wrapper>
   );
 };

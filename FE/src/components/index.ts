@@ -1,5 +1,5 @@
-import Chat from './Chat';
 import TagList from './TagList';
 import TagListReadOnly from './TagListReadOnly';
+import ChatWrapper from './Chat';
 
-export { Chat, TagList, TagListReadOnly };
+export { TagList, TagListReadOnly, ChatWrapper };

@@ -19,7 +19,7 @@ function InstrumentPicker({ width }: Props): React.ReactElement {
       <Autocomplete 
         sx={{
           display: 'inline-block',
-          width: '150px',
+          width: width,
           '& input': {
             bgcolor: 'transparent',
             color: 'white',

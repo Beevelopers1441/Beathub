@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 // components
 import { TagList } from 'components';
@@ -38,16 +39,12 @@ function PostCreate(props: Props): React.ReactElement {
 
   const handleTags = (e: any) => {
     if (e.key === 'Enter') {
-      console.log(`현재값:`)
-      console.log(tagRef.current)
       const newTagValue = tagRef?.current.value.trim();
-      console.log(`newTagValue: ${newTagValue}`)
 
       // set tags
       let newCurrTags = [...currTags];
       if (newTagValue && newCurrTags.indexOf(newTagValue) === -1) {
         newCurrTags = [...newCurrTags, newTagValue];
-        console.log(`newCurrTags: ${newCurrTags}`)
         setCurrTags(newCurrTags);
       }
 
@@ -94,7 +91,9 @@ function PostCreate(props: Props): React.ReactElement {
           />
         </div>
         <div className="bottom-btn-container">
-          <button className="btn-cancel">취소</button>
+          <Link to="/community">
+            <button className="btn-cancel">취소</button>
+          </Link>
           <button className="btn">저장</button>
         </div>
       </Container>

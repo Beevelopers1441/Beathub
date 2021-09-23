@@ -11,9 +11,25 @@ const Wrapper = styled.div`
     }
   }
 
+  /* leftbar */
+  & .teamFlag {
+    color: #ABB0B5;
+    text-align: right;
+    font-size: 1.2rem;
+    margin: 0 3rem 1.3rem 0;
+    cursor: pointer;
+  }
+  & .teamFlag-active {
+    text-align: right;
+    font-size: 1.2rem;
+    margin: 0 3rem 1.3rem 0;
+    cursor: pointer;
+  }
+
   /* LinkTab */
   & .linktab-container {
     display: flex;
+    border-bottom: 0.5px solid white;
   }
 
   & .create-container {

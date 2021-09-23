@@ -4,7 +4,7 @@ plugins {
     id 'java'
 }
 
-group = 'com.Beathub.auth'
+group = 'com.beathub.auth'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 

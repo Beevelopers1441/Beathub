@@ -23,7 +23,7 @@ function Posts({ currPosts }: Props): React.ReactElement {
           <Post post={post} key={idx} />
         ))
       ) : (
-        <p>없습니다.</p>
+        <p>작성된 글이 없습니다.</p>
       )
      }
     </Wrapper>

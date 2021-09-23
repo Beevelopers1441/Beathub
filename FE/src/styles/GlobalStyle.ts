@@ -8,7 +8,9 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   body{
-    font-family: 'Noto Sans KR', sans-serif;
+    color: #ffffff;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    background-color: #212C4F;
   }
   
   button {

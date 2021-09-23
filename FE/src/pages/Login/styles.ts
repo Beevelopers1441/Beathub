@@ -32,14 +32,14 @@ const Wrapper = styled.div`
     padding: 2rem 0;
     color: ${({ theme }) => theme.colors.darkBlue };
     & .btn {
-      &-kakao {
+      &-naver {
         width: 18rem;
         height: 3rem;
         margin: 0.5rem 0;
         text-align: center;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 12px;
-        background-color: #FFE100;
+        background-color: #03C75A;
       }
 
       &-google {

@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
-import { KakaoAuthBtn } from './KakaoAuthBtn/index';
+import { NaverAuthBtn } from './NaverAuthBtn/index';
 import { GoogleAuthBtn } from './GoogleAuthBtn/index';
 
 
 const SocialAuth: FC = () => {
   return (
     <>
-    <KakaoAuthBtn></KakaoAuthBtn>
+    <NaverAuthBtn></NaverAuthBtn>
     <GoogleAuthBtn></GoogleAuthBtn>
     </>
   );

@@ -27,7 +27,7 @@ public class User {
 
     private String userName;
 
-    private String profileImageUrl;
+    private String profileImageUrl = null;
 
     private String email;
 
@@ -36,7 +36,7 @@ public class User {
                 @NotNull @Size(max = 64) String userId,
                 @NotNull @Size(max = 100) String username,
                 @NotNull @Size(max = 512) String email,
-                @NotNull @Size(max = 512) String profileImageUrl
+                @Size(max = 512) String profileImageUrl
     ) {
         this.userId = userId;
         this.userName = username;

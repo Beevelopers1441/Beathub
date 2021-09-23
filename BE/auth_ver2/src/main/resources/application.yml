@@ -32,15 +32,15 @@ spring:
         order_updates: true
         format_sql: true
   # Security OAuth
-  security:
-    oauth2.client:
-      registration:
-        google:
-          clientId: '{구글 client-id}'
-          clientSecret: '{구글 client-secret}'
-          scope:
-            - email
-            - profile
+#  security:
+#    oauth2.client:
+#      registration:
+#        google:
+#          clientId: '{구글 client-id}'
+#          clientSecret: '{구글 client-secret}'
+#          scope:
+#            - email
+#            - profile
 #        facebook:
 #          clientId: '{페이스북 client-id}'
 #          clientSecret: '{페이스북 client-secret}'
@@ -58,31 +58,32 @@ spring:
 #            - email
 #            - profile_image
 #          clientName: Naver
-        kakao:
-          clientId: '{카카오 client-id}'
-          clientSecret: '{카카오 client-secret}'
-          clientAuthenticationMethod: post
-          authorizationGrantType: authorization_code
-          redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
-          scope:
-            - profile_nickname
-            - profile_image
-            - account_email
-          clientName: Kakao
+#        kakao:
+#          clientId: '{카카오 client-id}'
+#          clientSecret: '{카카오 client-secret}'
+#          clientAuthenticationMethod: post
+#          authorizationGrantType: authorization_code
+#          redirectUri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
+#          scope:
+#            - profile_nickname
+#            - profile_image
+#            - account_email
+#          clientName: Kakao
       # Provider 설정
-      provider:
+#      provider:
 #        naver:
 #          authorizationUri: https://nid.naver.com/oauth2.0/authorize
 #          tokenUri: https://nid.naver.com/oauth2.0/token
 #          userInfoUri: https://openapi.naver.com/v1/nid/me
 #          userNameAttribute: response
-        kakao:
-          authorizationUri: https://kauth.kakao.com/oauth/authorize
-          tokenUri: https://kauth.kakao.com/oauth/token
-          userInfoUri: https://kapi.kakao.com/v2/user/me
-          userNameAttribute: id
+#        kakao:
+#          authorizationUri: https://kauth.kakao.com/oauth/authorize
+#          tokenUri: https://kauth.kakao.com/oauth/token
+#          userInfoUri: https://kapi.kakao.com/v2/user/me
+#          userNameAttribute: id
 
 # cors 설정
+
 cors:
   allowed-origins: 'http://localhost:3000'
   allowed-methods: GET,POST,PUT,DELETE,OPTIONS
@@ -93,11 +94,11 @@ cors:
 jwt.secret: '8sknjlO3NPTBqo319DHLNqsQAfRJEdKsETOds'
 
 # 토큰 관련 secret Key 및 RedirectUri 설정
-app:
-  auth:
-    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
-    tokenExpiry: 1800000
-    refreshTokenExpiry: 604800000
-  oauth2:
-    authorizedRedirectUris:
-      - http://localhost:3000/oauth/redirect
+#app:
+#  auth:
+#    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+#    tokenExpiry: 1800000
+#    refreshTokenExpiry: 604800000
+#  oauth2:
+#    authorizedRedirectUris:
+#      - http://localhost:3000/oauth/redirect

@@ -1,13 +1,27 @@
 import NaverLogin from 'react-login-by-naver';
 
+// types
+import { UserInfo, ProfileObj } from 'types';
+
+// apis
+import { socialLogin } from 'lib/api/auth/socialLogin'
+
 const onSuccess = (result: any) => {
-  console.log('성공')
-  const userInfo = {
-    email: result.email,
-    nickname: result.nickname,
-    id: result.id,
-    imageUrl: result.profile_image,
+
+  // userInfo로 소셜로그인 간 양식 통일
+  const userInfo = (result: any): UserInfo => {
+    return (
+      {
+        email: result.email,
+        nickname: result.nickname,
+        id: result.id,
+        imageUrl: result.profile_image,
+      }
+    )
   }
+
+  // 로그인 요청
+  socialLogin(userInfo(result))
 }
 
 const onFail = (result: any) => {

@@ -4,7 +4,8 @@ import { GoogleLogin } from 'react-google-login';
 import { UserInfo, ProfileObj } from 'types';
 
 // apis
-import { socialLogin }  from 'lib/api/auth/socialLogin'
+import { socialLogin } from 'lib/api/auth/socialLogin'
+
 const onSuccess = (result: any) => {
 
   // userInfo로 소셜로그인 간 양식 통일
@@ -17,10 +18,10 @@ const onSuccess = (result: any) => {
         imageUrl: result.profileObj.imageUrl,
       }
     )
-
   }
-  socialLogin(userInfo(result))
 
+  // 로그인 요청
+  socialLogin(userInfo(result))
 }
 
 const onFailure = (result: any) => {

@@ -5,11 +5,13 @@ import { Autocomplete } from '@mui/material';
 import { MusicNoteOutlined } from '@mui/icons-material';
 import Wrapper from './styles';
 
-interface Props {}
+interface Props {
+  width: string;
+}
 
 const instList = ['전체', '드럼', '기타', '베이스', '보컬'];
 
-function InstrumentPicker(props: Props): React.ReactElement {
+function InstrumentPicker({ width }: Props): React.ReactElement {
 
   return (
     <Wrapper>

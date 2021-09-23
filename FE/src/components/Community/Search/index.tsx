@@ -62,7 +62,7 @@ function CommunitySearch({
           placeholder="태그를 추가해 검색해보세요!"
         ></input>
       </div>
-      <InstrumentPicker />
+      <InstrumentPicker width={'150px'}/>
       <button
         id="search-button"
         className="search-button"

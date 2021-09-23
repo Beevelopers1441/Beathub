@@ -113,7 +113,7 @@ function Community(props: Props): React.ReactElement {
   return (
     <Wrapper>
       <Container className="community-container">
-        <Grid container>
+        <Grid container className="sub-container">
           <Grid item xs={2} className="teamFlag-container">
             <p onClick={() => handleTeamFlag(0)} className="teamFlag-active">
               팀원 구하기

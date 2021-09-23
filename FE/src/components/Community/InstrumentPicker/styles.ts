@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   border: 1px solid white;
   border-radius: 5px;
+  min-width: 187.2px;
 
   & .music-icon {
     vertical-align: middle;

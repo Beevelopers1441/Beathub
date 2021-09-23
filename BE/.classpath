@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="auth/src/main/java"/>
+	<classpathentry kind="src" path="auth/src/test/java"/>
+	<classpathentry kind="src" path="beathub/src/main/java"/>
+	<classpathentry kind="src" path="beathub/src/test/java"/>
+	<classpathentry kind="lib" path="auth/gradle/wrapper/gradle-wrapper.jar"/>
+	<classpathentry kind="lib" path="beathub/gradle/wrapper/gradle-wrapper.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

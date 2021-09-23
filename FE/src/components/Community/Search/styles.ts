@@ -9,7 +9,7 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     margin-right: 0.5rem;
-    width: 25rem;
+    width: 19rem;
     border: 1px solid white;
     border-radius: 5px;
 
@@ -34,7 +34,7 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     margin-right: 0.5rem;
-    width: 25rem;
+    width: 19rem;
     border: 1px solid white;
     border-radius: 5px;
   }

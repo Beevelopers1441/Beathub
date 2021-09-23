@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 // Components
-import { Posts, LinkTab, TagList, CommunitySearch } from 'components/Community';
+import { 
+  Posts,
+  LinkTab,
+  TagList,
+  CommunitySearch,
+} from 'components/Community';
 
 // styles
 import { Container, Grid } from '@mui/material';
@@ -111,10 +116,10 @@ function Community(props: Props): React.ReactElement {
         <Grid container>
           <Grid item xs={2} className="teamFlag-container">
             <p onClick={() => handleTeamFlag(0)} className="teamFlag-active">
-              팀 구하기
+              팀원 구하기
             </p>
             <p onClick={() => handleTeamFlag(1)} className="teamFlag">
-              팀원 구하기
+              팀 구하기
             </p>
           </Grid>
 

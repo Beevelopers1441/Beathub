@@ -16,7 +16,7 @@ import java.util.List;
 @Api(value = "악기 관련 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/instruments")
+@RequestMapping("/api/instruments")
 public class InstrumentController {
 
     private final InstrumentService instrumentService;

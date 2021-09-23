@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/bands")
+@RequestMapping("api/bands")
 public class BandController {
 
     private final BandService bandService;

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React from 'react';
 
 // Components
 import SocialAuth from '../../components/SocialAuth'
@@ -10,7 +10,7 @@ import Wrapper from './styles';
 // types
 // import { IPost } from 'types';
 
-function index() {
+function index(): React.ReactElement {
   return (
     <Wrapper>
       <Container>

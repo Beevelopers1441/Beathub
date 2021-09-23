@@ -1,4 +1,4 @@
-// import { css } from 'styled-components';
+import { css } from 'styled-components';
 
 // const fontWeight = {
 //   regular: 400,
@@ -18,12 +18,12 @@ const theme = {
     subGrey: '#ABB0B5'
   },
 
-  // font: {
-  //   n36m: css`
-  //     font-style: normal;
-  //     font-weight: bold;
-  //   `,
-  // }
+  font: {
+    bold: css`
+      font-style: normal;
+      font-weight: bold;
+    `,
+  }
 
 /* example style */
 //   flexCol: (justifyContent = 'center', alignItems = 'center') => css`

@@ -1,15 +1,14 @@
 import { GoogleLogin } from 'react-google-login';
 
 // types
-import { UserInfo } from 'types';
+import { UserInfo, ProfileObj } from 'types';
 
 // apis
-// *** 문제 발생 부분
-// import { socialLogin } from '../../../lib/api/auth'
+import { socialLogin }  from 'lib/api/auth/socialLogin'
 const onSuccess = (result: any) => {
 
   // userInfo로 소셜로그인 간 양식 통일
-  const userInfo = (result: UserInfo) => {
+  const userInfo = (result: any): UserInfo => {
     return (
       {
         email: result.profileObj.email,
@@ -20,7 +19,7 @@ const onSuccess = (result: any) => {
     )
 
   }
-  // socialLogin(userInfo(result))
+  socialLogin(userInfo(result))
 
 }
 

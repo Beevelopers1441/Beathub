@@ -6,19 +6,11 @@ import { UserInfo } from 'types';
 
 const BASE_URL = 'http://localhost:3000'
 
-const socialLogin = (userInfo: UserInfo) => {
-
-  useEffect(() => {
+export const socialLogin = (userInfo: UserInfo) => {
     console.log(userInfo)
-    console.log('성공')
-
     // axios.post(`${BASE_URL}/api/auth/login`, userInfo)
     //   .then(response => console.log(response));
-    
-  }, [userInfo]);
 }
-
-export default socialLogin;
 
 
 

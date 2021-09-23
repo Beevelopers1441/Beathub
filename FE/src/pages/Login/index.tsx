@@ -1,9 +1,7 @@
 import { FC } from 'react';
-import React, { useState, useEffect } from 'react';
-import SocialAuth from '../../components/SocialAuth'
 
 // Components
-// import { Posts, LinkTab, TagList, CommunitySearch } from 'components/Community';
+import SocialAuth from '../../components/SocialAuth'
 
 // styles
 import { Container, Grid } from '@mui/material';
@@ -24,8 +22,6 @@ function index() {
               <p>Find your team and Play together</p>
               <SocialAuth></SocialAuth>
             </div>
-            {/* <p onClick={() => handleTeamFlag(0)} className="teamFlag">팀 구하기</p> */}
-            {/* <p onClick={() => handleTeamFlag(0)} className="teamFlag">팀 구하기</p> */}
           </Grid>
         </Grid>
       </Container>

@@ -23,5 +23,5 @@ export interface UserInfo {
   nickname: string,
   id: string,
   imageUrl: string;
-  profileObj: ProfileObj;
+  profileObj?: ProfileObj;
 }

@@ -10,3 +10,18 @@ export interface IPost {
   status: string,
   recruitStatus: string;
 }
+
+export interface ProfileObj {
+  email: string,
+  name: string,
+  googleId: string,
+  imageUrl: string;
+}
+
+export interface UserInfo {
+  email: string,
+  nickname: string,
+  id: string,
+  imageUrl: string;
+  profileObj?: ProfileObj;
+}

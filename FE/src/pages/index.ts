@@ -1,4 +1,5 @@
 import Community from './Community';
+import UserProfile from './UserProfile';
 import { PostDetail, PostCreate } from './Post';
 
-export { Community, PostDetail, PostCreate };
+export { Community, UserProfile, PostDetail, PostCreate };

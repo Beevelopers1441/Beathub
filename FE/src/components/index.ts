@@ -1,5 +1,6 @@
+import UserProfileInfo from './UserProfileInfo';
 import TagList from './TagList';
 import TagListReadOnly from './TagListReadOnly';
 import ChatWrapper from './Chat';
 
-export { TagList, TagListReadOnly, ChatWrapper };
+export { UserProfileInfo, TagList, TagListReadOnly, ChatWrapper };

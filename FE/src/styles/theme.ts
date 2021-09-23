@@ -1,16 +1,30 @@
 import { css } from 'styled-components';
 
-const fontWeight = {
-  regular: 400,
-  medium: 500,
-  bold: 'bold',
-};
+// const fontWeight = {
+//   regular: 400,
+//   medium: 500,
+//   bold: 'bold',
+// };
 
 const theme = {
   colors: {
     black: '#000000',
     white: '#ffffff',
+    darkBlue: '#212C4F',
+    lightBlue: '#C6D0EB',
+    lightGrey: '#F0F3F5',
+    purple: '#7B42F6',
+    violet: '#B01EFF',
+    pink: '#FF6780',
+    subGrey: '#ABB0B5'
   },
+
+  font: {
+    bold: css`
+      font-style: normal;
+      font-weight: bold;
+    `,
+  }
 
 /* example style */
 //   flexCol: (justifyContent = 'center', alignItems = 'center') => css`

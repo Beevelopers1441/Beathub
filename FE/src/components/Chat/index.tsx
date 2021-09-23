@@ -1,9 +1,34 @@
-import React, { FC } from 'react';
+import React, { useState } from 'react';
+
+// components
+import ChatBtn from './ChatBtn';
+import ChatList from './ChatList';
+
+// styles
+import styled from 'styled-components';
 
 interface Props {}
 
-const Chat: FC<Props> = props => {
-  return <div></div>;
-};
+const Wrapper = styled.button``;
 
-export default Chat;
+function ChatWrapper(props: Props): React.ReactElement {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const handleOpen = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <Wrapper>
+      <div onClick={handleOpen}>
+        <ChatBtn />
+      </div>
+      <ChatList 
+        isOpen={isOpen} 
+        setIsOpen={setIsOpen}
+      />
+    </Wrapper>
+  );
+}
+
+export default ChatWrapper;

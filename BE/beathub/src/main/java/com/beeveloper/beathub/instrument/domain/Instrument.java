@@ -3,12 +3,14 @@ package com.beeveloper.beathub.instrument.domain;
 import com.beeveloper.beathub.music.domain.Audio;
 import com.beeveloper.beathub.post.domain.Post;
 import com.beeveloper.beathub.user.domain.UserInstrument;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 public class Instrument {
 
     @Id

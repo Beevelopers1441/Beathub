@@ -1,11 +1,12 @@
 package com.beeveloper.beathub.user.domain;
 
-import com.beeveloper.beathub.group.domain.Band;
-import com.beeveloper.beathub.group.domain.BandMember;
+import com.beeveloper.beathub.band.domain.Band;
+import com.beeveloper.beathub.band.domain.BandMember;
 import com.beeveloper.beathub.music.domain.Audio;
 import com.beeveloper.beathub.music.domain.Bucket;
 import com.beeveloper.beathub.music.domain.Commit;
 import com.beeveloper.beathub.post.domain.Comment;
+import com.beeveloper.beathub.post.domain.MemberPost;
 import com.beeveloper.beathub.post.domain.Post;
 import lombok.Getter;
 
@@ -51,7 +52,7 @@ public class User {
     private List<Post> likePosts = new ArrayList<Post>();
 
     @OneToMany(mappedBy = "authorUser")
-    private List<Post> posts = new ArrayList<Post>();
+    private List<MemberPost> memberPosts = new ArrayList<MemberPost>();
 
     @OneToMany(mappedBy = "author")
     private List<Comment> comments = new ArrayList<Comment>();

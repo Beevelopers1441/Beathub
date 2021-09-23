@@ -13,6 +13,8 @@ import java.util.Date;
 @Service
 public class JwtService {
 
+    private final String JWT_SECRET = "8sknjlO3NPTBqo319DHLNqsQAfRJEdKsETOdsasdfasdf";
+
 
     public String makeJwtToken(String email) {
 
@@ -23,10 +25,7 @@ public class JwtService {
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + Duration.ofMinutes(30).toMillis()))
                 .claim("email", email)
-                .signWith(SignatureAlgorithm.HS256, "8sknjlO3NPTBqo319DHLNqsQAfRJEdKsETOdsasdfasdf")
+                .signWith(SignatureAlgorithm.HS256, JWT_SECRET)
                 .compact();
-
-
-
     }
 }

@@ -10,7 +10,7 @@ const Wrapper = styled.div`
 
   & .edit-btn {
     /* Base */
-    position: absolute;
+    // position: absolute;
     width: 100%;
     height: 40px;
     left: 0%;
@@ -24,7 +24,7 @@ const Wrapper = styled.div`
   
   & .edit-btn-letter {
     /* Edit profile */
-    position: absolute;
+    // position: absolute;
     height: 24px;
     left: 20px;
     right: 20px;

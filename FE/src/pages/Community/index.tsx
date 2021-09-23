@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 // Components
+import { Header } from 'components';
 import { 
   Posts,
   LinkTab,
@@ -112,6 +113,7 @@ function Community(props: Props): React.ReactElement {
 
   return (
     <Wrapper>
+      <Header />
       <Container className="community-container">
         <Grid container className="sub-container">
           <Grid item xs={2} className="teamFlag-container">

@@ -4,7 +4,8 @@ import { GoogleLogin } from 'react-google-login';
 import { UserInfo, ProfileObj } from 'types';
 
 // apis
-import { socialLogin }  from 'lib/api/auth/socialLogin'
+import { socialLogin } from 'lib/api/auth/socialLogin'
+
 const onSuccess = (result: any) => {
 
   // userInfo로 소셜로그인 간 양식 통일
@@ -12,15 +13,15 @@ const onSuccess = (result: any) => {
     return (
       {
         email: result.profileObj.email,
-        nickname: result.profileObj.name,
-        id: result.profileObj.googleId,
-        imageUrl: result.profileObj.imageUrl,
+        profileImageUrl: result.profileObj.imageUrl,
+        userId: result.profileObj.googleId,
+        userName: result.profileObj.name,
       }
     )
-
   }
-  socialLogin(userInfo(result))
 
+  // 로그인 요청
+  socialLogin(userInfo(result))
 }
 
 const onFailure = (result: any) => {

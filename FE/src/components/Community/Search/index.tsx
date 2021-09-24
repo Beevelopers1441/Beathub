@@ -1,5 +1,8 @@
 import React, { useRef } from 'react';
 
+// component
+import InstrumentPicker from '../InstrumentPicker';
+
 // styles
 import { Search, Tag } from '@mui/icons-material';
 
@@ -59,6 +62,7 @@ function CommunitySearch({
           placeholder="태그를 추가해 검색해보세요!"
         ></input>
       </div>
+      <InstrumentPicker width={'150px'}/>
       <button
         id="search-button"
         className="search-button"

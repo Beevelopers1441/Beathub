@@ -9,8 +9,7 @@ const Wrapper = styled.div`
   margin-left: 2rem;
   padding: 0.7rem 0.7rem 0.7rem 1rem;
   border-radius: 12px;
-  -webkit-box-shadow: 6px 8px 27px -4px rgba(255,255,255,0.89); 
-  box-shadow: 6px 8px 27px -4px rgba(255,255,255,0.89);
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 
   & .name-container {
 

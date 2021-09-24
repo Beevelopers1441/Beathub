@@ -1,8 +1,11 @@
 package com.beeveloper.beathub.post.domain;
 
-import com.beeveloper.beathub.group.domain.Band;
+import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.instrument.domain.Instrument;
 import com.beeveloper.beathub.user.domain.User;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn
+@Getter
+@NoArgsConstructor
 public class Post {
 
     @Id
@@ -24,16 +31,9 @@ public class Post {
 
     private LocalDateTime createTime;
 
-    // 아래 User와 Group 둘 중 하나는 빈 값이 될 수 있음
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User authorUser;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Band authorBand;
-
+    // 아래 User와 Group 둘 중 하나는 빈 값이 될 수 있
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<Comment>();
-
 
     @ManyToMany
     private List<User> likeUsers = new ArrayList<User>();
@@ -41,5 +41,9 @@ public class Post {
     @ManyToOne
     private Instrument tag;
 
-
+    public Post(String title, String content, LocalDateTime createTime) {
+        this.title = title;
+        this.content = content;
+        this.createTime = createTime;
+    }
 }

@@ -9,9 +9,11 @@ import styled from 'styled-components';
 
 interface Props {}
 
-const Wrapper = styled.button``;
+const Wrapper = styled.div`
+  display: flex;
+`;
 
-function ChatWrapper(props: Props): React.ReactElement {
+function Chat(props: Props): React.ReactElement {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleOpen = () => {
@@ -31,4 +33,4 @@ function ChatWrapper(props: Props): React.ReactElement {
   );
 }
 
-export default ChatWrapper;
+export default Chat;

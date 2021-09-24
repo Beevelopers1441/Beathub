@@ -1,4 +1,4 @@
-package com.beeveloper.beathub.group.domain;
+package com.beeveloper.beathub.band.domain;
 
 import com.beeveloper.beathub.instrument.domain.Instrument;
 import com.beeveloper.beathub.user.domain.User;

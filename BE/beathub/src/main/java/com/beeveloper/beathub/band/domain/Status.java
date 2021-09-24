@@ -1,4 +1,4 @@
-package com.beeveloper.beathub.group.domain;
+package com.beeveloper.beathub.band.domain;
 
 public enum Status {
     Waiting,Approved,Denied

@@ -12,6 +12,7 @@ export interface IComment {
   created_at: string;
   userInfo: IUser;
 }
+
 export interface IPost {
   id: number,
   title: string,
@@ -38,4 +39,13 @@ export interface UserInfo {
   id: string,
   imageUrl: string;
   profileObj?: ProfileObj;
+}
+
+export interface Instrument {
+  name: string,
+  skill: string
+}
+
+export interface Instruments {
+  instruments: Instrument[]
 }

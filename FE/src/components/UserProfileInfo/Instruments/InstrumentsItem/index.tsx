@@ -1,10 +1,17 @@
 import React from 'react';
 import Wrapper from './styles';
+import { Instrument } from 'types';
 
-function InstrumentsItem() {
+interface Props {
+  instrument: Instrument;
+}
+
+const InstrumentsItem: React.FC<Props> = ({ instrument }) => {
   return(
     <Wrapper>
-      <div className="item-wrapper">피아노 上</div> 
+      <div className="item-wrapper">
+        <div className="item-letter">{instrument.name} {instrument.skill}</div>
+      </div> 
     </Wrapper>
   )
 }

@@ -22,7 +22,7 @@ const Wrapper = styled.div`
     // color: #FFFFFF;
   }
 
-  & .instruments-list {
+  & .instruments-wrapper {
     width: 320px;
     height: 66px;
     left: 136px;

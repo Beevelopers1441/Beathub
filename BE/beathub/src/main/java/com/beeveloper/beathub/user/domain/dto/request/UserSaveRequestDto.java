@@ -1,5 +1,6 @@
-package com.beeveloper.beathub.user.domain;
+package com.beeveloper.beathub.user.domain.dto.request;
 
+import com.beeveloper.beathub.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

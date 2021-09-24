@@ -1,9 +1,9 @@
 package com.beeveloper.beathub.user.controller;
 
 import com.beeveloper.beathub.user.domain.User;
-import com.beeveloper.beathub.user.domain.UserSaveRequestDto;
+import com.beeveloper.beathub.user.domain.dto.request.UserSaveRequestDto;
 import com.beeveloper.beathub.user.jwts.JwtService;
-import com.beeveloper.beathub.user.service.UserService;
+import com.beeveloper.beathub.user.service.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import java.util.Map;
 @Slf4j
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
     private final JwtService jwtService;
 
     /**

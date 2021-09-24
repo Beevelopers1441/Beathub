@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
 import java.util.Map;
 
 @Api(value = "회원가입 관련 API")
@@ -49,7 +48,7 @@ public class UserController {
     @ApiOperation(value = "사용자가 처음 회원가입한 유저인지 아닌지 판별하는 api, 처음이면 true, 아니면 false")
     @GetMapping("/first")
     public boolean isMember(@RequestHeader("Authorization") String jwtToken) {
-        Map<String, String> properties = new HashMap<>();
+        Map<String, String> properties = jwtService.getProperties(jwtToken);
 
         if (userService.findByEmail(properties.get("email")) == null) {
             return true;

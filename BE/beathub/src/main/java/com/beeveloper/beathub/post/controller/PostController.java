@@ -21,7 +21,7 @@ import java.util.List;
 @Api(value = "게시판 관련 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/posts")
+@RequestMapping("api/posts")
 public class PostController {
 
     private final PostService postService;

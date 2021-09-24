@@ -13,9 +13,9 @@ const onSuccess = (result: any) => {
     return (
       {
         email: result.email,
-        nickname: result.nickname,
-        id: result.id,
-        imageUrl: result.profile_image,
+        profileImageUrl: result.profile_image,
+        userId: result.id,
+        userName: result.nickname,
       }
     )
   }

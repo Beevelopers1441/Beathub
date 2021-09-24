@@ -1,18 +1,21 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { login } from 'modules/user/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginAction } from 'modules/user/actions';
 
 import axios from 'axios';
 
 function GetUserInfo() {
 
   const dispatch = useDispatch();
-
-  // axios.post('/api/user', )
-  // .then(response => console.log(response));
+  const token = useSelector<any, boolean>(state => state.user.token);
+  console.log(token)
+  axios.post('/api/user', token)
+  .then(response => console.log(response));
 
   return (
     <>
     </>
   )
 }
+
+export default GetUserInfo

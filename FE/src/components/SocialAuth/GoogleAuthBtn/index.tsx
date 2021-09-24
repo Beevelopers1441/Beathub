@@ -1,18 +1,26 @@
+import React from 'react'
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+
+// libraries
 import { GoogleLogin } from 'react-google-login';
 
 // types
-import { UserInfo, ProfileObj } from 'types';
+import { UserInfo } from 'types';
 
 // apis
 import { socialLogin } from 'lib/api/auth/socialLogin'
 
+// redux
 import { useDispatch } from 'react-redux';
+import getTokenAction from 'modules/'
 
 interface Props {
   token?: string;
 }
 
-export const GoogleAuthBtn = (props:Props): React.ReactElement => {
+
+export const GoogleAuthBtn = (props:Props, { history }:RouteComponentProps): React.ReactElement => {
+// export const GoogleAuthBtn = ({ history }: RouteComponentProps) => {
 
   const dispatch = useDispatch();
 
@@ -29,10 +37,17 @@ export const GoogleAuthBtn = (props:Props): React.ReactElement => {
         }
       )
     }
+
+
   
-    // 로그인 요청
-    socialLogin(userInfo(result)).then(res => {
-      console.log(res)
+    // 토큰 요청 => 토큰 리덕스에 저장
+    socialLogin(userInfo(result)).then(token => {
+      console.log(token)
+      // const updateToken = (token: string) => dispatch(getTokenAction(token, { static: false }))
+      
+      // if문 작성
+      // updateToken(token)
+      history.push('/')
     })
   }
   
@@ -53,3 +68,6 @@ export const GoogleAuthBtn = (props:Props): React.ReactElement => {
     />
   )
 };
+
+// 타입스크립트 에러 발생
+// export default withRouter(GoogleAuthBtn)

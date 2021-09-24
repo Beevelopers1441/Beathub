@@ -5,7 +5,13 @@ import { Login, UserProfile, Community, PostDetail, PostCreate} from 'pages';
 // import { Login, Signup, UserProfile, Community, PostDetail, PostCreate} from 'pages';
 import { Chat } from 'components';
 
+// 로그인으로 받은 토큰으로 사용자 정보 가져오기
+import GetUserInfo from 'components/SocialAuth/GetUserInfo/index';
+
 function App() {
+
+  GetUserInfo()
+
   return (
     <>
       <GlobalStyle />

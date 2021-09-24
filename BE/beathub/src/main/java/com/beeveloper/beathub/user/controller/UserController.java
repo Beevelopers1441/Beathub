@@ -8,14 +8,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.graalvm.compiler.lir.LIRInstruction;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.Map;
 
 @Api(value = "회원가입 관련 API")
@@ -49,13 +46,24 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "사용자가 처음 회원가입한 유저인지 아닌지 판별하는 api, 처음이면 true, 아니면 false")
+    @GetMapping("/first")
+    public boolean isMember(@RequestHeader("Authorization") String jwtToken) {
+        Map<String, String> properties = new HashMap<>();
+
+        if (userService.findByEmail(properties.get("email")) == null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     @ApiOperation(value = "Token을 이용한 처음 프로필 생성, 있는 회원이라면 조회후 리턴")
     @PostMapping
     public User create(@RequestHeader("Authorization") String jwtToken) {
 
-        System.out.println("jwtToken = " + jwtToken);
         Map<String, String> properties = jwtService.getProperties(jwtToken);
-        System.out.println("properties = " + properties);
 
         User existUser = userService.findByEmail(properties.get("email"));
 

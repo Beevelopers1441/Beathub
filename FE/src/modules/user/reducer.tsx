@@ -7,6 +7,7 @@ import produce from 'immer'; // ...문법 대신 사용, 2개의 인자만 설�
 // 초기 상태 선언
 const initialState : User = {
   isLoggedIn: false,
+  token: '',
   userInfo: {}
 }
 

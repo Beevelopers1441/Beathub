@@ -3,6 +3,8 @@ package com.beathub.auth.oauthlogin.user;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -22,8 +24,13 @@ public class UserService {
                     userReqModel.getEmail(),
                     userReqModel.getProfileImageUrl()
             );
-            return user;
+            User savedUser = userRepository.save(user);
+            return savedUser;
         }
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
 }

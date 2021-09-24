@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 const Wrapper = styled.div`
   margin-top: 100px;
+  min-width: 752px; 
 
   & .container {
     max-width: 800px;
@@ -55,6 +56,7 @@ const Wrapper = styled.div`
     }
     & .post-textarea {
       min-height: 300px;
+      resize: none;
     }
     & .post-input-tag {
       margin-bottom: 0.3rem;
@@ -91,7 +93,9 @@ const Wrapper = styled.div`
     background-color: ${({ theme }) => theme.colors.violet };
   }
 
-  
+  & .instrument-container input {
+    padding: 1.2em 0.7em;
+  }
 `
 
 export default Wrapper

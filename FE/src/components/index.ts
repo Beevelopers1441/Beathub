@@ -1,7 +1,8 @@
+import Header from './Header';
 import SocialAuth from './SocialAuth';
 import UserProfileInfo from './UserProfileInfo';
 import TagList from './TagList';
 import TagListReadOnly from './TagListReadOnly';
-import ChatWrapper from './Chat';
+import Chat from './Chat';
 
-export { SocialAuth, UserProfileInfo, TagList, TagListReadOnly, ChatWrapper };
+export { Header, SocialAuth, UserProfileInfo, TagList, TagListReadOnly, Chat };

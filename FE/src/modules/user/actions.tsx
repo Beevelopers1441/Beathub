@@ -4,8 +4,8 @@ const { createStandardAction } = deprecated;
 
 
 // Action Type 정의
-export const LOGIN = 'auth/LOGIN';
-export const GET_USER_INFO = 'auth/GET_USER_INFO';
+export const LOGIN = 'user/LOGIN';
+export const GET_USER_INFO = 'user/GET_USER_INFO';
 
 
 // Action 생성 함수 구현

@@ -30,7 +30,7 @@ public class OAuth2Controller {
         List<User> users = userService.findAll();
         System.out.println("users = " + users);
         User user = userService.signupOrLogin(userReqModel);
-        String token = jwtService.makeJwtToken(user.getEmail());
+        String token = jwtService.makeJwtToken(user.getUserName(), user.getEmail(), user.getProfileImageUrl());
         response.setHeader("Authorization", token);
 
         return user.toString();

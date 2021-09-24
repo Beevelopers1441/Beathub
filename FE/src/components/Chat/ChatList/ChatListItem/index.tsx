@@ -8,11 +8,17 @@ import Wrapper from './styles';
 
 interface Props {
   item: number;
+  setIsChatRoom: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function ChatItem({ item }: Props): React.ReactElement {
+function ChatListItem({ item, setIsChatRoom }: Props): React.ReactElement {
+
+  const handleChatRoom = () => {
+    setIsChatRoom(true);
+  };
+
   return (
-    <Wrapper>
+    <Wrapper onClick={handleChatRoom}>
       <div className="user-container">
         <ProfileImage
           url={"https://api.thecatapi.com/v1/images/search"}
@@ -30,4 +36,4 @@ function ChatItem({ item }: Props): React.ReactElement {
   );
 };
 
-export default ChatItem;
+export default ChatListItem;

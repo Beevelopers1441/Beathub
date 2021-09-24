@@ -29,15 +29,13 @@ public class MemberPostResDto {
     @ApiModelProperty(name="작성 시간", example = "2021-09-15")
     private LocalDateTime createTime;
 
-    public MemberPostResDto() {}
-
     public static MemberPostResDto of(MemberPost memberPost) {
         MemberPostResDto memberPostResDto = new MemberPostResDto();
         memberPostResDto.id = memberPost.getId();
         memberPostResDto.title = memberPost.getTitle();
         memberPostResDto.content = memberPost.getContent();
-        memberPostResDto.isRecruiting = memberPostResDto.isRecruiting();
-        memberPostResDto.createTime = memberPostResDto.getCreateTime();
+        memberPostResDto.isRecruiting = memberPost.isRecruiting();
+        memberPostResDto.createTime = memberPost.getCreateTime();
         return memberPostResDto;
     }
 

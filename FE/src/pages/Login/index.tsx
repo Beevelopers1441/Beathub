@@ -10,7 +10,9 @@ import Wrapper from './styles';
 // types
 // import { IPost } from 'types';
 
-function index(): React.ReactElement {
+interface Props {}
+
+function index(props: Props): React.ReactElement {
   return (
     <Wrapper>
       <Container>

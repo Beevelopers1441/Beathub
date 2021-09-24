@@ -8,8 +8,11 @@ import { socialLogin } from 'lib/api/auth/socialLogin'
 
 import { useDispatch } from 'react-redux';
 
+interface Props {
+  token?: string;
+}
 
-export const GoogleAuthBtn = () => {
+export const GoogleAuthBtn = (props:Props): React.ReactElement => {
 
   const dispatch = useDispatch();
 

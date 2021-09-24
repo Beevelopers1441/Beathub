@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @ApiModel("밴드 구인글 생성 정보")
-public class BandPostCreateReqDto {
+public class BandPostCreateDto {
 
     @ApiModelProperty(name = "밴드 id", example = "1")
     private Long bandId;

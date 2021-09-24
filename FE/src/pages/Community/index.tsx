@@ -6,7 +6,7 @@ import { Header } from 'components';
 import { Posts, LinkTab, TagList, CommunitySearch } from 'components/Community';
 
 // api
-import { getAllBandPosts, getAllMemberPosts } from 'lib/api/community';
+// import { getAllBandPosts, getAllMemberPosts } from 'lib/api/community';
 
 // styles
 import { Container, Grid } from '@mui/material';
@@ -30,7 +30,7 @@ function Community(props: Props): React.ReactElement {
 
   // constructor
   useEffect(() => {
-    let newPosts;
+    // let newPosts;
 
   }, []);
   

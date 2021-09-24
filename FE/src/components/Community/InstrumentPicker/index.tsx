@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 
 // styles
 import { Autocomplete } from '@mui/material';
@@ -13,7 +13,6 @@ interface Props {
 const instList = ['보컬', '키보드', '일렉기타', '어쿠스틱기타', '베이스', '드럼', '기타(etc)'];
 
 function InstrumentPicker({ width, setCurrInst }: Props): React.ReactElement {
-  const instRef: any = useRef();
 
   const handleInstrument = (event: any, value: string | null) => {
     if (event) {}

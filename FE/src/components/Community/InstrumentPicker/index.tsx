@@ -7,16 +7,22 @@ import Wrapper from './styles';
 
 interface Props {
   width: string;
+  setCurrInst: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-const instList = ['전체', '드럼', '기타', '베이스', '보컬'];
+const instList = ['보컬', '키보드', '일렉기타', '어쿠스틱기타', '베이스', '드럼', '기타(etc)'];
 
-function InstrumentPicker({ width }: Props): React.ReactElement {
+function InstrumentPicker({ width, setCurrInst }: Props): React.ReactElement {
+
+  const handleInstrument = (event: any, value: string | null) => {
+    if (event) {}
+    setCurrInst(value)
+  }
 
   return (
     <Wrapper>
       <MusicNoteOutlined className="music-icon" />
-      <Autocomplete 
+      <Autocomplete
         sx={{
           display: 'inline-block',
           width: width,
@@ -26,15 +32,20 @@ function InstrumentPicker({ width }: Props): React.ReactElement {
           },
         }}
         id="instPicker"
+        onChange={handleInstrument}
         options={instList}
-        renderInput={(params) => (
+        renderInput={params => (
           <div ref={params.InputProps.ref}>
-            <input type="text" {...params.inputProps} placeholder="악기를 선택해주세요." />
+            <input
+              type="text"
+              {...params.inputProps}
+              placeholder="악기를 선택해주세요."
+            />
           </div>
         )}
       />
     </Wrapper>
-  )
+  );
 }
 
 export default InstrumentPicker;

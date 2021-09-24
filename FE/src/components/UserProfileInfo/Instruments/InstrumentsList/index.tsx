@@ -1,0 +1,28 @@
+import React from 'react';
+import InstrumentsItem from '../InstrumentsItem';
+import Wrapper from './styles';
+import { Instruments } from 'types'
+
+// 악기 목록을 Props로 받는다
+const InstrumentsList: React.FC<Instruments> = ({ instruments }) => {
+
+  // Prop으로 받은 악기 목록의 각각의 악기들을 InstrumentsItem으로 넘겨주는 함수
+  const renderList = (): JSX.Element[] => {
+    return instruments.map((instrument) => {
+      return(
+        <Wrapper>
+          <InstrumentsItem instrument={instrument}></InstrumentsItem>
+        </Wrapper>
+      )
+    })
+  }
+
+  // 위의 함수를 리턴한다(각각의 악기를 아이템으로 보여준다)
+  return (
+    <div>
+      {renderList()}
+    </div>
+  )
+}
+
+export default InstrumentsList;

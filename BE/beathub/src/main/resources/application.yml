@@ -15,8 +15,4 @@ spring:
     show-sql: true
     hibernate:
       format_sql: true
-<<<<<<< HEAD
       ddl-auto: update
-=======
-      ddl-auto: update
->>>>>>> e63d4dd6b63f962063accbb315066f4649353a56

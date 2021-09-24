@@ -4,6 +4,8 @@ import com.beeveloper.beathub.user.domain.User;
 import com.beeveloper.beathub.user.domain.UserSaveRequestDto;
 import com.beeveloper.beathub.user.jwts.JwtService;
 import com.beeveloper.beathub.user.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.graalvm.compiler.lir.LIRInstruction;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.Map;
 
+@Api(value = "회원가입 관련 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
@@ -30,6 +33,8 @@ public class UserController {
      *
      * @return 있으면 User, 없으면 null
      */
+
+    @ApiOperation(value = "이메일로 회원 조회")
     @GetMapping("/{email}")
     @ResponseBody
     public User profile(HttpServletRequest request,
@@ -44,12 +49,19 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "Token을 이용한 처음 프로필 생성, 있는 회원이라면 조회후 리턴")
     @PostMapping
     public User create(@RequestHeader("Authorization") String jwtToken) {
 
         System.out.println("jwtToken = " + jwtToken);
         Map<String, String> properties = jwtService.getProperties(jwtToken);
         System.out.println("properties = " + properties);
+
+        User existUser = userService.findByEmail(properties.get("email"));
+
+        if (existUser != null) {
+            return existUser;
+        }
 
         UserSaveRequestDto dto = new UserSaveRequestDto(
                 properties.get("name"),

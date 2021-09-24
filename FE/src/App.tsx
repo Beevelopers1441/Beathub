@@ -2,14 +2,15 @@ import GlobalStyle from './styles/GlobalStyle'
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Login, UserProfile, Community, PostDetail, PostCreate} from 'pages';
-import { Chat } from 'components';
+import { Chat, Header } from 'components';
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <Chat />
       <BrowserRouter>
+        <Chat />
+        <Header />
         <Switch>
           <Route exact path="/" component={Login} />
           <Route exact path="/login" component={Login} />

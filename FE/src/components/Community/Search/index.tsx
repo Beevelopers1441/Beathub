@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 
 // component
 import InstrumentPicker from '../InstrumentPicker';
@@ -19,6 +19,8 @@ function CommunitySearch({
   currTags,
   setCurrTags,
 }: Props): React.ReactElement {
+  const [currInst, setCurrInst] = useState<string | null>('');
+
   const titleRef: any = useRef();
   const tagRef: any = useRef();
 
@@ -62,7 +64,7 @@ function CommunitySearch({
           placeholder="태그를 추가해 검색해보세요!"
         ></input>
       </div>
-      <InstrumentPicker width={'150px'}/>
+      <InstrumentPicker width={'150px'} setCurrInst={setCurrInst} />
       <button
         id="search-button"
         className="search-button"

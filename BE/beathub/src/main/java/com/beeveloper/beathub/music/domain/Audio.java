@@ -20,13 +20,13 @@ public class Audio {
 
     private String filePath;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Instrument instrument;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User uploader;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Bucket bucket;
 
     @OneToMany(mappedBy = "audio")

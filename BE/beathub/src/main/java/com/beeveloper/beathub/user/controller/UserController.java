@@ -61,10 +61,13 @@ public class UserController {
     @ApiOperation(value = "Token을 이용한 처음 프로필 생성, 있는 회원이라면 조회후 리턴")
     @PostMapping
     public User create(@RequestHeader("Authorization") String jwtToken) {
+        System.out.println("jwtToken = " + jwtToken);
 
         Map<String, String> properties = jwtService.getProperties(jwtToken);
+        System.out.println("properties = " + properties);
 
         User existUser = userService.findByEmail(properties.get("email"));
+        System.out.println("existUser = " + existUser);
 
         if (existUser != null) {
             return existUser;

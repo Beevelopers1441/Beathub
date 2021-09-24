@@ -29,15 +29,13 @@ public class BandPostResDto {
     @ApiModelProperty(name="작성 시간", example = "2021-09-15")
     private LocalDateTime createTime;
 
-    public BandPostResDto() {}
-
     public static BandPostResDto of(BandPost bandPost) {
         BandPostResDto bandPostResDto = new BandPostResDto();
         bandPostResDto.id = bandPost.getId();
         bandPostResDto.title = bandPost.getTitle();
         bandPostResDto.content = bandPost.getContent();
-        bandPostResDto.isRecruiting = bandPostResDto.isRecruiting();
-        bandPostResDto.createTime = bandPostResDto.getCreateTime();
+        bandPostResDto.isRecruiting = bandPost.isRecruiting();
+        bandPostResDto.createTime = bandPost.getCreateTime();
         return bandPostResDto;
     }
 

@@ -1,11 +1,13 @@
 package com.beeveloper.beathub.post.service;
 
+import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.band.service.BandService;
 import com.beeveloper.beathub.post.domain.BandPost;
+import com.beeveloper.beathub.post.domain.Comment;
 import com.beeveloper.beathub.post.domain.MemberPost;
-import com.beeveloper.beathub.post.domain.Post;
-import com.beeveloper.beathub.post.dto.request.BandPostCreateReqDto;
-import com.beeveloper.beathub.post.dto.request.MemberPostCreateReqDto;
+import com.beeveloper.beathub.post.dto.request.BandPostCreateDto;
+import com.beeveloper.beathub.post.dto.request.CommentCreateDto;
+import com.beeveloper.beathub.post.dto.request.MemberPostCreateDto;
 import com.beeveloper.beathub.post.repository.BandPostRepository;
 import com.beeveloper.beathub.post.repository.CommentRepository;
 import com.beeveloper.beathub.post.repository.MemberPostRepository;
@@ -30,7 +32,7 @@ public class PostServiceImpl implements PostService{
     포스트 멤버, 밴드로 분리(single table strategy)
      */
     @Override
-    public MemberPost createMemberPost(MemberPostCreateReqDto requestInfo) {
+    public MemberPost createMemberPost(MemberPostCreateDto requestInfo) {
         MemberPost memberPost = new MemberPost().builder()
                 .title(requestInfo.getTitle())
                 .content(requestInfo.getContent())
@@ -41,13 +43,13 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public BandPost createBandPost(BandPostCreateReqDto requestInfo) {
-//        Band band = bandService.findById(requestInfo.getBandId());
+    public BandPost createBandPost(BandPostCreateDto requestInfo) {
+        Band band = bandService.findById(requestInfo.getBandId());
         BandPost bandPost = new BandPost().builder()
                 .title(requestInfo.getTitle())
                 .content(requestInfo.getContent())
                 .createTime(LocalDateTime.now())
-//                .authorBand(band)
+                .authorBand(band)
                 .build();
         return bandPostRepository.save(bandPost);
     }
@@ -75,5 +77,15 @@ public class PostServiceImpl implements PostService{
     @Override
     public BandPost findBandPost(Long postId) {
         return bandPostRepository.findById(postId).orElseThrow(RuntimeException::new);
+    }
+
+    @Override
+    public Comment createComment(Long postId, CommentCreateDto commentInfo) {
+        Comment comment = new Comment().builder()
+                .content(commentInfo.getContent())
+                .createTime(LocalDateTime.now())
+//                .author()
+                .build();
+        return commentRepository.save(comment);
     }
 }

@@ -3,6 +3,7 @@ package com.beeveloper.beathub.post.domain;
 import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.user.domain.User;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.DiscriminatorValue;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @DiscriminatorValue("A")
+@Getter
 public class MemberPost extends Post{
 
     @ManyToOne(fetch = FetchType.LAZY)

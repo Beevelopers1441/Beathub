@@ -38,7 +38,7 @@ public class Post {
     @ManyToMany
     private List<User> likeUsers = new ArrayList<User>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Instrument tag;
 
     public Post(String title, String content, LocalDateTime createTime) {

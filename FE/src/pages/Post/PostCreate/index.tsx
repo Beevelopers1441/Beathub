@@ -6,16 +6,27 @@ import { TagList } from 'components';
 import { InstrumentPicker } from 'components/Community';
 
 // styles
-import { Container } from '@mui/material';
+import { Container, Snackbar } from '@mui/material';
+import Slide, { SlideProps } from '@mui/material/Slide';
+
 import Wrapper from './styles';
 
+// types
 interface Props {}
+type TransitionProps = Omit<SlideProps, 'direction'>;
+
+function TransitionUp(props: TransitionProps) {
+  return <Slide {...props} direction="up" />;
+}
 
 function PostCreate(props: Props): React.ReactElement {
   const [teamFlag, setTeamFlag] = useState<number>(0);
   const [currTags, setCurrTags] = useState<string[]>([]);
+  const [currInst, setCurrInst] = useState<string | null>('');
 
   const tagRef: any = useRef();
+  const titleRef: any = useRef();
+  const contentRef: any = useRef();
 
   // change teamFlag
   useEffect(() => {
@@ -38,6 +49,7 @@ function PostCreate(props: Props): React.ReactElement {
     setTeamFlag(teamFlag);
   };
 
+  // handle tags
   const handleTags = (e: any) => {
     if (e.key === 'Enter') {
       const newTagValue = tagRef?.current.value.trim();
@@ -53,6 +65,32 @@ function PostCreate(props: Props): React.ReactElement {
       tagRef.current.value = '';
     }
   };
+  
+  // save
+  const handleSavePost = () => {
+    const _title = titleRef.current?.value;
+    const _inst = currInst;
+    const _content = contentRef.current?.value;
+    
+    if (!_title || !_inst || !_content) {
+      handleSnackbar(TransitionUp)();
+    }
+    console.log(_title, _inst, _content);
+  };
+  
+  /* snackbar */
+  const [open, setOpen] = React.useState(false);
+  const [transition, setTransition] = React.useState<React.ComponentType<TransitionProps> | undefined>(undefined);
+
+  const handleSnackbar = (Transition: React.ComponentType<TransitionProps>) => () => {
+    console.log('true!!!!!!!!!!!!!!!!!!!!!!')
+    setTransition(() => Transition);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  /* end snackbar */
 
   return (
     <Wrapper>
@@ -69,6 +107,7 @@ function PostCreate(props: Props): React.ReactElement {
           <p className="post-p">제목</p>
           <input
             type="text"
+            ref={titleRef}
             className="post-input"
             placeholder="제목을 입력해주세요."
           />
@@ -86,11 +125,12 @@ function PostCreate(props: Props): React.ReactElement {
         </div>
         <div className="input-container instrument-container">
           <p className="post-p">악기</p>
-          <InstrumentPicker width={'150px'} />
+          <InstrumentPicker width={'150px'} setCurrInst={setCurrInst} />
         </div>
         <div className="input-container">
           <p className="post-p">내용</p>
           <textarea
+            ref={contentRef}
             className="post-input post-textarea"
             placeholder="내용을 입력해주세요."
           />
@@ -99,9 +139,18 @@ function PostCreate(props: Props): React.ReactElement {
           <Link to="/community">
             <button className="btn-cancel">취소</button>
           </Link>
-          <button className="btn">저장</button>
+          <button onClick={handleSavePost} className="btn">
+            저장
+          </button>
         </div>
       </Container>
+      <Snackbar
+        open={open}
+        onClose={handleClose}
+        TransitionComponent={transition}
+        message="제목, 내용, 악기를 모두 입력해주세요."
+        key={transition ? transition.name : ''}
+      />
     </Wrapper>
   );
 }

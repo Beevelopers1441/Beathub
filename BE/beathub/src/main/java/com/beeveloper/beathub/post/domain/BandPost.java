@@ -1,6 +1,7 @@
 package com.beeveloper.beathub.post.domain;
 
 import com.beeveloper.beathub.band.domain.Band;
+import com.beeveloper.beathub.instrument.domain.Instrument;
 import com.beeveloper.beathub.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,17 +14,17 @@ import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Entity
-@NoArgsConstructor
 @DiscriminatorValue("B")
 @Getter
+@NoArgsConstructor
 public class BandPost extends Post{
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Band authorBand;
 
-    @Builder
-    public BandPost(String title, String content, Band authorBand, LocalDateTime createTime) {
-        super(title, content, createTime);
-        this.authorBand = authorBand;
+
+    public BandPost(String title, String content, LocalDateTime now, Band band, Instrument tag) {
+        super(title, content, now, tag);
+        this.authorBand = band;
     }
 }

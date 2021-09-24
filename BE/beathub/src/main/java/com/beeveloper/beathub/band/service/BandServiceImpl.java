@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class BandServiceImpl implements BandService{
@@ -14,8 +16,13 @@ public class BandServiceImpl implements BandService{
 
     @Override
     @Transactional(readOnly = true)
-    public Band findById(Long bandId) {
-        return bandRepository.findById(bandId).orElseThrow(NullPointerException::new);
+    public Optional<Band> findById(Long bandId) {
+        return bandRepository.findById(bandId);
+    }
+
+    @Override
+    public Band findByName(String bandName) {
+        return bandRepository.findByName(bandName);
     }
 
     @Override

@@ -41,9 +41,11 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     private Instrument tag;
 
-    public Post(String title, String content, LocalDateTime createTime) {
+    @Builder
+    public Post(String title, String content, LocalDateTime createTime, Instrument tag) {
         this.title = title;
         this.content = content;
         this.createTime = createTime;
+        this.tag = tag;
     }
 }

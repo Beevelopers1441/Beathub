@@ -1,22 +1,31 @@
 package com.beeveloper.beathub.post.controller;
 
+import com.beeveloper.beathub.band.domain.Band;
+import com.beeveloper.beathub.band.service.BandService;
+import com.beeveloper.beathub.instrument.domain.Instrument;
+import com.beeveloper.beathub.instrument.repository.InstrumentRepository;
+import com.beeveloper.beathub.instrument.service.InstrumentService;
 import com.beeveloper.beathub.post.domain.BandPost;
 import com.beeveloper.beathub.post.domain.Comment;
 import com.beeveloper.beathub.post.domain.MemberPost;
 import com.beeveloper.beathub.post.domain.Post;
-import com.beeveloper.beathub.post.dto.request.BandPostCreateDto;
-import com.beeveloper.beathub.post.dto.request.CommentCreateDto;
-import com.beeveloper.beathub.post.dto.request.MemberPostCreateDto;
+import com.beeveloper.beathub.post.dto.request.*;
 import com.beeveloper.beathub.post.dto.response.*;
+import com.beeveloper.beathub.post.repository.MemberPostRepository;
 import com.beeveloper.beathub.post.service.PostService;
+import com.beeveloper.beathub.user.domain.User;
+import com.beeveloper.beathub.user.jwts.JwtService;
+import com.beeveloper.beathub.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Api(value = "게시판 관련 API")
 @RestController
@@ -25,21 +34,63 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+    private final JwtService jwtService;
+    private final UserService userService;
+    private final BandService bandService;
+    private final InstrumentService instrumentService;
 
     // 생성
     @PostMapping("/members")
     @ApiOperation(value = "개인 구인글 생성", notes = "인증한 사용자를 글쓴이로 하는 구인글 생성")
     public ResponseEntity<MemberPostResDto> createMemberPost(
-            @RequestBody @ApiParam(value = "개인 구인글 생성 정보", required = true) MemberPostCreateDto createInfo) {
-        MemberPost memberPost = postService.createMemberPost(createInfo);
+                                @RequestHeader(value = "Authorization") String jwtToken,
+                                @RequestBody @ApiParam(value = "개인 구인글 생성 정보", required = true) MemberPostInputDto inputInfo) {
+        // 로그인하지 않은 유저라면
+        if (jwtToken == null) {
+            return (ResponseEntity<MemberPostResDto>) ResponseEntity.status(401);
+        }
+
+        // 로그인을 했다면 JWT를 통해 User, Tag 를 확인
+        User author = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        Instrument tag = instrumentService.findByType(inputInfo.getTag());
+
+
+        // 새로운 dto를 생성
+        // 들어온 reqDto는 InputDto
+        MemberPostCreateDto dto = new MemberPostCreateDto(
+                author,
+                inputInfo.getTitle(),
+                inputInfo.getContent(),
+                tag
+        );
+        MemberPost memberPost = postService.createMemberPost(dto);
         return ResponseEntity.status(201).body(MemberPostResDto.of(memberPost));
     }
 
     @PostMapping("/bands")
     @ApiOperation(value = "밴드 구인글 생성", notes = "인증한 사용자가 선택한 밴드를 글쓴이로 하는 구인글 생성")
     public ResponseEntity<BandPostResDto> createBandPost(
-            @RequestBody @ApiParam(value = "밴드 구인글 생성 정보", required = true) BandPostCreateDto createInfo) {
-        BandPost bandPost = postService.createBandPost(createInfo);
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @RequestBody @ApiParam(value = "밴드 구인글 생성 정보", required = true) BandPostInputDto inputInfo) {
+
+        // 로그인하지 않은 유저라면
+        if (jwtToken == null) {
+            return (ResponseEntity<BandPostResDto>) ResponseEntity.status(401);
+        }
+
+        // 로그인을 했다면, 밴드, Tag 찾기
+        Band band = bandService.findByName(inputInfo.getBandName());
+        Instrument tag = instrumentService.findByType(inputInfo.getTag());
+
+
+        BandPostCreateDto dto = new BandPostCreateDto(
+                band,
+                inputInfo.getTitle(),
+                inputInfo.getContent(),
+                tag
+        );
+
+        BandPost bandPost = postService.createBandPost(dto);
         return ResponseEntity.status(201).body(BandPostResDto.of(bandPost));
     }
 

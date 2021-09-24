@@ -22,7 +22,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService{
 
-    private final PostRepository postRepository;
     private final MemberPostRepository memberPostRepository;
     private final BandPostRepository bandPostRepository;
     private final CommentRepository commentRepository;
@@ -33,24 +32,27 @@ public class PostServiceImpl implements PostService{
      */
     @Override
     public MemberPost createMemberPost(MemberPostCreateDto requestInfo) {
-        MemberPost memberPost = new MemberPost().builder()
-                .title(requestInfo.getTitle())
-                .content(requestInfo.getContent())
-                .createTime(LocalDateTime.now())
-//                .authorUser()
-                .build();
+        MemberPost memberPost = new MemberPost(
+                requestInfo.getTitle(),
+                requestInfo.getContent(),
+                requestInfo.getUser(),
+                LocalDateTime.now(),
+                requestInfo.getTag()
+        );
+
         return memberPostRepository.save(memberPost);
     }
 
     @Override
     public BandPost createBandPost(BandPostCreateDto requestInfo) {
-        Band band = bandService.findById(requestInfo.getBandId());
-        BandPost bandPost = new BandPost().builder()
-                .title(requestInfo.getTitle())
-                .content(requestInfo.getContent())
-                .createTime(LocalDateTime.now())
-                .authorBand(band)
-                .build();
+        Band band = bandService.findByName(requestInfo.getBand().getName());
+        BandPost bandPost = new BandPost(
+                requestInfo.getTitle(),
+                requestInfo.getContent(),
+                LocalDateTime.now(),
+                band,
+                requestInfo.getTag()
+        );
         return bandPostRepository.save(bandPost);
     }
 

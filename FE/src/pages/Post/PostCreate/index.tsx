@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 // components
 import { TagList } from 'components';
+import { InstrumentPicker } from 'components/Community';
 
 // styles
 import { Container } from '@mui/material';
@@ -82,6 +83,10 @@ function PostCreate(props: Props): React.ReactElement {
             placeholder="태그를 설정해주세요."
           />
           <TagList currTags={currTags} setCurrTags={setCurrTags} />
+        </div>
+        <div className="input-container instrument-container">
+          <p className="post-p">악기</p>
+          <InstrumentPicker width={'150px'} />
         </div>
         <div className="input-container">
           <p className="post-p">내용</p>

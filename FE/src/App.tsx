@@ -2,15 +2,16 @@ import GlobalStyle from './styles/GlobalStyle'
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Login, UserProfile, Community, PostDetail, PostCreate} from 'pages';
-import { ChatWrapper } from 'components';
+import { Chat } from 'components';
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <ChatWrapper />
+      <Chat />
       <BrowserRouter>
         <Switch>
+          <Route exact path="/" component={Login} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/profile/:id" component={UserProfile} />
           <Route exact path="/community" component={Community} />

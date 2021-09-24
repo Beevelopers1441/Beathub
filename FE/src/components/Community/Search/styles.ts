@@ -9,7 +9,7 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     margin-right: 0.5rem;
-    width: 25rem;
+    width: 19rem;
     border: 1px solid white;
     border-radius: 5px;
 
@@ -34,7 +34,7 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     margin-right: 0.5rem;
-    width: 25rem;
+    width: 19rem;
     border: 1px solid white;
     border-radius: 5px;
   }
@@ -47,7 +47,8 @@ const Wrapper = styled.div`
     margin: 0 0.5rem;
   }
   & .search-button {
-    width: 8rem;
+    width: 7rem;
+    margin-left: 0.5rem;
     text-align: center;
     border-radius: 3px;
     background-color: ${({ theme }) => theme.colors.violet };

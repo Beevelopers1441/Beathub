@@ -11,6 +11,10 @@ const Wrapper = styled.div`
     }
   }
 
+  & .sub-container {
+    min-width: 1140px;
+  }
+
   /* leftbar */
   & .teamFlag {
     color: #ABB0B5;

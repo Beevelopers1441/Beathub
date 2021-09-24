@@ -4,6 +4,14 @@ import TagList from 'components/TagList';
 import CommunitySearch from './Search';
 import Comment from './Comment';
 import ProfileCard from './ProfileCard';
+import InstrumentPicker from './InstrumentPicker';
 
-
-export { LinkTab, Posts, TagList, CommunitySearch, Comment, ProfileCard };
+export {
+  LinkTab,
+  Posts,
+  TagList,
+  CommunitySearch,
+  Comment,
+  ProfileCard,
+  InstrumentPicker,
+};

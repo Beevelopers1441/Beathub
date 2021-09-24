@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.Result;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -26,9 +27,10 @@ public class OAuth2Controller {
                          HttpServletResponse response,
                          @RequestBody UserReqModel userReqModel) {
 
-
+        List<User> users = userService.findAll();
+        System.out.println("users = " + users);
         User user = userService.signupOrLogin(userReqModel);
-        String token = jwtService.makeJwtToken(user.getEmail());
+        String token = jwtService.makeJwtToken(user.getUserName(), user.getEmail(), user.getProfileImageUrl());
         response.setHeader("Authorization", token);
 
         return user.toString();

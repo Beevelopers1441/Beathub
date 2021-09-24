@@ -17,10 +17,10 @@ const onSuccess = (result: any) => {
         imageUrl: result.profileObj.imageUrl,
       }
     )
-
   }
-  socialLogin(userInfo(result))
 
+  // 로그인 요청
+  socialLogin(userInfo(result))
 }
 
 const onFailure = (result: any) => {

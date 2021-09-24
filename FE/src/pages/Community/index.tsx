@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import { Header } from 'components';
 import { Posts, LinkTab, TagList, CommunitySearch } from 'components/Community';
 
+// api
+import { getAllBandPosts, getAllMemberPosts } from 'lib/api/community';
+
 // styles
 import { Container, Grid } from '@mui/material';
 import Wrapper from './styles';
@@ -25,6 +28,12 @@ function Community(props: Props): React.ReactElement {
   const [currTitle, setCurrTitle] = useState<string>('');
   const [currTags, setCurrTags] = useState([]);
 
+  // constructor
+  useEffect(() => {
+    let newPosts;
+
+  }, []);
+  
   // current Posts filter
   useEffect(() => {
     if (!posts) return;

@@ -2,10 +2,12 @@ package com.beeveloper.beathub.music.controller;
 
 import com.beeveloper.beathub.music.service.MusicService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class MusicController {
 
     private final MusicService musicService;

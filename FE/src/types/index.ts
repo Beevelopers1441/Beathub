@@ -49,3 +49,13 @@ export interface Instrument {
 export interface Instruments {
   instruments: Instrument[]
 }
+
+export interface Band {
+  id: number,
+  name: string,
+  imgUrl: string
+}
+
+export interface Bands {
+  bands: Band[]
+}

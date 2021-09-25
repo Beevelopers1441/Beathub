@@ -1,7 +1,9 @@
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-  // margin-top: 1rem;
+  & .followers-letter {
+    text-align: center;
+  }
 `
 
 export default Wrapper

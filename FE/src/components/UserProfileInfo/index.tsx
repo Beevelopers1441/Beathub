@@ -4,6 +4,8 @@ import Nickname from './Nickname';
 import Intro from './Intro';
 import Instruments from './Instruments';
 import EditBtn from './EditBtn';
+import Follow from './Follow'
+import Bands from './Bands'
 
 function UserProfileInfo() {
   return (
@@ -13,6 +15,8 @@ function UserProfileInfo() {
       <Intro></Intro>
       <Instruments></Instruments>
       <EditBtn></EditBtn>
+      <Follow></Follow>
+      <Bands></Bands>
     </div>
   )
 }

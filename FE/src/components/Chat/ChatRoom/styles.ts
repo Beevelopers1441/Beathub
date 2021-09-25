@@ -22,6 +22,7 @@ const Wrapper = styled.div`
   & .content-container {
     height: 345px;
     background: #FAFAFA;
+    overflow: auto;
 
   }
 

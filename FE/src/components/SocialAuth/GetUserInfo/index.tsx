@@ -9,11 +9,21 @@ function GetUserInfo() {
   const dispatch = useDispatch();
   
   const token = useSelector(state => state);
-  const headers = {
-    'Authorization': token
+
+  const config:any = {
+    method: 'POST',
+    url: 'http://localhost:8200/api/user',
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   }
-  axios.post('http://localhost:8200/api/user', {headers})
+
+  // const headers = {
+  //   'Authorization': token
+  // }
+  axios(config)
   .then(response => console.log(response));
+  // axios.post('http://localhost:8200/api/user', {headers})
 
 }
 

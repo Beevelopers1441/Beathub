@@ -40,11 +40,11 @@ export const GoogleAuthBtn = (props:Props, { history }:RouteComponentProps): Rea
 
     // 토큰 요청 => 토큰 리덕스에 저장
     socialLogin(userInfo(result)).then(res => {
-      console.log(res)
-      // const updateToken = (token: string) => dispatch(getTokenAction({ token: token }))
+      const token = res.data
+      const updateToken = (token: string) => dispatch(getTokenAction({ token: token }))
       
       // if문 작성
-      // updateToken(token)
+      updateToken(token)
       // history.push('/')
     })
   }

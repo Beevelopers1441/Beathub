@@ -3,19 +3,12 @@ import styled from 'styled-components'
 const Wrapper = styled.div`
   & .intro {
     /* 소개글 */
-    position: absolute;
-    width: 320px;
-    height: 88px;
-    left: 139px;
-    top: 527px;
-    
+    margin-top: 1rem;
     font-family: Spoqa Han Sans Neo;
     font-style: normal;
     font-weight: normal;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 29px;
-    
-    // color: #FFFFFF;
 }
 `
 

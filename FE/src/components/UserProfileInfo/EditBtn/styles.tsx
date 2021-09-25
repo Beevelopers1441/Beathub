@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-  margin-top: 2rem;
+  margin-top: 1rem;
 
   & .edit-btn {
     width: 100%;

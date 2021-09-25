@@ -1,7 +1,8 @@
 import React from 'react';
+import BandsItem from '../BandsItem';
 import Wrapper from './styles';
 
-function BandsItem() {
+function BandsList() {
   return(
     <Wrapper>
       밴드 1
@@ -9,4 +10,4 @@ function BandsItem() {
   )
 }
 
-export default BandsItem;
+export default BandsList;

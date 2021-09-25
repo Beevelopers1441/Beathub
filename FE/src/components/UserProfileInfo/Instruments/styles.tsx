@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-  // position: absolute;
-  margin-top: 2rem;
+  margin-top: 1rem;
 
   & .instruments-letter {
     font-family: Spoqa Han Sans Neo;

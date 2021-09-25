@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const Wrapper = styled.div`
   & .intro {
     /* 소개글 */
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     font-family: Spoqa Han Sans Neo;
     font-style: normal;
     font-weight: normal;

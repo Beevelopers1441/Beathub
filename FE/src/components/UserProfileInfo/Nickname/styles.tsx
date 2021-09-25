@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const Wrapper = styled.div`
   & .nickname {
     /* 닉네임 */
-    margin-top: 2rem;
+    margin-top: 1rem;
     font-family: Spoqa Han Sans Neo;
     font-style: normal;
     font-weight: bold;

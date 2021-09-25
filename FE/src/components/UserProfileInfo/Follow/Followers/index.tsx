@@ -1,12 +1,12 @@
 import React from 'react';
 import Wrapper from './styles';
 
-function BandsItem() {
+function Followers() {
   return(
     <Wrapper>
-      밴드 1
+      <div>팔로워 0</div>
     </Wrapper>
   )
 }
 
-export default BandsItem;
+export default Followers;

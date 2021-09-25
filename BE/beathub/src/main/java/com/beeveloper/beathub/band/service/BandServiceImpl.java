@@ -3,27 +3,39 @@ package com.beeveloper.beathub.band.service;
 import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.band.domain.BandMember;
 import com.beeveloper.beathub.band.dto.request.BandCreateDto;
+import com.beeveloper.beathub.band.dto.ressponse.BandResDto;
 import com.beeveloper.beathub.band.repository.BandMemberRepository;
 import com.beeveloper.beathub.band.repository.BandRepository;
+import com.beeveloper.beathub.instrument.domain.Instrument;
 import com.beeveloper.beathub.instrument.repository.InstrumentRepository;
 import com.beeveloper.beathub.user.domain.User;
+import com.beeveloper.beathub.user.domain.UserInstrument;
+import com.beeveloper.beathub.user.repository.UserInstrumentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class BandServiceImpl implements BandService{
     private final BandRepository bandRepository;
     private final BandMemberRepository bandMemberRepository;
-    private final InstrumentRepository instrumentRepository;
+    private final UserInstrumentRepository userInstrumentRepository;
 
     @Override
     @Transactional(readOnly = true)
     public Optional<Band> findById(Long bandId) {
         return bandRepository.findById(bandId);
+    }
+
+    @Override
+    public List<Band> findAll() {
+        return bandRepository.findAll();
     }
 
     @Override
@@ -46,14 +58,29 @@ public class BandServiceImpl implements BandService{
                 bandInfo.getLeader()
         );
 
-        // BandMember 등록용 Leader 악기 찾기
+        // BandMember 등록용, Leader 용
         User leader = bandInfo.getLeader();
+        Instrument instrument = userInstrumentRepository.findByPlayer(leader).getInstrument();
 
+        Band savedBand = bandRepository.save(band);
 
-//        BandMember bandMember = BandMember.builder()
-//                .user(bandInfo.getLeader())
-//                .instrument()
-//                .build();
-        return bandRepository.save(band);
+        BandMember bandMember = BandMember.createBandMemberForLeader(
+                leader,
+                savedBand,
+                instrument);
+
+        bandMemberRepository.save(bandMember);
+
+        return savedBand;
+    }
+
+    @Override
+    public List<BandResDto> changeFromBandToResDto(List<Band> bands) {
+        List<BandResDto> result = new ArrayList<>();
+
+        for (Band band : bands) {
+            result.add(BandResDto.of(band));
+        }
+        return result;
     }
 }

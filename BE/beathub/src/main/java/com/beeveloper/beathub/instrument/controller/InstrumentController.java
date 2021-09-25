@@ -17,8 +17,7 @@ import java.util.List;
 @Api(value = "악기 관련 API")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/instruments")
-@CrossOrigin(origins = "*")
+@RequestMapping("/api/instruments")
 public class InstrumentController {
 
     private final InstrumentService instrumentService;

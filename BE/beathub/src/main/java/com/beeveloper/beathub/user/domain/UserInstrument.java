@@ -1,12 +1,16 @@
 package com.beeveloper.beathub.user.domain;
 
 import com.beeveloper.beathub.instrument.domain.Instrument;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class UserInstrument {
 
     @Id
@@ -23,4 +27,22 @@ public class UserInstrument {
 
     @ManyToOne
     private User player;
+
+
+    @Builder
+    public UserInstrument(
+            Ability ability,
+            String model,
+            Instrument instrument,
+            User player
+    ) {
+        Assert.hasText(instrument.getType(), "악기가 없습니다");
+        Assert.hasText(player.getEmail(), "연주자가 없습니다");
+
+        this.ability = ability;
+        this.model = model;
+        this.instrument = instrument;
+        this.player = player;
+
+    }
 }

@@ -22,10 +22,10 @@ public class Commit {
 
     private LocalDateTime createTime;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User author;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Bucket bucket;
 
     @OneToMany(mappedBy = "commit")

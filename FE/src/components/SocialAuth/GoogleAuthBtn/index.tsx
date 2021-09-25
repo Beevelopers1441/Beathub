@@ -1,17 +1,33 @@
+import React from 'react'
+import { useHistory } from 'react-router-dom';
+
+// libraries
 import { GoogleLogin } from 'react-google-login';
 
 // types
-import { UserInfo, ProfileObj } from 'types';
+import { UserInfo } from 'types';
 
 // apis
-import { socialLogin } from 'lib/api/auth/socialLogin'
+import { socialLogin, getUserInfo } from 'lib/api/auth/socialLogin'
 
+// redux
 import { useDispatch } from 'react-redux';
+// import { useSelector } from 'react-redux';
+import { getTokenAction, getUserInfoAction } from 'modules/user/actions'
+
+interface Props {
+  token?: string;
+}
 
 
-export const GoogleAuthBtn = () => {
+export const GoogleAuthBtn = (props:Props): React.ReactElement => {
+// export const GoogleAuthBtn = ({ history }: RouteComponentProps) => {
 
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  // redux store 조회
+  // const user = useSelector((state: any) => state.user);
 
   const onSuccess = (result: any) => {
 
@@ -19,17 +35,32 @@ export const GoogleAuthBtn = () => {
     const userInfo = (result: any): UserInfo => {
       return (
         {
-          email: result.profileObj.email,
-          profileImageUrl: result.profileObj.imageUrl,
-          userId: result.profileObj.googleId,
-          userName: result.profileObj.name,
+          "email": result.profileObj.email,
+          "profileImageUrl": result.profileObj.imageUrl,
+          "userId": result.profileObj.googleId,
+          "userName": result.profileObj.name,
         }
       )
     }
-  
-    // 로그인 요청
+
+    // 토큰 요청 => 토큰 리덕스에 저장
     socialLogin(userInfo(result)).then(res => {
-      console.log(res)
+      const token = res.data
+
+      const updateToken = (token: string) => dispatch(getTokenAction({ token: token }))
+      
+      // if문 작성
+      updateToken(token)
+      
+      getUserInfo(token).then(res => {
+        const userInfo = res.data
+        const updateUserInfo = (userInfo: object) => dispatch(getUserInfoAction({ userinfo: userInfo }))
+        updateUserInfo(userInfo)
+      })
+      // }).then(res => {
+      //   console.log(user)
+      // })
+      history.push('/')
     })
   }
   
@@ -50,3 +81,6 @@ export const GoogleAuthBtn = () => {
     />
   )
 };
+
+// 타입스크립트 에러 발생
+// export default withRouter(GoogleAuthBtn)

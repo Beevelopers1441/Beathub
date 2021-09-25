@@ -31,6 +31,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/posts")
+@CrossOrigin(origins = "*")
 public class PostController {
 
     private final PostService postService;

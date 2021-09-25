@@ -16,13 +16,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class OAuth2Controller {
 
     private final UserService userService;
     private final JwtService jwtService;
 
     @PostMapping("/login")
-    @ResponseBody
     public String signup(HttpServletRequest request,
                          HttpServletResponse response,
                          @RequestBody UserReqModel userReqModel) {
@@ -33,7 +33,7 @@ public class OAuth2Controller {
         String token = jwtService.makeJwtToken(user.getUserName(), user.getEmail(), user.getProfileImageUrl());
         response.setHeader("Authorization", token);
 
-        return user.toString();
+        return token;
     }
 
 

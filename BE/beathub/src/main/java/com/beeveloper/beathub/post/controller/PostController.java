@@ -3,29 +3,24 @@ package com.beeveloper.beathub.post.controller;
 import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.band.service.BandService;
 import com.beeveloper.beathub.instrument.domain.Instrument;
-import com.beeveloper.beathub.instrument.repository.InstrumentRepository;
 import com.beeveloper.beathub.instrument.service.InstrumentService;
 import com.beeveloper.beathub.post.domain.BandPost;
 import com.beeveloper.beathub.post.domain.Comment;
 import com.beeveloper.beathub.post.domain.MemberPost;
-import com.beeveloper.beathub.post.domain.Post;
 import com.beeveloper.beathub.post.dto.request.*;
 import com.beeveloper.beathub.post.dto.response.*;
-import com.beeveloper.beathub.post.repository.MemberPostRepository;
 import com.beeveloper.beathub.post.service.PostService;
 import com.beeveloper.beathub.user.domain.User;
 import com.beeveloper.beathub.user.jwts.JwtService;
-import com.beeveloper.beathub.user.service.UserService;
+import com.beeveloper.beathub.user.service.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Api(value = "게시판 관련 API")
 @RestController
@@ -36,7 +31,7 @@ public class PostController {
 
     private final PostService postService;
     private final JwtService jwtService;
-    private final UserService userService;
+    private final UserServiceImpl userService;
     private final BandService bandService;
     private final InstrumentService instrumentService;
 

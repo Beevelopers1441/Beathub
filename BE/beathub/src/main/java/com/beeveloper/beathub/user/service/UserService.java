@@ -1,31 +1,15 @@
 package com.beeveloper.beathub.user.service;
 
 import com.beeveloper.beathub.user.domain.User;
-import com.beeveloper.beathub.user.domain.UserSaveRequestDto;
-import com.beeveloper.beathub.user.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.beeveloper.beathub.user.domain.dto.request.UserSaveRequestDto;
 
 import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-public class UserService {
+public interface UserService {
 
-    private final UserRepository userRepository;
+    List<User> findAll();
 
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
+    User findByEmail(String email);
 
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    public User save(UserSaveRequestDto dto) {
-        User savedUser = userRepository.save(dto.toEntity());
-        return savedUser;
-    }
-
-
+    User save(UserSaveRequestDto dto);
 }

@@ -12,7 +12,7 @@ import { socialLogin } from 'lib/api/auth/socialLogin'
 
 // redux
 import { useDispatch } from 'react-redux';
-import getTokenAction from 'modules/'
+import { getTokenAction } from 'modules/user/actions'
 
 interface Props {
   token?: string;
@@ -38,16 +38,15 @@ export const GoogleAuthBtn = (props:Props, { history }:RouteComponentProps): Rea
       )
     }
 
-
-  
     // 토큰 요청 => 토큰 리덕스에 저장
     socialLogin(userInfo(result)).then(token => {
       console.log(token)
       // const updateToken = (token: string) => dispatch(getTokenAction(token, { static: false }))
+      const updateToken = (token: string) => dispatch(getTokenAction({ token: token }))
       
       // if문 작성
-      // updateToken(token)
-      history.push('/')
+      updateToken(token)
+      // history.push('/')
     })
   }
   

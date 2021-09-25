@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import user from './user/reducer';
+import auth from './user/reducer';
 import { User } from './user/types';
 
 // RootState 정의
@@ -9,7 +9,7 @@ export type RootState = {
 
 // 구현한 reducer를 합쳐줌
 const rootReducer = combineReducers({
-  user,
+  auth,
 });
 
 export default rootReducer;

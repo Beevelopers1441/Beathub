@@ -8,7 +8,7 @@ import produce from 'immer'; // ...문법 대신 사용, 2개의 인자만 설�
 const initialState : User = {
   isLoggedIn: false,
   // token: '',
-  token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyTmFtZSI6IkpJWVVOIEtJTSIsInByb2ZpbGVJbWFnZVVybCI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FBVFhBSnlYelhDek42dUx4N3gwZzhrS2NnNDdOWV84VlhVakw0YVpQU0tSPXM5Ni1jIiwiZW1haWwiOiJqeWsu',
+  token: '',
   userInfo: {}
 }
 
@@ -19,9 +19,10 @@ const auth = createReducer<User, UserAction>(initialState, {
   produce(state, draft => {
     draft.isLoggedIn = true
   }),
+  // [GET_TOKEN]: (state, action) => ({ count: state.token + action.payload })
   [GET_TOKEN] : (state, action) =>
   produce(state, draft => {
-    draft.userInfo = action.payload
+    draft.token = action.payload.token
   }),
   [GET_USER_INFO] : (state, action) =>
   produce(state, draft => {

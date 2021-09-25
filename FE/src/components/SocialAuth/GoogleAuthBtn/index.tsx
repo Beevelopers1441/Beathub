@@ -6,29 +6,37 @@ import { UserInfo, ProfileObj } from 'types';
 // apis
 import { socialLogin } from 'lib/api/auth/socialLogin'
 
-const onSuccess = (result: any) => {
+import { useDispatch } from 'react-redux';
 
-  // userInfo로 소셜로그인 간 양식 통일
-  const userInfo = (result: any): UserInfo => {
-    return (
-      {
-        email: result.profileObj.email,
-        nickname: result.profileObj.name,
-        id: result.profileObj.googleId,
-        imageUrl: result.profileObj.imageUrl,
-      }
-    )
-  }
-
-  // 로그인 요청
-  socialLogin(userInfo(result))
-}
-
-const onFailure = (result: any) => {
-  console.log(result)
-}
 
 export const GoogleAuthBtn = () => {
+
+  const dispatch = useDispatch();
+
+  const onSuccess = (result: any) => {
+
+    // userInfo로 소셜로그인 간 양식 통일
+    const userInfo = (result: any): UserInfo => {
+      return (
+        {
+          email: result.profileObj.email,
+          profileImageUrl: result.profileObj.imageUrl,
+          userId: result.profileObj.googleId,
+          userName: result.profileObj.name,
+        }
+      )
+    }
+  
+    // 로그인 요청
+    socialLogin(userInfo(result)).then(res => {
+      console.log(res)
+    })
+  }
+  
+  const onFailure = (result: any) => {
+    console.log(result)
+  }
+
   return (
     <GoogleLogin
       clientId="618018607779-hhtaqof2ufm6ultf5baei97pthlm7d6q.apps.googleusercontent.com"

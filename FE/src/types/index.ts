@@ -35,9 +35,9 @@ export interface ProfileObj {
 
 export interface UserInfo {
   email: string,
-  nickname: string,
-  id: string,
-  imageUrl: string;
+  profileImageUrl: string,
+  userId: string,
+  userName: string;
   profileObj?: ProfileObj;
 }
 

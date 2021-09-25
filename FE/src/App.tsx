@@ -2,8 +2,12 @@ import GlobalStyle from './styles/GlobalStyle'
 
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Login, UserProfile, Community, PostDetail, PostCreate} from 'pages';
+<<<<<<< HEAD
 // import { Login, Signup, UserProfile, Community, PostDetail, PostCreate} from 'pages';
 import { Chat } from 'components';
+=======
+import { Chat, Header } from 'components';
+>>>>>>> 863379c3311a2c9116de28babf0bb0ef04c2d0f4
 
 // 로그인으로 받은 토큰으로 사용자 정보 가져오기
 import GetUserInfo from 'components/SocialAuth/GetUserInfo/index';
@@ -15,8 +19,9 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <Chat />
       <BrowserRouter>
+        <Chat />
+        <Header />
         <Switch>
           <Route exact path="/" component={Login} />
           <Route exact path="/login" component={Login} />

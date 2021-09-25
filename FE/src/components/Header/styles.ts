@@ -1,15 +1,23 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  position: fixed;
-  top: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0rem 2rem;
-  width: 100%;
-  height: 70px;
-  border-bottom: 0.5px solid white;
+  & .header-container {
+    position: fixed;
+    z-index: 1500;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem 2rem;
+    width: 100%;
+    height: 70px;
+    border-bottom: 0.5px solid white;
+    transition: all 0.3s ease;
+  }
+
+  & .hide {
+    top: -70px;
+  }
 
   & .left-container {
     display: flex;

@@ -7,8 +7,12 @@ import axios from 'axios';
 function GetUserInfo() {
 
   const dispatch = useDispatch();
+  
   const token = useSelector(state => state);
-  axios.post('http://localhost:8200/api/user', token)
+  const headers = {
+    'Authorization': token
+  }
+  axios.post('http://localhost:8200/api/user', {headers})
   .then(response => console.log(response));
 
 }

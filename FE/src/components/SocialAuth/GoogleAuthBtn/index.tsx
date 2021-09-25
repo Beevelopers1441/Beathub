@@ -30,22 +30,21 @@ export const GoogleAuthBtn = (props:Props, { history }:RouteComponentProps): Rea
     const userInfo = (result: any): UserInfo => {
       return (
         {
-          email: result.profileObj.email,
-          profileImageUrl: result.profileObj.imageUrl,
-          userId: result.profileObj.googleId,
-          userName: result.profileObj.name,
+          "email": result.profileObj.email,
+          "profileImageUrl": result.profileObj.imageUrl,
+          "userId": result.profileObj.googleId,
+          "userName": result.profileObj.name,
         }
       )
     }
 
     // 토큰 요청 => 토큰 리덕스에 저장
-    socialLogin(userInfo(result)).then(token => {
-      console.log(token)
-      // const updateToken = (token: string) => dispatch(getTokenAction(token, { static: false }))
-      const updateToken = (token: string) => dispatch(getTokenAction({ token: token }))
+    socialLogin(userInfo(result)).then(res => {
+      console.log(res)
+      // const updateToken = (token: string) => dispatch(getTokenAction({ token: token }))
       
       // if문 작성
-      updateToken(token)
+      // updateToken(token)
       // history.push('/')
     })
   }

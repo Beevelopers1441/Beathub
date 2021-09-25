@@ -79,6 +79,7 @@ const Wrapper = styled.div`
     }
     & .btn {
       margin-left: 1rem;
+      margin-bottom: 1rem;
       width: 7rem;
       height: 2.5rem;
       border: 1px solid ${({ theme }) => theme.colors.purple };

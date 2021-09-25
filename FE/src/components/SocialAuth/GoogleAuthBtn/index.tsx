@@ -1,5 +1,5 @@
 import React from 'react'
-import { RouteComponentProps, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 // libraries
 import { GoogleLogin } from 'react-google-login';
@@ -11,7 +11,8 @@ import { UserInfo } from 'types';
 import { socialLogin, getUserInfo } from 'lib/api/auth/socialLogin'
 
 // redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { getTokenAction, getUserInfoAction } from 'modules/user/actions'
 
 interface Props {
@@ -26,7 +27,7 @@ export const GoogleAuthBtn = (props:Props): React.ReactElement => {
   const history = useHistory();
 
   // redux store 조회
-  const user = useSelector((state: any) => state.user);
+  // const user = useSelector((state: any) => state.user);
 
   const onSuccess = (result: any) => {
 
@@ -55,10 +56,10 @@ export const GoogleAuthBtn = (props:Props): React.ReactElement => {
         const userInfo = res.data
         const updateUserInfo = (userInfo: object) => dispatch(getUserInfoAction({ userinfo: userInfo }))
         updateUserInfo(userInfo)
-
-      }).then(res => {
-        console.log(user)
       })
+      // }).then(res => {
+      //   console.log(user)
+      // })
       history.push('/')
     })
   }

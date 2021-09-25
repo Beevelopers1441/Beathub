@@ -9,3 +9,16 @@ export const socialLogin = async (userInfo: UserInfo) => {
     return response
 
 }
+
+export async function getUserInfo(token:string) {
+    
+    const config:any = {
+        method: 'POST',
+        url: 'http://localhost:8200/api/user',
+        headers: {
+            Authorization: token
+        }
+    }
+
+    return await axios(config)
+}

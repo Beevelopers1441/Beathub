@@ -1,5 +1,5 @@
 import React from 'react'
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps, useHistory } from 'react-router-dom';
 
 // libraries
 import { GoogleLogin } from 'react-google-login';
@@ -8,21 +8,25 @@ import { GoogleLogin } from 'react-google-login';
 import { UserInfo } from 'types';
 
 // apis
-import { socialLogin } from 'lib/api/auth/socialLogin'
+import { socialLogin, getUserInfo } from 'lib/api/auth/socialLogin'
 
 // redux
-import { useDispatch } from 'react-redux';
-import { getTokenAction } from 'modules/user/actions'
+import { useDispatch, useSelector } from 'react-redux';
+import { getTokenAction, getUserInfoAction } from 'modules/user/actions'
 
 interface Props {
   token?: string;
 }
 
 
-export const GoogleAuthBtn = (props:Props, { history }:RouteComponentProps): React.ReactElement => {
+export const GoogleAuthBtn = (props:Props): React.ReactElement => {
 // export const GoogleAuthBtn = ({ history }: RouteComponentProps) => {
 
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  // redux store 조회
+  const user = useSelector((state: any) => state.user);
 
   const onSuccess = (result: any) => {
 
@@ -41,11 +45,21 @@ export const GoogleAuthBtn = (props:Props, { history }:RouteComponentProps): Rea
     // 토큰 요청 => 토큰 리덕스에 저장
     socialLogin(userInfo(result)).then(res => {
       const token = res.data
+
       const updateToken = (token: string) => dispatch(getTokenAction({ token: token }))
       
       // if문 작성
       updateToken(token)
-      // history.push('/')
+      
+      getUserInfo(token).then(res => {
+        const userInfo = res.data
+        const updateUserInfo = (userInfo: object) => dispatch(getUserInfoAction({ userinfo: userInfo }))
+        updateUserInfo(userInfo)
+
+      }).then(res => {
+        console.log(user)
+      })
+      history.push('/')
     })
   }
   

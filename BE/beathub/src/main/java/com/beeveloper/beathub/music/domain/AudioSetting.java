@@ -20,9 +20,9 @@ public class AudioSetting {
 
     private int volume;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Commit commit;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Audio audio;
 }

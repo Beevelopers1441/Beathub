@@ -26,7 +26,7 @@ const auth = createReducer<User, UserAction>(initialState, {
   }),
   [GET_USER_INFO] : (state, action) =>
   produce(state, draft => {
-    draft.userInfo = action
+    draft.userInfo = action.payload.userinfo
   })
 })
 

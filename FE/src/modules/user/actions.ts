@@ -12,4 +12,4 @@ export const GET_USER_INFO = 'user/GET_USER_INFO';
 // Action 생성 함수 구현
 export const loginAction = createStandardAction(LOGIN)();
 export const getTokenAction = createStandardAction(GET_TOKEN)<{ token:string }>();
-export const getUserInfoAction = createStandardAction(GET_USER_INFO)();
+export const getUserInfoAction = createStandardAction(GET_USER_INFO)<{ userinfo: object}>();

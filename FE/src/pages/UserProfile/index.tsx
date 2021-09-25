@@ -1,4 +1,5 @@
 import React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
 // Components
 import UserProfileInfo from 'components/UserProfileInfo';
@@ -8,9 +9,16 @@ import UserProfileBoard from 'components/UserProfileBoard';
 import { Container, Grid } from '@mui/material';
 import Wrapper from './styles';
 
-function UserProfile() {
+interface MatchParams {
+  userId: string;
+  boardName: string;
+}
+
+const UserProfile: React.FC<RouteComponentProps<MatchParams>> = ({ match }) => {
   return(
     <Wrapper>
+      { match.params.userId }
+      { match.params.boardName }
       <Container className="user-profile-container">
         <Grid container>
           <Grid item xs={4}>
@@ -20,8 +28,6 @@ function UserProfile() {
             <UserProfileBoard></UserProfileBoard>
           </Grid>
         </Grid>
-
-
       </Container>
     </Wrapper>
   )

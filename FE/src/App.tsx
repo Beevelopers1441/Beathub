@@ -14,7 +14,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Login} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/profile/:userId/:boardName" component={UserProfile} />
+          <Route exact path="/profile/:userId" component={UserProfile} />
           <Route exact path="/community" component={Community} />
           <Route exact path="/post" component={PostCreate} />
           <Route exact path="/post/:postId" component={PostDetail} />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 // component
 import MyMessage from './MyMessage';
@@ -13,6 +13,17 @@ interface Props {
 }
 
 function Messages(props: Props): React.ReactElement {
+  const bottomRef: any = useRef();
+
+  // constructor
+  useEffect(() => {
+    scrollToBottom();
+  }, [])
+
+  const scrollToBottom = () => {
+    bottomRef.current.scrollIntoView({ behavior: 'smooth'});
+  }
+
   return (
     <Wrapper>
       <MyMessage />
@@ -23,7 +34,7 @@ function Messages(props: Props): React.ReactElement {
       <YourMessageProfile />
       <YourMessage />
       <YourMessage />
-      
+      <div ref={bottomRef} />
     </Wrapper>
   );
 };

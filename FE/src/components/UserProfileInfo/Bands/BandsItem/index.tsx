@@ -1,10 +1,17 @@
 import React from 'react';
 import Wrapper from './styles';
+import { Band } from 'types';
 
-function BandsItem() {
+interface Props {
+  band: Band
+}
+
+const BandsItem: React.FC<Props> = ({ band }) => {
   return(
     <Wrapper>
-      밴드 1
+      <div className="item-wrapper">
+        <div className="item-letter">{band.name}</div>
+      </div> 
     </Wrapper>
   )
 }

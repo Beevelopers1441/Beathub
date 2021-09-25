@@ -33,7 +33,7 @@ public class OAuth2Controller {
         String token = jwtService.makeJwtToken(user.getUserName(), user.getEmail(), user.getProfileImageUrl());
         response.setHeader("Authorization", token);
 
-        return user.toString();
+        return token;
     }
 
 

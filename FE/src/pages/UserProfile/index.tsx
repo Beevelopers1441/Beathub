@@ -1,8 +1,8 @@
 import React from 'react';
 
 // Components
-import { Header } from 'components';
 import UserProfileInfo from 'components/UserProfileInfo';
+import UserProfileBoard from 'components/UserProfileBoard';
 
 // styles
 import { Container, Grid } from '@mui/material';
@@ -17,7 +17,7 @@ function UserProfile() {
             <UserProfileInfo></UserProfileInfo>
           </Grid>
           <Grid item xs={8}>
-            탭
+            <UserProfileBoard></UserProfileBoard>
           </Grid>
         </Grid>
 

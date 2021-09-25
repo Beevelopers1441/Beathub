@@ -23,7 +23,6 @@ public class OAuth2Controller {
     private final JwtService jwtService;
 
     @PostMapping("/login")
-    @ResponseBody
     public String signup(HttpServletRequest request,
                          HttpServletResponse response,
                          @RequestBody UserReqModel userReqModel) {

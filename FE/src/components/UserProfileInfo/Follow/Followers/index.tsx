@@ -4,7 +4,7 @@ import Wrapper from './styles';
 function Followers() {
   return(
     <Wrapper>
-      <div>팔로워 0</div>
+      <div className="followers-letter">팔로워 0</div>
     </Wrapper>
   )
 }

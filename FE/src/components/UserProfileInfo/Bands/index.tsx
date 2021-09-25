@@ -30,7 +30,8 @@ const dummyBands = [
 function Bands() {
   return(
     <Wrapper>
-      <div>활동하는 밴드</div>
+      <div className="bands-divider"></div>
+      <div className="bands-letter">활동하는 밴드</div>
       <BandsList bands={dummyBands}></BandsList>
     </Wrapper>
   )

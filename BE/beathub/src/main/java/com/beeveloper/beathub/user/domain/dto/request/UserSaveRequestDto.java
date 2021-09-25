@@ -1,11 +1,13 @@
 package com.beeveloper.beathub.user.domain.dto.request;
 
 import com.beeveloper.beathub.user.domain.User;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 public class UserSaveRequestDto {
 
@@ -14,18 +16,19 @@ public class UserSaveRequestDto {
     private String imageUrl = null;
     private String introduction = null;
 
-    @Builder
+
     public UserSaveRequestDto(String name, String email, String imageUrl) {
         this.name = name;
         this.email = email;
         this.imageUrl = imageUrl;
     }
 
-    public User toEntity() {
-        return User.builder()
-                .name(name)
-                .email(email)
-                .imageUrl(imageUrl)
-                .build();
+    public static User toEntity(UserSaveRequestDto dto) {
+        User user = new User(
+                dto.getName(),
+                dto.getImageUrl(),
+                dto.getEmail()
+        );
+        return user;
     }
 }

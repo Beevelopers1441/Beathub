@@ -22,12 +22,12 @@ public class UserInstrumentServiceImpl implements UserInstrumentService {
 
     @Override
     public UserInstrument save(UserInstrumentCreateDto dto) {
-        UserInstrument userInstrument = UserInstrument.builder()
-                .ability(dto.getAbility())
-                .model(dto.getModel())
-                .instrument(dto.getInstrument())
-                .player(dto.getPlayer())
-                .build();
+        UserInstrument userInstrument = new UserInstrument(
+                dto.getAbility(),
+                dto.getModel(),
+                dto.getInstrument(),
+                dto.getPlayer()
+        );
         return userInstrumentRepository.save(userInstrument);
     }
 }

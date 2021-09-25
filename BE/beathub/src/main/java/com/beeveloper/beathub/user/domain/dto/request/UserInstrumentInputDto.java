@@ -1,12 +1,7 @@
 package com.beeveloper.beathub.user.domain.dto.request;
 
-import com.beeveloper.beathub.instrument.domain.Instrument;
-import com.beeveloper.beathub.user.domain.Ability;
-import com.beeveloper.beathub.user.domain.User;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 
 @Getter

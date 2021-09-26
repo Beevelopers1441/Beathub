@@ -12,7 +12,7 @@ function UserProfileInfo() {
 
   const [ onEdit, setOnEdit ] = useState<boolean>(false)
 
-  const onEditProfile = () => {
+  const onToggleEdit = () => {
     setOnEdit(!onEdit)
   }
 
@@ -21,16 +21,16 @@ function UserProfileInfo() {
       <ProfileImg></ProfileImg>
       {onEdit ?
         <div>
-          <EditForm></EditForm>
+          <EditForm onToggleEdit={onToggleEdit}></EditForm>
         </div>
         :
         <div>
           <Nickname></Nickname>
           <Intro></Intro>
           <Instruments></Instruments>
+          <EditBtn onToggleEdit={onToggleEdit}></EditBtn>
         </div>
       }
-      <EditBtn onEditProfile={onEditProfile}></EditBtn>
       <Follow></Follow>
       <Bands></Bands>
     </div>

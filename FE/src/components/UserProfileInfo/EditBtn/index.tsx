@@ -2,18 +2,18 @@ import React from 'react';
 import Wrapper from './styles';
 
 interface IProps {
-  onEditProfile: () => void
+  onToggleEdit: () => void
 }
 
-function EditBtn({ onEditProfile }: IProps) {
+function EditBtn({ onToggleEdit }: IProps) {
 
-  const onClickEditbtn = () => {
-    onEditProfile();
+  const onClickEditBtn = () => {
+    onToggleEdit();
   }
 
   return(
     <Wrapper>
-      <button className="edit-btn" onClick={onClickEditbtn}>
+      <button className="edit-btn" onClick={onClickEditBtn}>
         <div className="edit-btn-letter">Edit profile</div>
       </button>
     </Wrapper>

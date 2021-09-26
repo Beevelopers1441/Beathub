@@ -1,0 +1,19 @@
+import React from 'react';
+import Wrapper from './styles';
+import { Instrument } from 'types';
+
+interface Props {
+  instrument: Instrument;
+}
+
+const EditFormInstItem: React.FC<Props> = ({ instrument }) => {
+  return(
+    <Wrapper>
+      <div className="item-wrapper">
+        <div className="item-letter">{instrument.name} {instrument.skill}</div>
+      </div> 
+    </Wrapper>
+  )
+}
+
+export default EditFormInstItem;

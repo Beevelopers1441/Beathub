@@ -3,13 +3,14 @@ import axios from 'axios';
 // types 
 import { UserInfo } from 'types';
 
+// 로그인 정보 보내서 토큰 받기
 export const socialLogin = async (userInfo: UserInfo) => {
     const response = await axios.post('http://localhost:8100/api/auth/login', userInfo)
 
     return response
-
 }
 
+// 토큰 보내서 유저 정보 받기
 export async function getUserInfo(token:string) {
     
     const config:any = {
@@ -22,3 +23,4 @@ export async function getUserInfo(token:string) {
 
     return await axios(config)
 }
+

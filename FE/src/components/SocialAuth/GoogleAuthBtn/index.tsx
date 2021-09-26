@@ -43,24 +43,21 @@ export const GoogleAuthBtn = (props:Props): React.ReactElement => {
       )
     }
 
-    // 토큰 요청 => 토큰 리덕스에 저장
+    // 토큰 요청
     socialLogin(userInfo(result)).then(res => {
-      const token = res.data
 
+      // 토큰 리덕스에 저장
+      const token = res.data
       const updateToken = (token: string) => dispatch(getTokenAction({ token: token }))
-      
-      // if문 작성
       updateToken(token)
       
+      //  토큰으로 사용자 정보 요청 => 사용자 정보 리덕스에 저장
       getUserInfo(token).then(res => {
         const userInfo = res.data
         const updateUserInfo = (userInfo: object) => dispatch(getUserInfoAction({ userinfo: userInfo }))
         updateUserInfo(userInfo)
       })
-      // }).then(res => {
-      //   console.log(user)
-      // })
-      history.push('/')
+      history.push('/') 
     })
   }
   
@@ -81,6 +78,3 @@ export const GoogleAuthBtn = (props:Props): React.ReactElement => {
     />
   )
 };
-
-// 타입스크립트 에러 발생
-// export default withRouter(GoogleAuthBtn)

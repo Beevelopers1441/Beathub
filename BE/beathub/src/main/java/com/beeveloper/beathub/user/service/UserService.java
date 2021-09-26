@@ -11,5 +11,5 @@ public interface UserService {
 
     User findByEmail(String email);
 
-    User save(UserSaveRequestDto dto);
+    User save(UserSaveRequestDto userSaveRequestDto);
 }

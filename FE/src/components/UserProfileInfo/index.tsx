@@ -1,20 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ProfileImg from './ProfileImg';
 import Nickname from './Nickname';
 import Intro from './Intro';
 import Instruments from './Instruments';
+import EditForm from './EditForm';
 import EditBtn from './EditBtn';
 import Follow from './Follow'
 import Bands from './Bands'
 
 function UserProfileInfo() {
+
+  const [ onEdit, setOnEdit ] = useState<boolean>(false)
+
+  const onToggleEdit = () => {
+    setOnEdit(!onEdit)
+  }
+
   return (
     <div>
       <ProfileImg></ProfileImg>
-      <Nickname></Nickname>
-      <Intro></Intro>
-      <Instruments></Instruments>
-      <EditBtn></EditBtn>
+      {onEdit ?
+        <div>
+          <EditForm onToggleEdit={onToggleEdit}></EditForm>
+        </div>
+        :
+        <div>
+          <Nickname></Nickname>
+          <Intro></Intro>
+          <Instruments></Instruments>
+          <EditBtn onToggleEdit={onToggleEdit}></EditBtn>
+        </div>
+      }
       <Follow></Follow>
       <Bands></Bands>
     </div>

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import ProfileImg from './ProfileImg';
 import GroupName from './GroupName';
 import HowLong from './HowLong';
+import Follow from './Follow'
 // import Instruments from './Instruments';
 // import EditForm from './EditForm';
 // import EditBtn from './EditBtn';
-// import Follow from './Follow'
 // import Bands from './Bands'
 
 function GroupProfileInfo() {
@@ -31,8 +31,8 @@ function GroupProfileInfo() {
           <EditBtn onToggleEdit={onToggleEdit}></EditBtn> */}
         </div>
       }
-      {/* <Follow></Follow>
-      <Bands></Bands> */}
+      <Follow></Follow>
+      {/* <Bands></Bands> */}
     </div>
   )
 }

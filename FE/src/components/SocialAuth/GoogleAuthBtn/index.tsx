@@ -8,7 +8,7 @@ import { GoogleLogin } from 'react-google-login';
 import { UserInfo } from 'types';
 
 // apis
-import { socialLogin, getUserInfo } from 'lib/api/auth/socialLogin'
+import { socialLogin, getUserInfo, isFirst } from 'lib/api/auth/socialLogin'
 
 // redux
 import { useDispatch } from 'react-redux';
@@ -57,6 +57,9 @@ export const GoogleAuthBtn = (props:Props): React.ReactElement => {
         const updateUserInfo = (userInfo: object) => dispatch(getUserInfoAction({ userinfo: userInfo }))
         updateUserInfo(userInfo)
       })
+
+      isFirst(token).then(res => console.log(res))
+
       history.push('/') 
     })
   }

@@ -20,7 +20,19 @@ export async function getUserInfo(token:string) {
             Authorization: token
         }
     }
-
     return await axios(config)
 }
 
+// 처음 로그인한 유저인지 알아보기
+export async function isFirst(token:string) {
+    
+    const config:any = {
+        method: 'POST',
+        url: 'http://localhost:8200/api/user/first',
+        headers: {
+            Authorization: token
+        }
+    }
+
+    return await axios(config)
+}

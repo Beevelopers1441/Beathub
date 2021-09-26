@@ -2,6 +2,7 @@ import React from 'react';
 
 import Wrapper from './styles';
 import { Grid } from '@mui/material';
+import add from 'assets/svgs/add.svg';
 
 import EditFormInstList from './EditFormInstList';
 import SaveBtn from './SaveBtn';
@@ -62,17 +63,20 @@ function EditForm({ onToggleEdit }: IProps) {
       </div>
       {/* 악기 목록 수정 */}
       <div className="input-container">
-        <p className="post-p">연주 악기</p>
+        <div className="add-instrument-wrapper post-p">
+          <p>연주 악기</p>
+          <img className="add-instrument-icon" src={add} alt="add" />
+        </div>
         <EditFormInstList instruments={dummyInstruments}></EditFormInstList>
       </div>
       {/* 저장, 취소 버튼 */}
       <div className="button-container">
         <Grid container direction="row">
           <Grid item xs={6}>
-            <SaveBtn></SaveBtn>
+            <SaveBtn onToggleEdit={onToggleEdit}></SaveBtn>
           </Grid>
           <Grid item xs={6}>
-            <CancelBtn></CancelBtn>
+            <CancelBtn onToggleEdit={onToggleEdit}></CancelBtn>
           </Grid>
         </Grid> 
       </div>

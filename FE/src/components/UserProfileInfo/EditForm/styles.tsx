@@ -29,6 +29,22 @@ const Wrapper = styled.div`
       min-height: 150px;
       resize: none;
     }
+
+    & .add-instrument-wrapper {
+      display: flex;
+      align-items: center;
+
+      & .add-instrument-icon {
+        margin-left: 0.5rem;
+        width: 16px;
+        opacity: 0.6;
+
+        :hover {
+          cursor: pointer;
+          opacity: 1;
+        }
+      }
+    }
   }
 `
 

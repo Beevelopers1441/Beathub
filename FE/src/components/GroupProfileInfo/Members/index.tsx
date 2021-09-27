@@ -31,7 +31,7 @@ function Bands() {
   return(
     <Wrapper>
       <div className="members-divider"></div>
-      <div className="members-letter">활동하는 밴드</div>
+      <div className="members-letter">멤버</div>
       <MembersList members={dummyMembers}></MembersList>
     </Wrapper>
   )

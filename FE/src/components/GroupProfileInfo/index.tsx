@@ -3,10 +3,11 @@ import ProfileImg from './ProfileImg';
 import GroupName from './GroupName';
 import HowLong from './HowLong';
 import Follow from './Follow'
+import Members from './Members'
+import ApplyBtn from './ApplyBtn'
 // import Instruments from './Instruments';
 // import EditForm from './EditForm';
 // import EditBtn from './EditBtn';
-// import Bands from './Bands'
 
 function GroupProfileInfo() {
 
@@ -32,7 +33,8 @@ function GroupProfileInfo() {
         </div>
       }
       <Follow></Follow>
-      {/* <Bands></Bands> */}
+      <Members></Members>
+      <ApplyBtn></ApplyBtn>
     </div>
   )
 }

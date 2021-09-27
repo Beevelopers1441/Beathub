@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Components
-import { GroupProfileInfo } from 'components';
+import { GroupProfileInfo, GroupProfileBoard } from 'components';
 
 // styles
 import { Container, Grid } from '@mui/material';
@@ -16,7 +16,7 @@ function GroupProfile() {
             <GroupProfileInfo></GroupProfileInfo>
           </Grid>
           <Grid item xs={8}>
-            {/* <GroupProfileBoard></GroupProfileBoard> */}
+            <GroupProfileBoard></GroupProfileBoard>
           </Grid>
         </Grid>
       </Container>

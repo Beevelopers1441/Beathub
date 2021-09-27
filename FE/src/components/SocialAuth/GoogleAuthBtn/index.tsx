@@ -46,28 +46,35 @@ export const GoogleAuthBtn = (props:Props): React.ReactElement => {
     // 토큰 요청
     socialLogin(userInfo(result)).then(res => {
 
-      // 토큰 리덕스에 저장
       const token = res.data
+
+      // 토큰 리덕스에 저장
       const updateToken = (token: string) => dispatch(getTokenAction({ token: token }))
       updateToken(token)
-      
-      //  토큰으로 사용자 정보 요청 => 사용자 정보 리덕스에 저장
-      getUserInfo(token).then(res => {
-        const userInfo = res.data
-        const updateUserInfo = (userInfo: object) => dispatch(getUserInfoAction({ userinfo: userInfo }))
-        updateUserInfo(userInfo)
-      })
 
+      // 정보가 있는 유저인지 확인
       isFirst(token).then(res => {
-        // 처음 오는 유저면 추가 정보 입력 안내 페이지
-        if (res.data === true) {
-          history.push('/signup')
-        // 아니면 메인
-        } else {
-          history.push('/') 
-        }
-      })
+        const isfirst = res.data
+  
+        //  토큰으로 사용자 정보 요청 => 사용자 정보 리덕스에 저장
+        getUserInfo(token).then(res => {
+          const userInfo = res.data
+          const updateUserInfo = (userInfo: object) => dispatch(getUserInfoAction({ userinfo: userInfo }))
+          updateUserInfo(userInfo)
+        }).then(res => {
 
+          // 처음 오는 유저면 추가 정보 입력 안내 페이지
+          if (isfirst === true) {
+            history.push('/signup')
+          // 아니면 메인
+          } else {
+            history.push('/') 
+          }
+          
+        })
+
+        
+      })
     })
   }
   

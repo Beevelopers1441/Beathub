@@ -10,10 +10,7 @@ import com.beeveloper.beathub.post.domain.MemberPost;
 import com.beeveloper.beathub.post.domain.Post;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -94,6 +91,7 @@ public class User {
     @OneToMany(mappedBy = "author")
     private List<Commit> commits = new ArrayList<Commit>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "ownerUser")
     private List<Bucket> buckets = new ArrayList<Bucket>();
 

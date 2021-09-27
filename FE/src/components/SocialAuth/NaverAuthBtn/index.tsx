@@ -1,7 +1,7 @@
 import NaverLogin from 'react-login-by-naver';
 
 // types
-import { UserInfo, ProfileObj } from 'types';
+import { UserInfo } from 'types';
 
 // apis
 import { socialLogin } from 'lib/api/auth/socialLogin'
@@ -24,13 +24,14 @@ const onSuccess = (result: any) => {
   socialLogin(userInfo(result))
 }
 
-const onFail = (result: any) => {
+const onFailure = (result: any) => {
   console.log(result)
 }
 
-const onLogout = (result: string | null | undefined) => {
-  console.log(result)
-}
+// kakao에만 있던 기능
+// const onLogout = (result: string | null | undefined) => {
+//   console.log(result)
+// }
 
 export const NaverAuthBtn = () => (
   <NaverLogin 

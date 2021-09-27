@@ -3,13 +3,22 @@ import axios from 'axios';
 // types 
 import { UserInfo } from 'types';
 
-const BASE_URL = 'http://localhost:8100'
-
 export const socialLogin = async (userInfo: UserInfo) => {
+    const response = await axios.post('http://localhost:8100/api/auth/login', userInfo)
 
-    const token = await axios.post('/api/auth/login', userInfo)
-        .then(response => response.headers.authorization);
+    return response
 
-    return token
+}
 
+export async function getUserInfo(token:string) {
+    
+    const config:any = {
+        method: 'POST',
+        url: 'http://localhost:8200/api/user',
+        headers: {
+            Authorization: token
+        }
+    }
+
+    return await axios(config)
 }

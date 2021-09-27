@@ -1,9 +1,9 @@
 package com.beeveloper.beathub.user.controller;
 
 import com.beeveloper.beathub.user.domain.User;
-import com.beeveloper.beathub.user.domain.UserSaveRequestDto;
+import com.beeveloper.beathub.user.domain.dto.request.UserSaveRequestDto;
 import com.beeveloper.beathub.user.jwts.JwtService;
-import com.beeveloper.beathub.user.service.UserService;
+import com.beeveloper.beathub.user.service.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +18,11 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
+@CrossOrigin(origins = "*")
 @Slf4j
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
     private final JwtService jwtService;
 
     /**
@@ -60,11 +61,13 @@ public class UserController {
 
     @ApiOperation(value = "Token을 이용한 처음 프로필 생성, 있는 회원이라면 조회후 리턴")
     @PostMapping
-    public User create(@RequestHeader("Authorization") String jwtToken) {
+    public User create(
+            @RequestHeader("Authorization") String jwtToken) {
 
         Map<String, String> properties = jwtService.getProperties(jwtToken);
 
         User existUser = userService.findByEmail(properties.get("email"));
+        System.out.println("existUser = " + existUser);
 
         if (existUser != null) {
             return existUser;

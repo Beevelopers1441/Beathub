@@ -10,18 +10,18 @@ const InstrumentsList: React.FC<Instruments> = ({ instruments }) => {
   const renderList = (): JSX.Element[] => {
     return instruments.map((instrument) => {
       return(
-        <Wrapper>
           <InstrumentsItem instrument={instrument}></InstrumentsItem>
-        </Wrapper>
       )
     })
   }
 
   // 위의 함수를 리턴한다(각각의 악기를 아이템으로 보여준다)
   return (
-    <div>
-      {renderList()}
-    </div>
+    <Wrapper>
+      <div className="instruments-subwrapper">
+        {renderList()}
+      </div>
+    </Wrapper>
   )
 }
 

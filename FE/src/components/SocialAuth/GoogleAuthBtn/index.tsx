@@ -47,6 +47,9 @@ export const GoogleAuthBtn = (props:Props): React.ReactElement => {
     socialLogin(userInfo(result)).then(res => {
       const token = res.data
 
+      // save token in localstorage
+      localStorage.setItem('token', token);
+
       const updateToken = (token: string) => dispatch(getTokenAction({ token: token }))
       
       // if문 작성

@@ -1,17 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // components
 import { TagList } from 'components';
 import { InstrumentPicker } from 'components/Community';
 
+// apis
+import { setBandPost } from 'lib/api/community';
+
 // styles
 import { Container, Snackbar } from '@mui/material';
 import Slide, { SlideProps } from '@mui/material/Slide';
-
 import Wrapper from './styles';
 
+
 // types
+import { RootState } from 'modules';
 interface Props {}
 type TransitionProps = Omit<SlideProps, 'direction'>;
 
@@ -23,6 +28,8 @@ function PostCreate(props: Props): React.ReactElement {
   const [teamFlag, setTeamFlag] = useState<number>(0);
   const [currTags, setCurrTags] = useState<string[]>([]);
   const [currInst, setCurrInst] = useState<string | null>('');
+
+  const { user } = useSelector((state: RootState) => state);
 
   const tagRef: any = useRef();
   const titleRef: any = useRef();
@@ -68,14 +75,19 @@ function PostCreate(props: Props): React.ReactElement {
   
   // save
   const handleSavePost = () => {
-    const _title = titleRef.current?.value;
-    const _inst = currInst;
-    const _content = contentRef.current?.value;
+    const title = titleRef.current?.value ? titleRef.current.value : '';
+    const inst = currInst ? currInst : '';
+    const content = contentRef.current?.value ? contentRef.current.value : '';
     
-    if (!_title || !_inst || !_content) {
+    if (!title || !inst || !content) {
       handleSnackbar(TransitionUp)();
     }
-    console.log(_title, _inst, _content);
+    // const token = user.token;
+    const token = localStorage.getItem('token');
+    const payload = { title, inst, content}
+    setBandPost(payload)
+    console.log(token)
+    
   };
   
   /* snackbar */
@@ -83,7 +95,6 @@ function PostCreate(props: Props): React.ReactElement {
   const [transition, setTransition] = React.useState<React.ComponentType<TransitionProps> | undefined>(undefined);
 
   const handleSnackbar = (Transition: React.ComponentType<TransitionProps>) => () => {
-    console.log('true!!!!!!!!!!!!!!!!!!!!!!')
     setTransition(() => Transition);
     setOpen(true);
   };

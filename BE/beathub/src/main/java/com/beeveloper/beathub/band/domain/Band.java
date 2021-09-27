@@ -33,6 +33,7 @@ public class Band {
     @ManyToOne(fetch = FetchType.EAGER)
     private User leader;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "band")
     private List<BandMember> members = new ArrayList<BandMember>();
 

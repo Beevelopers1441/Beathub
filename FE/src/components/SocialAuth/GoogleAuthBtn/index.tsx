@@ -58,9 +58,16 @@ export const GoogleAuthBtn = (props:Props): React.ReactElement => {
         updateUserInfo(userInfo)
       })
 
-      isFirst(token).then(res => console.log(res))
+      isFirst(token).then(res => {
+        // 처음 오는 유저면 추가 정보 입력 안내 페이지
+        if (res.data === true) {
+          history.push('/signup')
+        // 아니면 메인
+        } else {
+          history.push('/') 
+        }
+      })
 
-      history.push('/') 
     })
   }
   

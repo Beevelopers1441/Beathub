@@ -27,7 +27,7 @@ export async function getUserInfo(token:string) {
 export async function isFirst(token:string) {
     
     const config:any = {
-        method: 'POST',
+        method: 'GET',
         url: 'http://localhost:8200/api/user/first',
         headers: {
             Authorization: token

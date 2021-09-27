@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 
 // Component
-import { TagListReadOnly } from 'components';
 import { Comment, ProfileCard } from 'components/Community';
 
 // types
@@ -60,16 +59,17 @@ function PostDetail(): React.ReactElement {
             <Grid item xs={10} className="content-container">
               <p className="title">{post.title}</p>
               <div className="time-like-container">
-                <p className="time">{post.created_at}</p>
+                <p className="time">{post.createTime}</p>
                 { isLike ? (
                   <Favorite onClick={handleLike} className="likes-icon-active" />
                 ) : (
                   <FavoriteBorder onClick={handleLike} className="likes-icon-inactive" />
                 )}
-                <p className="likes">{post.likes}</p>
+                <p className="likes">{post.likeUsers.length}</p>
               </div>
               <div className="tag-container">
-                <TagListReadOnly tags={post.tags} />
+                {/* <TagListReadOnly tags={post.tags} /> */}
+                악기 이름!!!!
               </div>
               <p className="content">{post.content}</p>
               <div className="comments-container">
@@ -82,7 +82,7 @@ function PostDetail(): React.ReactElement {
               </div>
             </Grid>
             <Grid item xs={1}>
-              <ProfileCard name={post.userInfo.name} imageUrl={post.userInfo.imageUrl}/>
+              <ProfileCard name={post.author.name} imageUrl={post.author.imageUrl}/>
             </Grid>
           </Grid>
         )}

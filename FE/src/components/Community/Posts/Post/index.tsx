@@ -1,6 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
+// utils
+import { setDateFormat } from 'utils/time';
+
 // component
 import { ProfileImage } from 'components/atoms';
 
@@ -46,10 +49,10 @@ function Post({ post }: Props): React.ReactElement {
             >
               <p className="comment">{post.comments.length}개의 댓글</p>
               <div className="time-likes-container">
-                <p className="time">{post.created_at}</p>
+                <p className="time">{setDateFormat(post.createTime)}</p>
                 <div className="likes-container">
                   <Favorite className="likes-icon"/>
-                  <p>{post.likes}</p>
+                  <p>{post.likeUsers.length}</p>
                 </div>
               </div>
             </Grid>
@@ -58,8 +61,8 @@ function Post({ post }: Props): React.ReactElement {
         <Grid item xs={2}
           className="user-container"
         >
-          <p className="user-name">{post.userInfo.name}</p>
-          <ProfileImage url={post.userInfo.imageUrl} />
+          <p className="user-name">{post.author.name}</p>
+          <ProfileImage url={post.author.imageUrl} />
         </Grid>
       </Grid>
       

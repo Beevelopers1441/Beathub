@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 
 // components
 import { InstrumentPicker } from 'components/Community';
 
 // apis
-import { setBandPost } from 'lib/api/community';
+import { setMemberPost } from 'lib/api/community';
 
 // styles
 import { Container, Snackbar } from '@mui/material';
@@ -15,7 +14,6 @@ import Wrapper from './styles';
 
 
 // types
-import { RootState } from 'modules';
 interface Props {}
 type TransitionProps = Omit<SlideProps, 'direction'>;
 
@@ -27,10 +25,10 @@ function PostCreate(props: Props): React.ReactElement {
   const [teamFlag, setTeamFlag] = useState<number>(0);
   const [currInst, setCurrInst] = useState<string | null>('');
 
-  const { user } = useSelector((state: RootState) => state);
-
   const titleRef: any = useRef();
   const contentRef: any = useRef();
+
+  const history = useHistory();
 
   // change teamFlag
   useEffect(() => {
@@ -55,19 +53,19 @@ function PostCreate(props: Props): React.ReactElement {
   
   // save
   const handleSavePost = () => {
-    const title = titleRef.current?.value ? titleRef.current.value : '';
-    const inst = currInst ? currInst : '';
-    const content = contentRef.current?.value ? contentRef.current.value : '';
+    const title: string = titleRef.current?.value ? titleRef.current.value : '';
+    const inst: string = currInst ? currInst : '';
+    const content: string = contentRef.current?.value ? contentRef.current.value : '';
     
     if (!title || !inst || !content) {
       handleSnackbar(TransitionUp)();
-    }
-    // const token = user.token;
-    const token = localStorage.getItem('token');
-    const payload = { title, inst, content}
-    setBandPost(payload)
-    console.log(token)
-    
+    };
+
+    const payload = { title, inst, content };
+    setMemberPost(payload)
+      .then(() => {
+        history.push('/community');
+      });
   };
   
   /* snackbar */

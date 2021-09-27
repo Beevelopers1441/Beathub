@@ -12,9 +12,10 @@ import Wrapper from './styles';
 
 interface Props {
   currPosts: IPost[] | null;
+  teamFlag: number;
 }
 
-function Posts({ currPosts }: Props): React.ReactElement {
+function Posts({ currPosts, teamFlag }: Props): React.ReactElement {
 
   return (
     <Wrapper>

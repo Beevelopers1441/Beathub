@@ -19,10 +19,10 @@ function Comment({ comment }: Props): React.ReactElement {
     <Wrapper>
       <Grid container>
         <Grid item xs={3} className="user-info-container">
-          <ProfileImage url={comment.userInfo.imageUrl} />
+          <ProfileImage url={comment.author.imageUrl} />
           <div className="name-time-container">
-            <p className="user-name">{comment.userInfo.name}</p>
-            <p className="time">{comment.created_at}</p>
+            <p className="user-name">{comment.author.name}</p>
+            <p className="time">{comment.createdTime}</p>
           </div>
         </Grid>
         <Grid item xs={9}>

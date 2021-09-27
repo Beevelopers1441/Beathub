@@ -9,17 +9,21 @@ interface IBandPost {
 const BASE_URL = process.env.REACT_APP_SERVER_URL;
 const TOKEN = localStorage.getItem('token');
 
-const getAllBandPosts = async () => {
+const getBandPosts = async () => {
   const url = `${BASE_URL}/api/posts/bands`;
-  const response = await axios.post(url);
-  console.log(response);
+  const response = await axios.get(url);
+
+  return response
 };
 
-const getAllMemberPosts = () => {
+const getMemberPosts = async () => {
+  const url = `${BASE_URL}/api/posts/members`;
+  const response = await axios.get(url);
   
+  return response
 };
 
-const setBandPost = (payload: IBandPost) => {
+const setBandPost = async (payload: IBandPost) => {
   const { title, inst, content } = payload;
   const data = {
     title,
@@ -29,16 +33,33 @@ const setBandPost = (payload: IBandPost) => {
 
   const config: any = {
     method: 'POST',
-    url: `${BASE_URL}/api/posts/bands`,
+    url: `${BASE_URL}/api/posts/members`,
     data,
     headers: {
       Authorization: TOKEN,
     },
   }
-
-  const response = axios(config);
-  console.log(response)
-
+  return await axios(config);
 };
 
-export { getAllBandPosts, getAllMemberPosts, setBandPost };
+
+const setMemberPost = async (payload: IBandPost) => {
+  const { title, inst, content } = payload;
+  const data = {
+    title,
+    tag: inst,
+    content,
+  }
+
+  const config: any = {
+    method: 'POST',
+    url: `${BASE_URL}/api/posts/members`,
+    data,
+    headers: {
+      Authorization: TOKEN,
+    },
+  }
+  return await axios(config);
+};
+
+export { getBandPosts, getMemberPosts, setBandPost, setMemberPost };

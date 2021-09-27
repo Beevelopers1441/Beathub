@@ -1,29 +1,29 @@
-export interface Itmp {
-  id: any;
-}
-
-export interface IUser {
-  name: string;
+export interface IBasicUser {
+  id: number;
   imageUrl: string;
+  name: string;
 }
-
 export interface IComment {
+  id: number;
   content: string;
-  created_at: string;
-  userInfo: IUser;
+  createdTime: string;
+  author: IBasicUser;
 }
 
+export interface ITag {
+  id: number;
+  type: string;
+}
 export interface IPost {
   id: number,
   title: string,
   content: string,
-  tags: string[],
-  status: string,
-  recruitStatus: string;
-  created_at: string;
-  likes: number;
+  tag: ITag,
+  recruiting: boolean,
+  createTime: string;
+  author: IBasicUser;
+  likeUsers: IBasicUser[];
   comments: IComment[];
-  userInfo: IUser;
 }
 
 export interface ProfileObj {

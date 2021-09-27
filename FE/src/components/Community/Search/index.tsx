@@ -1,46 +1,24 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 
 // component
 import InstrumentPicker from '../InstrumentPicker';
 
 // styles
 import { Search } from '@mui/icons-material';
-
 import Wrapper from './styles';
 
 interface Props {
-  setCurrTitle: React.SetStateAction<any>;
-  currTags: string[];
-  setCurrTags: React.SetStateAction<any>;
+  setCurrTag: React.SetStateAction<any>;
+  handleInputs: any;
+  titleRef: React.RefObject<any>;
 }
 
 function CommunitySearch({
-  setCurrTitle,
-  currTags,
-  setCurrTags,
+  setCurrTag,
+  handleInputs,
+  titleRef,
 }: Props): React.ReactElement {
-  const [currInst, setCurrInst] = useState<string | null>('');
 
-  const titleRef: any = useRef();
-  const tagRef: any = useRef();
-
-  const handleInputs = (e: any) => {
-    if (e.key === 'Enter' || e.target.id === 'search-button') {
-      const newTitleValue = titleRef?.current.value.trim();
-      const newTagValue = tagRef?.current.value.trim();
-
-      // set title & tags
-      setCurrTitle(newTitleValue);
-      let newCurrTags = [...currTags];
-      if (newTagValue && newCurrTags.indexOf(newTagValue) === -1) {
-        newCurrTags = [...newCurrTags, newTagValue];
-        setCurrTags(newCurrTags);
-      }
-
-      // init tag value
-      tagRef.current.value = '';
-    }
-  };
 
   return (
     <Wrapper>
@@ -54,7 +32,7 @@ function CommunitySearch({
           placeholder="제목을 검색해보세요!"
         ></input>
       </div>
-      <InstrumentPicker width={'20rem'} setCurrInst={setCurrInst} />
+      <InstrumentPicker width={'20rem'} setCurrInst={setCurrTag} />
       <button
         id="search-button"
         className="search-button"

@@ -65,7 +65,7 @@ public class BandController {
 
     // 조회
 
-    @ApiOperation(value = "하나의 밴드를 조회합니다. 인자는 밴드명 String 입니다.")
+    @ApiOperation(value = "하나의 밴드를 조회합니다. 인자는 밴드명 String 입니다. 밴드 멤버를 조회하려면 추가로 BandMember API를 통해 조회해주세요")
     @GetMapping("/{bandName}")
     public ResponseEntity<BandResDto> find(
             @RequestParam(value = "bandName") String bandName

@@ -48,4 +48,8 @@ public class Post {
         this.createTime = createTime;
         this.tag = tag;
     }
+
+    public void addComments(Comment comment) {
+        this.comments.add(comment);
+    }
 }

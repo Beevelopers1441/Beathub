@@ -10,8 +10,8 @@ import { UserInfo } from 'types';
 import { socialLogin, getUserInfo, isFirst } from 'lib/api/auth/socialLogin'
 
 // redux
-import { useDispatch } from 'react-redux';
-import { getTokenAction, getUserInfoAction } from 'modules/user/actions'
+import { useDispatch, useSelector } from 'react-redux';
+import { getTokenAction, getUserInfoAction, loginAction } from 'modules/user/actions'
 
 interface Props {
   token?: string;
@@ -22,6 +22,14 @@ export const NaverAuthBtn = (): React.ReactElement => {
 
   const dispatch = useDispatch();
   const history = useHistory();
+  
+  // redux store 조회
+  const isLoggedIn = useSelector((state: any) => state.user.isLoggedIn)
+
+  if (isLoggedIn) {
+    console.log("move")
+    history.push('/')
+  }
 
   const onSuccess = (result: any) => {
 
@@ -58,6 +66,9 @@ export const NaverAuthBtn = (): React.ReactElement => {
           const updateUserInfo = (userInfo: object) => dispatch(getUserInfoAction({ userinfo: userInfo }))
           updateUserInfo(userInfo)
         }).then(res => {
+
+          // 로그인 처리
+          loginAction()
 
           // 처음 오는 유저면 추가 정보 입력 안내 페이지
           if (isfirst === true) {

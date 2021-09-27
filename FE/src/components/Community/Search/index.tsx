@@ -4,7 +4,7 @@ import React, { useState, useRef } from 'react';
 import InstrumentPicker from '../InstrumentPicker';
 
 // styles
-import { Search, Tag } from '@mui/icons-material';
+import { Search } from '@mui/icons-material';
 
 import Wrapper from './styles';
 
@@ -54,17 +54,7 @@ function CommunitySearch({
           placeholder="제목을 검색해보세요!"
         ></input>
       </div>
-      <div className="tag-input-container">
-        <Tag className="search-icon" />
-        <input
-          type="text"
-          ref={tagRef}
-          onKeyPress={handleInputs}
-          className="search-input"
-          placeholder="태그를 추가해 검색해보세요!"
-        ></input>
-      </div>
-      <InstrumentPicker width={'150px'} setCurrInst={setCurrInst} />
+      <InstrumentPicker width={'20rem'} setCurrInst={setCurrInst} />
       <button
         id="search-button"
         className="search-button"

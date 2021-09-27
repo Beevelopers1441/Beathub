@@ -40,7 +40,6 @@ function Post({ post }: Props): React.ReactElement {
             >
               <p className="title">{post.title}</p>
               <p className="content">{post.content}</p>
-              <p className="tags">{post.tags.map(tag => `#${tag} `)}</p>
             </Grid>
             <Grid item xs={3}
               className="post-subInfo-container"

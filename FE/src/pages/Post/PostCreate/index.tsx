@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 // components
-import { TagList } from 'components';
 import { InstrumentPicker } from 'components/Community';
 
 // apis
@@ -26,12 +25,10 @@ function TransitionUp(props: TransitionProps) {
 
 function PostCreate(props: Props): React.ReactElement {
   const [teamFlag, setTeamFlag] = useState<number>(0);
-  const [currTags, setCurrTags] = useState<string[]>([]);
   const [currInst, setCurrInst] = useState<string | null>('');
 
   const { user } = useSelector((state: RootState) => state);
 
-  const tagRef: any = useRef();
   const titleRef: any = useRef();
   const contentRef: any = useRef();
 
@@ -54,23 +51,6 @@ function PostCreate(props: Props): React.ReactElement {
 
   const handleTeamFlag = (teamFlag: number) => {
     setTeamFlag(teamFlag);
-  };
-
-  // handle tags
-  const handleTags = (e: any) => {
-    if (e.key === 'Enter') {
-      const newTagValue = tagRef?.current.value.trim();
-
-      // set tags
-      let newCurrTags = [...currTags];
-      if (newTagValue && newCurrTags.indexOf(newTagValue) === -1) {
-        newCurrTags = [...newCurrTags, newTagValue];
-        setCurrTags(newCurrTags);
-      }
-
-      // init tag value
-      tagRef.current.value = '';
-    }
   };
   
   // save
@@ -122,17 +102,6 @@ function PostCreate(props: Props): React.ReactElement {
             className="post-input"
             placeholder="제목을 입력해주세요."
           />
-        </div>
-        <div className="input-container input-tag-container">
-          <p className="post-p">태그</p>
-          <input
-            type="text"
-            ref={tagRef}
-            className="post-input post-input-tag"
-            onKeyPress={handleTags}
-            placeholder="태그를 설정해주세요."
-          />
-          <TagList currTags={currTags} setCurrTags={setCurrTags} />
         </div>
         <div className="input-container instrument-container">
           <p className="post-p">악기</p>

@@ -3,6 +3,9 @@ import React from 'react';
 // component
 import { ProfileImage } from 'components/atoms';
 
+// utils
+import { setDateFormat } from 'utils/time';
+
 // types
 import { IComment } from 'types';
 
@@ -22,7 +25,7 @@ function Comment({ comment }: Props): React.ReactElement {
           <ProfileImage url={comment.author.imageUrl} />
           <div className="name-time-container">
             <p className="user-name">{comment.author.name}</p>
-            <p className="time">{comment.createdTime}</p>
+            <p className="time">{setDateFormat(comment.createTime)}</p>
           </div>
         </Grid>
         <Grid item xs={9}>

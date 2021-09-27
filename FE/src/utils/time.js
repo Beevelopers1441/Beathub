@@ -4,5 +4,5 @@ export const setDateFormat = (createTime) => {
   time.splice(5);
   time = time.join('');
 
-  return `${date}  ${time}`;
+  return date + '  ' + time;
 }

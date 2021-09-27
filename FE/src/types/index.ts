@@ -6,7 +6,7 @@ export interface IBasicUser {
 export interface IComment {
   id: number;
   content: string;
-  createdTime: string;
+  createTime: string;
   author: IBasicUser;
 }
 

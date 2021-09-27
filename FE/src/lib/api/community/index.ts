@@ -80,4 +80,18 @@ const getBandPost = async (postId: number) => {
   return response
 };
 
-export { getMemberPosts, getMemberPost, setMemberPost, getBandPosts, getBandPost, setBandPost };
+const setComment = async (postId: number, content: string) => {
+  const data = { content, };
+
+  const config: any = {
+    method: 'POST',
+    url: `${BASE_URL}/api/posts/posts/${postId}`,
+    data,
+    headers: {
+      Authorization: TOKEN,
+    },
+  }
+  return await axios(config);
+}
+
+export { getMemberPosts, getMemberPost, setMemberPost, getBandPosts, getBandPost, setBandPost, setComment };

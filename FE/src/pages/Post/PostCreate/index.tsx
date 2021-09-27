@@ -53,19 +53,24 @@ function PostCreate(props: Props): React.ReactElement {
   
   // save
   const handleSavePost = () => {
-    const title: string = titleRef.current?.value ? titleRef.current.value : '';
+    const title: string = titleRef.current.value ? titleRef.current.value : '';
     const inst: string = currInst ? currInst : '';
     const content: string = contentRef.current?.value ? contentRef.current.value : '';
     
     if (!title || !inst || !content) {
       handleSnackbar(TransitionUp)();
-    };
+    } else {
+      if (teamFlag === 0) {
+        const payload = { title, inst, content };
+        setMemberPost(payload)
+          .then(() => {
+            history.push('/community');
+          });
+      } else {
 
-    const payload = { title, inst, content };
-    setMemberPost(payload)
-      .then(() => {
-        history.push('/community');
-      });
+      }
+    }
+
   };
   
   /* snackbar */
@@ -101,6 +106,18 @@ function PostCreate(props: Props): React.ReactElement {
             placeholder="제목을 입력해주세요."
           />
         </div>
+        { teamFlag === 1 ? (
+          <div className="input-container">
+            <p className="post-p">밴드명</p>
+            <input
+              type="text"
+              className="post-input"
+              placeholder="밴드을 입력해주세요."
+            />
+        </div>
+        ) : (
+          null
+        )}
         <div className="input-container instrument-container">
           <p className="post-p">악기</p>
           <InstrumentPicker width={'150px'} setCurrInst={setCurrInst} />

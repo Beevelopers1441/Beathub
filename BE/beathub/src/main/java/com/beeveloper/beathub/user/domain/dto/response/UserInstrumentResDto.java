@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class UserInstrumentResponseDto {
+public class UserInstrumentResDto {
 
     private String player;
 
@@ -17,8 +17,8 @@ public class UserInstrumentResponseDto {
 
     private String model;
 
-    public static UserInstrumentResponseDto of(UserInstrument userInstrument) {
-        UserInstrumentResponseDto dto = new UserInstrumentResponseDto();
+    public static UserInstrumentResDto of(UserInstrument userInstrument) {
+        UserInstrumentResDto dto = new UserInstrumentResDto();
         dto.ability = userInstrument.getAbility();
         dto.player = userInstrument.getPlayer().getName();
         dto.instrument = userInstrument.getInstrument().getType();

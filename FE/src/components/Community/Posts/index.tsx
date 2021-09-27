@@ -21,7 +21,7 @@ function Posts({ currPosts, teamFlag }: Props): React.ReactElement {
     <Wrapper>
       {currPosts ? (
         currPosts.map((post, idx) => (
-          <Post post={post} key={idx} />
+          <Post post={post} teamFlag={teamFlag} key={idx} />
         ))
       ) : (
         <p>작성된 글이 없습니다.</p>

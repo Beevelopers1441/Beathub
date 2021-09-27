@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
 
 // Component
 import { Comment, ProfileCard } from 'components/Community';
+
+// apis
+import { getMemberPost, getBandPost } from 'lib/api/community';
 
 // types
 import { IPost, IComment } from 'types';
@@ -12,23 +15,42 @@ import { Container, Grid } from '@mui/material';
 import { ArrowBackIosNew, Favorite, FavoriteBorder } from '@mui/icons-material';
 import Wrapper from './styles';
 
-function PostDetail(): React.ReactElement {
+interface ParamTypes {
+  postId: string;
+}
+
+interface Props {
+
+}
+
+function PostDetail({}: Props): React.ReactElement {
   const [post, setPost] = useState<IPost | null>(null);
   const [comments, setComments] = useState<IComment[]>([]);
   const [isLike, setIsLike] = useState<Boolean>(false);
 
+  const { postId } = useParams<ParamTypes>();
   const { state } = useLocation<any>();
   const history = useHistory();
 
   // update current post info
   useEffect(() => {
     if (!state) return;
-
-    const newPost = state.post;
-    const newComments = state.post.comments;
-    setPost(newPost);
-    setComments(newComments)
-  }, [state]);
+    
+    const teamFlag = state.teamFlag;
+    if (teamFlag === 0) {  // 개인 글
+      getMemberPost(+postId)
+        .then(res => {
+          const newPost = res.data;
+          setPost(newPost);
+        })
+    } else {  // 밴드 글
+      getBandPost(+postId)
+        .then(res => {
+          const newPost = res.data;
+          setPost(newPost);
+        })
+    }
+  }, [postId, state]);
 
   // likes
   const handleLike = () => {

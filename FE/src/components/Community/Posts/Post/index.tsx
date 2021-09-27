@@ -17,15 +17,16 @@ import Wrapper from './styles';
 
 interface Props {
   post: IPost;
+  teamFlag: number;
 }
 
-function Post({ post }: Props): React.ReactElement {
+function Post({ post, teamFlag }: Props): React.ReactElement {
   const history = useHistory();
 
   const handlePostDetail = (postId: number) => {
     const location = { 
       pathname: `/post/${postId}`,
-      state: { post, }
+      state: { teamFlag, }
     };
     history.push(location);
   }

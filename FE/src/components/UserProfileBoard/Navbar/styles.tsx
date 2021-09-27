@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 const Wrapper = styled.div`
   & .tab-container {
-    margin-left: 1rem;
     display: flex;
   }
 
@@ -25,7 +24,6 @@ const Wrapper = styled.div`
   }
 
   & .nav-divider {
-    margin-left: 1rem;
     border-bottom: 0.5px solid white;
   }
 `

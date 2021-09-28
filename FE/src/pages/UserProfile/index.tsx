@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
 // Components
 import UserProfileInfo from 'components/UserProfileInfo';
@@ -8,7 +9,19 @@ import UserProfileBoard from 'components/UserProfileBoard';
 import { Container, Grid } from '@mui/material';
 import Wrapper from './styles';
 
-function UserProfile() {
+// apis
+import { getUserProfile } from 'lib/api/userProfile'
+
+interface MatchParam {
+  userId: string;
+}
+
+const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
+
+  useEffect (() => {
+    getUserProfile(Number(match.params.userId))
+  })
+
   return(
     <Wrapper>
       <Container className="user-profile-container">

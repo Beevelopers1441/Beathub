@@ -7,7 +7,6 @@ import { composeWithDevTools } from 'redux-devtools-extension'; // 리덕스 개
 import { Provider } from 'react-redux';
 import rootReducer from './modules';
 
-
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
 

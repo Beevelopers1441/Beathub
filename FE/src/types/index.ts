@@ -59,3 +59,16 @@ export interface Band {
 export interface Bands {
   bands: Band[]
 }
+
+export interface Audio {
+  userInfo: {
+    imageUrl: string;
+    name: string,
+  }
+  title: string;
+  instrument: string;
+}
+
+export interface Audios {
+  Audios: Audio[]
+}

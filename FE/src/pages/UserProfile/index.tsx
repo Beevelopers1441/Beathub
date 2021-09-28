@@ -1,8 +1,7 @@
 import React from 'react';
 
 // Components
-import UserProfileInfo from 'components/UserProfileInfo';
-import UserProfileBoard from 'components/UserProfileBoard';
+import { UserProfileInfo, UserProfileBoard } from 'components';
 
 // styles
 import { Container, Grid } from '@mui/material';

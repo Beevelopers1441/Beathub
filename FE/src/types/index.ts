@@ -59,3 +59,13 @@ export interface Band {
 export interface Bands {
   bands: Band[]
 }
+
+export interface Member {
+  id: number,
+  name: string,
+  imgUrl: string
+}
+
+export interface Members {
+  members: Band[]
+}

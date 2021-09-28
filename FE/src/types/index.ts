@@ -41,6 +41,39 @@ export interface UserInfo {
   profileObj?: ProfileObj;
 }
 
+
+// 유저 프로필
+export interface IProfileInfo {
+  profileInfo: {
+    imageUrl: string,
+    nickname: string,
+    instruments?: {
+      ability: string,
+      id: number,
+      instrument: {},
+      model?: string
+    }[],
+    followers: {
+      id: number,
+      imageUrl?: string,
+      name: string
+    }[],
+    followings: {
+      id: number,
+      imageUrl?: string,
+      name: string
+    }[],
+    leadingBands?: {
+      id: number,
+      name: string,
+      imageUrl?: string,
+    }[],
+    participatingBands? :{
+
+    }[]
+  }
+}
+
 export interface Instrument {
   name: string,
   skill: string

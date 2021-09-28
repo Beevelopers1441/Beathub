@@ -9,7 +9,8 @@ const getUserProfile = async (userId: Number) => {
       userId: userId
     }
   });
-  console.log(response);
+
+  return response
 };
 
 

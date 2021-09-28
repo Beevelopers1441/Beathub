@@ -12,6 +12,8 @@ import com.beeveloper.beathub.user.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MusicServiceImpl implements MusicService{
@@ -32,6 +34,12 @@ public class MusicServiceImpl implements MusicService{
                 .ownerUser(ownerUser)
                 .build();
         return bucketRepository.save(bucket);
+    }
+
+    @Override
+    public List<Bucket> findAllBuckets() {
+        List<Bucket> buckets = bucketRepository.findAll();
+        return buckets;
     }
 
 

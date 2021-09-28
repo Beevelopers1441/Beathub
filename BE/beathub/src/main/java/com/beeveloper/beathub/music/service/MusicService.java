@@ -13,8 +13,8 @@ import java.util.List;
 
 public interface MusicService {
     Bucket createBucket(BucketCreateDto bucketInfo, String jwtToken);
-//    List<Bucket> findAllBuckets();
-//    Bucket findBucket(Long bucketId);
+    List<Bucket> findAllBuckets();
+//    Bucket findBucketById(Long bucketId);
 //    Commit creatCommit(CommitCreateDto commitInfo, Long bucketId);
 //    List<Commit> findAllCommitsInBucket(Long bucketId);
 //    Commit findCommit(Long commitId);

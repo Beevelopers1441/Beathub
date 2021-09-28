@@ -38,10 +38,18 @@ public class MusicController {
     }
 //
 //    // 버킷 전체 조회
-//    @GetMapping("/buckets")
-//    public ResponseEntity<List<BucketResDto>> readAllBuckets() {
+    @GetMapping("/buckets")
+    @ApiOperation(value = "버킷 전체 조회(세부 정보를 얻기 위해선 뒤에 id 달아서)")
+    public ResponseEntity<List<BucketResDto>> readAllBuckets() {
+        List<Bucket> buckets = musicService.findAllBuckets();
+        return ResponseEntity.status(200).body(BucketResDto.of(buckets));
+    }
+
+//    @GetMapping("/buckets/{bucketId}")
+//    @ApiOperation(value = "버킷 전체 조회(세부 정보를 얻기 위해선 뒤에 id 달아서)")
+//    public ResponseEntity<List<BucketResDto>> readAllBuckets(@PathVariable Long bucketId) {
 //        List<Bucket> buckets = musicService.findAllBuckets();
-//        return ResponseEntity.status(200).body();
+//        return ResponseEntity.status(200).body(BucketResDto.of(buckets));
 //    }
 //
 //    // 커밋 생성

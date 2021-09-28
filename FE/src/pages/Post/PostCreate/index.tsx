@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 // components
-import { TagList } from 'components';
 import { InstrumentPicker } from 'components/Community';
+
+// apis
+import { setMemberPost } from 'lib/api/community';
 
 // styles
 import { Container, Snackbar } from '@mui/material';
 import Slide, { SlideProps } from '@mui/material/Slide';
-
 import Wrapper from './styles';
+
 
 // types
 interface Props {}
@@ -21,12 +23,12 @@ function TransitionUp(props: TransitionProps) {
 
 function PostCreate(props: Props): React.ReactElement {
   const [teamFlag, setTeamFlag] = useState<number>(0);
-  const [currTags, setCurrTags] = useState<string[]>([]);
   const [currInst, setCurrInst] = useState<string | null>('');
 
-  const tagRef: any = useRef();
   const titleRef: any = useRef();
   const contentRef: any = useRef();
+
+  const history = useHistory();
 
   // change teamFlag
   useEffect(() => {
@@ -48,34 +50,27 @@ function PostCreate(props: Props): React.ReactElement {
   const handleTeamFlag = (teamFlag: number) => {
     setTeamFlag(teamFlag);
   };
-
-  // handle tags
-  const handleTags = (e: any) => {
-    if (e.key === 'Enter') {
-      const newTagValue = tagRef?.current.value.trim();
-
-      // set tags
-      let newCurrTags = [...currTags];
-      if (newTagValue && newCurrTags.indexOf(newTagValue) === -1) {
-        newCurrTags = [...newCurrTags, newTagValue];
-        setCurrTags(newCurrTags);
-      }
-
-      // init tag value
-      tagRef.current.value = '';
-    }
-  };
   
   // save
   const handleSavePost = () => {
-    const _title = titleRef.current?.value;
-    const _inst = currInst;
-    const _content = contentRef.current?.value;
+    const title: string = titleRef.current.value ? titleRef.current.value : '';
+    const inst: string = currInst ? currInst : '';
+    const content: string = contentRef.current?.value ? contentRef.current.value : '';
     
-    if (!_title || !_inst || !_content) {
+    if (!title || !inst || !content) {
       handleSnackbar(TransitionUp)();
+    } else {
+      if (teamFlag === 0) {
+        const payload = { title, inst, content };
+        setMemberPost(payload)
+          .then(() => {
+            history.push('/community');
+          });
+      } else {
+
+      }
     }
-    console.log(_title, _inst, _content);
+
   };
   
   /* snackbar */
@@ -83,7 +78,6 @@ function PostCreate(props: Props): React.ReactElement {
   const [transition, setTransition] = React.useState<React.ComponentType<TransitionProps> | undefined>(undefined);
 
   const handleSnackbar = (Transition: React.ComponentType<TransitionProps>) => () => {
-    console.log('true!!!!!!!!!!!!!!!!!!!!!!')
     setTransition(() => Transition);
     setOpen(true);
   };
@@ -112,17 +106,18 @@ function PostCreate(props: Props): React.ReactElement {
             placeholder="제목을 입력해주세요."
           />
         </div>
-        <div className="input-container input-tag-container">
-          <p className="post-p">태그</p>
-          <input
-            type="text"
-            ref={tagRef}
-            className="post-input post-input-tag"
-            onKeyPress={handleTags}
-            placeholder="태그를 설정해주세요."
-          />
-          <TagList currTags={currTags} setCurrTags={setCurrTags} />
+        { teamFlag === 1 ? (
+          <div className="input-container">
+            <p className="post-p">밴드명</p>
+            <input
+              type="text"
+              className="post-input"
+              placeholder="밴드을 입력해주세요."
+            />
         </div>
+        ) : (
+          null
+        )}
         <div className="input-container instrument-container">
           <p className="post-p">악기</p>
           <InstrumentPicker width={'150px'} setCurrInst={setCurrInst} />

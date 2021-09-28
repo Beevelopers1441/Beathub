@@ -72,7 +72,4 @@ public class UserProfileResDto {
     public static List<UserProfileResDto> of(List<User> users) {
         return users.stream().map(UserProfileResDto::of).collect(Collectors.toList());
     }
-
-
-
 }

@@ -33,13 +33,13 @@ public class UserController {
      * @return 있으면 User, 없으면 null
      */
 
-    @ApiOperation(value = "이메일로 회원 조회")
-    @GetMapping("/{email}")
+    @ApiOperation(value = "UserId로 회원 조회")
+    @GetMapping("/{userId}")
     @ResponseBody
     public ResponseEntity<UserProfileResDto> profile(HttpServletRequest request,
                                                      HttpServletResponse response,
-                                                     @RequestParam(name = "email") String email) {
-        User findByEmail = userService.findByEmail(email);
+                                                     @RequestParam(name = "userId") Long userId) {
+        User findByEmail = userService.findById(userId);
 
         if (findByEmail != null) {
             return ResponseEntity.status(200).body(UserProfileResDto.of(findByEmail));

@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react'
 
 // component
-import AudioList from 'components/Beathub/AudioListItem';
+import { AudioList, AudioUpload } from 'components/Beathub';
 
 // types
-import { Audios } from 'types';
+import { Audio } from 'types';
 
 // styles
 import { Container, Grid } from '@mui/material';
@@ -15,12 +15,12 @@ import { type } from 'os';
 
 // let music: any = dump
 
-interface Props {
-  dummyAudios: Audios;
-}
+// interface Props {
+//   Audios: Audio[]
+// }
 
 // 더미 오디오 목록
-const dummyAudios: Audios = [
+const dummyAudios = [
   {
     userInfo: {
       imageUrl: "string",
@@ -64,10 +64,8 @@ function Beathub(): ReactElement {
     <Wrapper>
       <Container className="beathub-container">
         <Grid container className="sub-container">
+          <AudioUpload />
           <AudioList Audios={dummyAudios} />
-          <audio controls>
-            <source src="dump.mp3" type='audio/mp3'/>
-          </audio>
         </Grid>
       </Container>
     </Wrapper>

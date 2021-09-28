@@ -68,7 +68,3 @@ export interface Audio {
   title: string;
   instrument: string;
 }
-
-export interface Audios {
-  Audios: Audio[]
-}

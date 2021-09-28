@@ -8,7 +8,6 @@ import com.beeveloper.beathub.common.dto.BandMemberDto;
 import com.beeveloper.beathub.common.dto.BucketDto;
 import com.beeveloper.beathub.common.dto.UserInfoDto;
 import com.beeveloper.beathub.post.dto.response.BandPostResDto;
-import com.beeveloper.beathub.user.domain.User;
 import lombok.Getter;
 
 import java.util.ArrayList;

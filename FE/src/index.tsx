@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension'; // 리덕스 개발자 도구
 import { Provider } from 'react-redux';
 import rootReducer from './modules';
 
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
 
-const store = createStore(rootReducer, composeWithDevTools());
+const store = createStore(rootReducer, (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+(window as any).__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

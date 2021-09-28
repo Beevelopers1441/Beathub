@@ -30,7 +30,11 @@ public class FollowController {
     public void followUser(
             @RequestHeader(value = "Authorization") String jwtToken,
             @PathVariable Long toUserId) {
-        followService.save(userService.findByEmail(jwtService.getProperties(jwtToken).get("email")).getName(), toUserId);
+        User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        Long existFollowId = followService.getFollowIdByFromEmailToId(user.getEmail(), toUserId);
+        if (existFollowId == -1) {
+            followService.save(userService.findByEmail(jwtService.getProperties(jwtToken).get("email")).getName(), toUserId);
+        }
     }
 
     @DeleteMapping("/follow/{toUserId}")
@@ -38,8 +42,11 @@ public class FollowController {
             @RequestHeader(value = "Authorization") String jwtToken,
             @PathVariable Long toUserId
     ) {
-        Long id = followService.getFollowIdByFromEmailToId(userService.findByEmail(jwtService.getProperties(jwtToken).get("email")).getEmail(), toUserId);
-        followRepository.deleteById(id);
+        User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        Long existFollowId = followService.getFollowIdByFromEmailToId(user.getEmail(), toUserId);
+        if (existFollowId != -1) {
+            followRepository.deleteById(existFollowId);
+        }
     }
 
 

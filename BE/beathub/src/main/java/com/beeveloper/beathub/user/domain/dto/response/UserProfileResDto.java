@@ -8,6 +8,7 @@ import com.beeveloper.beathub.music.domain.Commit;
 import com.beeveloper.beathub.post.domain.Comment;
 import com.beeveloper.beathub.post.domain.MemberPost;
 import com.beeveloper.beathub.post.dto.response.MemberPostResDto;
+import com.beeveloper.beathub.user.domain.Follow;
 import com.beeveloper.beathub.user.domain.User;
 import com.beeveloper.beathub.user.domain.UserInstrument;
 import com.sun.xml.bind.v2.util.CollisionCheckStack;
@@ -59,8 +60,8 @@ public class UserProfileResDto {
         userProfileResDto.email = user.getEmail();
         userProfileResDto.imageUrl = user.getImageUrl();
         userProfileResDto.introduction = user.getIntroduction();
-        userProfileResDto.followings = UserInfoDto.ofUser(user.getFollowingList());
-        userProfileResDto.followers = UserInfoDto.ofUser(user.getFollowerList());
+
+
         userProfileResDto.instruments = UserInstrumentDto.of(user.getInstruments());
         userProfileResDto.leadingBands = BandDto.of(user.getLeadingBands());
         userProfileResDto.followBands = BandDto.of(user.getFollowBands());

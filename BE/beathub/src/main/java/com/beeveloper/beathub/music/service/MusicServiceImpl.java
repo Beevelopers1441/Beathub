@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +41,12 @@ public class MusicServiceImpl implements MusicService{
     public List<Bucket> findAllBuckets() {
         List<Bucket> buckets = bucketRepository.findAll();
         return buckets;
+    }
+
+    @Override
+    public Bucket findBucketById(Long bucketId) {
+        Bucket bucket = bucketRepository.findById(bucketId).orElseThrow(NullPointerException::new);
+        return bucket;
     }
 
 

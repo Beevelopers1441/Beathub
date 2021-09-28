@@ -1,14 +1,16 @@
 import React from 'react';
-import IntroContent from './IntroContent';
-import IntroMember from './IntroMember';
+import Content from './Content';
+import BandMaster from './BandMaster';
+import MemberList from './MemberList';
 
 import Wrapper from './styles';
 
 function Intro() {
   return(
     <Wrapper>
-      <IntroContent></IntroContent>
-      <IntroMember></IntroMember>
+      <Content></Content>
+      <BandMaster></BandMaster>
+      <MemberList></MemberList>
     </Wrapper>
   )
 }

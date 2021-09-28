@@ -1,6 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
+// utils
+import { setDateFormat } from 'utils/time';
+
 // component
 import { ProfileImage } from 'components/atoms';
 
@@ -14,15 +17,16 @@ import Wrapper from './styles';
 
 interface Props {
   post: IPost;
+  teamFlag: number;
 }
 
-function Post({ post }: Props): React.ReactElement {
+function Post({ post, teamFlag }: Props): React.ReactElement {
   const history = useHistory();
 
   const handlePostDetail = (postId: number) => {
     const location = { 
       pathname: `/post/${postId}`,
-      state: { post, }
+      state: { teamFlag, }
     };
     history.push(location);
   }
@@ -40,17 +44,16 @@ function Post({ post }: Props): React.ReactElement {
             >
               <p className="title">{post.title}</p>
               <p className="content">{post.content}</p>
-              <p className="tags">{post.tags.map(tag => `#${tag} `)}</p>
             </Grid>
             <Grid item xs={3}
               className="post-subInfo-container"
             >
               <p className="comment">{post.comments.length}개의 댓글</p>
               <div className="time-likes-container">
-                <p className="time">{post.created_at}</p>
+                <p className="time">{setDateFormat(post.createTime)}</p>
                 <div className="likes-container">
                   <Favorite className="likes-icon"/>
-                  <p>{post.likes}</p>
+                  <p>{post.likeUsers.length}</p>
                 </div>
               </div>
             </Grid>
@@ -59,8 +62,8 @@ function Post({ post }: Props): React.ReactElement {
         <Grid item xs={2}
           className="user-container"
         >
-          <p className="user-name">{post.userInfo.name}</p>
-          <ProfileImage url={post.userInfo.imageUrl} />
+          <p className="user-name">{post.author.name}</p>
+          <ProfileImage url={post.author.imageUrl} />
         </Grid>
       </Grid>
       

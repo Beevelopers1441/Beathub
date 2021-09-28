@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 // Components
-import { Posts, LinkTab, TagList, CommunitySearch } from 'components/Community';
+import { Posts, LinkTab, CommunitySearch } from 'components/Community';
 
 // api
-// import { getAllBandPosts, getAllMemberPosts } from 'lib/api/community';
+import { getBandPosts, getMemberPosts } from 'lib/api/community';
 
 // styles
 import { Container, Grid } from '@mui/material';
@@ -14,24 +14,39 @@ import Wrapper from './styles';
 // types
 import { IPost } from 'types';
 
-// tmp dump datas
-import dumpdata from './dump.json';
-
 interface Props {}
 
 function Community(props: Props): React.ReactElement {
   const [teamFlag, setTeamFlag] = useState<number>(0);
   const [tabsIdx, setTabsIdx] = useState<number>(0);
-  const [posts, setPosts] = useState(dumpdata);
-  const [currPosts, setCurrPosts] = useState<IPost[] | null>(null);
+  const [posts, setPosts] = useState<IPost[]>([]);
+  const [currPosts, setCurrPosts] = useState<IPost[]>([]);
   const [currTitle, setCurrTitle] = useState<string>('');
-  const [currTags, setCurrTags] = useState([]);
+  const [currTag, setCurrTag] = useState('');
+
+  const titleRef: any = useRef();
 
   // constructor
   useEffect(() => {
-    // let newPosts;
+    if (teamFlag === 0) {  // member post(개인이 팀 구하기)
+      getMemberPosts()
+        .then(res => {
+          const newMemberPosts = res.data;
+          setPosts(newMemberPosts);
+        })
+    } else {  // band post(밴드팀이 팀원 구하기)
+      getBandPosts()
+        .then(res => {
+          const newBandPosts = res.data;
+          setPosts(newBandPosts);
+        })
+    }
 
-  }, []);
+    // init
+    titleRef.current.value = '';
+    setCurrTitle('');
+
+  }, [teamFlag]);
   
   // current Posts filter
   useEffect(() => {
@@ -39,23 +54,14 @@ function Community(props: Props): React.ReactElement {
 
     let newCurrPosts: IPost[] = [...posts];
 
-    // teamFlag index
-    if (teamFlag === 0) {
-      newCurrPosts = posts.filter(post => post.recruitStatus === 'T');
-    } else {
-      newCurrPosts = posts.filter(post => post.recruitStatus === 'M');
-    }
-
     // tabs index
-    if (tabsIdx === 1) {
-      // proceeding
-      newCurrPosts = newCurrPosts.filter(post => post.status === 'proceeding');
-    } else if (tabsIdx === 2) {
-      // done
-      newCurrPosts = newCurrPosts.filter(post => post.status === 'done');
+    if (tabsIdx === 1) {  // proceeding
+      newCurrPosts = newCurrPosts.filter(post => post.recruiting);
+    } else if (tabsIdx === 2) {  // done
+      newCurrPosts = newCurrPosts.filter(post => !post.recruiting);
     }
 
-    if (!currTitle && !currTags) {
+    if (!currTitle && !currTag) {
       setCurrPosts(newCurrPosts);
     } else {
       // set current title
@@ -65,23 +71,13 @@ function Community(props: Props): React.ReactElement {
         );
       }
 
-      // set current posts
-      if (currTags) {
-        newCurrPosts = newCurrPosts?.filter(post => {
-          const _tags = post.tags;
-          let tagFlag = true;
-          for (const tag of currTags) {
-            if (_tags.indexOf(tag) === -1) {
-              tagFlag = false;
-              break;
-            }
-          }
-          return tagFlag;
-        });
-        setCurrPosts(newCurrPosts);
+      // set current tag
+      if (currTag) {
+        newCurrPosts = newCurrPosts?.filter(post => post.tag.type === currTag);
       }
+      setCurrPosts(newCurrPosts);
     }
-  }, [posts, teamFlag, tabsIdx, currTitle, currTags]);
+  }, [posts, tabsIdx, currTitle, currTag]);
 
   // tabs index change color
   useEffect(() => {
@@ -101,19 +97,26 @@ function Community(props: Props): React.ReactElement {
   }, [tabsIdx]);
 
   const handleTeamFlag = (idx: number): void => {
-    let newTeamFlag: number = 0;
     const ele0 = document.querySelector('.teamFlag-container > p:nth-child(1)');
     const ele1 = document.querySelector('.teamFlag-container > p:nth-child(2)');
     if (idx === 0) {
-      newTeamFlag = 1;
       ele0?.setAttribute('class', 'teamFlag-active');
       ele1?.setAttribute('class', 'teamFlag');
     } else {
-      newTeamFlag = 0;
       ele0?.setAttribute('class', 'teamFlag');
       ele1?.setAttribute('class', 'teamFlag-active');
     }
-    setTeamFlag(newTeamFlag);
+    setTeamFlag(idx);
+  };
+
+  /* search */
+
+  // search inputs
+  const handleInputs = (e: any) => {
+    if (e.key === 'Enter' || e.target.id === 'search-button') {
+      const newTitleValue = titleRef?.current.value.trim();
+      setCurrTitle(newTitleValue);
+    };
   };
 
   return (
@@ -122,10 +125,10 @@ function Community(props: Props): React.ReactElement {
         <Grid container className="sub-container">
           <Grid item xs={2} className="teamFlag-container">
             <p onClick={() => handleTeamFlag(0)} className="teamFlag-active">
-              팀원 구하기
+              팀 구하기
             </p>
             <p onClick={() => handleTeamFlag(1)} className="teamFlag">
-              팀 구하기
+              팀원 구하기
             </p>
           </Grid>
 
@@ -142,17 +145,16 @@ function Community(props: Props): React.ReactElement {
               })}
             </div>
             <CommunitySearch
-              setCurrTitle={setCurrTitle}
-              currTags={currTags}
-              setCurrTags={setCurrTags}
+              setCurrTag={setCurrTag}
+              handleInputs={handleInputs}
+              titleRef={titleRef}
             />
-            <TagList currTags={currTags} setCurrTags={setCurrTags} />
             <div className="create-container">
               <Link to="/post">
                 <button className="create-btn">글쓰기</button>
               </Link>
             </div>
-            <Posts currPosts={currPosts} />
+            <Posts currPosts={currPosts} teamFlag={teamFlag} />
           </Grid>
         </Grid>
       </Container>

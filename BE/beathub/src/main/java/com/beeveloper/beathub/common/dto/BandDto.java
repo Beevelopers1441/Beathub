@@ -12,12 +12,14 @@ public class BandDto {
     private Long id;
     private String name;
     private String imageUrl;
+    private String introduction;
 
     public static BandDto of(Band band) {
         BandDto bandDto = new BandDto();
         bandDto.id = band.getId();
         bandDto.name = band.getName();
         bandDto.imageUrl = band.getImageUrl();
+        bandDto.introduction = band.getIntroduction();
         return bandDto;
     }
 

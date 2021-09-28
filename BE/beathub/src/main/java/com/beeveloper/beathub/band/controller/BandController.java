@@ -65,12 +65,12 @@ public class BandController {
 
     // 조회
 
-    @ApiOperation(value = "하나의 밴드를 조회합니다. 인자는 밴드명 String 입니다. 밴드 멤버를 조회하려면 추가로 BandMember API를 통해 조회해주세요")
-    @GetMapping("/{bandName}")
+    @ApiOperation(value = "하나의 밴드를 조회합니다. 인자는 Band Id 입니다. 밴드 멤버를 조회하려면 추가로 BandMember API를 통해 조회해주세요")
+    @GetMapping("/{bandId}")
     public ResponseEntity<BandResDto> find(
-            @RequestParam(value = "bandName") String bandName
+            @RequestParam(value = "bandId") Long bandId
     ) {
-        Band searchBand = bandService.findByName(bandName);
+        Band searchBand = bandService.findById(bandId);
         if (searchBand == null) {
             return (ResponseEntity<BandResDto>) ResponseEntity.status(404);
         } else {

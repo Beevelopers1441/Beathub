@@ -31,7 +31,7 @@ function Header(): React.ReactElement {
             Logo
           </div>
           <ul>
-            <li>Beathub</li>
+            <li onClick={() => handleRouting('/Beathub')}>Beathub</li>
             <li onClick={() => handleRouting('/Community')}>Community</li>
             <li>Team</li>
           </ul>

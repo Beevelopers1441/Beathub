@@ -10,6 +10,7 @@ import com.beeveloper.beathub.post.domain.MemberPost;
 import com.beeveloper.beathub.post.dto.response.MemberPostResDto;
 import com.beeveloper.beathub.user.domain.User;
 import com.beeveloper.beathub.user.domain.UserInstrument;
+import com.sun.xml.bind.v2.util.CollisionCheckStack;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -63,7 +64,15 @@ public class UserProfileResDto {
         userProfileResDto.instruments = UserInstrumentDto.of(user.getInstruments());
         userProfileResDto.leadingBands = BandDto.of(user.getLeadingBands());
         userProfileResDto.followBands = BandDto.of(user.getFollowBands());
-        userProfileResDto.participatingBands = BandMemberDto.of(user.getParticipatingBands());
+        // 참여하고 있는 밴드의 상태가 approved 인지 확인
+        List<BandMember> participatingBands = user.getParticipatingBands();
+        List<BandMember> approvedBands = new ArrayList<>();
+        for (BandMember bandMember : participatingBands) {
+            if (bandMember.getStatus().equals(Status.Approved)) {
+                approvedBands.add(bandMember);
+            }
+        }
+        userProfileResDto.participatingBands = BandMemberDto.of(approvedBands);
         userProfileResDto.commits = CommitDto.of(user.getCommits());
 
         return userProfileResDto;
@@ -72,7 +81,4 @@ public class UserProfileResDto {
     public static List<UserProfileResDto> of(List<User> users) {
         return users.stream().map(UserProfileResDto::of).collect(Collectors.toList());
     }
-
-
-
 }

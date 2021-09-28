@@ -29,8 +29,8 @@ public class BandServiceImpl implements BandService{
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Band> findById(Long bandId) {
-        return bandRepository.findById(bandId);
+    public Band findById(Long bandId) {
+        return bandRepository.findById(bandId).orElseThrow(RuntimeException::new);
     }
 
     @Override

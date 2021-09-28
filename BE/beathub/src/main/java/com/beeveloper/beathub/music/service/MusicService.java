@@ -12,7 +12,7 @@ import com.beeveloper.beathub.music.dto.request.CommitCreateDto;
 import java.util.List;
 
 public interface MusicService {
-//    Bucket creatBucket(BucketCreateDto bucketInfo);
+    Bucket createBucket(BucketCreateDto bucketInfo, String jwtToken);
 //    List<Bucket> findAllBuckets();
 //    Bucket findBucket(Long bucketId);
 //    Commit creatCommit(CommitCreateDto commitInfo, Long bucketId);

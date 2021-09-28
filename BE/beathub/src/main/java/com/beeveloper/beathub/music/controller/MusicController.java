@@ -13,6 +13,8 @@ import com.beeveloper.beathub.music.dto.response.AudioSettingResDto;
 import com.beeveloper.beathub.music.dto.response.BucketResDto;
 import com.beeveloper.beathub.music.dto.response.CommitResDto;
 import com.beeveloper.beathub.music.service.MusicService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,12 +28,14 @@ public class MusicController {
 
     private final MusicService musicService;
 
-    // 버킷 생성 ("/buckets")
-//    @PostMapping("/buckets")
-//    public ResponseEntity<BucketResDto> createBucket(@RequestBody BucketCreateDto bucketInfo) {
-//        Bucket bucket = musicService.creatBucket(bucketInfo);
-//        return ResponseEntity.status(201).body(new BucketResDto());
-//    }
+    @PostMapping("/buckets")
+    @ApiOperation(value = "버킷 생성")
+    public ResponseEntity<BucketResDto> createBucket(
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @RequestBody @ApiParam(value = "개인 구인글 생성 정보", required = true) BucketCreateDto bucketInfo) {
+        Bucket bucket = musicService.createBucket(bucketInfo, jwtToken);
+        return ResponseEntity.status(201).body(BucketResDto.of(bucket));
+    }
 //
 //    // 버킷 전체 조회
 //    @GetMapping("/buckets")

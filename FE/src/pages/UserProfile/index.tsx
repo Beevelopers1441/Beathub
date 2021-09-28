@@ -13,7 +13,7 @@ import Wrapper from './styles';
 import { getUserProfile } from 'lib/api/userProfile'
 
 // types
-import { IProfileInfo } from 'types';
+import { ProfileInfo } from 'types';
 
 interface MatchParam {
   userId: string;
@@ -21,8 +21,18 @@ interface MatchParam {
 
 const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
 
-  const [profileInfo, setProfileInfo] = useState<IProfileInfo["profileInfo"]>();
-  const [profileBoard, setProfileBoard] = useState({})
+  // state 초기화
+  // 유저 프로필 정보 탭에 필요한 정보
+  const [profileInfo, setProfileInfo] = useState<ProfileInfo>({
+    imageUrl: "",
+    nickname: "",
+    instruments: [],
+    followers: [],
+    followings: [],
+    leadingBands: [],
+    participatingBands:[]
+  });
+  // const [profileBoard, setProfileBoard] = useState({})
 
   // 서버에 요청해서 받아온 userInfo를 profileInfo로 저장
   useEffect (() => {
@@ -45,7 +55,7 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
       <Container className="user-profile-container">
         <Grid container>
           <Grid item xs={4}>
-            <UserProfileInfo></UserProfileInfo>
+            <UserProfileInfo profileInfo={profileInfo}></UserProfileInfo>
           </Grid>
           <Grid item xs={8}>
             <UserProfileBoard></UserProfileBoard>

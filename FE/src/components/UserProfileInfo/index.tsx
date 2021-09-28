@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+
+// components
 import ProfileImg from './ProfileImg';
 import Nickname from './Nickname';
 import Intro from './Intro';
@@ -8,7 +10,14 @@ import EditBtn from './EditBtn';
 import Follow from './Follow'
 import Bands from './Bands'
 
-function UserProfileInfo() {
+// types
+import { ProfileInfo } from 'types'
+
+interface Props {
+  profileInfo: ProfileInfo;
+}
+
+const UserProfileInfo: React.FC<Props> = ({ profileInfo }) => {
 
   const [ onEdit, setOnEdit ] = useState<boolean>(false)
 

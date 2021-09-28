@@ -1,22 +1,22 @@
 import React from 'react';
 
 // Components
-import { UserProfileInfo, UserProfileBoard } from 'components';
+import { GroupProfileInfo, GroupProfileBoard } from 'components';
 
 // styles
 import { Container, Grid } from '@mui/material';
 import Wrapper from './styles';
 
-function UserProfile() {
+function GroupProfile() {
   return(
     <Wrapper>
-      <Container className="user-profile-container">
+      <Container className="group-profile-container">
         <Grid container>
           <Grid item xs={4}>
-            <UserProfileInfo></UserProfileInfo>
+            <GroupProfileInfo></GroupProfileInfo>
           </Grid>
           <Grid item xs={8}>
-            <UserProfileBoard></UserProfileBoard>
+            <GroupProfileBoard></GroupProfileBoard>
           </Grid>
         </Grid>
       </Container>
@@ -24,4 +24,4 @@ function UserProfile() {
   )
 }
 
-export default UserProfile;
+export default GroupProfile;

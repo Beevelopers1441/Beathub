@@ -9,7 +9,7 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     margin-right: 0.5rem;
-    width: 19rem;
+    width: 28rem;
     border: 1px solid white;
     border-radius: 5px;
 
@@ -29,14 +29,6 @@ const Wrapper = styled.div`
     -webkit-appearance: none; /* 브라우저별 기본 스타일링 제거 */
     -moz-appearance: none;
     appearance: none;
-  }
-  & .tag-input-container {
-    display: flex;
-    align-items: center;
-    margin-right: 0.5rem;
-    width: 19rem;
-    border: 1px solid white;
-    border-radius: 5px;
   }
 
   

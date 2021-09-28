@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 
@@ -20,24 +20,10 @@ interface Props {
 }
 
 function ProfileImage({ url }: Props): React.ReactElement {
-  // imageUrl tmp
-  const [imgUrl, setImgUrl] = useState('')
-  useEffect(() => {
-    const request = async () => {
-      const res = await fetch(url, {
-        method: 'GET'
-      })
-      const data = await res.json()
-      const _imageUrl = data[0].url;
-      setImgUrl(_imageUrl)
-    }
-    request()
-  }, [url])
-
   return (
     <Wrapper>
       <img
-        src={imgUrl}
+        src={url}
         alt="img"
         className="user-image"
       />

@@ -8,6 +8,8 @@ import com.beeveloper.beathub.user.repository.UserInstrumentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserInstrumentServiceImpl implements UserInstrumentService {
@@ -16,7 +18,6 @@ public class UserInstrumentServiceImpl implements UserInstrumentService {
 
     @Override
     public Instrument findByUser(User user) {
-
         return null;
     }
 
@@ -29,5 +30,11 @@ public class UserInstrumentServiceImpl implements UserInstrumentService {
                 dto.getPlayer()
         );
         return userInstrumentRepository.save(userInstrument);
+    }
+
+    @Override
+    public List<UserInstrument> findAllByUser(User user) {
+        List<UserInstrument> allByPlayer = userInstrumentRepository.findAllByPlayer(user);
+        return allByPlayer;
     }
 }

@@ -5,6 +5,7 @@ import com.beeveloper.beathub.band.service.BandService;
 import com.beeveloper.beathub.post.domain.BandPost;
 import com.beeveloper.beathub.post.domain.Comment;
 import com.beeveloper.beathub.post.domain.MemberPost;
+import com.beeveloper.beathub.post.domain.Post;
 import com.beeveloper.beathub.post.dto.request.BandPostCreateDto;
 import com.beeveloper.beathub.post.dto.request.CommentCreateDto;
 import com.beeveloper.beathub.post.dto.request.MemberPostCreateDto;
@@ -12,20 +13,25 @@ import com.beeveloper.beathub.post.repository.BandPostRepository;
 import com.beeveloper.beathub.post.repository.CommentRepository;
 import com.beeveloper.beathub.post.repository.MemberPostRepository;
 import com.beeveloper.beathub.post.repository.PostRepository;
+import com.beeveloper.beathub.user.domain.User;
+import com.beeveloper.beathub.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService{
 
+    private final PostRepository postRepository;
     private final MemberPostRepository memberPostRepository;
     private final BandPostRepository bandPostRepository;
     private final CommentRepository commentRepository;
     private final BandService bandService;
+    private final UserRepository userRepository;
 
     /*
     포스트 멤버, 밴드로 분리(single table strategy)
@@ -72,22 +78,37 @@ public class PostServiceImpl implements PostService{
     멤버와 밴드 작성글 상속 이용해 분리
      */
     @Override
+    public Post findById(Long postId) {
+        return postRepository.findById(postId).orElseThrow(RuntimeException::new);
+    }
+
+    @Override
     public MemberPost findMemberPost(Long postId) {
         return memberPostRepository.findById(postId).orElseThrow(RuntimeException::new);
     }
 
     @Override
     public BandPost findBandPost(Long postId) {
+        Optional<BandPost> byId = bandPostRepository.findById(postId);
         return bandPostRepository.findById(postId).orElseThrow(RuntimeException::new);
     }
 
     @Override
-    public Comment createComment(Long postId, CommentCreateDto commentInfo) {
+    public Comment createComment(Long userId, Long postId, CommentCreateDto commentInfo) {
+        Optional<Post> post = postRepository.findById(postId);
+        Optional<User> author = userRepository.findById(userId);
+        if (!post.isPresent() || !author.isPresent()) {
+            return null;
+        }
+        Post getPost = post.get();
         Comment comment = new Comment().builder()
+                .post(getPost)
                 .content(commentInfo.getContent())
                 .createTime(LocalDateTime.now())
-//                .author()
+                .author(author.get())
                 .build();
-        return commentRepository.save(comment);
+        Comment savedComment = commentRepository.save(comment);
+        getPost.addComments(savedComment);
+        return savedComment;
     }
 }

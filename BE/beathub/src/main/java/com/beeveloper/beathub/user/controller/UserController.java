@@ -101,7 +101,6 @@ public class UserController {
         UserInstrumentCreateDto initUserInstrument = UserInstrumentCreateDto.builder()
                 .ability(Ability.Junior)
                 .instrument(instrument)
-                .model("없음")
                 .player(savedUser)
                 .build();
 

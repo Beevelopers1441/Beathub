@@ -145,6 +145,17 @@ public class PostController {
         Post post = postService.findById(postId);
 
         userService.like(user, post);
+    }
 
+    @PostMapping("/{postId}/unlike")
+    @ApiOperation(value = "게시글 좋아요 취소하기")
+    public void unLike(
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @PathVariable(value = "postId") Long postId) {
+
+
+        User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        Post post = postService.findById(postId);
+        userService.unLike(user, post);
     }
 }

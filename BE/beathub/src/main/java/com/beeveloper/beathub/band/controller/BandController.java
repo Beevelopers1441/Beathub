@@ -104,12 +104,20 @@ public class BandController {
     @PostMapping("/follow")
     public void follow(
             @RequestHeader(value = "Authorization") String jwtToken,
-            @RequestBody @ApiParam(value = "팔로우할 Band 의 Id") FollowRequestDto requestDto
-    ) {
+            @RequestBody @ApiParam(value = "팔로우할 Band 의 Id") FollowRequestDto requestDto) {
+
         User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
         bandService.follow(user.getId(), requestDto.getId());
     }
 
-    //
+    @Transactional
+    @ApiOperation(value = "밴드를 언팔로우합니다.")
+    @PostMapping("/unfollow")
+    public void unFollow(
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @RequestBody @ApiParam(value = "팔로우할 Band 의 Id") FollowRequestDto requestDto) {
 
+        User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        bandService.unfollow(user.getId(), requestDto.getId());
+    }
 }

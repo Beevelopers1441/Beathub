@@ -17,10 +17,12 @@ import { Container, Grid } from '@mui/material';
 // tmp dump datas
 //import dumpdata from './dump.json';
 
-export const index = () => {
+function index(): React.ReactElement {
   return (
     <div>
-      
+      signup
     </div>
   );
 }
+
+export default index;

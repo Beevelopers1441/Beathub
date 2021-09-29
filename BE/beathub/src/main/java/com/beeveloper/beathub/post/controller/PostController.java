@@ -7,6 +7,7 @@ import com.beeveloper.beathub.instrument.service.InstrumentService;
 import com.beeveloper.beathub.post.domain.BandPost;
 import com.beeveloper.beathub.post.domain.Comment;
 import com.beeveloper.beathub.post.domain.MemberPost;
+import com.beeveloper.beathub.post.domain.Post;
 import com.beeveloper.beathub.post.dto.request.*;
 import com.beeveloper.beathub.post.dto.response.*;
 import com.beeveloper.beathub.post.service.PostService;
@@ -123,9 +124,12 @@ public class PostController {
     @PostMapping("/posts/{postId}")
     @ApiOperation(value = "댓글 생성", notes = "해당 경로의 글에 달리는 댓글 생성")
     public ResponseEntity<CommentResDto> createComment(
+            @RequestHeader(value = "Authorization") String jwtToken,
             @PathVariable @ApiParam(value = "글 id") Long postId,
             @RequestBody @ApiParam(value = "댓글 생성 정보", required = true) CommentCreateDto commentInfo) {
-        Comment comment = postService.createComment(postId, commentInfo);
+
+        Long userId = userService.findByEmail(jwtService.getProperties(jwtToken).get("email")).getId();
+        Comment comment = postService.createComment(userId, postId, commentInfo);
         return ResponseEntity.status(201).body(CommentResDto.of(comment));
     }
 }

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 // Components
-import UserProfileInfo from 'components/UserProfileInfo';
-import UserProfileBoard from 'components/UserProfileBoard';
+import { UserProfileInfo, UserProfileBoard } from 'components';
 
 // styles
 import { Container, Grid } from '@mui/material';

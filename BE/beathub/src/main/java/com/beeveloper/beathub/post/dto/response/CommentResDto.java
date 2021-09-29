@@ -1,5 +1,6 @@
 package com.beeveloper.beathub.post.dto.response;
 
+import com.beeveloper.beathub.common.dto.UserInfoDto;
 import com.beeveloper.beathub.post.domain.Comment;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,11 +25,15 @@ public class CommentResDto {
     @ApiModelProperty(name="구인글 id", example = "1")
     private LocalDateTime createTime;
 
+    private UserInfoDto author;
+
     public static CommentResDto of(Comment comment) {
         CommentResDto commentResDto = new CommentResDto();
         commentResDto.id = comment.getId();
         commentResDto.content = comment.getContent();
         commentResDto.createTime = comment.getCreateTime();
+        commentResDto.author = UserInfoDto.ofUser(comment.getAuthor());
+
         return commentResDto;
     }
 

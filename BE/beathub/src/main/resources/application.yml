@@ -10,8 +10,8 @@ spring:
 
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    open-in-view: false
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: true
     show-sql: true
     hibernate:
       format_sql: true

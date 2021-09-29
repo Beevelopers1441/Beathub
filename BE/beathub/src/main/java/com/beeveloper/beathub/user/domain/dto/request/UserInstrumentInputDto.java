@@ -1,19 +1,16 @@
 package com.beeveloper.beathub.user.domain.dto.request;
 
-import com.beeveloper.beathub.instrument.domain.Instrument;
-import com.beeveloper.beathub.user.domain.Ability;
-import com.beeveloper.beathub.user.domain.User;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
+import io.swagger.annotations.ApiOperation;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 
 @Getter
 public class UserInstrumentInputDto {
 
-    @ApiModelProperty(value = "능력", example = "Master")
+    @ApiModelProperty(value = "능력", example = "Senior" )
     private String ability;
+
 
     @ApiModelProperty(value = "악기모델명", example = "fender")
     private String model;

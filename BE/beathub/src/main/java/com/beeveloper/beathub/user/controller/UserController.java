@@ -2,12 +2,14 @@ package com.beeveloper.beathub.user.controller;
 
 import com.beeveloper.beathub.user.domain.User;
 import com.beeveloper.beathub.user.domain.dto.request.UserSaveRequestDto;
+import com.beeveloper.beathub.user.domain.dto.response.UserProfileResDto;
 import com.beeveloper.beathub.user.jwts.JwtService;
 import com.beeveloper.beathub.user.service.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,13 +36,13 @@ public class UserController {
     @ApiOperation(value = "이메일로 회원 조회")
     @GetMapping("/{email}")
     @ResponseBody
-    public User profile(HttpServletRequest request,
-                        HttpServletResponse response,
-                        @RequestParam(name = "email") String email) {
+    public ResponseEntity<UserProfileResDto> profile(HttpServletRequest request,
+                                                     HttpServletResponse response,
+                                                     @RequestParam(name = "email") String email) {
         User findByEmail = userService.findByEmail(email);
 
         if (findByEmail != null) {
-            return findByEmail;
+            return ResponseEntity.status(200).body(UserProfileResDto.of(findByEmail));
         } else {
             return null;
         }
@@ -61,11 +63,10 @@ public class UserController {
 
     @ApiOperation(value = "Token을 이용한 처음 프로필 생성, 있는 회원이라면 조회후 리턴")
     @PostMapping
-    public User create(@RequestHeader("Authorization") String jwtToken) {
-        System.out.println("jwtToken = " + jwtToken);
+    public User create(
+            @RequestHeader("Authorization") String jwtToken) {
 
         Map<String, String> properties = jwtService.getProperties(jwtToken);
-        System.out.println("properties = " + properties);
 
         User existUser = userService.findByEmail(properties.get("email"));
         System.out.println("existUser = " + existUser);

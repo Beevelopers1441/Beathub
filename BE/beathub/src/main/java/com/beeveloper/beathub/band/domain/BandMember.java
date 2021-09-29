@@ -20,13 +20,13 @@ public class BandMember {
     @Enumerated(EnumType.STRING)
     private Status status = Status.Waiting;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Band band;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Instrument instrument;
 
     @Builder
@@ -34,5 +34,32 @@ public class BandMember {
         this.user = user;
         this.band = band;
         this.instrument = instrument;
+    }
+
+    public static BandMember create(
+            User user,
+            Band band,
+            Instrument instrument
+    ) {
+        BandMember bandMember = BandMember.builder()
+                .user(user)
+                .instrument(instrument)
+                .band(band)
+                .build();
+        return bandMember;
+    }
+
+    public static BandMember createBandMemberForLeader(
+            User user,
+            Band band,
+            Instrument instrument
+    ) {
+        BandMember bandMember = BandMember.builder()
+                .user(user)
+                .band(band)
+                .instrument(instrument)
+                .build();
+        bandMember.status = Status.Approved;
+        return bandMember;
     }
 }

@@ -8,9 +8,13 @@ import com.beeveloper.beathub.user.domain.User;
 import com.beeveloper.beathub.user.jwts.JwtService;
 import com.beeveloper.beathub.user.service.UserServiceImpl;
 import io.swagger.annotations.ApiOperation;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,22 +40,18 @@ public class BandController {
     }
 
     //생성
-    @ApiOperation(value = "밴드 만드는 API")
+    @ApiOperation(value = "밴드 만드는 API, 해당과정에서 밴드멤버로 자동추가")
     @PostMapping
     public ResponseEntity<BandResDto> createBand(
-                                @RequestHeader(value = "Authorization") String jwtToken,
-                                @RequestBody BandInputDto bandInfo) {
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @RequestBody BandInputDto bandInfo) {
 
         if (jwtToken == null) {
             return (ResponseEntity<BandResDto>) ResponseEntity.status(401);
         }
 
         // jwtToken 분해해서 user 찾고, Leader 로 등록
-        String email = jwtService.getProperties(jwtToken).get("email");
-        System.out.println("email = " + bandInfo.getName());
         User leader = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
-
-        System.out.println("leader = " + leader);
 
         BandCreateDto dto = new BandCreateDto(
                 bandInfo.getName(),
@@ -64,6 +64,30 @@ public class BandController {
     }
 
     // 조회
+
+    @ApiOperation(value = "하나의 밴드를 조회합니다. 인자는 밴드명 String 입니다. 밴드 멤버를 조회하려면 추가로 BandMember API를 통해 조회해주세요")
+    @GetMapping("/{bandName}")
+    public ResponseEntity<BandResDto> find(
+            @RequestParam(value = "bandName") String bandName
+    ) {
+        Band searchBand = bandService.findByName(bandName);
+        if (searchBand == null) {
+            return (ResponseEntity<BandResDto>) ResponseEntity.status(404);
+        } else {
+            return ResponseEntity.status(201).body(BandResDto.of(searchBand));
+        }
+    }
+
+    @ApiOperation(value = "모든 밴드를 조회합니다.")
+    @GetMapping
+    public ResponseEntity<List<BandResDto>> findAll() {
+        List<Band> all = bandService.findAll();
+        for (Band b : all) {
+            System.out.println("b = " + b);
+        }
+        return ResponseEntity.status(201).body(bandService.changeFromBandToResDto(all));
+    }
+
 
     // 수정
 

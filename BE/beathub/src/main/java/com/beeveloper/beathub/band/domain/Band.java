@@ -30,9 +30,10 @@ public class Band {
 
     private String introduction;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User leader;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "band")
     private List<BandMember> members = new ArrayList<BandMember>();
 
@@ -63,5 +64,10 @@ public class Band {
         BandMember bandMember = new BandMember(
 
         );
+    }
+
+    public Band setMember(BandMember member) {
+        this.members.add(member);
+        return this;
     }
 }

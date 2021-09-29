@@ -24,7 +24,7 @@ function Header(): React.ReactElement {
     history.push(path)
   }
 
-  const { userId } = useSelector((state: any) => state.user.userInfo.Id)
+  // const { userId } = useSelector((state: any) => state.user.userInfo.Id)
 
   return (
     <Wrapper>

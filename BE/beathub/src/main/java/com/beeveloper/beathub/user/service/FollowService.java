@@ -7,12 +7,17 @@ import java.util.List;
 
 public interface FollowService {
 
+    Follow save(Follow follow);
 
-    Follow save(String name, Long targetId);
+    Follow getFollowByFromUserAndToUser(Long fromUserId, Long toUserId);
 
-    Long getFollowIdByFromEmailToId(String email, Long toUserId);
+//    Follow getFollowByFromUserAndToBand(Long fromUserId, Long toBandId);
 
-    List<Follow> getFollowers(Long id);
+    List<Follow> getUserFollowers(Long userId);
 
-    List<Follow> getFollowings(Long id);
+    List<Follow> getUserFollowings(Long userId);
+
+//    List<Follow> getBandFollowers(Long bandId);
+
+    void delete(Follow exist);
 }

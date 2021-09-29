@@ -8,13 +8,13 @@ import java.util.stream.Collectors;
 
 @Getter
 public class BandMemberDto {
-    private UserInfoDto member;
-//    private BandDto band;
+//    private UserInfoDto member;
+    private BandDto band;
 
     public static BandMemberDto of(BandMember bandMember) {
         BandMemberDto bandMemberDto = new BandMemberDto();
-        bandMemberDto.member = UserInfoDto.ofUser(bandMember.getUser());
-//        bandMemberDto.band = BandDto.of(bandMember.getBand());
+//        bandMemberDto.member = UserInfoDto.ofUser(bandMember.getUser());
+        bandMemberDto.band = BandDto.of(bandMember.getBand());
         return bandMemberDto;
     }
 

@@ -1,16 +1,15 @@
 package com.beeveloper.beathub.instrument.controller;
 
+import com.beeveloper.beathub.common.dto.InstrumentDto;
 import com.beeveloper.beathub.instrument.domain.Instrument;
 import com.beeveloper.beathub.instrument.dto.InstrumentResDto;
 import com.beeveloper.beathub.instrument.service.InstrumentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ResponseHeader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 

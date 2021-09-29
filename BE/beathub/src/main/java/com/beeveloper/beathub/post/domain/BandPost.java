@@ -3,7 +3,6 @@ package com.beeveloper.beathub.post.domain;
 import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.instrument.domain.Instrument;
 import com.beeveloper.beathub.user.domain.User;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,8 +22,8 @@ public class BandPost extends Post{
     private Band authorBand;
 
 
-    public BandPost(String title, String content, LocalDateTime now, Band band, Instrument tag) {
-        super(title, content, now, tag);
+    public BandPost(String title, String content, LocalDateTime now, User author, Band band, Instrument tag) {
+        super(title, content, now, author, tag);
         this.authorBand = band;
     }
 }

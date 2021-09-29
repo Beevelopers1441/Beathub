@@ -38,7 +38,7 @@ public class PostController {
 
     // 생성
     @PostMapping("/members")
-    @ApiOperation(value = "개인 구인글 생성", notes = "인증한 사용자를 글쓴이로 하는 구인글 생성")
+    @ApiOperation(value = "개인이 팀구하는 글 생성", notes = "인증한 사용자를 글쓴이로 하는 구인글 생성")
     public ResponseEntity<MemberPostResDto> createMemberPost(
             @RequestHeader(value = "Authorization") String jwtToken,
             @RequestBody @ApiParam(value = "개인 구인글 생성 정보", required = true) MemberPostInputDto inputInfo) {
@@ -65,15 +65,16 @@ public class PostController {
     }
 
     @PostMapping("/bands")
-    @ApiOperation(value = "밴드 구인글 생성", notes = "인증한 사용자가 선택한 밴드를 글쓴이로 하는 구인글 생성")
+    @ApiOperation(value = "밴드가 구인하는 글 생성", notes = "인증한 사용자가 선택한 밴드를 글쓴이로 하는 구인글 생성")
     public ResponseEntity<BandPostResDto> createBandPost(
             @RequestHeader(value = "Authorization") String jwtToken,
             @RequestBody @ApiParam(value = "밴드 구인글 생성 정보", required = true) BandPostInputDto inputInfo) {
 
         // 로그인하지 않은 유저라면
         if (jwtToken == null) {
-            return (ResponseEntity<BandPostResDto>) ResponseEntity.status(401);
+            return ResponseEntity.status(401).build();
         }
+        User author = jwtService.returnUser(jwtToken);
 
         // 로그인을 했다면, 밴드, Tag 찾기
         Band band = bandService.findByName(inputInfo.getBandName());
@@ -87,38 +88,8 @@ public class PostController {
                 tag
         );
 
-        BandPost bandPost = postService.createBandPost(dto);
+        BandPost bandPost = postService.createBandPost(author, dto);
         return ResponseEntity.status(201).body(BandPostResDto.of(bandPost));
-    }
-
-    // 조회
-    @GetMapping("/members")
-    @ApiOperation(value = "개인 구인글 조회", notes = "개인 구인글을 전체 조회")
-    public ResponseEntity<List<MemberPostResDto>> readAllMemberPost() {
-        List<MemberPost> memberPosts = postService.findAllMemberPost();
-        return ResponseEntity.status(200).body(MemberPostResDto.of(memberPosts));
-    }
-
-    @GetMapping("/bands")
-    @ApiOperation(value = "밴드 구인글 조회", notes = "밴드 구인글 전체 조회")
-    public ResponseEntity<List<BandPostResDto>> readAllBandPost() {
-        List<BandPost> bandPosts = postService.findAllBandPost();
-        return ResponseEntity.status(200).body(BandPostResDto.of(bandPosts));
-    }
-
-    @GetMapping("/members/{postId}")
-    @ApiOperation(value = "개인 구인글 상세 조회", notes = "url 경로의 id를 가진 개인 구인글 상세 조회")
-    public ResponseEntity<MemberPostResDto> readMemberPost(
-            @PathVariable @ApiParam(value = "밴드 구인글 생성 정보", required = true) Long postId) {
-        MemberPost memberPost = postService.findMemberPost(postId);
-        return ResponseEntity.status(200).body(MemberPostResDto.of(memberPost));
-    }
-
-    @GetMapping("/bands/{postId}")
-    @ApiOperation(value = "밴드 구인글 상세 조회", notes = "url 경로의 id를 가진 밴드 구인글 상세 조회")
-    public ResponseEntity<BandPostResDto> readBandPost(@PathVariable Long postId) {
-        BandPost bandPost = postService.findBandPost(postId);
-        return ResponseEntity.status(200).body(BandPostResDto.of(bandPost));
     }
 
     @PostMapping("/{postId}")
@@ -132,6 +103,57 @@ public class PostController {
         Comment comment = postService.createComment(userId, postId, commentInfo);
         return ResponseEntity.status(201).body(CommentResDto.of(comment));
     }
+
+    // 조회
+    @GetMapping("/members")
+    @ApiOperation(value = "개인이 팀구하는 글 조회", notes = "개인 구인글을 전체 조회")
+    public ResponseEntity<List<MemberPostResDto>> readAllMemberPost() {
+        List<MemberPost> memberPosts = postService.findAllMemberPost();
+        return ResponseEntity.status(200).body(MemberPostResDto.of(memberPosts));
+    }
+
+    @GetMapping("/bands")
+    @ApiOperation(value = "밴드가 구인하는 글 조회", notes = "밴드 구인글 전체 조회")
+    public ResponseEntity<List<BandPostResDto>> readAllBandPost() {
+        List<BandPost> bandPosts = postService.findAllBandPost();
+        return ResponseEntity.status(200).body(BandPostResDto.of(bandPosts));
+    }
+
+    @GetMapping("/members/{postId}")
+    @ApiOperation(value = "개인이 팀구하는 글 상세 조회", notes = "url 경로의 id를 가진 개인 구인글 상세 조회")
+    public ResponseEntity<MemberPostResDto> readMemberPost(
+            @PathVariable @ApiParam(value = "밴드 구인글 생성 정보", required = true) Long postId) {
+        MemberPost memberPost = postService.findMemberPost(postId);
+        return ResponseEntity.status(200).body(MemberPostResDto.of(memberPost));
+    }
+
+    @GetMapping("/bands/{postId}")
+    @ApiOperation(value = "밴드가 구인하는 글 상세 조회", notes = "url 경로의 id를 가진 밴드 구인글 상세 조회")
+    public ResponseEntity<BandPostResDto> readBandPost(@PathVariable Long postId) {
+        BandPost bandPost = postService.findBandPost(postId);
+        return ResponseEntity.status(200).body(BandPostResDto.of(bandPost));
+    }
+
+
+    // 수정
+    @PutMapping("/{postId}")
+    @ApiOperation(value = "구인글 수정, Band,Member 구인 모두 가능한 API")
+    public ResponseEntity<PostUpdateRequestDto> update(
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @PathVariable(value = "postId") Long postId,
+            @RequestBody @ApiParam PostUpdateRequestDto dto) {
+
+        User requestUser = jwtService.returnUser(jwtToken);
+        Post post = postService.findById(postId);
+
+        if (!requestUser.getId().equals(post.getAuthor().getId())) {
+            return ResponseEntity.status(403).build();
+        }
+
+        return ResponseEntity.status(200).body(PostUpdateRequestDto.of(postService.updatePost(post, dto)));
+    }
+
+    // 삭제
 
     // like
 

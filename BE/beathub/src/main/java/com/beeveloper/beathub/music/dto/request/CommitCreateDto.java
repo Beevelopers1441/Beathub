@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 
 @Getter
 public class CommitCreateDto {
-    private Long id;
 
     private String title;
 

@@ -70,4 +70,8 @@ public class Band {
         this.members.add(member);
         return this;
     }
+
+    public void addFollowers(User user) {
+        this.followers.add(user);
+    }
 }

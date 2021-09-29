@@ -5,21 +5,26 @@ import com.beeveloper.beathub.band.dto.request.BandCreateDto;
 import com.beeveloper.beathub.band.dto.request.BandInputDto;
 import com.beeveloper.beathub.band.dto.ressponse.BandResDto;
 import com.beeveloper.beathub.band.service.BandService;
+import com.beeveloper.beathub.common.dto.FollowRequestDto;
 import com.beeveloper.beathub.user.domain.User;
 import com.beeveloper.beathub.user.jwts.JwtService;
 import com.beeveloper.beathub.user.service.UserServiceImpl;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/bands")
+@CrossOrigin(origins = "*")
 public class BandController {
 
     private final BandService bandService;
@@ -65,12 +70,12 @@ public class BandController {
 
     // 조회
 
-    @ApiOperation(value = "하나의 밴드를 조회합니다. 인자는 밴드명 String 입니다. 밴드 멤버를 조회하려면 추가로 BandMember API를 통해 조회해주세요")
-    @GetMapping("/{bandName}")
+    @ApiOperation(value = "하나의 밴드를 조회합니다. 인자는 Band Id 입니다. 밴드 멤버를 조회하려면 추가로 BandMember API를 통해 조회해주세요")
+    @GetMapping("/{bandId}")
     public ResponseEntity<BandResDto> find(
-            @RequestParam(value = "bandName") String bandName
+            @RequestParam(value = "bandId") Long bandId
     ) {
-        Band searchBand = bandService.findByName(bandName);
+        Band searchBand = bandService.findById(bandId);
         if (searchBand == null) {
             return (ResponseEntity<BandResDto>) ResponseEntity.status(404);
         } else {
@@ -93,7 +98,17 @@ public class BandController {
 
     // 삭제
 
-    // 지원
+    // 팔로우
+    @Transactional
+    @ApiOperation(value = "밴드를 팔로우 합니다.")
+    @PostMapping("/follow")
+    public void follow(
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @RequestBody @ApiParam(value = "팔로우할 Band 의 Id") FollowRequestDto requestDto
+    ) {
+        User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        bandService.follow(user.getId(), requestDto.getId());
+    }
 
     //
 

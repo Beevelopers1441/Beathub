@@ -62,8 +62,7 @@ public class MusicController {
 
     @GetMapping("/buckets/{bucketId}/audios")
     @ApiOperation(value = "버킷 별 오디오 전체 조회")
-    public ResponseEntity<List<AudioResDto>> readAudiosByBucket(
-            @PathVariable Long bucketId) {
+    public ResponseEntity<List<AudioResDto>> readAudiosByBucket(@PathVariable Long bucketId) {
         List<Audio> audios = musicService.findAudiosByBucket(bucketId);
         return ResponseEntity.status(201).body(AudioResDto.of(audios));
     }
@@ -94,7 +93,19 @@ public class MusicController {
 //        AudioSetting audioSetting = musicService.createAudioSetting(audioSettingInfo, commitId, audioId);
 //        return ResponseEntity.status(201).body();
 //    }
+    // 버킷 생성 ("/buckets")
 
+    // 버킷 조회
+
+    // 커밋 생성 ("/buckets")
+
+    // 커밋 조회
+
+    // 음원 생성 ("/buckets/{bucketId}/audios")
+
+    // 음원 조회
+
+    // 오디오 세팅 생성 ("/")
 
     // 오디오 세팅 조회: 커밋 -> 오디오 세팅들
 }

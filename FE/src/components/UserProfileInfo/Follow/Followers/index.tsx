@@ -11,7 +11,7 @@ const Followers: React.FC<Props> = ({ followers }) => {
 
   var followersLength = 0
 
-  if ( followers === null) {
+  if ( followers === null || followers === undefined) {
     followersLength = 0
   } else {
     followersLength = followers.length

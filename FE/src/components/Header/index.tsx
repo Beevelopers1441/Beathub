@@ -24,7 +24,8 @@ function Header(): React.ReactElement {
     history.push(path)
   }
 
-  // const { userId } = useSelector((state: any) => state.user.userInfo.Id)
+  // 현재 로그인한 유저의 아이디, 프로필 사진
+  const { id, imgUrl } = useSelector((state: any) => state.user.userInfo)
 
   return (
     <Wrapper>
@@ -48,9 +49,9 @@ function Header(): React.ReactElement {
             <Notifications />
           </div>
           <div className="profile-container">
-            {/* <Link to={`/profile/${userId}`} className="text-decoration-none text-dark"> */}
-              <ProfileImage url={"https://api.thecatapi.com/v1/images/search"} />
-            {/* </Link> */}
+            <Link to={`/profile/${id}`} className="text-decoration-none text-dark">
+              <ProfileImage url={imgUrl} />
+            </Link>
           </div>
         </div>
       </div>

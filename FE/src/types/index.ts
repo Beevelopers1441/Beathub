@@ -46,6 +46,7 @@ export interface UserInfo {
 
 // 유저 프로필
 export interface ProfileInfo {
+  id: number,
   imageUrl: string,
   nickname: string,
   introduction?: string,

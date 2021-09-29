@@ -20,6 +20,7 @@ interface Props {
 
 const UserProfileInfo: React.FC<Props> = ({ profileInfo }) => {
 
+  const userId = useSelector((state: any) => state.user.userInfo.id)
 
   const [ onEdit, setOnEdit ] = useState<boolean>(false)
 
@@ -39,10 +40,12 @@ const UserProfileInfo: React.FC<Props> = ({ profileInfo }) => {
           <Nickname nickname={profileInfo.nickname}></Nickname>
           <Intro intro={profileInfo.introduction}></Intro>
           <InstrumentsList instruments={profileInfo.instruments}></InstrumentsList>
-          <EditBtn onToggleEdit={onToggleEdit}></EditBtn>
+          {profileInfo.id === userId &&
+            <EditBtn onToggleEdit={onToggleEdit}></EditBtn>
+          }
         </div>
       }
-      <Follow followers={profileInfo.followers} followings={profileInfo.followings}></Follow>
+      <Follow id={profileInfo.id} followers={profileInfo.followers} followings={profileInfo.followings}></Follow>
       <BandsList participatingBands={profileInfo.participatingBands}></BandsList>
     </div>
   )

@@ -27,6 +27,7 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
   // state 초기화
   // 유저 프로필 정보 탭에 필요한 정보
   const [profileInfo, setProfileInfo] = useState<IProfile["profileInfo"]>({
+    id: 0,
     imageUrl: "",
     nickname: "",
     introduction: "",
@@ -69,6 +70,7 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
     getUserProfile(Number(match.params.userId)).then(res => {
       const totalInfo = res.data
       setProfileInfo({
+        id: totalInfo.id,
         imageUrl: totalInfo.imageUrl,
         nickname: totalInfo.name,
         introduction: totalInfo.introduction,

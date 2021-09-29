@@ -12,7 +12,7 @@ const Followings: React.FC<Props> = ({ followings }) => {
 
   var followingsLength = 0
 
-  if ( followings === null) {
+  if ( followings === null || followings === undefined) {
     followingsLength = 0
   } else {
     followingsLength = followings.length

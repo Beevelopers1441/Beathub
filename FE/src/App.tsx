@@ -1,18 +1,11 @@
 import GlobalStyle from './styles/GlobalStyle'
 
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import { Login, Signup, UserProfile, GroupProfile, Community, PostDetail, PostCreate} from 'pages';
 import { Chat, Header } from 'components';
 
 function App() {
-
-    
-  const userInfo = useSelector((state: any) => state.user.userInfo)
-
-  console.log(userInfo)
-  console.log(userInfo.name)
 
   return (
     <>

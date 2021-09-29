@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface BandService {
     // 단일 밴드 조회
-    Optional<Band> findById(Long bandId);
+    Band findById(Long bandId);
 
     // 모든 밴드 조회
     List<Band> findAll();
@@ -30,4 +30,6 @@ public interface BandService {
     // 밴드 삭제
 
     List<BandResDto> changeFromBandToResDto(List<Band> bandList);
+
+    void follow(Long userId, Long bandId);
 }

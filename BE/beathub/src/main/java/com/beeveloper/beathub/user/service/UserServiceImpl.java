@@ -34,5 +34,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    public User findById(Long userId) {
+        return userRepository.findById(userId).orElseThrow(RuntimeException::new);
+    }
 
 }

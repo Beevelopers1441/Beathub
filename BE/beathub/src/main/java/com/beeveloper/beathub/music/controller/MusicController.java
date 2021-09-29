@@ -1,7 +1,27 @@
 package com.beeveloper.beathub.music.controller;
 
+import com.beeveloper.beathub.music.domain.Audio;
+import com.beeveloper.beathub.music.domain.AudioSetting;
+import com.beeveloper.beathub.music.domain.Bucket;
+import com.beeveloper.beathub.music.domain.Commit;
+import com.beeveloper.beathub.music.dto.request.AudioCreateDto;
+import com.beeveloper.beathub.music.dto.request.AudioSettingCreateDto;
+import com.beeveloper.beathub.music.dto.request.BucketCreateDto;
+import com.beeveloper.beathub.music.dto.request.CommitCreateDto;
+import com.beeveloper.beathub.music.dto.response.AudioResDto;
+import com.beeveloper.beathub.music.dto.response.AudioSettingResDto;
+import com.beeveloper.beathub.music.dto.response.BucketResDto;
+import com.beeveloper.beathub.music.dto.response.CommitResDto;
 import com.beeveloper.beathub.music.service.MusicService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api")
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

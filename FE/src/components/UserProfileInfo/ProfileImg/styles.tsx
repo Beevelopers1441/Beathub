@@ -1,12 +1,17 @@
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
+
+  text-align: center;
+
   & .profile-img {
-    position: absolute;
-    width: 320px;
-    height: 320px;
-    left: 136px;
-    top: 135px;
+    display: inline-block;
+    width: 80%;
+    max-width: 100%;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
   }
 `
 

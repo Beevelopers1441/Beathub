@@ -1,17 +1,36 @@
+import React from 'react'
+import { useHistory } from 'react-router-dom';
+
+// libraries
 import { GoogleLogin } from 'react-google-login';
 
 // types
-import { UserInfo, ProfileObj } from 'types';
+import { UserInfo } from 'types';
 
 // apis
-import { socialLogin } from 'lib/api/auth/socialLogin'
+import { socialLogin, getUserInfo, isFirst } from 'lib/api/auth/socialLogin'
 
-import { useDispatch } from 'react-redux';
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import { getTokenAction, getUserInfoAction, loginAction } from 'modules/user/actions'
 
+interface Props {
+  token?: string;
+}
 
-export const GoogleAuthBtn = () => {
+export const GoogleAuthBtn = (props:Props): React.ReactElement => {
+  
 
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  // redux store 조회
+  const isLoggedIn = useSelector((state: any) => state.user.isLoggedIn)
+
+  if (isLoggedIn) {
+    console.log("move")
+    history.push('/')
+  }
 
   const onSuccess = (result: any) => {
 
@@ -19,17 +38,49 @@ export const GoogleAuthBtn = () => {
     const userInfo = (result: any): UserInfo => {
       return (
         {
-          email: result.profileObj.email,
-          profileImageUrl: result.profileObj.imageUrl,
-          userId: result.profileObj.googleId,
-          userName: result.profileObj.name,
+          "email": result.profileObj.email,
+          "profileImageUrl": result.profileObj.imageUrl,
+          "userId": result.profileObj.googleId,
+          "userName": result.profileObj.name,
         }
       )
     }
-  
-    // 로그인 요청
+
+    // 토큰 요청
     socialLogin(userInfo(result)).then(res => {
-      console.log(res)
+
+      const token = res.data
+
+      // 토큰 리덕스에 저장
+      const updateToken = (token: string) => dispatch(getTokenAction({ token: token }))
+      updateToken(token)
+
+      // 정보가 있는 유저인지 확인
+      isFirst(token).then(res => {
+        const isfirst = res.data
+  
+        //  토큰으로 사용자 정보 요청 => 사용자 정보 리덕스에 저장
+        getUserInfo(token).then(res => {
+          const userInfo = res.data
+          const updateUserInfo = (userInfo: object) => dispatch(getUserInfoAction({ userinfo: userInfo }))
+          updateUserInfo(userInfo)
+        }).then(res => {
+
+          // 로그인 처리
+          loginAction()
+
+          // 처음 오는 유저면 추가 정보 입력 안내 페이지
+          if (isfirst === true) {
+            history.push('/signup')
+          // 아니면 메인
+          } else {
+            history.push('/') 
+          }
+          
+        })
+
+        
+      })
     })
   }
   

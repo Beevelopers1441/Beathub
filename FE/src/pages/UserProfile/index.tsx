@@ -44,11 +44,24 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
         type: ""
       }
     }],
-    followers: [{}],
-    followings: [{}],
-    leadingBands: [{}],
-    participatingBands:[{}]
+    followers: [{
+      id: 0,
+      name: "",
+      imageUrl: ""
+    }],
+    followings: [{
+      id: 0,
+      name: "",
+      imageUrl: ""
+    }],
+    participatingBands:[{
+      id: 0,
+      name: "",
+      imageUrl: "",
+      introduction: "",
+    }]
   });
+  
   // const [profileBoard, setProfileBoard] = useState({})
 
   // 서버에 요청해서 받아온 userInfo를 profileInfo로 저장
@@ -62,7 +75,6 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
         instruments: totalInfo.instruments,
         followers: totalInfo.followers,
         followings: totalInfo.followings,
-        leadingBands: totalInfo.leadingBands,
         participatingBands: totalInfo.participatingBands
       })
     })

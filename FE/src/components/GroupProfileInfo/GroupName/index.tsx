@@ -1,10 +1,14 @@
 import React from 'react';
 import Wrapper from './styles';
 
-function GroupName() {
+interface IProps {
+  groupName: string;
+}
+
+const GroupName: React.FC<IProps> = ({ groupName }) => {
   return(
     <Wrapper>
-      <div className="group-name">Sumsoo Band</div>
+      <div className="group-name">{groupName}</div>
     </Wrapper>
   )
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 // components
 import ProfileImg from './ProfileImg';
@@ -8,7 +9,7 @@ import InstrumentsList from './InstrumentsList';
 import EditForm from './EditForm';
 import EditBtn from './EditBtn';
 import Follow from './Follow';
-import Bands from './Bands';
+import BandsList from './BandsList';
 
 // types
 import { ProfileInfo } from 'types';
@@ -18,6 +19,10 @@ interface Props {
 }
 
 const UserProfileInfo: React.FC<Props> = ({ profileInfo }) => {
+  
+  const userInfo = useSelector((state: any) => state.user.userInfo)
+
+  console.log(userInfo)
 
   const [ onEdit, setOnEdit ] = useState<boolean>(false)
 
@@ -40,8 +45,8 @@ const UserProfileInfo: React.FC<Props> = ({ profileInfo }) => {
           <EditBtn onToggleEdit={onToggleEdit}></EditBtn>
         </div>
       }
-      {/* <Follow followers={profileInfo.followers} followings={profileInfo.followings}></Follow> */}
-      {/* <Bands leadingBands={profileInfo.leadingBands} participatingBands={profileInfo.participatingBands}></Bands> */}
+      <Follow followers={profileInfo.followers} followings={profileInfo.followings}></Follow>
+      <BandsList participatingBands={profileInfo.participatingBands}></BandsList>
     </div>
   )
 }

@@ -8,10 +8,17 @@ import DMBtn from '../DMBtn';
 import Wrapper from './styles';
 import { Grid } from '@mui/material';
 
-function Follow() {
+import { FollowPerson } from 'types';
+
+interface Props {
+  followers: FollowPerson[],
+  followings: FollowPerson[]
+}
+
+const Follow: React.FC<Props> = ({ followers, followings }) => {
+
   return(
     <Wrapper>
-
       <Grid container>
         <Grid item xs={10}>
           <FollowBtn></FollowBtn>
@@ -23,10 +30,10 @@ function Follow() {
 
       <Grid container direction="row" justifyContent="center">
         <Grid item xs={4}>
-          <Followers></Followers>
+          <Followers followers={followers}></Followers>
         </Grid>
         <Grid item xs={4}>
-          <Followings></Followings>
+          <Followings followings={followings}></Followings>
         </Grid>
       </Grid> 
     </Wrapper>

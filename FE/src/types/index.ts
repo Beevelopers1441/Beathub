@@ -1,3 +1,5 @@
+import { StringDecoder } from "string_decoder";
+
 export interface IBasicUser {
   id: number;
   imageUrl: string;
@@ -48,10 +50,9 @@ export interface ProfileInfo {
   nickname: string,
   introduction?: string,
   instruments: Instrument[],
-  followers: {}[],
-  followings: {}[],
-  leadingBands: {}[],
-  participatingBands:{}[]
+  followers: FollowPerson[],
+  followings: FollowPerson[],
+  participatingBands:Band[]
 }
 
 export interface Instrument {
@@ -69,22 +70,38 @@ export interface Instrument {
   }
 }
 
+export interface FollowPerson {
+  id: number,
+  imageUrl: string,
+  name: string
+}
+
+
+// 밴드 프로필
+export interface BandProfileInfo {
+  band: Band,
+  leader: Leader,
+  members: Member[],
+  followers: {}[],
+  buckets: {}[],
+  posts: {}[],
+}
+
 export interface Band {
   id: number,
   name: string,
-  imgUrl: string
+  imageUrl: string,
+  introduction: string
 }
 
-export interface Bands {
-  bands: Band[]
+export interface Leader {
+  id: number,
+  name: string,
+  imageUrl: string
 }
 
 export interface Member {
   id: number,
   name: string,
-  imgUrl: string
-}
-
-export interface Members {
-  members: Band[]
+  imageUrl: string
 }

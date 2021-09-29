@@ -51,12 +51,21 @@ public class MusicController {
     }
 
     @PostMapping("/buckets/{bucketId}/audios")
+    @ApiOperation(value = "오디오 생성")
     public ResponseEntity<AudioResDto> createAudio(
             @RequestHeader(value = "Authorization") String jwtToken,
-            @ModelAttribute AudioCreateDto audioInfo,
+            @RequestBody AudioCreateDto audioInfo,
             @PathVariable Long bucketId) {
         Audio audio = musicService.createAudio(audioInfo, jwtToken, bucketId);
         return ResponseEntity.status(201).body(AudioResDto.of(audio));
+    }
+
+    @GetMapping("/buckets/{bucketId}/audios")
+    @ApiOperation(value = "버킷 별 오디오 전체 조회")
+    public ResponseEntity<List<AudioResDto>> readAudiosByBucket(
+            @PathVariable Long bucketId) {
+        List<Audio> audios = musicService.findAudiosByBucket(bucketId);
+        return ResponseEntity.status(201).body(AudioResDto.of(audios));
     }
 //
 //    // 커밋 생성

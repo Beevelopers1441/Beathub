@@ -70,5 +70,11 @@ public class MusicServiceImpl implements MusicService{
         return audioRepository.save(audio);
     }
 
+    @Override
+    public List<Audio> findAudiosByBucket(Long bucketId) {
+        Bucket bucket = findBucketById(bucketId);
+        return audioRepository.findByBucket(bucket);
+    }
+
 
 }

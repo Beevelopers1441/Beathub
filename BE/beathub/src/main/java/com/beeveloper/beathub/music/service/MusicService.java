@@ -16,6 +16,7 @@ public interface MusicService {
     List<Bucket> findAllBuckets();
     Bucket findBucketById(Long bucketId);
     Audio createAudio(AudioCreateDto audioInfo, String jwtToken, Long bucketId);
+    List<Audio> findAudiosByBucket(Long bucketId);
 //    Commit creatCommit(CommitCreateDto commitInfo, Long bucketId);
 //    List<Commit> findAllCommitsInBucket(Long bucketId);
 //    Commit findCommit(Long commitId);

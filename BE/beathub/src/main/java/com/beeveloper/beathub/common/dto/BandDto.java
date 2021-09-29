@@ -13,6 +13,7 @@ public class BandDto {
     private String name;
     private String imageUrl;
     private String introduction;
+    private String createTime;
 
     public static BandDto of(Band band) {
         BandDto bandDto = new BandDto();
@@ -20,6 +21,7 @@ public class BandDto {
         bandDto.name = band.getName();
         bandDto.imageUrl = band.getImageUrl();
         bandDto.introduction = band.getIntroduction();
+        bandDto.createTime = band.getCreateTime().toString();
         return bandDto;
     }
 

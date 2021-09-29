@@ -118,6 +118,14 @@ public class User {
 //        }
 //    }
 
+    public void addLikePost(Post post) {
+        this.likePosts.add(post);
+
+        if (!post.getLikeUsers().contains(this)) {
+            post.getLikeUsers().add(this);
+        }
+    }
+
     public void addFollowingBand(Band following) {
         this.followBands.add(following);
 

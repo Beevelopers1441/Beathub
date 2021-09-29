@@ -40,8 +40,8 @@ public class PostController {
     @PostMapping("/members")
     @ApiOperation(value = "개인 구인글 생성", notes = "인증한 사용자를 글쓴이로 하는 구인글 생성")
     public ResponseEntity<MemberPostResDto> createMemberPost(
-                                @RequestHeader(value = "Authorization") String jwtToken,
-                                @RequestBody @ApiParam(value = "개인 구인글 생성 정보", required = true) MemberPostInputDto inputInfo) {
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @RequestBody @ApiParam(value = "개인 구인글 생성 정보", required = true) MemberPostInputDto inputInfo) {
         // 로그인하지 않은 유저라면
         if (jwtToken == null) {
             return (ResponseEntity<MemberPostResDto>) ResponseEntity.status(401);
@@ -121,7 +121,7 @@ public class PostController {
         return ResponseEntity.status(200).body(BandPostResDto.of(bandPost));
     }
 
-    @PostMapping("/posts/{postId}")
+    @PostMapping("/{postId}")
     @ApiOperation(value = "댓글 생성", notes = "해당 경로의 글에 달리는 댓글 생성")
     public ResponseEntity<CommentResDto> createComment(
             @RequestHeader(value = "Authorization") String jwtToken,
@@ -131,5 +131,20 @@ public class PostController {
         Long userId = userService.findByEmail(jwtService.getProperties(jwtToken).get("email")).getId();
         Comment comment = postService.createComment(userId, postId, commentInfo);
         return ResponseEntity.status(201).body(CommentResDto.of(comment));
+    }
+
+    // like
+
+    @PostMapping("/{postId}/like")
+    @ApiOperation(value = "게시글 좋아요 누르기")
+    public void like(
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @PathVariable(value = "postId") Long postId) {
+
+        User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        Post post = postService.findById(postId);
+
+        userService.like(user, post);
+
     }
 }

@@ -40,9 +40,9 @@ public class UserProfileResDto {
 
     private List<CommitDto> commits;
 
-    private List<UserInfoDto> followers;
+//    private List<UserInfoDto> followers;
 
-    private List<UserInfoDto> followings;
+//    private List<UserInfoDto> followings;
 
     public static UserProfileResDto of(User user) {
         UserProfileResDto userProfileResDto = new UserProfileResDto();
@@ -51,8 +51,6 @@ public class UserProfileResDto {
         userProfileResDto.email = user.getEmail();
         userProfileResDto.imageUrl = user.getImageUrl();
         userProfileResDto.introduction = user.getIntroduction();
-
-
         userProfileResDto.instruments = UserInstrumentDto.of(user.getInstruments());
         userProfileResDto.leadingBands = BandDto.of(user.getLeadingBands());
         userProfileResDto.followBands = BandDto.of(user.getFollowBands());

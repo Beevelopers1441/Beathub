@@ -19,18 +19,36 @@ interface MatchParam {
   userId: string;
 }
 
+interface IProfile {
+  profileInfo: ProfileInfo
+}
+
 const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
 
   // state 초기화
   // 유저 프로필 정보 탭에 필요한 정보
-  const [profileInfo, setProfileInfo] = useState<ProfileInfo>({
+  const [profileInfo, setProfileInfo] = useState<IProfile["profileInfo"]>({
     imageUrl: "",
     nickname: "",
-    instruments: [],
-    followers: [],
-    followings: [],
-    leadingBands: [],
-    participatingBands:[]
+    introduction: "",
+    instruments: [{
+      id: 0,
+      model: "",
+      ability: "",
+      player: {
+        id: 0,
+        name: "",
+        imageUrl: ""
+      },
+      instrument: {
+        id: 0,
+        type: ""
+      }
+    }],
+    followers: [{}],
+    followings: [{}],
+    leadingBands: [{}],
+    participatingBands:[{}]
   });
   // const [profileBoard, setProfileBoard] = useState({})
 
@@ -41,6 +59,7 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
       setProfileInfo({
         imageUrl: totalInfo.imageUrl,
         nickname: totalInfo.name,
+        introduction: totalInfo.introduction,
         instruments: totalInfo.instruments,
         followers: totalInfo.followers,
         followings: totalInfo.followings,
@@ -48,8 +67,10 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
         participatingBands: totalInfo.participatingBands
       })
     })
-  })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
+  
   return(
     <Wrapper>
       <Container className="user-profile-container">

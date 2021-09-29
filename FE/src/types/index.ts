@@ -46,20 +46,27 @@ export interface UserInfo {
 export interface ProfileInfo {
   imageUrl: string,
   nickname: string,
-  instruments?: {}[],
+  introduction?: string,
+  instruments: Instrument[],
   followers: {}[],
   followings: {}[],
-  leadingBands?: {}[],
-  participatingBands?:{}[]
+  leadingBands: {}[],
+  participatingBands:{}[]
 }
 
 export interface Instrument {
-  name: string,
-  skill: string
-}
-
-export interface Instruments {
-  instruments: Instrument[]
+  id: number,
+  model: string,
+  ability: string,
+  player: {
+    id: number,
+    name: string,
+    imageUrl: string
+  },
+  instrument: {
+    id: number,
+    type: string
+  }
 }
 
 export interface Band {

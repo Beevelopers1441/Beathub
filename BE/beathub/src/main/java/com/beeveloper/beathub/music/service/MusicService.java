@@ -15,10 +15,10 @@ public interface MusicService {
     Bucket createBucket(BucketCreateDto bucketInfo, String jwtToken);
     List<Bucket> findAllBuckets();
     Bucket findBucketById(Long bucketId);
+    Audio createAudio(AudioCreateDto audioInfo, String jwtToken, Long bucketId);
 //    Commit creatCommit(CommitCreateDto commitInfo, Long bucketId);
 //    List<Commit> findAllCommitsInBucket(Long bucketId);
 //    Commit findCommit(Long commitId);
-//    Audio createAudio(AudioCreateDto audioInfo, Long commitId);
 //    List<Audio> findAllAudios();
 //    Audio findAudio(Long audioId);
 //    AudioSetting createAudioSetting(AudioSettingCreateDto audioSettingInfo, Long commitId, Long audioId);

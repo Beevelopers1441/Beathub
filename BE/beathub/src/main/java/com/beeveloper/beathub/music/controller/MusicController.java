@@ -49,6 +49,15 @@ public class MusicController {
         Bucket bucket = musicService.findBucketById(bucketId);
         return ResponseEntity.status(200).body(BucketDetailResDto.of(bucket));
     }
+
+    @PostMapping("/buckets/{bucketId}/audios")
+    public ResponseEntity<AudioResDto> createAudio(
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @ModelAttribute AudioCreateDto audioInfo,
+            @PathVariable Long bucketId) {
+        Audio audio = musicService.createAudio(audioInfo, jwtToken, bucketId);
+        return ResponseEntity.status(201).body(AudioResDto.of(audio));
+    }
 //
 //    // 커밋 생성
 //    @PostMapping("/buckets/{bucketId}")
@@ -66,11 +75,6 @@ public class MusicController {
 //        return ResponseEntity.status(200).body();
 //    }
 //
-//    // 음원 생성 ("/buckets/{bucketId}/audios")
-//    @PostMapping("/buckets/{bucketId}/audios")
-//    public ResponseEntity<AudioResDto> createAudio(@ModelAttribute AudioCreateDto audioInfo, @PathVariable Long bucketId) {
-//        Audio audio = musicService.createAudio(audioInfo, bucketId);
-//    }
 //
 //    // 음원 조회
 //

@@ -93,48 +93,48 @@ public class User {
      * Following 관련
      */
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn
-    private User userFollowing = this;
-
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn
-    private User userFollower = this;
-
-    @OneToMany(mappedBy = "userFollowing")
-    private List<User> followingList = new ArrayList<User>();
-
-    @OneToMany(mappedBy = "userFollower")
-    private List<User> followerList = new ArrayList<User>();
-
     // METHODS
 
-    public void addFollowingUser(User following) {
-        this.followingList.add(following);
+//    public void addFollowingUser(User following) {
+//        this.followingList.add(following);
+//
+//        if(!following.getFollowerList().contains(this)) {
+//            following.getFollowerList().add(this);
+//        }
+//        //연관관계의 주인을 통한 확인
+//        if(!following.getUserFollower().getFollowerList().contains(this)) {
+//            following.getUserFollower().getFollowerList().add(this);
+//        }
+//    }
+//    public void addFollowerUser(User follower) {
+//        this.followerList.add(follower);
+//
+//        if(follower.getFollowingList().contains(this)) {
+//            follower.getFollowingList().add(this);
+//        }
+//        //연관관계의 주인을 통한 확인
+//        if(!follower.getUserFollowing().getFollowingList().contains(this)) {
+//            follower.getUserFollowing().getFollowingList().add(this);
+//        }
+//    }
 
-        if(!following.getFollowerList().contains(this)) {
-            following.getFollowerList().add(this);
-        }
-        //연관관계의 주인을 통한 확인
-        if(!following.getUserFollower().getFollowerList().contains(this)) {
-            following.getUserFollower().getFollowerList().add(this);
-        }
-    }
-    public void addFollowerUser(User follower) {
-        this.followerList.add(follower);
+    public void addLikePost(Post post) {
+        this.likePosts.add(post);
 
-        if(follower.getFollowingList().contains(this)) {
-            follower.getFollowingList().add(this);
-        }
-        //연관관계의 주인을 통한 확인
-        if(!follower.getUserFollowing().getFollowingList().contains(this)) {
-            follower.getUserFollowing().getFollowingList().add(this);
+        if (!post.getLikeUsers().contains(this)) {
+            post.getLikeUsers().add(this);
         }
     }
 
     public void addFollowingBand(Band following) {
         this.followBands.add(following);
+
+        if (following.getFollowers().contains(this)) {
+            following.getFollowers().add(this);
+        }
+
+        if (!following.getFollowers().contains(this)) {
+            following.getFollowers().add(this);
+        }
     }
 }

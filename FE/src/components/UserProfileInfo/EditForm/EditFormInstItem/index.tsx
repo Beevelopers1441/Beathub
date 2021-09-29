@@ -17,7 +17,7 @@ const EditFormInstItem: React.FC<Props> = ({ instrument }) => {
     <Wrapper>
       <div className="item-wrapper">
         <div className="item-letter">
-          {instrument.name} {instrument.skill} 
+          {/* {instrument.name} {instrument.skill}  */}
         </div>
         <div className="overlay" onClick={onDeleteInst}>
           <div>Delete</div>

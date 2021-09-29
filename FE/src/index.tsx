@@ -6,11 +6,11 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './modules';
 
-
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme';
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
+(window as any).__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

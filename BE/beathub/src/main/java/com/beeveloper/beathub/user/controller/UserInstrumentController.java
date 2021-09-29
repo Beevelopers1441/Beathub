@@ -17,12 +17,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 @Api(value = "초기 회원가입 후 등록하는 악기프로필 관련 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/instrument")
+@CrossOrigin(value = "*")
 public class UserInstrumentController {
 
     private final UserInstrumentService userInstrumentService;
@@ -70,5 +73,57 @@ public class UserInstrumentController {
         UserInstrument savedUserInstrument = userInstrumentService.save(dto);
         System.out.println("savedUserInstrument = " + savedUserInstrument.getInstrument());
         return ResponseEntity.status(200).body(UserInstrumentResDto.of(savedUserInstrument));
+    }
+
+//    ResponseEntity<UserInstrumentResDto>
+    @ApiOperation(value = "유저의 등록된 악기를 수정, 인자로 List를 넘겨줌, 하나여도 리스트로 넘겨줌")
+    @PutMapping()
+    public void update(
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @RequestBody List<UserInstrumentResDto> resDtoList)
+    {
+        User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        List<UserInstrument> userInstruments = userInstrumentService.findAllByUser(user);
+
+        List<String> havingInstrumentList = new ArrayList<>();
+        for (UserInstrument userInstrument : userInstruments) {
+            havingInstrumentList.add(userInstrument.getInstrument().getType());
+        }
+
+        for (UserInstrumentResDto dto : resDtoList) {
+            if (havingInstrumentList.contains(dto.getInstrument())) {
+                Instrument instrument = instrumentService.findByType(dto.getInstrument());
+                UserInstrument findUserInstrument = userInstrumentService.findByUserAndInstrument(user, instrument);
+                userInstrumentService.update(findUserInstrument, dto);
+                havingInstrumentList.remove(dto.getInstrument());
+            } else {
+                Instrument instrument = instrumentService.findByType(dto.getInstrument());
+                Ability ability = Ability.valueOf(dto.getAbility().name());
+                UserInstrumentCreateDto createDto = new UserInstrumentCreateDto(
+                        ability,
+                        dto.getModel(),
+                        instrument,
+                        user
+                );
+                UserInstrument savedUserInstrument = userInstrumentService.save(createDto);
+            }
+        }
+        System.out.println("havingInstrumentList = " + havingInstrumentList.toString());
+
+        if (havingInstrumentList != null) {
+            while (!havingInstrumentList.isEmpty()) {
+                String deleteType = havingInstrumentList.remove(0);
+                Instrument instrument = instrumentService.findByType(deleteType);
+                UserInstrument userInstrument = userInstrumentService.findByUserAndInstrument(user, instrument);
+                System.out.println("deleteType = " + deleteType);
+                userInstrumentService.delete(userInstrument);
+            }
+        }
+
+
+        
+        for (UserInstrument userInstrument : userInstruments) {
+            System.out.println("userInstrument = " + userInstrument.getInstrument());
+        }
     }
 }

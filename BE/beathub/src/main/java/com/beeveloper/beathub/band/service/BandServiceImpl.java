@@ -11,6 +11,7 @@ import com.beeveloper.beathub.instrument.repository.InstrumentRepository;
 import com.beeveloper.beathub.user.domain.User;
 import com.beeveloper.beathub.user.domain.UserInstrument;
 import com.beeveloper.beathub.user.repository.UserInstrumentRepository;
+import com.beeveloper.beathub.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,11 +27,12 @@ public class BandServiceImpl implements BandService{
     private final BandRepository bandRepository;
     private final BandMemberRepository bandMemberRepository;
     private final UserInstrumentRepository userInstrumentRepository;
+    private final UserRepository userRepository;
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Band> findById(Long bandId) {
-        return bandRepository.findById(bandId);
+    public Band findById(Long bandId) {
+        return bandRepository.findById(bandId).orElseThrow(RuntimeException::new);
     }
 
     @Override
@@ -55,7 +57,8 @@ public class BandServiceImpl implements BandService{
                 bandInfo.getName(),
                 bandInfo.getImageUrl(),
                 bandInfo.getIntroduction(),
-                bandInfo.getLeader()
+                bandInfo.getLeader(),
+                bandInfo.getCreateTime()
         );
 
         // BandMember 등록용, Leader 용
@@ -82,5 +85,15 @@ public class BandServiceImpl implements BandService{
             result.add(BandResDto.of(band));
         }
         return result;
+    }
+
+    @Override
+    public void follow(Long userId, Long bandId) {
+        User user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
+        Band band = bandRepository.findById(bandId).orElseThrow(RuntimeException::new);
+        user.addFollowingBand(band);
+        band.addFollowers(user);
+        userRepository.save(user);
+        bandRepository.save(band);
     }
 }

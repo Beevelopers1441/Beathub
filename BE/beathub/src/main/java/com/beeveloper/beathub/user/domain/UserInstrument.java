@@ -1,6 +1,8 @@
 package com.beeveloper.beathub.user.domain;
 
+import com.beeveloper.beathub.common.dto.UserInstrumentDto;
 import com.beeveloper.beathub.instrument.domain.Instrument;
+import com.beeveloper.beathub.user.domain.dto.response.UserInstrumentResDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,6 +45,12 @@ public class UserInstrument {
         this.model = model;
         this.instrument = instrument;
         this.player = player;
+    }
 
+    public UserInstrument update(UserInstrumentResDto userInstrumentDto) {
+        Ability ability = Ability.valueOf(userInstrumentDto.getAbility().name());
+        this.ability = ability;
+        this.model = userInstrumentDto.getModel();
+        return this;
     }
 }

@@ -20,9 +20,7 @@ interface Props {
 
 const UserProfileInfo: React.FC<Props> = ({ profileInfo }) => {
   
-  const userInfo = useSelector((state: any) => state.user.userInfo)
-
-  console.log(userInfo)
+  const { userId } = useSelector((state: any) => state.user.userInfo.Id)
 
   const [ onEdit, setOnEdit ] = useState<boolean>(false)
 

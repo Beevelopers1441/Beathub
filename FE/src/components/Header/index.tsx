@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { scrollHeader } from 'utils/header';
 
 // component
@@ -23,6 +24,8 @@ function Header(): React.ReactElement {
     history.push(path)
   }
 
+  const { userId } = useSelector((state: any) => state.user.userInfo.Id)
+
   return (
     <Wrapper>
       <div className="header-container">
@@ -45,7 +48,9 @@ function Header(): React.ReactElement {
             <Notifications />
           </div>
           <div className="profile-container">
-            <ProfileImage url={"https://api.thecatapi.com/v1/images/search"} />
+            {/* <Link to={`/profile/${userId}`} className="text-decoration-none text-dark"> */}
+              <ProfileImage url={"https://api.thecatapi.com/v1/images/search"} />
+            {/* </Link> */}
           </div>
         </div>
       </div>

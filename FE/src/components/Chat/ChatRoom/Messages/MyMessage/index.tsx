@@ -4,13 +4,13 @@ import React from 'react';
 import Wrapper from './styles';
 
 interface Props {
-  
+  text: string;
 }
 
-function MyMessage(props: Props): React.ReactElement {
+function MyMessage({ text }: Props): React.ReactElement {
   return (
     <Wrapper>
-      안녕하세요!안녕하세요!안녕하세요!안녕하세요!안녕하세요!안녕하세요!안녕하세요!
+      { text }
     </Wrapper>
   );
 };

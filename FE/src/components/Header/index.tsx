@@ -45,7 +45,7 @@ function Header(): React.ReactElement {
             <Notifications />
           </div>
           <div className="profile-container">
-            <ProfileImage url={"https://api.thecatapi.com/v1/images/search"} />
+            <ProfileImage url={"https://cdn2.thecatapi.com/images/Zi4jfH3c6.jpg"} />
           </div>
         </div>
       </div>

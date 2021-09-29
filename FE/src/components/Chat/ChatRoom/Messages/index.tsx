@@ -9,10 +9,10 @@ import YourMessageProfile from './YourMessageProfile';
 import Wrapper from './styles';
 
 interface Props {
-  
+  messages: string[];
 }
 
-function Messages(props: Props): React.ReactElement {
+function Messages({ messages }: Props): React.ReactElement {
   const bottomRef: any = useRef();
 
   // constructor
@@ -26,14 +26,7 @@ function Messages(props: Props): React.ReactElement {
 
   return (
     <Wrapper>
-      <MyMessage />
-      <MyMessage />
-      <MyMessage />
-      <MyMessage />
-      <MyMessage />
-      <YourMessageProfile />
-      <YourMessage />
-      <YourMessage />
+      
       <div ref={bottomRef} />
     </Wrapper>
   );

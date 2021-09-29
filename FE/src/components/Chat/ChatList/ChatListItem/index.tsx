@@ -21,7 +21,7 @@ function ChatListItem({ item, setIsChatRoom }: Props): React.ReactElement {
     <Wrapper onClick={handleChatRoom}>
       <div className="user-container">
         <ProfileImage
-          url={"https://api.thecatapi.com/v1/images/search"}
+          url={"https://cdn2.thecatapi.com/images/Zi4jfH3c6.jpg"}
         />
         <div className="name-content-container">
           <p className="name">유저이름</p>

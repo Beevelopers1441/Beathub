@@ -24,6 +24,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/bands")
+@CrossOrigin(origins = "*")
 public class BandController {
 
     private final BandService bandService;

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/instrument")
+@CrossOrigin(value = "*")
 public class UserInstrumentController {
 
     private final UserInstrumentService userInstrumentService;

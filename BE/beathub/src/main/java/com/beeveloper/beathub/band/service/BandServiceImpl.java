@@ -57,7 +57,8 @@ public class BandServiceImpl implements BandService{
                 bandInfo.getName(),
                 bandInfo.getImageUrl(),
                 bandInfo.getIntroduction(),
-                bandInfo.getLeader()
+                bandInfo.getLeader(),
+                bandInfo.getCreateTime()
         );
 
         // BandMember 등록용, Leader 용

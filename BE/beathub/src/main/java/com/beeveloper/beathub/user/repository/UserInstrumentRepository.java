@@ -15,4 +15,5 @@ public interface UserInstrumentRepository extends JpaRepository<UserInstrument, 
 
     List<UserInstrument> findAllByPlayer(User user);
 
+    UserInstrument findByPlayerAndInstrument(User user, Instrument instrument);
 }

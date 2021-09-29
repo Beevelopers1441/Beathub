@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,8 @@ public class Band {
     private String imageUrl = null;
 
     private String introduction;
+
+    private LocalDateTime createTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User leader;
@@ -49,21 +52,18 @@ public class Band {
     @ManyToMany(mappedBy = "followBands")
     private List<User> followers = new ArrayList<User>();
 
-
     public Band(
             String name,
             String imageUrl,
             String introduction,
-            User leader
+            User leader,
+            LocalDateTime createTime
     ) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.introduction = introduction;
         this.leader = leader;
-
-        BandMember bandMember = new BandMember(
-
-        );
+        this.createTime = createTime;
     }
 
     public Band setMember(BandMember member) {

@@ -1,5 +1,6 @@
 package com.beeveloper.beathub.user.service;
 
+import com.beeveloper.beathub.post.domain.Post;
 import com.beeveloper.beathub.user.domain.User;
 import com.beeveloper.beathub.user.domain.dto.request.UserSaveRequestDto;
 import com.beeveloper.beathub.user.repository.UserRepository;
@@ -32,6 +33,11 @@ public class UserServiceImpl implements UserService {
                 dto.getEmail()
         );
         return userRepository.save(user);
+    }
+
+    @Override
+    public void like(User user, Post post) {
+
     }
 
     public User findById(Long userId) {

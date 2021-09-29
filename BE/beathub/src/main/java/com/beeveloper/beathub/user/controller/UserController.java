@@ -1,16 +1,23 @@
 package com.beeveloper.beathub.user.controller;
 
+import com.beeveloper.beathub.common.dto.UserInfoDto;
+import com.beeveloper.beathub.instrument.domain.Instrument;
+import com.beeveloper.beathub.instrument.service.InstrumentService;
+import com.beeveloper.beathub.user.domain.Ability;
 import com.beeveloper.beathub.user.domain.User;
 import com.beeveloper.beathub.common.dto.FollowRequestDto;
+import com.beeveloper.beathub.user.domain.dto.request.UserInstrumentCreateDto;
 import com.beeveloper.beathub.user.domain.dto.request.UserSaveRequestDto;
 import com.beeveloper.beathub.user.domain.dto.response.UserProfileResDto;
 import com.beeveloper.beathub.user.jwts.JwtService;
 import com.beeveloper.beathub.user.service.FollowService;
+import com.beeveloper.beathub.user.service.UserInstrumentService;
 import com.beeveloper.beathub.user.service.UserService;
 import com.beeveloper.beathub.user.service.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.models.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +39,8 @@ public class UserController {
     private final UserService userService;
     private final JwtService jwtService;
     private final FollowService followService;
+    private final UserInstrumentService userInstrumentService;
+    private final InstrumentService instrumentService;
 
     /**
      * 다른 사람 프로필 전달
@@ -70,7 +79,7 @@ public class UserController {
 
     @ApiOperation(value = "Token을 이용한 처음 프로필 생성, 있는 회원이라면 조회후 리턴")
     @PostMapping
-    public User create(
+    public ResponseEntity<UserInfoDto> create(
             @RequestHeader(value = "Authorization") String jwtToken) {
 
         Map<String, String> properties = jwtService.getProperties(jwtToken);
@@ -79,17 +88,26 @@ public class UserController {
         System.out.println("existUser = " + existUser);
 
         if (existUser != null) {
-            return existUser;
+            return ResponseEntity.status(200).body(UserInfoDto.ofUser(existUser));
         }
-
         UserSaveRequestDto dto = new UserSaveRequestDto(
                 properties.get("name"),
                 properties.get("email"),
                 properties.get("imageUrl")
-        );
-
+                );
         User savedUser = userService.save(dto);
-        return savedUser;
+        // 초기 악기 설정
+        Instrument instrument = instrumentService.findByType("기타(etc)");
+        UserInstrumentCreateDto initUserInstrument = UserInstrumentCreateDto.builder()
+                .ability(Ability.Junior)
+                .instrument(instrument)
+                .model("없음")
+                .player(savedUser)
+                .build();
+
+        userInstrumentService.save(initUserInstrument);
+
+        return ResponseEntity.status(201).body(UserInfoDto.ofUser(savedUser));
     }
 }
 

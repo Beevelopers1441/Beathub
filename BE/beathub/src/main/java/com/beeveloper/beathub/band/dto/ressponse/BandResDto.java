@@ -4,7 +4,7 @@ import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.band.domain.BandMember;
 import com.beeveloper.beathub.band.domain.Status;
 import com.beeveloper.beathub.common.dto.BandDto;
-import com.beeveloper.beathub.common.dto.BandMemberDto;
+import com.beeveloper.beathub.common.dto.BandMemberForMemberDto;
 import com.beeveloper.beathub.common.dto.BucketDto;
 import com.beeveloper.beathub.common.dto.UserInfoDto;
 import com.beeveloper.beathub.post.dto.response.BandPostResDto;
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class BandResDto {
     private BandDto band;
     private UserInfoDto leader;
-    private List<BandMemberDto> members;
+    private List<UserInfoDto> members;
     private List<UserInfoDto> followers;
     private List<BucketDto> buckets;
     private List<BandPostResDto> posts;
@@ -31,13 +31,13 @@ public class BandResDto {
         dto.leader = UserInfoDto.ofUser(band.getLeader());
         // bandMember 분기처리 Approved 된 사람들만
         List<BandMember> members = band.getMembers();
-        List<BandMember> approvedMembers = new ArrayList<>();
+        List<User> approvedMembers = new ArrayList<>();
         for (BandMember member : members) {
             if (member.getStatus().equals(Status.Approved)) {
-                approvedMembers.add(member);
+                approvedMembers.add(member.getUser());
             }
         }
-        dto.members = BandMemberDto.of(approvedMembers);
+        dto.members = UserInfoDto.ofUser(approvedMembers);
         dto.followers = UserInfoDto.ofUser(band.getFollowers());
         dto.buckets = BucketDto.of(band.getBuckets());
         dto.posts = BandPostResDto.of(band.getBandPosts());

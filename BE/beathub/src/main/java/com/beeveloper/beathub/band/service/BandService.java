@@ -30,4 +30,6 @@ public interface BandService {
     // 밴드 삭제
 
     List<BandResDto> changeFromBandToResDto(List<Band> bandList);
+
+    void follow(Long userId, Long bandId);
 }

@@ -1,10 +1,7 @@
 package com.beeveloper.beathub.post.domain;
 
-import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.instrument.domain.Instrument;
 import com.beeveloper.beathub.user.domain.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,10 +23,11 @@ public class MemberPost extends Post {
     public MemberPost(
             String title,
             String content,
+            User realAuthor,
             User authorUser,
             LocalDateTime createTime,
             Instrument tag) {
-        super(title, content, createTime, tag);
+        super(title, content, createTime, realAuthor, tag);
         this.authorUser = authorUser;
     }
 }

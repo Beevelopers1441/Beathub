@@ -1,14 +1,15 @@
 package com.beeveloper.beathub.post.service;
 
 import com.beeveloper.beathub.band.domain.Band;
+import com.beeveloper.beathub.band.repository.BandRepository;
 import com.beeveloper.beathub.band.service.BandService;
+import com.beeveloper.beathub.instrument.domain.Instrument;
+import com.beeveloper.beathub.instrument.repository.InstrumentRepository;
 import com.beeveloper.beathub.post.domain.BandPost;
 import com.beeveloper.beathub.post.domain.Comment;
 import com.beeveloper.beathub.post.domain.MemberPost;
 import com.beeveloper.beathub.post.domain.Post;
-import com.beeveloper.beathub.post.dto.request.BandPostCreateDto;
-import com.beeveloper.beathub.post.dto.request.CommentCreateDto;
-import com.beeveloper.beathub.post.dto.request.MemberPostCreateDto;
+import com.beeveloper.beathub.post.dto.request.*;
 import com.beeveloper.beathub.post.repository.BandPostRepository;
 import com.beeveloper.beathub.post.repository.CommentRepository;
 import com.beeveloper.beathub.post.repository.MemberPostRepository;
@@ -32,6 +33,8 @@ public class PostServiceImpl implements PostService{
     private final CommentRepository commentRepository;
     private final BandService bandService;
     private final UserRepository userRepository;
+    private final BandRepository bandRepository;
+    private final InstrumentRepository instrumentRepository;
 
     /*
     포스트 멤버, 밴드로 분리(single table strategy)
@@ -41,6 +44,7 @@ public class PostServiceImpl implements PostService{
         MemberPost memberPost = new MemberPost(
                 requestInfo.getTitle(),
                 requestInfo.getContent(),
+                requestInfo.getUser(), // 실제작성자
                 requestInfo.getUser(),
                 LocalDateTime.now(),
                 requestInfo.getTag()
@@ -50,15 +54,15 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public BandPost createBandPost(BandPostCreateDto requestInfo) {
+    public BandPost createBandPost(User author, BandPostCreateDto requestInfo) {
         Band band = bandService.findByName(requestInfo.getBand().getName());
         BandPost bandPost = new BandPost(
                 requestInfo.getTitle(),
                 requestInfo.getContent(),
                 LocalDateTime.now(),
+                author,
                 band,
-                requestInfo.getTag()
-        );
+                requestInfo.getTag());
         return bandPostRepository.save(bandPost);
     }
 
@@ -110,5 +114,12 @@ public class PostServiceImpl implements PostService{
         Comment savedComment = commentRepository.save(comment);
         getPost.addComments(savedComment);
         return savedComment;
+    }
+
+    @Override
+    public Post updatePost(Post post, PostUpdateRequestDto dto) {
+        Instrument instrument = instrumentRepository.findByType(dto.getTag());
+        Post updatePost = post.update(instrument, dto.getTitle(), dto.getContent());
+        return postRepository.save(updatePost);
     }
 }

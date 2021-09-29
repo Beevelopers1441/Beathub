@@ -97,27 +97,4 @@ public class BandController {
     // 수정
 
     // 삭제
-
-    // 팔로우
-    @Transactional
-    @ApiOperation(value = "밴드를 팔로우 합니다.")
-    @PostMapping("/follow")
-    public void follow(
-            @RequestHeader(value = "Authorization") String jwtToken,
-            @RequestBody @ApiParam(value = "팔로우할 Band 의 Id") FollowRequestDto requestDto) {
-
-        User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
-        bandService.follow(user.getId(), requestDto.getId());
-    }
-
-    @Transactional
-    @ApiOperation(value = "밴드를 언팔로우합니다.")
-    @PostMapping("/unfollow")
-    public void unFollow(
-            @RequestHeader(value = "Authorization") String jwtToken,
-            @RequestBody @ApiParam(value = "팔로우할 Band 의 Id") FollowRequestDto requestDto) {
-
-        User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
-        bandService.unfollow(user.getId(), requestDto.getId());
-    }
 }

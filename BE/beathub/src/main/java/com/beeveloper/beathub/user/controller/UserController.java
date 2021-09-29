@@ -5,19 +5,18 @@ import com.beeveloper.beathub.instrument.domain.Instrument;
 import com.beeveloper.beathub.instrument.service.InstrumentService;
 import com.beeveloper.beathub.user.domain.Ability;
 import com.beeveloper.beathub.user.domain.User;
-import com.beeveloper.beathub.common.dto.FollowRequestDto;
+import com.beeveloper.beathub.user.domain.dto.request.UpdateUserRequestDto;
 import com.beeveloper.beathub.user.domain.dto.request.UserInstrumentCreateDto;
 import com.beeveloper.beathub.user.domain.dto.request.UserSaveRequestDto;
+import com.beeveloper.beathub.user.domain.dto.response.UserClassicDto;
 import com.beeveloper.beathub.user.domain.dto.response.UserProfileResDto;
 import com.beeveloper.beathub.user.jwts.JwtService;
 import com.beeveloper.beathub.user.service.FollowService;
 import com.beeveloper.beathub.user.service.UserInstrumentService;
 import com.beeveloper.beathub.user.service.UserService;
-import com.beeveloper.beathub.user.service.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.models.Response;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
 import java.util.Map;
 
 @Api(value = "회원가입 관련 API")
@@ -94,7 +92,7 @@ public class UserController {
                 properties.get("name"),
                 properties.get("email"),
                 properties.get("imageUrl")
-                );
+        );
         User savedUser = userService.save(dto);
         // 초기 악기 설정
         Instrument instrument = instrumentService.findByType("기타(etc)");
@@ -107,6 +105,25 @@ public class UserController {
         userInstrumentService.save(initUserInstrument);
 
         return ResponseEntity.status(201).body(UserInfoDto.ofUser(savedUser));
+    }
+
+    @ApiOperation(value = "프로필 수정하는 API")
+    @PutMapping("/{userId}")
+    public Object update(
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @PathVariable(value = "userId") Long userId,
+            @RequestBody @ApiParam(value = "개인 프로필 수정 정보", required = true) UpdateUserRequestDto requestDto) {
+
+        User requestUser = jwtService.returnUser(jwtToken);
+
+        // 수정하려는 유저와 Target 유저가 다르면 403 에러 발생
+        if (requestUser.getId() != userId) {
+            return ResponseEntity.status(403).build();
+        }
+
+        User updateUser = userService.update(requestUser, requestDto);
+
+        return ResponseEntity.status(200).body(UserClassicDto.of(updateUser));
     }
 }
 

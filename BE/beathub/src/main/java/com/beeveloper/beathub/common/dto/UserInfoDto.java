@@ -39,7 +39,7 @@ public class UserInfoDto {
         return users.stream().map(UserInfoDto::ofUser).collect(Collectors.toList());
     }
 
-    public static List<UserInfoDto> ofBand(List<Band> users) {
-        return users.stream().map(UserInfoDto::ofBand).collect(Collectors.toList());
+    public static List<UserInfoDto> ofBand(List<Band> bands) {
+        return bands.stream().map(UserInfoDto::ofBand).collect(Collectors.toList());
     }
 }

@@ -20,13 +20,13 @@ public class BandMember {
     @Enumerated(EnumType.STRING)
     private Status status = Status.Waiting;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Band band;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Instrument instrument;
 
     @Builder

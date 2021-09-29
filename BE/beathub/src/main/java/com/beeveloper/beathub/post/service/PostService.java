@@ -3,6 +3,7 @@ package com.beeveloper.beathub.post.service;
 import com.beeveloper.beathub.post.domain.BandPost;
 import com.beeveloper.beathub.post.domain.Comment;
 import com.beeveloper.beathub.post.domain.MemberPost;
+import com.beeveloper.beathub.post.domain.Post;
 import com.beeveloper.beathub.post.dto.request.BandPostCreateDto;
 import com.beeveloper.beathub.post.dto.request.CommentCreateDto;
 import com.beeveloper.beathub.post.dto.request.MemberPostCreateDto;
@@ -16,5 +17,6 @@ public interface PostService {
     List<BandPost> findAllBandPost();
     MemberPost findMemberPost(Long postId);
     BandPost findBandPost(Long postId);
-    Comment createComment(Long postId, CommentCreateDto commentInfo);
+    Post findById(Long postId);
+    Comment createComment(Long userId, Long postId, CommentCreateDto commentInfo);
 }

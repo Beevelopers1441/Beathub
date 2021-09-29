@@ -33,6 +33,7 @@ public class Band {
     @ManyToOne(fetch = FetchType.EAGER)
     private User leader;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "band")
     private List<BandMember> members = new ArrayList<BandMember>();
 
@@ -68,5 +69,9 @@ public class Band {
     public Band setMember(BandMember member) {
         this.members.add(member);
         return this;
+    }
+
+    public void addFollowers(User user) {
+        this.followers.add(user);
     }
 }

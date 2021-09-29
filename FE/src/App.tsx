@@ -1,7 +1,8 @@
 import GlobalStyle from './styles/GlobalStyle'
 
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Login, UserProfile, Community, PostDetail, PostCreate} from 'pages';
+
+import { Login, Signup, UserProfile, GroupProfile, Community, PostDetail, PostCreate} from 'pages';
 import { Chat, Header } from 'components';
 
 function App() {
@@ -16,7 +17,8 @@ function App() {
           <Route exact path="/" component={Login} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/profile/:userId" component={UserProfile} />
-          {/* <Route exact path="/signup" component={Signup} /> */}
+          <Route exact path="/group-profile/:groupId" component={GroupProfile} />
+          <Route exact path="/signup" component={Signup} />
           <Route exact path="/community" component={Community} />
           <Route exact path="/post" component={PostCreate} />
           <Route exact path="/post/:postId" component={PostDetail} />

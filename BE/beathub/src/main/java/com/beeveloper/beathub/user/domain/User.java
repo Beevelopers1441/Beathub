@@ -126,15 +126,29 @@ public class User {
         }
     }
 
+    public void removeLikePost(Post post) {
+        this.likePosts.remove(post);
+
+        if (post.getLikeUsers().contains(this)) {
+            post.getLikeUsers().remove(this);
+        }
+    }
+
     public void addFollowingBand(Band following) {
         this.followBands.add(following);
-
-        if (following.getFollowers().contains(this)) {
-            following.getFollowers().add(this);
-        }
 
         if (!following.getFollowers().contains(this)) {
             following.getFollowers().add(this);
         }
     }
+
+    public void removeFollowingBand(Band following) {
+        this.followBands.remove(following);
+
+        if (following.getFollowers().contains(this)) {
+            following.getFollowers().remove(this);
+        }
+    }
+
+
 }

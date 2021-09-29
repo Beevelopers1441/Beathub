@@ -17,4 +17,6 @@ public interface UserService {
     User save(UserSaveRequestDto userSaveRequestDto);
 
     void like(User user, Post post);
+
+    void unLike(User user, Post post);
 }

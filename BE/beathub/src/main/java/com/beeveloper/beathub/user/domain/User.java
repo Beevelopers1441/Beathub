@@ -8,6 +8,7 @@ import com.beeveloper.beathub.music.domain.Commit;
 import com.beeveloper.beathub.post.domain.Comment;
 import com.beeveloper.beathub.post.domain.MemberPost;
 import com.beeveloper.beathub.post.domain.Post;
+import com.beeveloper.beathub.user.domain.dto.request.UpdateUserRequestDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -148,6 +149,13 @@ public class User {
         if (following.getFollowers().contains(this)) {
             following.getFollowers().remove(this);
         }
+    }
+
+    public User update(UpdateUserRequestDto dto) {
+        this.name = dto.getName();
+        this.imageUrl = dto.getImageUrl();
+        this.introduction = dto.getIntroduction();
+        return this;
     }
 
 

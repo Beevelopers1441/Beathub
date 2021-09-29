@@ -67,7 +67,7 @@ function EditForm({ onToggleEdit }: IProps) {
           <p>연주 악기</p>
           <img className="add-instrument-icon" src={add} alt="add" />
         </div>
-        <EditFormInstList instruments={dummyInstruments}></EditFormInstList>
+        {/* <EditFormInstList instruments={dummyInstruments}></EditFormInstList> */}
       </div>
       {/* 저장, 취소 버튼 */}
       <div className="button-container">

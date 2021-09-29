@@ -21,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/bandMember")
 @RequiredArgsConstructor
+@CrossOrigin(value = "*")
 public class BandMemberController {
 
     private final BandMemberService bandMemberService;

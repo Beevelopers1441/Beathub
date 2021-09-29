@@ -2,6 +2,7 @@ package com.beeveloper.beathub.band.controller;
 
 import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.band.dto.request.BandCreateDto;
+import com.beeveloper.beathub.band.dto.request.BandInputDto;
 import com.beeveloper.beathub.band.dto.ressponse.BandResDto;
 import com.beeveloper.beathub.band.service.BandService;
 import com.beeveloper.beathub.common.dto.FollowRequestDto;

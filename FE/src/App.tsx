@@ -5,6 +5,9 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Login, Signup, UserProfile, GroupProfile, Community, PostDetail, PostCreate} from 'pages';
 import { Chat, Header } from 'components';
 
+import { initFirebase } from 'utils/firebaseConfig';
+initFirebase();
+
 function App() {
 
   return (

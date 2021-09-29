@@ -3,17 +3,16 @@ import React, { useState } from 'react';
 // components
 import ChatBtn from './ChatBtn';
 import ChatList from './ChatList';
+import FirebaseAuth from './FirebaseAuth';
 
 // styles
 import styled from 'styled-components';
-
-interface Props {}
 
 const Wrapper = styled.div`
   display: flex;
 `;
 
-function Chat(props: Props): React.ReactElement {
+function Chat(): React.ReactElement {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleOpen = () => {
@@ -22,6 +21,9 @@ function Chat(props: Props): React.ReactElement {
 
   return (
     <Wrapper>
+      { isOpen ? (
+        <FirebaseAuth />
+      ) : ( null )}
       <div onClick={handleOpen}>
         <ChatBtn />
       </div>

@@ -1,4 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+// firebase
+import { getAuth } from 'firebase/auth';
+import { getFirestore, collection, getDocs, addDoc, setDoc } from 'firebase/firestore';
+// import { db } from 'utils/firebaseConfig';
 
 // component
 import Messages from './Messages';
@@ -12,6 +17,49 @@ interface Props {
 }
 
 function ChatRoom({ setIsChatRoom }: Props): React.ReactElement {
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    const user = getAuth().currentUser;
+    console.log(user);
+    
+    const db = getFirestore();
+    
+    const getQuerySnapshot = async () => {
+      return await getDocs(collection(db, 'messages'));
+    }
+    getQuerySnapshot()
+      .then(querySnapshot => {
+        console.log('querysnapshot result')
+        console.log(querySnapshot)
+        querySnapshot.forEach((doc) => {
+          console.log(`${doc.id} => ${doc.data().toString()}`);
+        })
+      })
+      .catch(e => {
+        console.log('querysnapshot error')
+        console.log(e)
+      })
+    // try {
+    //   const res = collection(db, 'messages');
+    //   console.log(res)
+    // } catch (e) {
+    //   console.log(e)
+    // }
+    
+
+    // try {
+    //   const docRef = addDoc(collection(db, "users"), {
+    //     first: "Ada",
+    //     last: "Lovelace",
+    //     born: 1815
+    //   });
+    //   console.log("Document written with ID: ", docRef.id);
+    // } catch (e) {
+    //   console.error("Error adding document: ", e);
+    // }
+  }, []);
+
   return (
     <Wrapper>
       <div className="header-container">
@@ -19,6 +67,14 @@ function ChatRoom({ setIsChatRoom }: Props): React.ReactElement {
         <p className="user-name">한상진</p>
       </div>
       <div className="content-container">
+        {messages.map((id, text) => {
+          return (
+            <>
+              <p>{id}</p>
+              <p>{text}</p>
+            </>
+          )
+        })}
         <Messages />
       </div>
       <div className="input-container">

@@ -49,11 +49,12 @@ function ChatList({ isOpen, setIsOpen }: Props): React.ReactElement {
                   />
                 </div>
                 <div>
-                  {chatList.map(item => {
+                  {chatList.map((item, idx) => {
                     return (
                       <ChatListItem
                         item={item}
                         setIsChatRoom={setIsChatRoom}
+                        key={idx}
                       />
                     )
                   })}

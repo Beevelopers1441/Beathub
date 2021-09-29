@@ -9,7 +9,11 @@ const Intro: React.FC<IProps> = ({ intro }) => {
 
   return(
     <Wrapper>
-      <div className="intro">{intro}</div>
+      {
+        intro === null || intro === ''
+        ? <div className="intro">아직 등록된 자기소개가 없습니다.</div>
+        : <div className="intro">{intro}</div>
+      }
     </Wrapper>
   )
 }

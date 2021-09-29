@@ -24,9 +24,7 @@ const UserProfileInfo: React.FC<Props> = ({ profileInfo }) => {
   const onToggleEdit = () => {
     setOnEdit(!onEdit)
   }
-
-  console.log(profileInfo)
-
+  
   return (
     <div>
       <ProfileImg imageUrl={profileInfo.imageUrl}></ProfileImg>
@@ -42,8 +40,8 @@ const UserProfileInfo: React.FC<Props> = ({ profileInfo }) => {
           <EditBtn onToggleEdit={onToggleEdit}></EditBtn>
         </div>
       }
-      {/* <Follow followers={profileInfo.followers} followings={profileInfo.followings}></Follow>
-      <Bands leadingBands={profileInfo.leadingBands} participatingBands={profileInfo.participatingBands}></Bands> */}
+      {/* <Follow followers={profileInfo.followers} followings={profileInfo.followings}></Follow> */}
+      {/* <Bands leadingBands={profileInfo.leadingBands} participatingBands={profileInfo.participatingBands}></Bands> */}
     </div>
   )
 }

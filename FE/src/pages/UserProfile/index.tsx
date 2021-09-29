@@ -66,8 +66,7 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
         participatingBands: totalInfo.participatingBands
       })
     })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [match.params.userId])
 
   
   return(

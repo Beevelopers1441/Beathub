@@ -30,7 +30,7 @@ public class UserProfileResDto {
     
     private List<BandDto> followBands;
 
-    private List<UserInstrumentDto> instruments;
+    private List<UserInstrumentForUserDto> instruments;
 
 //    private List<Map<String, Object>> posts;
 
@@ -51,7 +51,7 @@ public class UserProfileResDto {
         userProfileResDto.email = user.getEmail();
         userProfileResDto.imageUrl = user.getImageUrl();
         userProfileResDto.introduction = user.getIntroduction();
-        userProfileResDto.instruments = UserInstrumentDto.of(user.getInstruments());
+        userProfileResDto.instruments = UserInstrumentForUserDto.of(user.getInstruments());
         userProfileResDto.leadingBands = BandDto.of(user.getLeadingBands());
         userProfileResDto.followBands = BandDto.of(user.getFollowBands());
         // 참여하고 있는 밴드의 상태가 approved 인지 확인

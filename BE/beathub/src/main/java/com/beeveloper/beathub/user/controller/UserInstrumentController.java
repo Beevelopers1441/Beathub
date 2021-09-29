@@ -65,7 +65,6 @@ public class UserInstrumentController {
 
         UserInstrumentCreateDto dto = new UserInstrumentCreateDto(
                 ability,
-                inputDto.getModel(),
                 instrument,
                 findUser
         );
@@ -101,7 +100,6 @@ public class UserInstrumentController {
                 Ability ability = Ability.valueOf(dto.getAbility().name());
                 UserInstrumentCreateDto createDto = new UserInstrumentCreateDto(
                         ability,
-                        dto.getModel(),
                         instrument,
                         user
                 );

@@ -29,6 +29,19 @@ public class BandMember {
     @ManyToOne(fetch = FetchType.EAGER)
     private Instrument instrument;
 
+    // METHOD
+    public BandMember changeStatusToApproved() {
+        this.status = Status.Approved;
+        return this;
+    }
+
+    public BandMember chageStatusToDenied() {
+        this.status = Status.Denied;
+        return this;
+    }
+
+    // STATIC METHOD
+
     @Builder
     public BandMember(User user, Band band, Instrument instrument) {
         this.user = user;
@@ -52,8 +65,8 @@ public class BandMember {
     public static BandMember createBandMemberForLeader(
             User user,
             Band band,
-            Instrument instrument
-    ) {
+            Instrument instrument) {
+
         BandMember bandMember = BandMember.builder()
                 .user(user)
                 .band(band)
@@ -62,4 +75,6 @@ public class BandMember {
         bandMember.status = Status.Approved;
         return bandMember;
     }
+
+
 }

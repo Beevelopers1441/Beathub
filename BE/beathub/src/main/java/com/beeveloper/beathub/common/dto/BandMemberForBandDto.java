@@ -1,6 +1,7 @@
 package com.beeveloper.beathub.common.dto;
 
 import com.beeveloper.beathub.band.domain.BandMember;
+import com.beeveloper.beathub.instrument.domain.Instrument;
 import lombok.Getter;
 
 import java.util.List;
@@ -9,12 +10,12 @@ import java.util.stream.Collectors;
 @Getter
 public class BandMemberForBandDto {
     private UserInfoDto member;
-//    private BandDto band;
+    private InstrumentDto type;
 
     public static BandMemberForBandDto of(BandMember bandMember) {
         BandMemberForBandDto bandMemberDto = new BandMemberForBandDto();
         bandMemberDto.member = UserInfoDto.ofUser(bandMember.getUser());
-//        bandMemberDto.band = BandDto.of(bandMember.getBand());
+        bandMemberDto.type = InstrumentDto.of(bandMember.getInstrument());
         return bandMemberDto;
     }
 

@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByEmail(String email) {
+    public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
@@ -61,8 +62,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(updateUser);
     }
 
-    public User findById(Long userId) {
-        return userRepository.findById(userId).orElseThrow(RuntimeException::new);
+    public Optional<User> findById(Long userId) {
+        return userRepository.findById(userId);
     }
 
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Api(value = "초기 회원가입 후 등록하는 악기프로필 관련 API")
@@ -33,55 +34,64 @@ public class UserInstrumentController {
     private final UserService userService;
     private final InstrumentService instrumentService;
 
-    @ApiOperation(value = "연주하는 악기 초기 설정 후 등록하는 API")
-    @PostMapping("/register")
-    public ResponseEntity<UserInstrumentResDto> register(
-            @RequestHeader(value = "Authorization") String jwtToken,
-            @RequestBody UserInstrumentInputDto inputDto) {
-
-        // JWT Token 없으면 401 에러
-        if (jwtToken == null) {
-            return (ResponseEntity<UserInstrumentResDto>) ResponseEntity.status(401);
-        }
-
-        // Token 분해 후 User, Ability, Instrument 찾기
-        User findUser = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
-
-        // 이미 등록된 악기는 수정, 새로운 악기는 등록
-        Ability ability = Ability.valueOf(inputDto.getAbility());
-//        List<UserInstrument> allByUser = userInstrumentService.findAllByUser(findUser);
-
-//        for (UserInstrument userInstrument : allByUser) {
-//            if (userInstrument.getInstrument().getType().equals(inputDto.getInstrument())) {
-//                userInstrument
-//            }
+//    @ApiOperation(value = "연주하는 악기 초기 설정 후 등록하는 API")
+//    @PostMapping("/register")
+//    public ResponseEntity register(
+//            @RequestHeader(value = "Authorization") String jwtToken,
+//            @RequestBody UserInstrumentInputDto inputDto) {
+//
+//        // JWT Token 없으면 401 에러
+//        if (jwtToken == null) {
+//            return ResponseEntity.status(401).body("로그인을 진행해주세요");
 //        }
-
-        Instrument instrument = instrumentService.findByType(inputDto.getInstrument());
-
-        System.out.println("instrumentService = " + instrumentService);
-        System.out.println("instrument = " + instrument.getType());
-
-
-        UserInstrumentCreateDto dto = new UserInstrumentCreateDto(
-                ability,
-                instrument,
-                findUser
-        );
-
-        UserInstrument savedUserInstrument = userInstrumentService.save(dto);
-        System.out.println("savedUserInstrument = " + savedUserInstrument.getInstrument());
-        return ResponseEntity.status(200).body(UserInstrumentResDto.of(savedUserInstrument));
-    }
+//
+//        // Token 분해 후 User, Ability, Instrument 찾기
+//        Optional<User> user = jwtService.returnUser(jwtToken);
+//        if (!user.isPresent()) {
+//            return ResponseEntity.badRequest().body("회원가입을 진행해주세요");
+//        }
+//        User findUser = user.get();
+//
+//
+//        // 이미 등록된 악기는 수정, 새로운 악기는 등록
+//        Ability ability = Ability.valueOf(inputDto.getAbility());
+////        List<UserInstrument> allByUser = userInstrumentService.findAllByUser(findUser);
+//
+////        for (UserInstrument userInstrument : allByUser) {
+////            if (userInstrument.getInstrument().getType().equals(inputDto.getInstrument())) {
+////                userInstrument
+////            }
+////        }
+//
+//        Instrument instrument = instrumentService.findByType(inputDto.getInstrument());
+//
+//        System.out.println("instrumentService = " + instrumentService);
+//        System.out.println("instrument = " + instrument.getType());
+//
+//
+//        UserInstrumentCreateDto dto = new UserInstrumentCreateDto(
+//                ability,
+//                instrument,
+//                findUser
+//        );
+//
+//        UserInstrument savedUserInstrument = userInstrumentService.save(dto);
+//        System.out.println("savedUserInstrument = " + savedUserInstrument.getInstrument());
+//        return ResponseEntity.status(200).body(UserInstrumentResDto.of(savedUserInstrument));
+//    }
 
 //    ResponseEntity<UserInstrumentResDto>
     @ApiOperation(value = "유저의 등록된 악기를 수정, 인자로 List를 넘겨줌, 하나여도 리스트로 넘겨줌")
     @PutMapping()
-    public void update(
+    public ResponseEntity update(
             @RequestHeader(value = "Authorization") String jwtToken,
             @RequestBody List<UserInstrumentResDto> resDtoList)
     {
-        User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        Optional<User> searchUser = jwtService.returnUser(jwtToken);
+        if (!searchUser.isPresent()) {
+            return ResponseEntity.badRequest().build();
+        }
+        User user = searchUser.get();
         List<UserInstrument> userInstruments = userInstrumentService.findAllByUser(user);
 
         // 현재 보유하고있는 악기종류를 찾아 ,List로 저장하고
@@ -120,5 +130,6 @@ public class UserInstrumentController {
                 userInstrumentService.delete(userInstrument);
             }
         }
+        return ResponseEntity.status(200).build();
     }
 }

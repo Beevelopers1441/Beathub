@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Getter
 public class BandCreateDto {
 
@@ -20,6 +22,8 @@ public class BandCreateDto {
 
     User leader;
 
+    LocalDateTime createTime;
+
     @Builder
     public BandCreateDto(
             String name,
@@ -31,5 +35,6 @@ public class BandCreateDto {
         this.imageUrl = imageUrl;
         this.introduction = introduction;
         this.leader = leader;
+        this.createTime = LocalDateTime.now();
     }
 }

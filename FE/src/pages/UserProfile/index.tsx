@@ -27,28 +27,29 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
   // state 초기화
   // 유저 프로필 정보 탭에 필요한 정보
   const [profileInfo, setProfileInfo] = useState<IProfile["profileInfo"]>({
+    id: 0,
     imageUrl: "",
     nickname: "",
+    email: "",
     introduction: "",
     instruments: [{
-      id: 0,
-      model: "",
       ability: "",
-      player: {
-        id: 0,
-        name: "",
-        imageUrl: ""
-      },
-      instrument: {
-        id: 0,
-        type: ""
-      }
+      instrument: ""
     }],
-    followers: [{}],
-    followings: [{}],
-    leadingBands: [{}],
-    participatingBands:[{}]
+    participatingBands:[{
+      id: 0,
+      name: "",
+      imageUrl: "",
+      introduction: "",
+    }],
+    followBands: [{
+      id: 0,
+      name: "",
+      imageUrl: "",
+      introduction: "",
+    }]
   });
+  
   // const [profileBoard, setProfileBoard] = useState({})
 
   // 서버에 요청해서 받아온 userInfo를 profileInfo로 저장
@@ -56,18 +57,19 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
     getUserProfile(Number(match.params.userId)).then(res => {
       const totalInfo = res.data
       setProfileInfo({
-        imageUrl: totalInfo.imageUrl,
+        id: totalInfo.id,
         nickname: totalInfo.name,
+        email: totalInfo.email,
+        imageUrl: totalInfo.imageUrl,
         introduction: totalInfo.introduction,
         instruments: totalInfo.instruments,
-        followers: totalInfo.followers,
-        followings: totalInfo.followings,
-        leadingBands: totalInfo.leadingBands,
-        participatingBands: totalInfo.participatingBands
+        participatingBands: totalInfo.participatingBands,
+        followBands: totalInfo.followBands
       })
     })
   }, [match.params.userId])
 
+  console.log(profileInfo)
   
   return(
     <Wrapper>

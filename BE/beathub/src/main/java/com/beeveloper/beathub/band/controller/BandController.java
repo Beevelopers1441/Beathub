@@ -18,12 +18,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/bands")
+@CrossOrigin(origins = "*")
 public class BandController {
 
     private final BandService bandService;
@@ -46,7 +49,7 @@ public class BandController {
     //생성
     @ApiOperation(value = "밴드 만드는 API, 해당과정에서 밴드멤버로 자동추가")
     @PostMapping
-    public ResponseEntity<BandResDto> createBand(
+    public ResponseEntity createBand(
             @RequestHeader(value = "Authorization") String jwtToken,
             @RequestBody BandInputDto bandInfo) {
 
@@ -55,30 +58,36 @@ public class BandController {
         }
 
         // jwtToken 분해해서 user 찾고, Leader 로 등록
-        User leader = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        Optional<User> searchUser = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        if (!searchUser.isPresent()) {
+            return ResponseEntity.badRequest().body("존재하지 않는 회원입니다.");
+        }
+        User leader = searchUser.get();
 
         BandCreateDto dto = new BandCreateDto(
                 bandInfo.getName(),
-                bandInfo.getImageUrl(),
+                bandInfo.getBandProfileImage(),
                 bandInfo.getIntroduction(),
                 leader
         );
         Band band = bandService.createBand(dto);
+
         return ResponseEntity.status(201).body(BandResDto.of(band));
     }
 
     // 조회
 
-    @ApiOperation(value = "하나의 밴드를 조회합니다. 인자는 Band Id 입니다. 밴드 멤버를 조회하려면 추가로 BandMember API를 통해 조회해주세요")
+    @ApiOperation(value = "하나의 밴드를 조회합니다. 인자는 Band Id 입니다.")
     @GetMapping("/{bandId}")
-    public ResponseEntity<BandResDto> find(
-            @RequestParam(value = "bandId") Long bandId
-    ) {
-        Band searchBand = bandService.findById(bandId);
-        if (searchBand == null) {
-            return (ResponseEntity<BandResDto>) ResponseEntity.status(404);
+    public ResponseEntity find(
+            @RequestParam(value = "bandId") Long bandId) {
+
+        Optional<Band> searchBand = bandService.findById(bandId);
+        if (!searchBand.isPresent()) {
+            return ResponseEntity.badRequest().body("존재하지 않는 밴드입니다.");
         } else {
-            return ResponseEntity.status(201).body(BandResDto.of(searchBand));
+            Band band = searchBand.get();
+            return ResponseEntity.status(201).body(BandResDto.of(band));
         }
     }
 
@@ -94,21 +103,62 @@ public class BandController {
 
 
     // 수정
-
-    // 삭제
-
-    // 팔로우
-    @Transactional
-    @ApiOperation(value = "밴드를 팔로우 합니다.")
-    @PostMapping("/follow")
-    public void follow(
+    @ApiOperation(value = "해당 밴드의 정보를 수정합니다.")
+    @PutMapping("/{bandId}")
+    public ResponseEntity update(
             @RequestHeader(value = "Authorization") String jwtToken,
-            @RequestBody @ApiParam(value = "팔로우할 Band 의 Id") FollowRequestDto requestDto
-    ) {
-        User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
-        bandService.follow(user.getId(), requestDto.getId());
+            @PathVariable(value = "bandId") Long bandId,
+            @RequestBody BandInputDto inputDto) {
+        // 이미지 처리때문에 보류 중
+        Optional<User> searchUser = jwtService.returnUser(jwtToken);
+        Optional<Band> searchBand = bandService.findById(bandId);
+
+        if (!searchUser.isPresent()) {
+            return ResponseEntity.badRequest().body("회원가입을 해주세요!");
+        }
+        if (!searchBand.isPresent()) {
+            return ResponseEntity.badRequest().body("존재하지 않는 밴드입니다.");
+        }
+
+        User user = searchUser.get();
+        Band band = searchBand.get();
+        if (user.getId() != band.getLeader().getId()) {
+            return ResponseEntity.status(403).body("권한이 없는 사용자 입니다.");
+        }
+
+        Band updatedBand = bandService.update(band, inputDto);
+
+        return ResponseEntity.status(200).body(BandResDto.of(updatedBand));
     }
 
-    //
+
+    // 삭제
+    @ApiOperation(value = "밴드를 삭제합니다")
+    @DeleteMapping("/{bandId}")
+    public ResponseEntity delete(
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @PathParam(value = "bandId") Long bandId) {
+
+        Optional<User> searchUser = jwtService.returnUser(jwtToken);
+        Optional<Band> searchBand = bandService.findById(bandId);
+
+        if (!searchUser.isPresent()) {
+            return ResponseEntity.badRequest().body("회원가입을 해주세요!");
+        }
+        if (!searchBand.isPresent()) {
+            return ResponseEntity.badRequest().body("존재하지 않는 밴드입니다.");
+        }
+
+        User user = searchUser.get();
+        Band band = searchBand.get();
+
+        if (!user.getId().equals(band.getLeader().getId())) {
+            return ResponseEntity.status(403).body("권한이 없는 사용자 입니다.");
+        }
+
+        bandService.delete(band);
+        return ResponseEntity.status(200).build();
+    }
+
 
 }

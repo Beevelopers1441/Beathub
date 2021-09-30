@@ -30,7 +30,7 @@ public class UserProfileResDto {
     
     private List<BandDto> followBands;
 
-    private List<UserInstrumentDto> instruments;
+    private List<UserInstrumentForUserDto> instruments;
 
 //    private List<Map<String, Object>> posts;
 
@@ -40,9 +40,9 @@ public class UserProfileResDto {
 
     private List<CommitDto> commits;
 
-    private List<UserInfoDto> followers;
+//    private List<UserInfoDto> followers;
 
-    private List<UserInfoDto> followings;
+//    private List<UserInfoDto> followings;
 
     public static UserProfileResDto of(User user) {
         UserProfileResDto userProfileResDto = new UserProfileResDto();
@@ -51,19 +51,20 @@ public class UserProfileResDto {
         userProfileResDto.email = user.getEmail();
         userProfileResDto.imageUrl = user.getImageUrl();
         userProfileResDto.introduction = user.getIntroduction();
-
-
-        userProfileResDto.instruments = UserInstrumentDto.of(user.getInstruments());
+        userProfileResDto.instruments = UserInstrumentForUserDto.of(user.getInstruments());
         userProfileResDto.leadingBands = BandDto.of(user.getLeadingBands());
         userProfileResDto.followBands = BandDto.of(user.getFollowBands());
         // 참여하고 있는 밴드의 상태가 approved 인지 확인
         List<BandMember> participatingBands = user.getParticipatingBands();
         List<Band> approvedBands = new ArrayList<>();
+
         for (BandMember bandMember : participatingBands) {
-            if (bandMember.getStatus().equals(Status.Approved)) {
+            System.out.println("bandMember.getStatus().name() = " + bandMember.getStatus().name());
+            if (bandMember.getStatus().name().equals("Approved")) {
                 approvedBands.add(bandMember.getBand());
             }
         }
+        System.out.println("approvedBands = " + approvedBands.size());
         userProfileResDto.participatingBands = BandDto.of(approvedBands);
         userProfileResDto.commits = CommitDto.of(user.getCommits());
 

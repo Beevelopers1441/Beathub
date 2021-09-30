@@ -3,13 +3,12 @@ package com.beeveloper.beathub.band.service;
 import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.band.domain.BandMember;
 import com.beeveloper.beathub.band.dto.request.BandCreateDto;
+import com.beeveloper.beathub.band.dto.request.BandInputDto;
 import com.beeveloper.beathub.band.dto.ressponse.BandResDto;
 import com.beeveloper.beathub.band.repository.BandMemberRepository;
 import com.beeveloper.beathub.band.repository.BandRepository;
 import com.beeveloper.beathub.instrument.domain.Instrument;
-import com.beeveloper.beathub.instrument.repository.InstrumentRepository;
 import com.beeveloper.beathub.user.domain.User;
-import com.beeveloper.beathub.user.domain.UserInstrument;
 import com.beeveloper.beathub.user.repository.UserInstrumentRepository;
 import com.beeveloper.beathub.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,8 +29,8 @@ public class BandServiceImpl implements BandService{
 
     @Override
     @Transactional(readOnly = true)
-    public Band findById(Long bandId) {
-        return bandRepository.findById(bandId).orElseThrow(RuntimeException::new);
+    public Optional<Band> findById(Long bandId) {
+        return bandRepository.findById(bandId);
     }
 
     @Override
@@ -57,7 +55,8 @@ public class BandServiceImpl implements BandService{
                 bandInfo.getName(),
                 bandInfo.getImageUrl(),
                 bandInfo.getIntroduction(),
-                bandInfo.getLeader()
+                bandInfo.getLeader(),
+                bandInfo.getCreateTime()
         );
 
         // BandMember 등록용, Leader 용
@@ -91,8 +90,23 @@ public class BandServiceImpl implements BandService{
         User user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
         Band band = bandRepository.findById(bandId).orElseThrow(RuntimeException::new);
         user.addFollowingBand(band);
-        band.addFollowers(user);
-        userRepository.save(user);
-        bandRepository.save(band);
+    }
+
+    @Override
+    public void unfollow(Long userId, Long bandId) {
+        User user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
+        Band band = bandRepository.findById(bandId).orElseThrow(RuntimeException::new);
+        user.removeFollowingBand(band);
+    }
+
+    @Override
+    public void delete(Band band) {
+        bandRepository.delete(band);
+    }
+
+    @Override
+    public Band update(Band band, BandInputDto inputDto) {
+        Band updateBand = band.update(inputDto);
+        return bandRepository.save(updateBand);
     }
 }

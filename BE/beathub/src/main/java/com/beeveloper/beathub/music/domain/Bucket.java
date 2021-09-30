@@ -2,7 +2,9 @@ package com.beeveloper.beathub.music.domain;
 
 import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.user.domain.User;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Bucket {
 
     @Id
@@ -40,5 +43,13 @@ public class Bucket {
 
     @ManyToOne
     private Band ownerBand;
+
+    @Builder
+    public Bucket(String title, int BPM, String introduction,User ownerUser) {
+        this.title = title;
+        this.BPM = BPM;
+        this.introduction = introduction;
+        this.ownerUser = ownerUser;
+    }
 
 }

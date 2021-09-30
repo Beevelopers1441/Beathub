@@ -1,5 +1,6 @@
 package com.beeveloper.beathub.band.domain;
 
+import com.beeveloper.beathub.band.dto.request.BandInputDto;
 import com.beeveloper.beathub.band.repository.BandRepository;
 import com.beeveloper.beathub.music.domain.Bucket;
 import com.beeveloper.beathub.post.domain.BandPost;
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,40 +32,39 @@ public class Band {
 
     private String introduction;
 
+    private LocalDateTime createTime;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private User leader;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "band")
+    @OneToMany(mappedBy = "band", cascade = CascadeType.ALL)
     private List<BandMember> members = new ArrayList<BandMember>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "ownerBand")
+    @OneToMany(mappedBy = "ownerBand", cascade = CascadeType.ALL)
     private List<Bucket> buckets = new ArrayList<Bucket>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "authorBand")
+    @OneToMany(mappedBy = "authorBand", cascade = CascadeType.ALL)
     private List<BandPost> bandPosts = new ArrayList<BandPost>();
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "followBands")
+    @ManyToMany(mappedBy = "followBands", cascade = CascadeType.ALL)
     private List<User> followers = new ArrayList<User>();
-
 
     public Band(
             String name,
             String imageUrl,
             String introduction,
-            User leader
+            User leader,
+            LocalDateTime createTime
     ) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.introduction = introduction;
         this.leader = leader;
-
-        BandMember bandMember = new BandMember(
-
-        );
+        this.createTime = createTime;
     }
 
     public Band setMember(BandMember member) {
@@ -73,5 +74,12 @@ public class Band {
 
     public void addFollowers(User user) {
         this.followers.add(user);
+    }
+
+    public Band update(BandInputDto dto) {
+        this.name = dto.getName();
+        this.imageUrl = dto.getBandProfileImage();
+        this.introduction = dto.getIntroduction();
+        return this;
     }
 }

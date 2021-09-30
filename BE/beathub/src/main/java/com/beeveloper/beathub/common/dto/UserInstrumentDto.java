@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class UserInstrumentDto {
 
     private Long id;
-    private String model;
+//    private String model;
     private Ability ability;
     private UserInfoDto player;
     private InstrumentDto instrument;
@@ -19,7 +19,7 @@ public class UserInstrumentDto {
     public static UserInstrumentDto of(UserInstrument userInstrument) {
         UserInstrumentDto userInstrumentDto = new UserInstrumentDto();
         userInstrumentDto.id = userInstrument.getId();
-        userInstrumentDto.model = userInstrument.getModel();
+//        userInstrumentDto.model = userInstrument.getModel();
         userInstrumentDto.ability = userInstrument.getAbility();
         userInstrumentDto.player = UserInfoDto.ofUser(userInstrument.getPlayer());
         userInstrumentDto.instrument = InstrumentDto.of(userInstrument.getInstrument());

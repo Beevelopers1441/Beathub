@@ -6,6 +6,7 @@ import { GoogleLogin } from 'react-google-login';
 
 // types
 import { UserInfo } from 'types';
+import { UserInitialInfo } from 'modules/user/types';
 
 // apis
 import { socialLogin, getUserInfo, isFirst } from 'lib/api/auth/socialLogin'
@@ -27,10 +28,10 @@ export const GoogleAuthBtn = (props:Props): React.ReactElement => {
   // redux store 조회
   const isLoggedIn = useSelector((state: any) => state.user.isLoggedIn)
 
-  if (isLoggedIn) {
-    console.log("move")
-    history.push('/')
-  }
+  // if (isLoggedIn) {
+  //   console.log("move")
+  //   history.push('/')
+  // }
 
   const onSuccess = (result: any) => {
 
@@ -58,16 +59,15 @@ export const GoogleAuthBtn = (props:Props): React.ReactElement => {
       // 정보가 있는 유저인지 확인
       isFirst(token).then(res => {
         const isfirst = res.data
-  
         //  토큰으로 사용자 정보 요청 => 사용자 정보 리덕스에 저장
         getUserInfo(token).then(res => {
           const userInfo = res.data
-          const updateUserInfo = (userInfo: object) => dispatch(getUserInfoAction({ userinfo: userInfo }))
+          const updateUserInfo = (userInfo: UserInitialInfo) => dispatch(getUserInfoAction({ userinfo: userInfo }))
           updateUserInfo(userInfo)
         }).then(res => {
 
           // 로그인 처리
-          loginAction()
+          dispatch(loginAction());
 
           // 처음 오는 유저면 추가 정보 입력 안내 페이지
           if (isfirst === true) {

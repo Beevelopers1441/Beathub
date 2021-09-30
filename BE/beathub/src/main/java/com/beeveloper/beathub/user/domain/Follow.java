@@ -1,5 +1,6 @@
 package com.beeveloper.beathub.user.domain;
 
+import com.beeveloper.beathub.band.domain.Band;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,8 +24,9 @@ public class Follow {
     @ManyToOne
     private User toUser;
 
+    
     @Builder
-    public Follow(User fromUser, User toUser) {
+    public Follow(User fromUser, User toUser, Band toBand) {
         this.fromUser = fromUser;
         this.toUser = toUser;
     }

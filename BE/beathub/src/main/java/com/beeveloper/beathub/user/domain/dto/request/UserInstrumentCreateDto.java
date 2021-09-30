@@ -17,9 +17,6 @@ public class UserInstrumentCreateDto {
     @ApiModelProperty(value = "능력", example = "상, 중, 하")
     private Ability ability;
 
-    @ApiModelProperty(value = "악기모델명", example = "fender")
-    private String model;
-
     @ApiModelProperty(value = "악기 종류", example = "기타")
     private Instrument instrument;
 
@@ -28,12 +25,10 @@ public class UserInstrumentCreateDto {
     @Builder
     public UserInstrumentCreateDto(
             Ability ability,
-            String model,
             Instrument instrument,
             User player
     ){
         this.ability = ability;
-        this.model = model;
         this.instrument = instrument;
         this.player = player;
     }

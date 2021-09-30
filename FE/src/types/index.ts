@@ -3,6 +3,7 @@ export interface IBasicUser {
   imageUrl: string;
   name: string;
 }
+
 export interface IComment {
   id: number;
   content: string;
@@ -14,6 +15,7 @@ export interface ITag {
   id: number;
   type: string;
 }
+
 export interface IPost {
   id: number,
   title: string,
@@ -41,50 +43,64 @@ export interface UserInfo {
   profileObj?: ProfileObj;
 }
 
-
 // 유저 프로필
 export interface ProfileInfo {
+  id: number,
   imageUrl: string,
+  email: string,
   nickname: string,
   introduction?: string,
   instruments: Instrument[],
-  followers: {}[],
-  followings: {}[],
-  leadingBands: {}[],
-  participatingBands:{}[]
+  participatingBands:Band[],
+  followBands: Band[],
 }
 
 export interface Instrument {
+  instrument: string,
+  ability: string
+}
+
+export interface FollowPerson {
   id: number,
-  model: string,
-  ability: string,
-  player: {
-    id: number,
-    name: string,
-    imageUrl: string
-  },
-  instrument: {
-    id: number,
-    type: string
-  }
+  imageUrl: string,
+  name: string
+}
+
+// 밴드 프로필
+export interface BandProfileInfo {
+  band: Band,
+  leader: Leader,
+  members: Member[],
+  followers: {}[],
+  buckets: {}[],
+  posts: {}[],
 }
 
 export interface Band {
   id: number,
   name: string,
-  imgUrl: string
+  imageUrl: string,
+  introduction: string
 }
 
-export interface Bands {
-  bands: Band[]
+export interface Leader {
+  id: number,
+  name: string,
+  imageUrl: string
+}
+
+export interface AudioInfo {
+  userInfo: {
+    imageUrl: string;
+    name: string,
+  }
+  title: string;
+  instrument: string;
+  fileUrl: string;
 }
 
 export interface Member {
   id: number,
   name: string,
-  imgUrl: string
-}
-
-export interface Members {
-  members: Band[]
+  imageUrl: string
 }

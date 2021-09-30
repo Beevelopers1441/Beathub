@@ -79,13 +79,14 @@ export interface Bands {
   bands: Band[]
 }
 
-export interface Audio {
+export interface AudioInfo {
   userInfo: {
     imageUrl: string;
     name: string,
   }
   title: string;
   instrument: string;
+  fileUrl: string;
 }
 
 export interface Member {

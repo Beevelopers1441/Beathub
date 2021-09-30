@@ -184,7 +184,14 @@ function AudioUpload(): React.ReactElement {
       }
       {uploaded
         ? <div>
-            <button onClick={onClickPlay} >재생</button>
+          <div className="loading">
+            <div className="spinner"></div>
+          </div>
+          <div className="play-pause-btn" onClick={onClickPlay}>  
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 18 24">
+              <path fill="#566574" fill-rule="evenodd" d="M18 12L0 24V0" className="play-pause-icon" id="playPause"/>
+            </svg>
+          </div>
             <button onClick={onClickStop} >일시정지</button>
           </div>
         : <button>재생불가능</button>

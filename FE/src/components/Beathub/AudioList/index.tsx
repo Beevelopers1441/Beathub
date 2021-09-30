@@ -4,14 +4,14 @@ import React from 'react';
 import AudioListItem  from 'components/Beathub/AudioListItem';
 
 // types
-import { Audio } from 'types';
+import { AudioInfo } from 'types';
 
 // styles
 import { Grid } from '@mui/material';
 import Wrapper from './styles';
 
 interface Props {
-  Audios: Audio[];
+  Audios: AudioInfo[];
 }
 
 
@@ -19,20 +19,13 @@ function AudioList({ Audios }: Props): React.ReactElement {
   return (
     <Wrapper>
       <Grid container>
-        <Grid item xs={3} className="user-info-container">
+        <Grid item xs={3} className="audio-info-container">
           {Audios
-          ? Audios.map((AudioItem:Audio, idx:number) => (
-              <AudioListItem Audio={AudioItem} key={idx} />
+          ? Audios.map((AudioItem:AudioInfo, idx:number) => (
+              <AudioListItem AudioInfo={AudioItem} key={idx} />
             ))
             : <div></div>
           }
-          
-
-          
-          
-        </Grid>
-        <Grid item xs={9}>
-          <p>grid</p>
         </Grid>
       </Grid>
     </Wrapper>

@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react'
 import { AudioList, AudioUpload } from 'components/Beathub';
 
 // types
-import { Audio } from 'types';
+import { AudioInfo } from 'types';
 
 // styles
 import { Container, Grid } from '@mui/material';
@@ -18,7 +18,6 @@ import { type } from 'os';
 // interface Props {
 //   Audios: Audio[]
 // }
-
 // 더미 오디오 목록
 const dummyAudios = [
   {
@@ -27,7 +26,8 @@ const dummyAudios = [
       name: "userA"
     },
     title: "RecordA",
-    instrument: "instrumentA"
+    instrument: "instrumentA",
+    fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
   },
   {
     userInfo: {
@@ -35,7 +35,9 @@ const dummyAudios = [
       name: "userB"
     },
     title: "RecordB",
-    instrument: "instrumentB"
+    instrument: "instrumentB",
+    fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
+    
   },
   {
     userInfo: {
@@ -43,7 +45,8 @@ const dummyAudios = [
       name: "userC"
     },
     title: "RecordC",
-    instrument: "instrumentC"
+    instrument: "instrumentC",
+    fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
   },
   {
     userInfo: {
@@ -51,12 +54,10 @@ const dummyAudios = [
       name: "userD"
     },
     title: "RecordD",
-    instrument: "instrumentD"
+    instrument: "instrumentD",
+    fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
   }
 ]
-
-// let audioURL = "./dump.mp3"
-// let audio = new Audio("dump.wav");
 
 function Beathub(): ReactElement {
   

@@ -14,6 +14,9 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class AudioResDto {
 
+    @ApiModelProperty(name = "AudioSetting Id", example = "1")
+    private Long id;
+
     @ApiModelProperty(name = "사용자 저장 파일 이름", example = "guitar.mp3")
     private String filename;
 
@@ -28,6 +31,7 @@ public class AudioResDto {
 
     public static AudioResDto of(Audio audio) {
         AudioResDto audioResDto = new AudioResDto();
+        audioResDto.id = audio.getId();
         audioResDto.filename = audio.getFileName();
         audioResDto.filepath = audio.getFilePath();
         audioResDto.instrumentType = audio.getInstrument().getType();

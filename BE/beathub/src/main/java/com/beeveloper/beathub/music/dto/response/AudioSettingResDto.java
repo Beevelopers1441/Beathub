@@ -13,6 +13,9 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class AudioSettingResDto {
 
+    @ApiModelProperty(name = "AudioSetting Id", example = "1")
+    private Long id;
+
     @ApiModelProperty(name = "음향 설정값", example = "90")
     private int high;
 

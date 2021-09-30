@@ -5,7 +5,7 @@ import com.beeveloper.beathub.music.domain.AudioSetting;
 import com.beeveloper.beathub.music.domain.Bucket;
 import com.beeveloper.beathub.music.domain.Commit;
 import com.beeveloper.beathub.music.dto.request.AudioCreateDto;
-import com.beeveloper.beathub.music.dto.request.AudioSettingCreateDto;
+import com.beeveloper.beathub.music.dto.request.AudioSettingInfo;
 import com.beeveloper.beathub.music.dto.request.BucketCreateDto;
 import com.beeveloper.beathub.music.dto.request.CommitCreateDto;
 
@@ -17,8 +17,8 @@ public interface MusicService {
     Bucket findBucketById(Long bucketId);
     Audio createAudio(AudioCreateDto audioInfo, String jwtToken, Long bucketId);
     List<Audio> findAudiosByBucket(Long bucketId);
-    AudioSetting createAudioSetting(AudioSettingCreateDto audioSettingInfo, Commit commit, Audio audio);
-//    Commit creatCommit(CommitCreateDto commitInfo, Long bucketId);
+    AudioSetting createAudioSetting(AudioSettingInfo audioSettingInfo, Commit commit, Audio audio);
+    Commit createCommit(CommitCreateDto commitInfo, String jwtToken, Long bucketId);
 //    List<Commit> findAllCommitsInBucket(Long bucketId);
 //    Commit findCommit(Long commitId);
 //    List<Audio> findAllAudios();

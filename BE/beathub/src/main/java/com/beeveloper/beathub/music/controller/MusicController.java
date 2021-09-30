@@ -1,11 +1,9 @@
 package com.beeveloper.beathub.music.controller;
 
 import com.beeveloper.beathub.music.domain.Audio;
-import com.beeveloper.beathub.music.domain.AudioSetting;
 import com.beeveloper.beathub.music.domain.Bucket;
 import com.beeveloper.beathub.music.domain.Commit;
 import com.beeveloper.beathub.music.dto.request.AudioCreateDto;
-import com.beeveloper.beathub.music.dto.request.AudioSettingCreateDto;
 import com.beeveloper.beathub.music.dto.request.BucketCreateDto;
 import com.beeveloper.beathub.music.dto.request.CommitCreateDto;
 import com.beeveloper.beathub.music.dto.response.*;
@@ -67,13 +65,16 @@ public class MusicController {
         return ResponseEntity.status(201).body(AudioResDto.of(audios));
     }
 //
-//    // 커밋 생성
-//    @PostMapping("/buckets/{bucketId}")
-//    public ResponseEntity<CommitResDto> createCommit(
-//            @RequestBody CommitCreateDto commitCreateDto, @PathVariable Long bucketId) {
-//        Commit commit = musicService.creatCommit(commitCreateDto, bucketId);
-//        return ResponseEntity.status(201).body();
-//    }
+    // 커밋 생성
+    @PostMapping("/buckets/{bucketId}")
+    @ApiOperation(value = "커밋 생성")
+    public ResponseEntity<CommitResDto> createCommit(
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @RequestBody CommitCreateDto commitCreateDto,
+            @PathVariable Long bucketId) {
+        Commit commit = musicService.createCommit(commitCreateDto, jwtToken, bucketId);
+        return ResponseEntity.status(201).body(CommitResDto.of(commit));
+    }
 //
 //
 //    // 버킷의 커밋 조회

@@ -6,9 +6,8 @@ import com.beeveloper.beathub.music.domain.Audio;
 import com.beeveloper.beathub.music.domain.AudioSetting;
 import com.beeveloper.beathub.music.domain.Bucket;
 import com.beeveloper.beathub.music.domain.Commit;
-import com.beeveloper.beathub.music.dto.request.AudioCreateDto;
-import com.beeveloper.beathub.music.dto.request.AudioSettingCreateDto;
-import com.beeveloper.beathub.music.dto.request.BucketCreateDto;
+import com.beeveloper.beathub.music.dto.request.*;
+import com.beeveloper.beathub.music.dto.response.AudioSettingResDto;
 import com.beeveloper.beathub.music.repository.AudioRepository;
 import com.beeveloper.beathub.music.repository.AudioSettingRepository;
 import com.beeveloper.beathub.music.repository.BucketRepository;
@@ -16,12 +15,12 @@ import com.beeveloper.beathub.music.repository.CommitRepository;
 import com.beeveloper.beathub.user.domain.User;
 import com.beeveloper.beathub.user.jwts.JwtService;
 import com.beeveloper.beathub.user.service.UserService;
-import com.beeveloper.beathub.user.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -80,7 +79,7 @@ public class MusicServiceImpl implements MusicService{
     }
 
     @Override
-    public AudioSetting createAudioSetting(AudioSettingCreateDto audioSettingInfo, Commit commit, Audio audio) {
+    public AudioSetting createAudioSetting(AudioSettingInfo audioSettingInfo, Commit commit, Audio audio) {
         AudioSetting audioSetting = AudioSetting.builder()
                 .high(audioSettingInfo.getHigh())
                 .mid(audioSettingInfo.getMid())
@@ -89,6 +88,23 @@ public class MusicServiceImpl implements MusicService{
                 .audio(audio)
                 .build();
         return audioSettingRepository.save(audioSetting);
+    }
+
+    @Override
+    @Transactional
+    public Commit createCommit(CommitCreateDto commitInfo, String jwtToken, Long bucketId) {
+        User author = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        Bucket bucket = findBucketById(bucketId);
+        Commit commit = Commit.builder()
+                .title(commitInfo.getTitle())
+                .introduction(commitInfo.getIntroduction())
+                .createTime(LocalDateTime.now())
+                .build();
+        for (AudioSettingCreateDto audioSettingInfo: commitInfo.getAudioSettingInfos()) {
+            Audio audio = audioRepository.findById(audioSettingInfo.getAudioId()).orElseThrow(NullPointerException::new);
+            createAudioSetting(new AudioSettingInfo(audioSettingInfo), commit, audio);
+        }
+        return commitRepository.save(commit);
     }
 
 

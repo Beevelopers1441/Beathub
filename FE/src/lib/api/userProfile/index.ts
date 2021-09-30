@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { config } from 'process';
 
 const BASE_URL = process.env.REACT_APP_SERVER_URL;
-const TOKEN = localStorage.getItem('token');
+const TOKEN = localStorage.getItem('userToken');
 
 const getUserProfile = async (userId: Number) => {
   const url = `${BASE_URL}/api/user/{userId}`;
@@ -15,10 +14,10 @@ const getUserProfile = async (userId: Number) => {
 };
 
 // 개인 팔로우
-const followUser = async (toUserId: Number) => {
+const followUser = async (toUserId: number) => {
   const config: any = {
     method: 'POST',
-    url:`${BASE_URL}/api/follow/${toUserId}`,
+    url:`${BASE_URL}/api/follow/user/${toUserId}`,
     headers: {
       Authorization: TOKEN,
     }
@@ -27,10 +26,10 @@ const followUser = async (toUserId: Number) => {
 };
 
 // 개인 언팔로우
-const unFollowUser = async (toUserId: Number) => {
+const unFollowUser = async (toUserId: number) => {
   const config: any = {
     method: 'DELETE',
-    url:`${BASE_URL}/api/follow/${toUserId}`,
+    url:`${BASE_URL}/api/unfollow/user/${toUserId}`,
     headers: {
       Authorization: TOKEN,
     }
@@ -38,6 +37,14 @@ const unFollowUser = async (toUserId: Number) => {
   return await axios(config);
 };
 
+// 팔로우 목록 조회
+const getFollowList = async (toUserId: number) => {
+  const config: any = {
+    method: 'GET',
+    url:`${BASE_URL}/api/follow/user/${toUserId}`,
+  }
+  return await axios(config);
+};
 
 
-export { getUserProfile, followUser };
+export { getUserProfile, followUser, unFollowUser, getFollowList };

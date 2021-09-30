@@ -30,6 +30,7 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
     id: 0,
     imageUrl: "",
     nickname: "",
+    email: "",
     introduction: "",
     instruments: [{
       id: 0,
@@ -45,17 +46,13 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
         type: ""
       }
     }],
-    followers: [{
-      id: 0,
-      name: "",
-      imageUrl: ""
-    }],
-    followings: [{
-      id: 0,
-      name: "",
-      imageUrl: ""
-    }],
     participatingBands:[{
+      id: 0,
+      name: "",
+      imageUrl: "",
+      introduction: "",
+    }],
+    followBands: [{
       id: 0,
       name: "",
       imageUrl: "",
@@ -71,17 +68,18 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
       const totalInfo = res.data
       setProfileInfo({
         id: totalInfo.id,
-        imageUrl: totalInfo.imageUrl,
         nickname: totalInfo.name,
+        email: totalInfo.email,
+        imageUrl: totalInfo.imageUrl,
         introduction: totalInfo.introduction,
         instruments: totalInfo.instruments,
-        followers: totalInfo.followers,
-        followings: totalInfo.followings,
-        participatingBands: totalInfo.participatingBands
+        participatingBands: totalInfo.participatingBands,
+        followBands: totalInfo.followBands
       })
     })
   }, [match.params.userId])
 
+  console.log(profileInfo)
   
   return(
     <Wrapper>

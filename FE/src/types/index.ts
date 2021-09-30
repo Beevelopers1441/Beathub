@@ -48,12 +48,12 @@ export interface UserInfo {
 export interface ProfileInfo {
   id: number,
   imageUrl: string,
+  email: string,
   nickname: string,
   introduction?: string,
   instruments: Instrument[],
-  followers: FollowPerson[],
-  followings: FollowPerson[],
-  participatingBands:Band[]
+  participatingBands:Band[],
+  followBands: Band[],
 }
 
 export interface Instrument {

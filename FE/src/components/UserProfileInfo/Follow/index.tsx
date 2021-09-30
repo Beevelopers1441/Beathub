@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import FollowBtn from './FollowBtn';
@@ -9,24 +9,83 @@ import DMBtn from '../DMBtn';
 import Wrapper from './styles';
 import { Grid } from '@mui/material';
 
-import { FollowPerson } from 'types';
+// api
+import { followUser, unFollowUser, getFollowList } from 'lib/api/userProfile';
+
 
 interface Props {
   id: number,
-  followers: FollowPerson[],
-  followings: FollowPerson[]
 }
 
-const Follow: React.FC<Props> = ({ id, followers, followings }) => {
+const Follow: React.FC<Props> = ({ id }) => {
 
   const userId = useSelector((state: any) => state.user.userInfo.id)
+
+  const [isFollowing, setIsFollowing] = useState<boolean>(false)
+  const [followersList, setFollowersList] = useState([])
+  const [followingsList, setFollowingsList] = useState([])
+
+  // 팔로워, 팔로잉 목록 초기화
+  useEffect(() => {
+    FetchFollowList(id)
+  }, [id])
+
+  // 이 사람을 팔로우하고 있는지 판단
+  useEffect(() => {
+    followersList.forEach(follower => {
+      if (id === follower["user"]["id"]) {
+        setIsFollowing(true)
+      }
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // 팔로잉, 팔로워 목록을 가져오는 함수
+  const FetchFollowList = (userId: number) => {
+    getFollowList(userId)
+    .then(res => {
+      setFollowersList(res.data.followers)
+      setFollowingsList(res.data.followings)
+    })
+  }
+
+  // 팔로우 버튼 클릭
+  const onClickFollow = () => {
+    followUser(id)
+    .then((res) => {
+      console.log(res)
+      FetchFollowList(id)
+      setIsFollowing(true)
+    })
+    .catch((err) => {
+      console.log(err)
+    })    
+  }
+
+  // 언팔로우 버튼 클릭
+  const onClickUnfollow = () => {
+    unFollowUser(id)
+    .then((res) => {
+      console.log(res)
+      FetchFollowList(id)
+      setIsFollowing(false)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
 
   return(
     <Wrapper>
       { id !== userId &&
         <Grid container>
           <Grid item xs={10}>
-            <FollowBtn></FollowBtn>
+            <FollowBtn 
+              isFollowing={isFollowing}
+              onClickFollow={onClickFollow}
+              onClickUnfollow={onClickUnfollow}
+              >
+            </FollowBtn>
           </Grid>
           <Grid item xs={2}>
             <DMBtn></DMBtn>
@@ -35,10 +94,10 @@ const Follow: React.FC<Props> = ({ id, followers, followings }) => {
       }
       <Grid container direction="row" justifyContent="center">
         <Grid item xs={4}>
-          <Followers followers={followers}></Followers>
+          <Followers followers={followersList}></Followers>
         </Grid>
         <Grid item xs={4}>
-          <Followings followings={followings}></Followings>
+          <Followings followings={followingsList}></Followings>
         </Grid>
       </Grid> 
     </Wrapper>

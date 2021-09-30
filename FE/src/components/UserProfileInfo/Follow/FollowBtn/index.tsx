@@ -1,12 +1,26 @@
 import React from 'react';
 import Wrapper from './styles';
 
-function FollowBtn() {
+interface Props {
+  isFollowing: boolean,
+  onClickFollow: () => void;
+  onClickUnfollow: () => void;
+}
+
+const FollowBtn: React.FC<Props> = ({ isFollowing, onClickFollow, onClickUnfollow }) => {
+
   return(
     <Wrapper>
-      <button className="follow-btn">
-        <div className="follow-btn-letter">Follow</div>
-      </button>
+      { isFollowing
+        ?
+        <button className="unfollow-btn" onClick={onClickUnfollow}>
+          <div className="unfollow-btn-letter">Unfollow</div>
+        </button>
+        :
+        <button className="follow-btn" onClick={onClickFollow}>
+          <div className="follow-btn-letter">Follow</div>
+        </button>
+      }
     </Wrapper>
   )
 }

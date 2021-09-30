@@ -3,8 +3,11 @@ package com.beeveloper.beathub.music.service;
 import com.beeveloper.beathub.instrument.domain.Instrument;
 import com.beeveloper.beathub.instrument.service.InstrumentService;
 import com.beeveloper.beathub.music.domain.Audio;
+import com.beeveloper.beathub.music.domain.AudioSetting;
 import com.beeveloper.beathub.music.domain.Bucket;
+import com.beeveloper.beathub.music.domain.Commit;
 import com.beeveloper.beathub.music.dto.request.AudioCreateDto;
+import com.beeveloper.beathub.music.dto.request.AudioSettingCreateDto;
 import com.beeveloper.beathub.music.dto.request.BucketCreateDto;
 import com.beeveloper.beathub.music.repository.AudioRepository;
 import com.beeveloper.beathub.music.repository.AudioSettingRepository;
@@ -74,6 +77,18 @@ public class MusicServiceImpl implements MusicService{
     public List<Audio> findAudiosByBucket(Long bucketId) {
         Bucket bucket = findBucketById(bucketId);
         return audioRepository.findByBucket(bucket);
+    }
+
+    @Override
+    public AudioSetting createAudioSetting(AudioSettingCreateDto audioSettingInfo, Commit commit, Audio audio) {
+        AudioSetting audioSetting = AudioSetting.builder()
+                .high(audioSettingInfo.getHigh())
+                .mid(audioSettingInfo.getMid())
+                .low(audioSettingInfo.getLow())
+                .commit(commit)
+                .audio(audio)
+                .build();
+        return audioSettingRepository.save(audioSetting);
     }
 
 

@@ -17,10 +17,11 @@ public interface MusicService {
     Bucket findBucketById(Long bucketId);
     Audio createAudio(AudioCreateDto audioInfo, String jwtToken, Long bucketId);
     List<Audio> findAudiosByBucket(Long bucketId);
+    AudioSetting createAudioSetting(AudioSettingCreateDto audioSettingInfo, Commit commit, Audio audio);
 //    Commit creatCommit(CommitCreateDto commitInfo, Long bucketId);
 //    List<Commit> findAllCommitsInBucket(Long bucketId);
 //    Commit findCommit(Long commitId);
 //    List<Audio> findAllAudios();
 //    Audio findAudio(Long audioId);
-//    AudioSetting createAudioSetting(AudioSettingCreateDto audioSettingInfo, Long commitId, Long audioId);
+
 }

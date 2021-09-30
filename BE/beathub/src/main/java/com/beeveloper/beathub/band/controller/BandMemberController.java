@@ -6,6 +6,7 @@ import com.beeveloper.beathub.band.dto.request.BandMemberRegisterDto;
 import com.beeveloper.beathub.band.dto.ressponse.BandMemberResDto;
 import com.beeveloper.beathub.band.service.BandMemberService;
 import com.beeveloper.beathub.band.service.BandService;
+import com.beeveloper.beathub.common.dto.BandMemberDto;
 import com.beeveloper.beathub.user.domain.User;
 import com.beeveloper.beathub.user.jwts.JwtService;
 import com.beeveloper.beathub.user.service.UserService;
@@ -102,7 +103,7 @@ public class BandMemberController {
     @Transactional
     @ApiOperation(value = "밴드 가입신청을 거절하는 API")
     @PostMapping("/deny")
-    public void denyBandMember(
+    public ResponseEntity denyBandMember(
             @RequestHeader(value = "Authorization") String jwtToken,
             @RequestBody @ApiParam BandMemberRegisterDto dto) {
 
@@ -112,16 +113,34 @@ public class BandMemberController {
         Optional<User> requestUser = userService.findById(dto.getUserId());
         Optional<Band> searchBand = bandService.findById(dto.getBandId());
         if (!leader.isPresent() || !requestUser.isPresent() || !searchBand.isPresent()) {
-            return;
+            return ResponseEntity.badRequest().build();
         }
         User leaderUser = leader.get();
         User user = requestUser.get();
         Band band = searchBand.get();
 
         if (!leaderUser.getId().equals(band.getLeader().getId())) {
-            return;
+            return ResponseEntity.status(403).body("권한이 없는 사용자입니다");
         }
 
-        bandMemberService.deny(band, user);
+        BandMember findBandMember = bandMemberService.findMemberInBand(band.getId(), user);
+
+        bandMemberService.delete(findBandMember);
+        return ResponseEntity.status(200).build();
+    }
+
+
+    @ApiOperation(value = "BandLeader가 모든 밴드에 온 가입 요청을 받아오는 API")
+    @GetMapping("/apply")
+    public ResponseEntity<List<BandMemberDto>> getApplies(
+            @RequestHeader(value = "Authorization") String jwtToken) {
+
+        Optional<User> user = jwtService.returnUser(jwtToken);
+        User leader = user.get();
+
+        List<Band> leadingBands = leader.getLeadingBands();
+        List<BandMember> applies = bandMemberService.getApplies(leadingBands);
+
+        return ResponseEntity.status(200).body(BandMemberDto.of(applies));
     }
 }

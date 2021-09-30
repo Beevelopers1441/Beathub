@@ -79,6 +79,16 @@ export interface Bands {
   bands: Band[]
 }
 
+export interface AudioInfo {
+  userInfo: {
+    imageUrl: string;
+    name: string,
+  }
+  title: string;
+  instrument: string;
+  fileUrl: string;
+}
+
 export interface Member {
   id: number,
   name: string,

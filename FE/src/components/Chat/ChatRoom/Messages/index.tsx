@@ -5,11 +5,14 @@ import MyMessage from './MyMessage';
 import YourMessage from './YourMessage';
 import YourMessageProfile from './YourMessageProfile';
 
+// types
+import { IMessage } from 'types';
+
 // styles
 import Wrapper from './styles';
 
 interface Props {
-  messages: string[];
+  messages: IMessage[];
 }
 
 function Messages({ messages }: Props): React.ReactElement {
@@ -18,7 +21,7 @@ function Messages({ messages }: Props): React.ReactElement {
   // constructor
   useEffect(() => {
     scrollToBottom();
-  }, [])
+  }, [messages])
 
   const scrollToBottom = () => {
     bottomRef.current.scrollIntoView({ behavior: 'smooth'});
@@ -26,6 +29,15 @@ function Messages({ messages }: Props): React.ReactElement {
 
   return (
     <Wrapper>
+      {messages.map(message => {
+        return (
+          message.userInfo.id === 1 ? (
+            <MyMessage text={message.text} />
+          ) : (
+            <YourMessage text={message.text} />
+          )
+        )
+      })}
       
       <div ref={bottomRef} />
     </Wrapper>

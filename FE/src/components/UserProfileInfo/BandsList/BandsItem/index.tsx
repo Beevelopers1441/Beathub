@@ -10,7 +10,7 @@ const BandsItem: React.FC<Props> = ({ band }) => {
   return(
     <Wrapper>
       <div className="item-wrapper">
-        <img className="item-img" src={band.imgUrl} alt="band_image"/>
+        <img className="item-img" src={band.imageUrl} alt="band_image"/>
       </div> 
     </Wrapper>
   )

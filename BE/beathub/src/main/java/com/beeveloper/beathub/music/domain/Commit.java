@@ -1,6 +1,7 @@
 package com.beeveloper.beathub.music.domain;
 
 import com.beeveloper.beathub.user.domain.User;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -30,4 +31,11 @@ public class Commit {
 
     @OneToMany(mappedBy = "commit")
     private List<AudioSetting> audioSettings = new ArrayList<AudioSetting>();
+
+    @Builder
+    public Commit(String title, String introduction, LocalDateTime createTime) {
+        this.title = title;
+        this.introduction = introduction;
+        this.createTime = createTime;
+    }
 }

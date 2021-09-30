@@ -2,6 +2,7 @@ package com.beeveloper.beathub.music.domain;
 
 import com.beeveloper.beathub.instrument.domain.Instrument;
 import com.beeveloper.beathub.user.domain.User;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -31,4 +32,13 @@ public class Audio {
 
     @OneToMany(mappedBy = "audio")
     private List<AudioSetting> audioSettings = new ArrayList<AudioSetting>();
+
+    @Builder
+    public Audio(String fileName, String filePath, Instrument instrument, User uploader, Bucket bucket) {
+        this.fileName = fileName;
+        this.filePath = filePath;
+        this.instrument = instrument;
+        this.uploader = uploader;
+        this.bucket = bucket;
+    }
 }

@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class BandController {
 
         BandCreateDto dto = new BandCreateDto(
                 bandInfo.getName(),
-                bandInfo.getImageUrl(),
+                bandInfo.getBandProfileImage(),
                 bandInfo.getIntroduction(),
                 leader
         );
@@ -95,21 +96,33 @@ public class BandController {
 
 
     // 수정
-
-    // 삭제
-
-    // 팔로우
-    @Transactional
-    @ApiOperation(value = "밴드를 팔로우 합니다.")
-    @PostMapping("/follow")
-    public void follow(
+    @ApiOperation(value = "해당 밴드의 정보를 수정합니다.")
+    @PutMapping("/{bandId}")
+    public void update(
             @RequestHeader(value = "Authorization") String jwtToken,
-            @RequestBody @ApiParam(value = "팔로우할 Band 의 Id") FollowRequestDto requestDto
-    ) {
-        User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
-        bandService.follow(user.getId(), requestDto.getId());
+            @PathVariable(value = "bandId") Long bandId,
+            @RequestBody BandInputDto inputDto) {
+        // 이미지 처리때문에 보류 중
     }
 
-    //
+
+    // 삭제
+    @ApiOperation(value = "밴드를 삭제합니다")
+    @DeleteMapping("/{bandId}")
+    public ResponseEntity delete(
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @PathParam(value = "bandId") Long bandId) {
+
+        User user = jwtService.returnUser(jwtToken);
+        Band band = bandService.findById(bandId);
+
+        if (!user.getId().equals(band.getLeader().getId())) {
+            return ResponseEntity.status(403).build();
+        }
+
+        bandService.delete(band);
+        return ResponseEntity.status(200).build();
+    }
+
 
 }

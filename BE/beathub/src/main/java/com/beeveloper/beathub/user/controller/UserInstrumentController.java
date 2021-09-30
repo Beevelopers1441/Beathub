@@ -65,7 +65,6 @@ public class UserInstrumentController {
 
         UserInstrumentCreateDto dto = new UserInstrumentCreateDto(
                 ability,
-                inputDto.getModel(),
                 instrument,
                 findUser
         );
@@ -85,11 +84,14 @@ public class UserInstrumentController {
         User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
         List<UserInstrument> userInstruments = userInstrumentService.findAllByUser(user);
 
+        // 현재 보유하고있는 악기종류를 찾아 ,List로 저장하고
         List<String> havingInstrumentList = new ArrayList<>();
         for (UserInstrument userInstrument : userInstruments) {
             havingInstrumentList.add(userInstrument.getInstrument().getType());
         }
 
+        // 요청들어온 값과 비교에 같은 값이면 갱신, 없는 값이면 새로 만들어줌
+        // 해당 과정을 진행하면서 List에서 갱신 or 생성 된 값들은 제거
         for (UserInstrumentResDto dto : resDtoList) {
             if (havingInstrumentList.contains(dto.getInstrument())) {
                 Instrument instrument = instrumentService.findByType(dto.getInstrument());
@@ -101,15 +103,14 @@ public class UserInstrumentController {
                 Ability ability = Ability.valueOf(dto.getAbility().name());
                 UserInstrumentCreateDto createDto = new UserInstrumentCreateDto(
                         ability,
-                        dto.getModel(),
                         instrument,
                         user
                 );
                 UserInstrument savedUserInstrument = userInstrumentService.save(createDto);
             }
         }
-        System.out.println("havingInstrumentList = " + havingInstrumentList.toString());
 
+        // 기존에 악기 중 수정되지 않은 악기가 있다면, 현재 악기 상태에서 제거
         if (havingInstrumentList != null) {
             while (!havingInstrumentList.isEmpty()) {
                 String deleteType = havingInstrumentList.remove(0);
@@ -118,12 +119,6 @@ public class UserInstrumentController {
                 System.out.println("deleteType = " + deleteType);
                 userInstrumentService.delete(userInstrument);
             }
-        }
-
-
-        
-        for (UserInstrument userInstrument : userInstruments) {
-            System.out.println("userInstrument = " + userInstrument.getInstrument());
         }
     }
 }

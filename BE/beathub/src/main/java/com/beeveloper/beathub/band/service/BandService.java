@@ -32,4 +32,8 @@ public interface BandService {
     List<BandResDto> changeFromBandToResDto(List<Band> bandList);
 
     void follow(Long userId, Long bandId);
+
+    void unfollow(Long userId, Long bandId);
+
+    void delete(Band band);
 }

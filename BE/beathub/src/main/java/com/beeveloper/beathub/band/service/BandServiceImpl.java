@@ -92,8 +92,17 @@ public class BandServiceImpl implements BandService{
         User user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
         Band band = bandRepository.findById(bandId).orElseThrow(RuntimeException::new);
         user.addFollowingBand(band);
-        band.addFollowers(user);
-        userRepository.save(user);
-        bandRepository.save(band);
+    }
+
+    @Override
+    public void unfollow(Long userId, Long bandId) {
+        User user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
+        Band band = bandRepository.findById(bandId).orElseThrow(RuntimeException::new);
+        user.removeFollowingBand(band);
+    }
+
+    @Override
+    public void delete(Band band) {
+        bandRepository.delete(band);
     }
 }

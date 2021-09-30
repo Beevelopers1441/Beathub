@@ -59,4 +59,13 @@ public class BandMemberController {
         BandMember apply = bandMemberService.apply(bandId, findUser);
         return ResponseEntity.status(200).body(BandMemberResDto.of(apply));
     }
+
+    @ApiOperation(value = "밴드에 가입신청한 User를 반환해주는 API")
+    @GetMapping("/waiting/{bandId}")
+    public ResponseEntity<List<BandMemberResDto>> getWaitingMembers(
+            @PathVariable(value = "bandId") Long bandId) {
+
+        List<BandMember> watingMember = bandMemberService.findWatingMember(bandId);
+        return ResponseEntity.status(200).body(BandMemberResDto.of(watingMember));
+    }
 }

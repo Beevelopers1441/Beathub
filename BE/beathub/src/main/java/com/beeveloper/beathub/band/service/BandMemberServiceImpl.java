@@ -77,10 +77,16 @@ public class BandMemberServiceImpl implements BandMemberService {
         bandMemberRepository.save(approvedBandMember);
     }
 
+
     @Override
-    public void deny(Band band, User user) {
-        BandMember searchBandMember = bandMemberRepository.findByBandAndUser(band, user);
-        BandMember deniedBandMember = searchBandMember.chageStatusToDenied();
-        bandMemberRepository.save(deniedBandMember);
+    public List<BandMember> getApplies(List<Band> leadingBands) {
+        return bandMemberRepository.findAllByBandIn(leadingBands);
     }
+
+    @Override
+    public void delete(BandMember findBandMember) {
+        bandMemberRepository.delete(findBandMember);
+        return;
+    }
+
 }

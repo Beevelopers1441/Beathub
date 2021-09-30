@@ -37,19 +37,19 @@ public class Band {
     private User leader;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "band")
+    @OneToMany(mappedBy = "band", cascade = CascadeType.ALL)
     private List<BandMember> members = new ArrayList<BandMember>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "ownerBand")
+    @OneToMany(mappedBy = "ownerBand", cascade = CascadeType.ALL)
     private List<Bucket> buckets = new ArrayList<Bucket>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "authorBand")
+    @OneToMany(mappedBy = "authorBand", cascade = CascadeType.ALL)
     private List<BandPost> bandPosts = new ArrayList<BandPost>();
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "followBands")
+    @ManyToMany(mappedBy = "followBands", cascade = CascadeType.ALL)
     private List<User> followers = new ArrayList<User>();
 
     public Band(

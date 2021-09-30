@@ -2,6 +2,7 @@ package com.beeveloper.beathub.band.service;
 
 import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.band.domain.BandMember;
+import com.beeveloper.beathub.band.domain.Status;
 import com.beeveloper.beathub.band.dto.ressponse.BandMemberResDto;
 import com.beeveloper.beathub.band.repository.BandMemberRepository;
 import com.beeveloper.beathub.band.repository.BandRepository;
@@ -55,5 +56,11 @@ public class BandMemberServiceImpl implements BandMemberService {
     public BandMember findMemberInBand(Long bandId, User user) {
         Band band = bandRepository.findById(bandId).orElseThrow(RuntimeException::new);
         return bandMemberRepository.findByBandAndUser(band, user);
+    }
+
+    @Override
+    public List<BandMember> findWatingMember(Long bandId) {
+        Band band = bandRepository.findById(bandId).orElseThrow(RuntimeException::new);
+        return bandMemberRepository.findAllByBandAndStatus(band, Status.Waiting);
     }
 }

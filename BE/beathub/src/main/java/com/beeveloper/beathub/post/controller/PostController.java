@@ -154,6 +154,21 @@ public class PostController {
     }
 
     // 삭제
+    @DeleteMapping("/{postId}")
+    @ApiOperation(value = "게시글 삭제")
+    public void delete(
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @PathVariable(value = "postId") Long postId) {
+
+        User user = jwtService.returnUser(jwtToken);
+        Post post = postService.findById(postId);
+
+        if (user.getId() != post.getAuthor().getId()) {
+            return;
+        }
+
+        postService.delete(post);
+    }
 
     // like
 

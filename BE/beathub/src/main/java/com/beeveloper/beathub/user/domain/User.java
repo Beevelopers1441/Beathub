@@ -68,10 +68,10 @@ public class User {
     @ManyToMany
     private List<Post> likePosts = new ArrayList<Post>();
 
-    @OneToMany(mappedBy = "authorUser")
+    @OneToMany(mappedBy = "authorUser", cascade = CascadeType.ALL)
     private List<MemberPost> memberPosts = new ArrayList<MemberPost>();
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<Comment>();
 
     /**

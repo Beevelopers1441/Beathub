@@ -5,9 +5,14 @@ import com.beeveloper.beathub.band.domain.BandMember;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Getter
 public class BandMemberResDto {
+
+    private Long id;
 
     private String name;
 
@@ -19,6 +24,7 @@ public class BandMemberResDto {
 
     @Builder
     public BandMemberResDto(BandMember bandMember) {
+        this.id = bandMember.getId();
         this.name = bandMember.getUser().getName();
         this.profileImageUrl = bandMember.getUser().getImageUrl();
         this.instrumentType = bandMember.getInstrument().getType();
@@ -31,6 +37,10 @@ public class BandMemberResDto {
                 .build();
 
         return bandMemberResDto;
-
     }
+
+    public static List<BandMemberResDto> of(List<BandMember> bandMembers) {
+        return bandMembers.stream().map(BandMemberResDto::of).collect(Collectors.toList());
+    }
+
 }

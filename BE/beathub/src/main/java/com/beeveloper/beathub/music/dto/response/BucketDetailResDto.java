@@ -51,7 +51,7 @@ public class BucketDetailResDto {
         return bucketDetailResDto;
     }
 
-    public static List<BucketDto> of(List<Bucket> buckets) {
-        return buckets.stream().map(BucketDto::of).collect(Collectors.toList());
+    public static List<BucketDetailResDto> of(List<Bucket> buckets) {
+        return buckets.stream().map(BucketDetailResDto::of).collect(Collectors.toList());
     }
 }

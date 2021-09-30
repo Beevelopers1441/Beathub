@@ -1,10 +1,9 @@
-import { StringDecoder } from "string_decoder";
-
 export interface IBasicUser {
   id: number;
   imageUrl: string;
   name: string;
 }
+
 export interface IComment {
   id: number;
   content: string;
@@ -16,6 +15,7 @@ export interface ITag {
   id: number;
   type: string;
 }
+
 export interface IPost {
   id: number,
   title: string,
@@ -43,7 +43,6 @@ export interface UserInfo {
   profileObj?: ProfileObj;
 }
 
-
 // 유저 프로필
 export interface ProfileInfo {
   id: number,
@@ -57,18 +56,8 @@ export interface ProfileInfo {
 }
 
 export interface Instrument {
-  id: number,
-  model: string,
-  ability: string,
-  player: {
-    id: number,
-    name: string,
-    imageUrl: string
-  },
-  instrument: {
-    id: number,
-    type: string
-  }
+  instrument: string,
+  ability: string
 }
 
 export interface FollowPerson {
@@ -76,7 +65,6 @@ export interface FollowPerson {
   imageUrl: string,
   name: string
 }
-
 
 // 밴드 프로필
 export interface BandProfileInfo {

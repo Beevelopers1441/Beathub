@@ -7,16 +7,15 @@ interface Props {
   instruments: Instrument[]
 }
 
-
 // 악기 목록을 Props로 받는다
 const InstrumentsList: React.FC<Props> = ({ instruments }) => {
 
   // Prop으로 받은 악기 목록의 각각의 악기들을 InstrumentsItem으로 넘겨주는 함수
   const renderList = (): JSX.Element[] | JSX.Element => {
     if (instruments.length > 0) {
-      return instruments.map((instrument) => {
+      return instruments.map((instrument, key) => {
         return(
-            <InstrumentsItem key={instrument.id} instrument={instrument}></InstrumentsItem>
+          <InstrumentsItem key={key} instrument={instrument}></InstrumentsItem>
         )
       })
     }

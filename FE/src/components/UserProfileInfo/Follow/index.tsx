@@ -12,7 +12,6 @@ import { Grid } from '@mui/material';
 // api
 import { followUser, unFollowUser, getFollowList } from 'lib/api/userProfile';
 
-
 interface Props {
   id: number,
 }

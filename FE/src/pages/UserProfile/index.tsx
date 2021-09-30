@@ -33,18 +33,8 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
     email: "",
     introduction: "",
     instruments: [{
-      id: 0,
-      model: "",
       ability: "",
-      player: {
-        id: 0,
-        name: "",
-        imageUrl: ""
-      },
-      instrument: {
-        id: 0,
-        type: ""
-      }
+      instrument: ""
     }],
     participatingBands:[{
       id: 0,

@@ -15,8 +15,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class MemberPostCreateDto {
 
-    @Autowired
-    private InstrumentRepository instrumentRepository;
 
     public MemberPostCreateDto(
             User user,
@@ -24,8 +22,6 @@ public class MemberPostCreateDto {
             String content,
             Instrument tag
     ) {
-        System.out.println("instrumentRepository = " + instrumentRepository);
-
         this.user = user;
         this.title = title;
         this.content = content;

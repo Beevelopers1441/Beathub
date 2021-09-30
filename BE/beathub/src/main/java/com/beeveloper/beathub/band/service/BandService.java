@@ -34,4 +34,6 @@ public interface BandService {
     void follow(Long userId, Long bandId);
 
     void unfollow(Long userId, Long bandId);
+
+    void delete(Band band);
 }

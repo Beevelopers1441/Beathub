@@ -19,4 +19,6 @@ public interface PostService {
     Post findById(Long postId);
     Comment createComment(Long userId, Long postId, CommentCreateDto commentInfo);
     Post updatePost(Post post, PostUpdateRequestDto dto);
+
+    void delete(Post post);
 }

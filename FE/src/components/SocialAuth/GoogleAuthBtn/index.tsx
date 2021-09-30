@@ -27,10 +27,10 @@ export const GoogleAuthBtn = (props:Props): React.ReactElement => {
   // redux store 조회
   const isLoggedIn = useSelector((state: any) => state.user.isLoggedIn)
 
-  if (isLoggedIn) {
-    console.log("move")
-    history.push('/')
-  }
+  // if (isLoggedIn) {
+  //   console.log("move")
+  //   history.push('/')
+  // }
 
   const onSuccess = (result: any) => {
 
@@ -67,7 +67,9 @@ export const GoogleAuthBtn = (props:Props): React.ReactElement => {
         }).then(res => {
 
           // 로그인 처리
-          loginAction()
+          dispatch(loginAction());
+
+          console.log('구글 하이')
 
           // 처음 오는 유저면 추가 정보 입력 안내 페이지
           if (isfirst === true) {

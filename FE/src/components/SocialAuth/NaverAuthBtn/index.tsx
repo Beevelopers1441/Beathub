@@ -26,10 +26,10 @@ export const NaverAuthBtn = (): React.ReactElement => {
   // redux store 조회
   const isLoggedIn = useSelector((state: any) => state.user.isLoggedIn)
 
-  if (isLoggedIn) {
-    console.log("move")
-    history.push('/')
-  }
+  // if (isLoggedIn) {
+  //   console.log("move")
+  //   history.push('/')
+  // }
 
   const onSuccess = (result: any) => {
 
@@ -46,7 +46,7 @@ export const NaverAuthBtn = (): React.ReactElement => {
     }
   
     // 로그인 요청
-      // 토큰 요청
+    // 토큰 요청
     // 토큰 요청
     socialLogin(userInfo(result)).then(res => {
 
@@ -68,7 +68,9 @@ export const NaverAuthBtn = (): React.ReactElement => {
         }).then(res => {
 
           // 로그인 처리
-          loginAction()
+          dispatch(loginAction());
+
+          console.log('하이')
 
           // 처음 오는 유저면 추가 정보 입력 안내 페이지
           if (isfirst === true) {

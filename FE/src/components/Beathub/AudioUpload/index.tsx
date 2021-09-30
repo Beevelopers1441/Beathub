@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, cloneElement} from 'react';
 
 // component
 
@@ -6,50 +6,44 @@ import React, {useState, useEffect} from 'react';
 
 // styles
 
+// apis
+import { s3Auth, s3Send } from 'lib/api/beathub/s3Upload'
+
 // libraries
 import AWS from 'aws-sdk';
 import axios from 'axios';
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { ConstructionOutlined } from '@mui/icons-material';
 
 interface Props {
 }
 
 function AudioUpload(): React.ReactElement {
-
-  // 1. S3 인증
   // S3 기본 정보
   var albumBucketName = "beathub-bucket";
   var bucketRegion = "ap-northeast-2";
-
-  // Cognito 연동으로 S3 접근 권한을 얻는 부분
-  AWS.config.update({
-    region: bucketRegion,
-    accessKeyId: "AKIAZHROONISQWM5MHCZ",
-    secretAccessKey: "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"
-    // accessKeyId: process.env.AWS_AUTH_URL,
-    // secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-  })
-
-  var s3 = new AWS.S3({
-    apiVersion: "2006-03-01",
-    params: { Bucket: albumBucketName },
-    // accessKeyId: process.env.AWS_AUTH_URL,      // should be:  process.env.AWS_ACCESS_ID
-    // secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY, 
-  });
-
+  
+  s3Auth()
+  
   // 2. 기초 처리
   const dispatch = useDispatch();
 
   // 유저정보 리덕스에서 가져오기
-  const userInfo = useSelector((state: any) =>  console.log(state.user.userInfo));
-
-  // 오디오 파일 생성
-  const audioplayer = new Audio();
-  audioplayer.src = './dump.mp3';
+  const userid = useSelector((state: any) => state.user.userInfo.id);
   
+  // 파일 미리보기
+  const [fileUrl, setFileUrl] = useState<string>('')
+  const [file, setFile] = useState({});
+
+  // 값이 바뀌었으면 true
+  const [changed, setChanged] = useState(false)
+  // 업로드 완료했으면 true
+  const [uploaded, setUploaded] = useState(false)
+
+  // 오디오
+  const [audio, setAudio] = useState<HTMLAudioElement>()
+
   // 업로드한 파일의 정보
   const [audioInfo, setaudioInfo] = useState({
     userInfo: {
@@ -61,8 +55,6 @@ function AudioUpload(): React.ReactElement {
     title: '',
     instrument: ''
   })
-  // 값이 바뀌었으면 true
-  const [changed, setChanged] = useState(false)
   
   // 타이틀 입력
   const onChangeAudioTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,12 +64,6 @@ function AudioUpload(): React.ReactElement {
     })
   }
   
-  // let audio = `https://${albumBucketName}.s3.${bucketRegion}.amazonaws.com/${userInfo.userId}/${userInfo.userId}_audio.jpg`
-  
-  // 이미지 미리보기
-  const [fileUrl, setFileUrl] = useState<string>('')
-  const [file, setFile] = useState({});
-
   // 업로드 파일이 바뀌면 실행되는 로직
   function processAudio(e: React.ChangeEvent<HTMLInputElement>): void {
 
@@ -96,7 +82,7 @@ function AudioUpload(): React.ReactElement {
 
       reader.onloadend = (e) => {
         setFile(file);
-        // setFileUrl(reader.result);
+        
       }
       
       reader.readAsDataURL(file);
@@ -104,44 +90,57 @@ function AudioUpload(): React.ReactElement {
     }
   }
 
-  // 이미지 S3에 업로드
-  // const userid = userInfo.userId;
-  const userid = "userid";
-  let albumAudiosKey = encodeURIComponent(userid) + "/";
-  let audioKey = albumAudiosKey + userid + "_audio3.mp3";
-
+  // s3에 파일 전송 후 url을 받아옴
   async function handleFileInput() {
-    // AWS sdk에 포함된 함수로 파일을 업로드하는 부분
-    const upload = new AWS.S3.ManagedUpload({
-      params: {
-        Bucket: albumBucketName,
-        Key: audioKey,
-        Body: file,
-      },
-    })
-    upload.send(function(err, data) {
-      console.log(err, data.Location);
-      setFileUrl(data.Location)
-      console.log(fileUrl)
+    s3Send(userid, file).then(function (res: string) {
+      setFileUrl(res)
     });
-    const promise = upload.promise();
-  
-    promise.then(
-      function (data) {
-        console.log("Successfully uploaded photo.");
-      },
-      function (err) {
-        return console.log("There was an error uploading your photo: ", err.message);
-      }
-    );
   }
 
-  // 저장
+  // 저장 로직
   const onClickSave = () => {
+    // 파일 input에 변경사항이 있으면
     if (changed === true) {
-      handleFileInput();
+      // s3에 파일 전송 후 url을 받아옴
+      handleFileInput()
+      // url로 audio객체 생성
+      var uploadedAudio = new Audio(fileUrl)
+      setAudio(uploadedAudio)
+      // 업로드 후 url 받아와 audio객체까지 만들었으니 true
+      setUploaded(true)
     }
+  }
 
+  useEffect(() => {
+    console.log(audio)
+  }, [uploaded])
+
+
+  const onClickPlay = () => {
+    if (audio) {
+      const playPromise = audio.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(_ => {
+            // Automatic playback started!
+            // Show playing UI.
+            console.log("audio played auto");
+          })
+          .catch(error => {
+            // Auto-play was prevented
+            // Show paused UI.
+            console.log("playback prevented");
+          });
+      }
+    }
+  }
+    
+  const onClickStop = () => {
+    if (audio) {
+      audio.pause() 
+    }
+  }
     // test: 받아오기
     // const downloadAudio = async () => {
     //   const response = await axios.get(fileUrl)
@@ -150,9 +149,6 @@ function AudioUpload(): React.ReactElement {
     // }
 
     // console.log(downloadAudio())
-  }
-
-
 
   return (
     <>
@@ -176,9 +172,7 @@ function AudioUpload(): React.ReactElement {
         <source src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/355309/Swing_Jazz_Drum.mp3" type="audio/mpeg" />
       </audio>
       <p>파일주소: {fileUrl}</p>
-      <audio controls>
-        <source src={fileUrl} type="audio/mpeg" />
-      </audio>
+      <p>유저정보: {userid}</p>
       {/* 파일 업로드 */}
       <label className="cbtn-sm cbtn-primary" htmlFor="input-file" >
       </label>
@@ -187,6 +181,13 @@ function AudioUpload(): React.ReactElement {
       {changed
         ? <button onClick={onClickSave} >저장</button>
         : <button>저장불가능</button>
+      }
+      {uploaded
+        ? <div>
+            <button onClick={onClickPlay} >재생</button>
+            <button onClick={onClickStop} >일시정지</button>
+          </div>
+        : <button>재생불가능</button>
       }
     </>
   );

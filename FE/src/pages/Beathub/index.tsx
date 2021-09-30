@@ -18,43 +18,46 @@ import { type } from 'os';
 // interface Props {
 //   Audios: Audio[]
 // }
+
+// dummies
+import dumpImage from './dump.png'
 // 더미 오디오 목록
 const dummyAudios = [
   {
     userInfo: {
-      imageUrl: "string",
+      imageUrl: dumpImage,
       name: "userA"
     },
     title: "RecordA",
-    instrument: "instrumentA",
+    instrument: "drum",
     fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
   },
   {
     userInfo: {
-      imageUrl: "string",
+      imageUrl: dumpImage,
       name: "userB"
     },
     title: "RecordB",
-    instrument: "instrumentB",
+    instrument: "guitar",
     fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
     
   },
   {
     userInfo: {
-      imageUrl: "string",
+      imageUrl: dumpImage,
       name: "userC"
     },
     title: "RecordC",
-    instrument: "instrumentC",
+    instrument: "drum",
     fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
   },
   {
     userInfo: {
-      imageUrl: "string",
+      imageUrl: dumpImage,
       name: "userD"
     },
     title: "RecordD",
-    instrument: "instrumentD",
+    instrument: "drum",
     fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
   }
 ]

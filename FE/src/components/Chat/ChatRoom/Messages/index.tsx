@@ -29,12 +29,12 @@ function Messages({ messages }: Props): React.ReactElement {
 
   return (
     <Wrapper>
-      {messages.map(message => {
+      {messages.map((message, idx) => {
         return (
           message.userInfo.id === 1 ? (
-            <MyMessage text={message.text} />
+            <MyMessage text={message.text} key={idx} />
           ) : (
-            <YourMessage text={message.text} />
+            <YourMessage text={message.text} key={idx} />
           )
         )
       })}

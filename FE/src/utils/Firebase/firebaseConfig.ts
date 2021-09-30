@@ -8,12 +8,12 @@ const messagingSenderId = process.env.REACT_APP_FB_MESSAGEING_SENDER_ID;
 const appId = process.env.REACT_APP_FB_APP_ID;
 
 const firebaseConfig = {
-  apiKey,
+  apiKey: apiKey,
   authDomain: "beathub-chat.firebaseapp.com",
   projectId: "beathub-chat",
   storageBucket: "beathub-chat.appspot.com",
-  messagingSenderId,
-  appId,
+  messagingSenderId: messagingSenderId,
+  appId: appId
 };
 
 const firebaseApp = !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app();

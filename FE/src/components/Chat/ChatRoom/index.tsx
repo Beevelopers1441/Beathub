@@ -40,15 +40,11 @@ function ChatRoom({ setIsChatRoom }: Props): React.ReactElement {
   useEffect(() => {
     const _db = db.collection("Rooms");
     const docRef = _db.doc('1,2');
-    docRef.get().then((doc) => {
-      if (doc.exists) {
-        console.log("Document data:", doc.data());
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
+    docRef.onSnapshot((doc) => {
+      const docDatas = doc.data();
+      if (docDatas) {
+        setMessages([...JSON.parse(JSON.stringify(docDatas.messages))]);
       }
-    }).catch((error) => {
-      console.log("Error getting document:", error);
     });
   }, []);
 
@@ -61,7 +57,7 @@ function ChatRoom({ setIsChatRoom }: Props): React.ReactElement {
     if (e.key === 'Enter') {
       const newText = chatInputRef?.current.value.trim();
       const userInfo: IBasicUser = {
-        id: 1,  // need to change
+        id: 2,  // need to change
         imageUrl: 'https://cdn2.thecatapi.com/images/Zi4jfH3c6.jpg',
         name: '전선규',
       }

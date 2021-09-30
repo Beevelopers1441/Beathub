@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 // component
 import { ProfileImage } from 'components/atoms';
-import AudioPlayer  from 'components/Beathub/AudioListItem';
+import AudioPlayer from 'components/Beathub/AudioPlayer';
 
 // types
 import { AudioInfo } from 'types';

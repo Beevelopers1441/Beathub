@@ -6,5 +6,11 @@ export type UserAction = ActionType<typeof actions>
 export type User = {
   isLoggedIn: boolean,
   token: string,
-  userInfo: {}
+  userInfo: UserInitialInfo
 };
+
+export type UserInitialInfo = {
+  id: number,
+  name: string,
+  imageUrl: string
+}

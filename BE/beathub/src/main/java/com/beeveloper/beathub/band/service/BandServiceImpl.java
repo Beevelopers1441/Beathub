@@ -100,4 +100,9 @@ public class BandServiceImpl implements BandService{
         Band band = bandRepository.findById(bandId).orElseThrow(RuntimeException::new);
         user.removeFollowingBand(band);
     }
+
+    @Override
+    public void delete(Band band) {
+        bandRepository.delete(band);
+    }
 }

@@ -122,4 +122,9 @@ public class PostServiceImpl implements PostService{
         Post updatePost = post.update(instrument, dto.getTitle(), dto.getContent());
         return postRepository.save(updatePost);
     }
+
+    @Override
+    public void delete(Post post) {
+        postRepository.delete(post);
+    }
 }

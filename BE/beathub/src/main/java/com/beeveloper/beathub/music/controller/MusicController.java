@@ -24,6 +24,7 @@ public class MusicController {
 
     private final MusicService musicService;
 
+
     @PostMapping("/buckets")
     @ApiOperation(value = "버킷 생성")
     public ResponseEntity<BucketResDto> createBucket(
@@ -94,6 +95,7 @@ public class MusicController {
 //        AudioSetting audioSetting = musicService.createAudioSetting(audioSettingInfo, commitId, audioId);
 //        return ResponseEntity.status(201).body();
 //    }
+
     // 버킷 생성 ("/buckets")
 
     // 버킷 조회

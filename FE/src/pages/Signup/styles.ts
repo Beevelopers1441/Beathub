@@ -25,7 +25,6 @@ const Wrapper = styled.div`
 
     & .chip-container {
       width: 100%;
-      display: absolute
       margin: 1rem 2rem;
       display: flex;
       justify-content: end;

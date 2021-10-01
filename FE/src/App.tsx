@@ -2,7 +2,7 @@ import GlobalStyle from './styles/GlobalStyle'
 
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-import { Login, Signup, UserProfile, Beathub, GroupProfile, Community, PostDetail, PostCreate} from 'pages';
+import { Home, Login, Signup, UserProfile, Beathub, GroupProfile, Community, PostDetail, PostCreate} from 'pages';
 import { Chat, Header } from 'components';
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
         <Chat />
         <Header />
         <Switch>
-          <Route exact path="/" component={Login} />
+          <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/profile/:userId" component={UserProfile} />
           <Route exact path="/group-profile/:groupId" component={GroupProfile} />

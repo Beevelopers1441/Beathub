@@ -1,3 +1,4 @@
+import Home from './Home';
 import Login from './Login';
 import Signup from './Signup';
 import Beathub from './Beathub';
@@ -7,4 +8,4 @@ import GroupProfile from './GroupProfile';
 import { PostDetail, PostCreate } from './Post';
 
 
-export { Login, Signup, Beathub, Community, UserProfile, GroupProfile, PostDetail, PostCreate };
+export { Home, Login, Signup, Beathub, Community, UserProfile, GroupProfile, PostDetail, PostCreate };

@@ -5,16 +5,12 @@ import { useHistory } from 'react-router-dom';
 import SocialAuth from '../../components/SocialAuth'
 
 // styles
-import { Container, Grid, Icon } from '@mui/material';
-import theme  from './styles'
+import { Container, Grid } from '@mui/material';
 import Wrapper from './styles';
 
 // for close button
 import CloseIcon from '@mui/icons-material/Close'
 import { deepPurple } from '@mui/material/colors';
-
-// types
-// import { IPost } from 'types';
 
 // assets
 import logo from 'assets/svgs/logo.svg'

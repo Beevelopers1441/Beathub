@@ -14,6 +14,8 @@ public interface UserInstrumentService {
 
     UserInstrument save(UserInstrumentCreateDto dto);
 
+    UserInstrument save(UserInstrument userInstrument);
+
     List<UserInstrument> findAllByUser(User user);
 
     UserInstrument findByUserAndInstrument(User user, Instrument instrument);

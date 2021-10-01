@@ -34,6 +34,11 @@ public class UserInstrumentServiceImpl implements UserInstrumentService {
     }
 
     @Override
+    public UserInstrument save(UserInstrument userInstrument) {
+        return userInstrumentRepository.save(userInstrument);
+    }
+
+    @Override
     public List<UserInstrument> findAllByUser(User user) {
         List<UserInstrument> allByPlayer = userInstrumentRepository.findAllByPlayer(user);
         return allByPlayer;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 // component
-import { ProfileImage } from 'components/atoms';
+// import { ProfileImage } from 'components/atoms';
 
 // styles
 import Wrapper from './styles';
@@ -21,7 +21,12 @@ const ProfileImg: React.FC<IProps> = ({ imageUrl }) => {
 
   return(
     <Wrapper>
-      <ProfileImage url={imageUrl} handleImgError={handleImgError} className="user-image"></ProfileImage>
+      <img 
+        className="profile-img" 
+        src={imageUrl} 
+        alt="프로필 이미지"
+        onError={(e) => handleImgError(e)}
+      />
     </Wrapper>
   )
 }

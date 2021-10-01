@@ -4,10 +4,9 @@ const Wrapper = styled.div`
 
   text-align: center;
 
-  & .user-image {
+  & .profile-img {
     display: inline-block;
-    width: 250px;
-    height: 250px;
+    width: 80%;
     max-width: 100%;
     border-radius: 50%;
     background-repeat: no-repeat;

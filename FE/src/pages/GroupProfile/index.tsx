@@ -67,10 +67,10 @@ const GroupProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
     <Wrapper>
       <Container className="group-profile-container">
         <Grid container>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <GroupProfileInfo bandInfo={groupInfo}></GroupProfileInfo>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={8}>
             <GroupProfileBoard></GroupProfileBoard>
           </Grid>
         </Grid>

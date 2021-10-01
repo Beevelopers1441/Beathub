@@ -1,5 +1,6 @@
 package com.beeveloper.beathub.band.domain;
 
+import com.beeveloper.beathub.band.dto.request.BandInputDto;
 import com.beeveloper.beathub.band.repository.BandRepository;
 import com.beeveloper.beathub.music.domain.Bucket;
 import com.beeveloper.beathub.post.domain.BandPost;
@@ -37,19 +38,19 @@ public class Band {
     private User leader;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "band")
+    @OneToMany(mappedBy = "band", cascade = CascadeType.ALL)
     private List<BandMember> members = new ArrayList<BandMember>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "ownerBand")
+    @OneToMany(mappedBy = "ownerBand", cascade = CascadeType.ALL)
     private List<Bucket> buckets = new ArrayList<Bucket>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "authorBand")
+    @OneToMany(mappedBy = "authorBand", cascade = CascadeType.ALL)
     private List<BandPost> bandPosts = new ArrayList<BandPost>();
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "followBands")
+    @ManyToMany(mappedBy = "followBands", cascade = CascadeType.ALL)
     private List<User> followers = new ArrayList<User>();
 
     public Band(
@@ -73,5 +74,12 @@ public class Band {
 
     public void addFollowers(User user) {
         this.followers.add(user);
+    }
+
+    public Band update(BandInputDto dto) {
+        this.name = dto.getName();
+        this.imageUrl = dto.getBandProfileImage();
+        this.introduction = dto.getIntroduction();
+        return this;
     }
 }

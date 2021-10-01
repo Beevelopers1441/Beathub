@@ -17,6 +17,13 @@ const Wrapper = styled.div`
     opacity: 0.2;
     transform: matrix(1, 0, 0, -1, 0, 0);
   }
+  
+  & .members-subwrapper {
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
+  }
 `
 
 export default Wrapper

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 // components
 import ProfileImg from './ProfileImg';
@@ -8,7 +9,7 @@ import InstrumentsList from './InstrumentsList';
 import EditForm from './EditForm';
 import EditBtn from './EditBtn';
 import Follow from './Follow';
-import Bands from './Bands';
+import BandsList from './BandsList';
 
 // types
 import { ProfileInfo } from 'types';
@@ -18,6 +19,8 @@ interface Props {
 }
 
 const UserProfileInfo: React.FC<Props> = ({ profileInfo }) => {
+
+  const userId = useSelector((state: any) => state.user.userInfo.id)
 
   const [ onEdit, setOnEdit ] = useState<boolean>(false)
 
@@ -37,11 +40,13 @@ const UserProfileInfo: React.FC<Props> = ({ profileInfo }) => {
           <Nickname nickname={profileInfo.nickname}></Nickname>
           <Intro intro={profileInfo.introduction}></Intro>
           <InstrumentsList instruments={profileInfo.instruments}></InstrumentsList>
-          <EditBtn onToggleEdit={onToggleEdit}></EditBtn>
+          {profileInfo.id === userId &&
+            <EditBtn onToggleEdit={onToggleEdit}></EditBtn>
+          }
         </div>
       }
-      {/* <Follow followers={profileInfo.followers} followings={profileInfo.followings}></Follow> */}
-      {/* <Bands leadingBands={profileInfo.leadingBands} participatingBands={profileInfo.participatingBands}></Bands> */}
+      <Follow id={profileInfo.id}></Follow>
+      <BandsList participatingBands={profileInfo.participatingBands}></BandsList>
     </div>
   )
 }

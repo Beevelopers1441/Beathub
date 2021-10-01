@@ -22,8 +22,6 @@ public class UserInstrument {
     @Enumerated(EnumType.STRING)
     private Ability ability;
 
-    private String model;
-
     @ManyToOne
     private Instrument instrument;
 
@@ -34,7 +32,6 @@ public class UserInstrument {
     @Builder
     public UserInstrument(
             Ability ability,
-            String model,
             Instrument instrument,
             User player
     ) {
@@ -42,7 +39,6 @@ public class UserInstrument {
         Assert.hasText(player.getEmail(), "연주자가 없습니다");
 
         this.ability = ability;
-        this.model = model;
         this.instrument = instrument;
         this.player = player;
     }
@@ -50,7 +46,6 @@ public class UserInstrument {
     public UserInstrument update(UserInstrumentResDto userInstrumentDto) {
         Ability ability = Ability.valueOf(userInstrumentDto.getAbility().name());
         this.ability = ability;
-        this.model = userInstrumentDto.getModel();
         return this;
     }
 }

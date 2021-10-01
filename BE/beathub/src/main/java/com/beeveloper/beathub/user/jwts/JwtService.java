@@ -1,17 +1,23 @@
 package com.beeveloper.beathub.user.jwts;
 
+import com.beeveloper.beathub.user.domain.User;
+import com.beeveloper.beathub.user.service.UserService;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
+
+    private final UserService userService;
 
     private final String JWT_SECRET = "8sknjlO3NPTBqo319DHLNqsQAfRJEdKsETOdsasdfasdf";
     SignatureAlgorithm sa = SignatureAlgorithm.HS256;
@@ -32,6 +38,9 @@ public class JwtService {
         return result;
     }
 
+    public Optional<User> returnUser(String jwtToken) {
+        return userService.findByEmail(getProperties(jwtToken).get("email"));
+    }
 
 
 }

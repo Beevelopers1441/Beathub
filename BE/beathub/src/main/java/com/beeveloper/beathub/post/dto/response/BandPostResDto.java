@@ -1,6 +1,7 @@
 package com.beeveloper.beathub.post.dto.response;
 
 import com.beeveloper.beathub.band.domain.Band;
+import com.beeveloper.beathub.common.dto.BandDto;
 import com.beeveloper.beathub.common.dto.TagInfoDto;
 import com.beeveloper.beathub.common.dto.UserInfoDto;
 import com.beeveloper.beathub.post.domain.BandPost;
@@ -28,8 +29,8 @@ public class BandPostResDto {
     @ApiModelProperty(name = "구인글 제목", example = "제목입니다.")
     private String title;
 
-    @ApiModelProperty(name = "작성자", example = "한상진")
-    private UserInfoDto author;
+    @ApiModelProperty(name = "작성한 밴드", example = "자우림")
+    private BandDto authorBand;
 
     @ApiModelProperty(name = "구인글 내용", example = "내용입니다.")
     private String content;
@@ -55,7 +56,7 @@ public class BandPostResDto {
         bandPostResDto.isRecruiting = bandPost.isRecruiting();
         bandPostResDto.createTime = bandPost.getCreateTime();
         bandPostResDto.likeUsers = UserInfoDto.ofUser(bandPost.getLikeUsers());
-        bandPostResDto.author = UserInfoDto.ofBand(bandPost.getAuthorBand());
+        bandPostResDto.authorBand = BandDto.of(bandPost.getAuthorBand());
         bandPostResDto.comments = CommentResDto.of(bandPost.getComments());
         bandPostResDto.tag = TagInfoDto.of(bandPost.getTag());
         return bandPostResDto;

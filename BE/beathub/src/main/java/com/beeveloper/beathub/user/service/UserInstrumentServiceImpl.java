@@ -27,10 +27,14 @@ public class UserInstrumentServiceImpl implements UserInstrumentService {
     public UserInstrument save(UserInstrumentCreateDto dto) {
         UserInstrument userInstrument = new UserInstrument(
                 dto.getAbility(),
-                dto.getModel(),
                 dto.getInstrument(),
                 dto.getPlayer()
         );
+        return userInstrumentRepository.save(userInstrument);
+    }
+
+    @Override
+    public UserInstrument save(UserInstrument userInstrument) {
         return userInstrumentRepository.save(userInstrument);
     }
 

@@ -8,6 +8,7 @@ import com.beeveloper.beathub.music.domain.Commit;
 import com.beeveloper.beathub.post.domain.Comment;
 import com.beeveloper.beathub.post.domain.MemberPost;
 import com.beeveloper.beathub.post.domain.Post;
+import com.beeveloper.beathub.user.domain.dto.request.UpdateUserRequestDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -67,10 +68,10 @@ public class User {
     @ManyToMany
     private List<Post> likePosts = new ArrayList<Post>();
 
-    @OneToMany(mappedBy = "authorUser")
+    @OneToMany(mappedBy = "authorUser", cascade = CascadeType.ALL)
     private List<MemberPost> memberPosts = new ArrayList<MemberPost>();
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<Comment>();
 
     /**
@@ -126,15 +127,36 @@ public class User {
         }
     }
 
+    public void removeLikePost(Post post) {
+        this.likePosts.remove(post);
+
+        if (post.getLikeUsers().contains(this)) {
+            post.getLikeUsers().remove(this);
+        }
+    }
+
     public void addFollowingBand(Band following) {
         this.followBands.add(following);
-
-        if (following.getFollowers().contains(this)) {
-            following.getFollowers().add(this);
-        }
 
         if (!following.getFollowers().contains(this)) {
             following.getFollowers().add(this);
         }
     }
+
+    public void removeFollowingBand(Band following) {
+        this.followBands.remove(following);
+
+        if (following.getFollowers().contains(this)) {
+            following.getFollowers().remove(this);
+        }
+    }
+
+    public User update(UpdateUserRequestDto dto) {
+        this.name = dto.getName();
+        this.imageUrl = dto.getImageUrl();
+        this.introduction = dto.getIntroduction();
+        return this;
+    }
+
+
 }

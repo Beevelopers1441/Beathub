@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Api(value = "게시판 관련 API")
 @RestController
@@ -39,7 +40,7 @@ public class PostController {
     // 생성
     @PostMapping("/members")
     @ApiOperation(value = "개인이 팀구하는 글 생성", notes = "인증한 사용자를 글쓴이로 하는 구인글 생성")
-    public ResponseEntity<MemberPostResDto> createMemberPost(
+    public ResponseEntity createMemberPost(
             @RequestHeader(value = "Authorization") String jwtToken,
             @RequestBody @ApiParam(value = "개인 구인글 생성 정보", required = true) MemberPostInputDto inputInfo) {
         // 로그인하지 않은 유저라면
@@ -48,7 +49,11 @@ public class PostController {
         }
 
         // 로그인을 했다면 JWT를 통해 User, Tag 를 확인
-        User author = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        Optional<User> searchUser = jwtService.returnUser(jwtToken);
+        if (!searchUser.isPresent()) {
+            return ResponseEntity.badRequest().body("회원가입을 해주세요!");
+        }
+        User author = searchUser.get();
         Instrument tag = instrumentService.findByType(inputInfo.getTag());
 
 
@@ -66,15 +71,21 @@ public class PostController {
 
     @PostMapping("/bands")
     @ApiOperation(value = "밴드가 구인하는 글 생성", notes = "인증한 사용자가 선택한 밴드를 글쓴이로 하는 구인글 생성")
-    public ResponseEntity<BandPostResDto> createBandPost(
+    public ResponseEntity createBandPost(
             @RequestHeader(value = "Authorization") String jwtToken,
             @RequestBody @ApiParam(value = "밴드 구인글 생성 정보", required = true) BandPostInputDto inputInfo) {
 
         // 로그인하지 않은 유저라면
         if (jwtToken == null) {
-            return ResponseEntity.status(401).build();
+            return ResponseEntity.status(401).body("로그인을 해주세요!");
         }
-        User author = jwtService.returnUser(jwtToken);
+
+        Optional<User> searchUser = jwtService.returnUser(jwtToken);
+        if (!searchUser.isPresent()) {
+            return ResponseEntity.badRequest().body("회원가입을 해주세요!");
+        }
+        User author = searchUser.get();
+
 
         // 로그인을 했다면, 밴드, Tag 찾기
         Band band = bandService.findByName(inputInfo.getBandName());
@@ -94,13 +105,17 @@ public class PostController {
 
     @PostMapping("/{postId}")
     @ApiOperation(value = "댓글 생성", notes = "해당 경로의 글에 달리는 댓글 생성")
-    public ResponseEntity<CommentResDto> createComment(
+    public ResponseEntity createComment(
             @RequestHeader(value = "Authorization") String jwtToken,
             @PathVariable @ApiParam(value = "글 id") Long postId,
             @RequestBody @ApiParam(value = "댓글 생성 정보", required = true) CommentCreateDto commentInfo) {
 
-        Long userId = userService.findByEmail(jwtService.getProperties(jwtToken).get("email")).getId();
-        Comment comment = postService.createComment(userId, postId, commentInfo);
+        Optional<User> searchUser = jwtService.returnUser(jwtToken);
+        if (!searchUser.isPresent()) {
+            return ResponseEntity.badRequest().body("존재하지 않는 사용자 입니다.");
+        }
+        User user = searchUser.get();
+        Comment comment = postService.createComment(user.getId(), postId, commentInfo);
         return ResponseEntity.status(201).body(CommentResDto.of(comment));
     }
 
@@ -138,12 +153,16 @@ public class PostController {
     // 수정
     @PutMapping("/{postId}")
     @ApiOperation(value = "구인글 수정, Band,Member 구인 모두 가능한 API")
-    public ResponseEntity<PostUpdateRequestDto> update(
+    public ResponseEntity update(
             @RequestHeader(value = "Authorization") String jwtToken,
             @PathVariable(value = "postId") Long postId,
             @RequestBody @ApiParam PostUpdateRequestDto dto) {
 
-        User requestUser = jwtService.returnUser(jwtToken);
+        Optional<User> searchUser = jwtService.returnUser(jwtToken);
+        if (!searchUser.isPresent()) {
+            return ResponseEntity.badRequest().body("회원가입을 해주세요!");
+        }
+        User requestUser = searchUser.get();
         Post post = postService.findById(postId);
 
         if (!requestUser.getId().equals(post.getAuthor().getId())) {
@@ -160,7 +179,11 @@ public class PostController {
             @RequestHeader(value = "Authorization") String jwtToken,
             @PathVariable(value = "postId") Long postId) {
 
-        User user = jwtService.returnUser(jwtToken);
+        Optional<User> searchUser = jwtService.returnUser(jwtToken);
+        if (!searchUser.isPresent()) {
+            return;
+        }
+        User user = searchUser.get();
         Post post = postService.findById(postId);
 
         if (user.getId() != post.getAuthor().getId()) {
@@ -178,7 +201,11 @@ public class PostController {
             @RequestHeader(value = "Authorization") String jwtToken,
             @PathVariable(value = "postId") Long postId) {
 
-        User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        Optional<User> searchUser = jwtService.returnUser(jwtToken);
+        if (!searchUser.isPresent()) {
+            return;
+        }
+        User user = searchUser.get();
         Post post = postService.findById(postId);
 
         userService.like(user, post);
@@ -190,9 +217,13 @@ public class PostController {
             @RequestHeader(value = "Authorization") String jwtToken,
             @PathVariable(value = "postId") Long postId) {
 
-
-        User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        Optional<User> searchUser = jwtService.returnUser(jwtToken);
+        if (!searchUser.isPresent()) {
+            return;
+        }
+        User user = searchUser.get();
         Post post = postService.findById(postId);
+
         userService.unLike(user, post);
     }
 }

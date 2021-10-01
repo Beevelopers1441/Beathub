@@ -6,14 +6,15 @@ import com.beeveloper.beathub.user.domain.dto.request.UpdateUserRequestDto;
 import com.beeveloper.beathub.user.domain.dto.request.UserSaveRequestDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
-    User findById(Long id);
+    Optional<User> findById(Long id);
 
     List<User> findAll();
 
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
     User save(UserSaveRequestDto userSaveRequestDto);
 

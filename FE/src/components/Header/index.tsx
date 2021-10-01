@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { scrollHeader } from 'utils/header';
 
 // component
@@ -23,6 +24,9 @@ function Header(): React.ReactElement {
     history.push(path)
   }
 
+  // 현재 로그인한 유저의 아이디, 프로필 사진
+  const { id, imgUrl } = useSelector((state: any) => state.user.userInfo)
+
   return (
     <Wrapper>
       <div className="header-container">
@@ -45,7 +49,9 @@ function Header(): React.ReactElement {
             <Notifications />
           </div>
           <div className="profile-container">
-            <ProfileImage url={"https://cdn2.thecatapi.com/images/Zi4jfH3c6.jpg"} />
+            <Link to={`/profile/${id}`} className="text-decoration-none text-dark">
+              <ProfileImage url={imgUrl} />
+            </Link>
           </div>
         </div>
       </div>

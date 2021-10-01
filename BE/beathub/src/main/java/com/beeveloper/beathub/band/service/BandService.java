@@ -2,6 +2,7 @@ package com.beeveloper.beathub.band.service;
 
 import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.band.dto.request.BandCreateDto;
+import com.beeveloper.beathub.band.dto.request.BandInputDto;
 import com.beeveloper.beathub.band.dto.ressponse.BandResDto;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Optional;
 
 public interface BandService {
     // 단일 밴드 조회
-    Band findById(Long bandId);
+    Optional<Band> findById(Long bandId);
 
     // 모든 밴드 조회
     List<Band> findAll();
@@ -36,4 +37,6 @@ public interface BandService {
     void unfollow(Long userId, Long bandId);
 
     void delete(Band band);
+
+    Band update(Band band, BandInputDto inputDto);
 }

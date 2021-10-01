@@ -10,7 +10,7 @@ const MembersItem: React.FC<Props> = ({ member }) => {
   return(
     <Wrapper>
       <div className="item-wrapper">
-        <img className="item-img" src={member.imgUrl} alt="member_image"/>
+        <img className="item-img" src={member.imageUrl} alt="member_image"/>
       </div> 
     </Wrapper>
   )

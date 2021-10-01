@@ -3,7 +3,6 @@ package com.beeveloper.beathub.user.controller;
 import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.band.service.BandService;
 import com.beeveloper.beathub.common.dto.FollowDto;
-import com.beeveloper.beathub.common.dto.FollowRequestDto;
 import com.beeveloper.beathub.common.dto.UserInfoDto;
 import com.beeveloper.beathub.user.domain.Follow;
 import com.beeveloper.beathub.user.domain.User;
@@ -11,7 +10,6 @@ import com.beeveloper.beathub.user.jwts.JwtService;
 import com.beeveloper.beathub.user.service.FollowService;
 import com.beeveloper.beathub.user.service.UserService;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +18,7 @@ import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,21 +34,36 @@ public class FollowController {
 
     @ApiOperation(value = "유저에게 Follow 를 신청하는 API")
     @PostMapping("/follow/user/{toUserId}")
-    public void followUser(
+    public ResponseEntity followUser(
             @RequestHeader(value = "Authorization") String jwtToken,
             @PathVariable Long toUserId) {
-        User fromUser = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
-        User toUser = userService.findById(toUserId);
+
+        if (jwtToken == null) {
+            return ResponseEntity.badRequest().body("로그인을 해주세요");
+        }
+
+        Optional<User> searchFromUser = jwtService.returnUser(jwtToken);
+        Optional<User> searchToUser = userService.findById(toUserId);
+
+        if (!searchFromUser.isPresent()) {
+            return ResponseEntity.badRequest().body("회원가입을 해주세요");
+        }
+        if (!searchToUser.isPresent()) {
+            return ResponseEntity.badRequest().body("해당 유저는 없는 유저입니다");
+        }
+
+        User fromUser = searchFromUser.get();
+        User toUser = searchToUser.get();
 
         if (fromUser.getId().equals(toUser.getId())) {
-            return;
+            return ResponseEntity.badRequest().body("본인은 팔로우할 수 없습니다");
         }
 
         Follow exist = followService.getFollowByFromUserAndToUser(fromUser.getId(), toUserId);
 
         // 해당 유저들의 팔로우 유무 파악 후, 없다면 Follow 설정
         if (exist != null) {
-            return;
+            return ResponseEntity.badRequest().body("이미 처리된 요청입니다");
         }
         Follow follow = Follow.builder()
                 .fromUser(fromUser)
@@ -57,30 +71,43 @@ public class FollowController {
                 .build();
 
         followService.save(follow);
+        return ResponseEntity.status(200).build();
     }
 
 
     @ApiOperation(value = "유저에게 UnFollow 를 신청하는 API")
     @DeleteMapping("/unfollow/user/{toUserId}")
-    public void unFollowUser(
+    public ResponseEntity unFollowUser(
             @RequestHeader(value = "Authorization") String jwtToken,
-            @PathVariable Long toUserId
-    ) {
-        User fromUser = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
-        User toUser = userService.findById(toUserId);
+            @PathVariable Long toUserId) {
 
-        if (fromUser.getId().equals(toUser.getId())) {
-            return;
+        if (jwtToken == null) {
+            return ResponseEntity.badRequest().body("로그인을 해주세요");
         }
+
+        Optional<User> searchFromUser = jwtService.returnUser(jwtToken);
+        Optional<User> searchToUser = userService.findById(toUserId);
+
+        if (!searchFromUser.isPresent()) {
+            return ResponseEntity.badRequest().body("회원가입을 해주세요");
+        }
+        if (!searchToUser.isPresent()) {
+            return ResponseEntity.badRequest().body("해당 유저는 없는 유저입니다");
+        }
+
+        User fromUser = searchFromUser.get();
+        User toUser = searchToUser.get();
 
         Follow exist = followService.getFollowByFromUserAndToUser(fromUser.getId(), toUserId);
 
         // UnFollow시에는 있으면 없애고, 없다면 그냥 return
         if (exist == null) {
-            return;
+            return ResponseEntity.badRequest().body("이미 처리된 요청입니다");
         }
         followService.delete(exist);
+        return ResponseEntity.status(200).build();
     }
+
 
     @ApiOperation(value = "유저의 Following, Follower 를 조회하는 API")
     @GetMapping("/follow/user/{userId}")
@@ -100,46 +127,83 @@ public class FollowController {
         return result;
     }
 
+
     // 밴드
     @ApiOperation(value = "밴드의 Follower 를 조회하는 API")
     @GetMapping("/follow/band/{bandId}")
-    public ResponseEntity<List<UserInfoDto>> getBandFollowInfo(
+    public ResponseEntity getBandFollowInfo(
             @PathVariable(value = "bandId") Long bandId) {
 
-        Band band = bandService.findById(bandId);
+        Optional<Band> searchBand = bandService.findById(bandId);
+        if (!searchBand.isPresent()) {
+            return ResponseEntity.badRequest().body("존재하지 않는 밴드입니다.");
+        }
+        Band band = searchBand.get();
         UserInfoDto.ofUser(band.getFollowers());
 
         return ResponseEntity.status(200).body(UserInfoDto.ofUser(band.getFollowers()));
 
     }
 
+
     @Transactional
     @ApiOperation(value = "밴드를 Follow 하는 API")
     @PostMapping("/follow/band/{bandId}")
-    public void follow(
+    public ResponseEntity follow(
             @RequestHeader(value = "Authorization") String jwtToken,
             @PathVariable(value = "bandId") Long bandId) {
 
-        User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
-        Band band = bandService.findById(bandId);
-        if (user.getFollowBands().contains(band)) {
-            return;
+        if (jwtToken == null) {
+            return ResponseEntity.badRequest().body("로그인을 해주세요");
         }
-        bandService.follow(user.getId(), bandId);
+
+        Optional<User> searchFromUser = jwtService.returnUser(jwtToken);
+        Optional<Band> searchBand = bandService.findById(bandId);
+
+        if (!searchFromUser.isPresent()) {
+            return ResponseEntity.badRequest().body("회원가입을 해주세요");
+        }
+        if (!searchBand.isPresent()) {
+            return ResponseEntity.badRequest().body("존재하지 않는 밴드입니다");
+        }
+        User fromUser = searchFromUser.get();
+        Band band = searchBand.get();
+        if (fromUser.getFollowBands().contains(band)) {
+            return ResponseEntity.badRequest().body("이미 처리된 요청입니다");
+        }
+        bandService.follow(fromUser.getId(), bandId);
+        return ResponseEntity.status(200).build();
     }
+
 
     @Transactional
     @ApiOperation(value = "밴드를 UnFollow 하는 API")
     @DeleteMapping("/unfollow/band/{bandId}")
-    public void unFollow(
+    public ResponseEntity unFollow(
             @RequestHeader(value = "Authorization") String jwtToken,
             @PathVariable(value = "bandId") Long bandId) {
 
-        User user = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
-        Band band = bandService.findById(bandId);
-        if (!user.getFollowBands().contains(band)) {
-            return;
+        if (jwtToken == null) {
+            return ResponseEntity.badRequest().body("로그인을 해주세요");
         }
-        bandService.unfollow(user.getId(), bandId);
+
+        Optional<User> searchFromUser = jwtService.returnUser(jwtToken);
+        Optional<Band> searchBand = bandService.findById(bandId);
+
+        if (!searchFromUser.isPresent()) {
+            return ResponseEntity.badRequest().body("회원가입을 해주세요");
+        }
+        if (!searchBand.isPresent()) {
+            return ResponseEntity.badRequest().body("존재하지 않는 밴드입니다");
+        }
+        User fromUser = searchFromUser.get();
+        Band band = searchBand.get();
+
+        if (!fromUser.getFollowBands().contains(band)) {
+            return ResponseEntity.badRequest().body("이미 처리된 요청입니다");
+        }
+        bandService.unfollow(fromUser.getId(), bandId);
+        return ResponseEntity.status(200).build();
     }
+
 }

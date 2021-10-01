@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
+import java.util.Optional;
 
 @Api(value = "회원가입 관련 API")
 @RestController
@@ -49,16 +50,16 @@ public class UserController {
     @ApiOperation(value = "UserId로 회원 조회")
     @GetMapping("/{userId}")
     @ResponseBody
-    public ResponseEntity<UserProfileResDto> profile(HttpServletRequest request,
+    public ResponseEntity profile(HttpServletRequest request,
                                                      HttpServletResponse response,
                                                      @RequestParam(name = "userId") Long userId) {
-        User findByEmail = userService.findById(userId);
 
-        if (findByEmail != null) {
-            return ResponseEntity.status(200).body(UserProfileResDto.of(findByEmail));
-        } else {
-            return null;
+        Optional<User> searchUser = userService.findById(userId);
+        if (!searchUser.isPresent()) {
+            return ResponseEntity.badRequest().body("존재하지 않는 회원입니다");
         }
+        User user = searchUser.get();
+        return ResponseEntity.status(200).body(UserProfileResDto.of(user));
     }
 
     @ApiOperation(value = "사용자가 처음 회원가입한 유저인지 아닌지 판별하는 api, 처음이면 true, 아니면 false")
@@ -82,12 +83,12 @@ public class UserController {
 
         Map<String, String> properties = jwtService.getProperties(jwtToken);
 
-        User existUser = userService.findByEmail(properties.get("email"));
-        System.out.println("existUser = " + existUser);
+        Optional<User> existUser = userService.findByEmail(properties.get("email"));
 
-        if (existUser != null) {
-            return ResponseEntity.status(200).body(UserInfoDto.ofUser(existUser));
+        if (existUser.isPresent()) {
+            return ResponseEntity.status(200).body(UserInfoDto.ofUser(existUser.get()));
         }
+
         UserSaveRequestDto dto = new UserSaveRequestDto(
                 properties.get("name"),
                 properties.get("email"),
@@ -109,16 +110,25 @@ public class UserController {
 
     @ApiOperation(value = "프로필 수정하는 API")
     @PutMapping("/{userId}")
-    public Object update(
+    public ResponseEntity update(
             @RequestHeader(value = "Authorization") String jwtToken,
             @PathVariable(value = "userId") Long userId,
             @RequestBody @ApiParam(value = "개인 프로필 수정 정보", required = true) UpdateUserRequestDto requestDto) {
 
-        User requestUser = jwtService.returnUser(jwtToken);
+        Optional<User> user = jwtService.returnUser(jwtToken);
+        Optional<User> searchUser = userService.findById(userId);
+        if (!user.isPresent()) {
+            return ResponseEntity.badRequest().body("로그인을 해주시기 바랍니다");
+        }
+        if (!searchUser.isPresent()) {
+            return ResponseEntity.badRequest().body("존재하지 않는 회원입니다");
+        }
+
+        User requestUser = user.get();
 
         // 수정하려는 유저와 Target 유저가 다르면 403 에러 발생
         if (requestUser.getId() != userId) {
-            return ResponseEntity.status(403).build();
+            return ResponseEntity.status(403).body("권한이 없는 사용자 입니다");
         }
 
         User updateUser = userService.update(requestUser, requestDto);

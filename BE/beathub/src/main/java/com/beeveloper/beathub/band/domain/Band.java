@@ -1,5 +1,6 @@
 package com.beeveloper.beathub.band.domain;
 
+import com.beeveloper.beathub.band.dto.request.BandInputDto;
 import com.beeveloper.beathub.band.repository.BandRepository;
 import com.beeveloper.beathub.music.domain.Bucket;
 import com.beeveloper.beathub.post.domain.BandPost;
@@ -73,5 +74,12 @@ public class Band {
 
     public void addFollowers(User user) {
         this.followers.add(user);
+    }
+
+    public Band update(BandInputDto dto) {
+        this.name = dto.getName();
+        this.imageUrl = dto.getBandProfileImage();
+        this.introduction = dto.getIntroduction();
+        return this;
     }
 }

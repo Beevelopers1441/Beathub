@@ -13,7 +13,7 @@ const Wrapper = styled.div`
     border-radius: 14px;
 
     & .item-letter {
-      margin: 0 0.25rem 0  0.25rem;
+      margin: 0 0.5rem 0  0.5rem;
       font-size: 12x;
       font-family: Spoqa Han Sans Neo;
       font-style: normal;

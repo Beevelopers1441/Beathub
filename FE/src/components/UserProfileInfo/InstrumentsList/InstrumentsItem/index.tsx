@@ -7,10 +7,11 @@ interface Props {
 }
 
 const InstrumentsItem: React.FC<Props> = ({ instrument }) => {
+  console.log(instrument)
   return(
     <Wrapper>
       <div className="item-wrapper">
-        <div className="item-letter">{instrument.instrument.type} {instrument.ability}</div>
+        <div className="item-letter">{instrument.instrument} {instrument.ability}</div>
       </div> 
     </Wrapper>
   )

@@ -34,6 +34,12 @@ export interface IMessage {
   createdAt: string;
 }
 
+// 채팅
+export interface IChatItem {
+  userInfo: IBasicUser;
+  lastMessage: string;
+}
+
 export interface ProfileObj {
   email: string,
   name: string,

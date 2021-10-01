@@ -7,15 +7,16 @@ import { ProfileImage } from 'components/atoms';
 import Wrapper from './styles';
 
 interface Props {
-  
+  imageUrl: string;
+  username: string;
 }
 
-function YourMessageProfile(props: Props): React.ReactElement {
+function YourMessageProfile({ imageUrl, username }: Props): React.ReactElement {
   return (
     <Wrapper>
-      <ProfileImage url={'https://cdn2.thecatapi.com/images/Zi4jfH3c6.jpg'} />
+      <ProfileImage url={imageUrl} />
       <div>
-        <p className="user-name">한상진</p>
+        <p className="user-name">{ username }</p>
       </div>
     </Wrapper>
   );

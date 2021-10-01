@@ -34,7 +34,17 @@ function Messages({ messages }: Props): React.ReactElement {
           message.userInfo.id === 1 ? (
             <MyMessage text={message.text} key={idx} />
           ) : (
-            <YourMessage text={message.text} key={idx} />
+            idx !== 0 && messages[idx-1].userInfo.id === 2 ? (
+              <YourMessage text={message.text} key={idx} />
+            ) : (
+              <>
+                <YourMessageProfile 
+                  imageUrl={message.userInfo.imageUrl}
+                  username={message.userInfo.name}
+                />
+                <YourMessage text={message.text} key={idx} />
+              </>
+            )
           )
         )
       })}

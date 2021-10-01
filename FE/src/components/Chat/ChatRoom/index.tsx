@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 // firebase
-// import 'firebase/firestore';
-// import { getAuth } from 'firebase/auth';
-// import { getFirestore, collection, getDocs, addDoc, setDoc } from 'firebase/firestore';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import { db, auth } from 'utils/Firebase/firebaseConfig';
+import { db } from 'utils/Firebase/firebaseConfig';
 
 // component
 import Messages from './Messages';
@@ -20,15 +18,19 @@ import { getCurrTime } from 'utils/time';
 // styles
 import { ArrowBackIosNew } from '@mui/icons-material';
 import Wrapper from './styles';
+import { userInfo } from 'os';
 
 interface Props {
+  currYou: number;
   setIsChatRoom: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
 
-function ChatRoom({ setIsChatRoom }: Props): React.ReactElement {
+function ChatRoom({ currYou, setIsChatRoom }: Props): React.ReactElement {
   const [messages, setMessages] = useState<IMessage[]>([]);
+  const { userInfo } = useSelector((state: any) => state.user);
+  const [currDoc, setCurrDoc] = useState('');
 
   const chatInputRef: any = useRef();
   // 1.사용자 회원가입 시 -> email(id/pw), id(pk), name, imageUrl
@@ -38,15 +40,29 @@ function ChatRoom({ setIsChatRoom }: Props): React.ReactElement {
   // 2. write
   // messages: each message[userInfo obj(id, name, imageUrl), text]
   useEffect(() => {
+    if (currYou === 0) return
+
+    // user sort
+    let userDocList = [currYou, userInfo.id];
+    userDocList.sort((a, b) => a - b);
+    const userDoc = userDocList.join(',');
+    setCurrDoc(userDoc);
+
+  }, [currYou, userInfo.id]);
+
+  useEffect(() => {
+    if (!currDoc) return
+
+    // set message
     const _db = db.collection("Rooms");
-    const docRef = _db.doc('1,2');
+    const docRef = _db.doc(currDoc);
     docRef.onSnapshot((doc) => {
       const docDatas = doc.data();
       if (docDatas) {
         setMessages([...JSON.parse(JSON.stringify(docDatas.messages))]);
       }
     });
-  }, []);
+  }, [currDoc]);
 
   // messages
   useEffect(() => {
@@ -56,14 +72,14 @@ function ChatRoom({ setIsChatRoom }: Props): React.ReactElement {
   const handleInput = (e: any) => {
     if (e.key === 'Enter') {
       const newText = chatInputRef?.current.value.trim();
-      const userInfo: IBasicUser = {
-        id: 2,  // need to change
-        imageUrl: 'https://cdn2.thecatapi.com/images/Zi4jfH3c6.jpg',
-        name: '전선규',
+      const myUserInfo: IBasicUser = {
+        id: userInfo.id,
+        imageUrl: userInfo.imageUrl,
+        name: userInfo.name,
       }
-      const createdAt = getCurrTime();
+      const createdAt = new Date().toJSON();
       const newMessage = {
-        userInfo,
+        userInfo: myUserInfo,
         text: newText,
         createdAt,
       }
@@ -71,11 +87,12 @@ function ChatRoom({ setIsChatRoom }: Props): React.ReactElement {
       setMessages(newMessages);
       chatInputRef.current.value = '';
 
-      // message 형싱게 맞추어서 firebase firestore 저장
-      const messageRef = db.collection('Rooms').doc('1,2');
-      const setFirebaseMessage = messageRef.update({
+      // message 형식에 맞추어서 firebase firestore 저장
+      const messageRef = db.collection('Rooms');
+      messageRef.doc(currDoc).set({
         messages: firebase.firestore.FieldValue.arrayUnion(newMessage),
-      })
+        participants: firebase.firestore.FieldValue.arrayUnion(1),
+      }, { merge: true })
         .then(() => {
           console.log('success to save in firebase')
         })

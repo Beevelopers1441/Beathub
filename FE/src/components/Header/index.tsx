@@ -25,7 +25,8 @@ function Header(): React.ReactElement {
   }
 
   // 현재 로그인한 유저의 아이디, 프로필 사진
-  const { id, imgUrl } = useSelector((state: any) => state.user.userInfo)
+  const { id, imageUrl } = useSelector((state: any) => state.user.userInfo)
+  console.log(id)
 
   return (
     <Wrapper>
@@ -50,7 +51,7 @@ function Header(): React.ReactElement {
           </div>
           <div className="profile-container">
             <Link to={`/profile/${id}`} className="text-decoration-none text-dark">
-              <ProfileImage url={imgUrl} />
+              <ProfileImage url={imageUrl} className="user-image"/>
             </Link>
           </div>
         </div>

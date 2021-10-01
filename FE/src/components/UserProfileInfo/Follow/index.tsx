@@ -26,7 +26,10 @@ const Follow: React.FC<Props> = ({ id }) => {
 
   // 팔로워, 팔로잉 목록 초기화
   useEffect(() => {
-    FetchFollowList(id)
+    // 새로고침 시 잠시 id가 0이 되는 현상 때문
+    if(id !== 0) {
+      FetchFollowList(id)
+    }
   }, [id])
 
   // 이 사람을 팔로우하고 있는지 판단

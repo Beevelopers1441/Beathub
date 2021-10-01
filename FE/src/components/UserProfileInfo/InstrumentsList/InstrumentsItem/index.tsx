@@ -7,6 +7,7 @@ interface Props {
 }
 
 const InstrumentsItem: React.FC<Props> = ({ instrument }) => {
+  console.log(instrument)
   return(
     <Wrapper>
       <div className="item-wrapper">

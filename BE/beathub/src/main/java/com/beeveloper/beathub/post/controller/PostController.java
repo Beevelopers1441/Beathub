@@ -11,8 +11,11 @@ import com.beeveloper.beathub.post.domain.Post;
 import com.beeveloper.beathub.post.dto.request.*;
 import com.beeveloper.beathub.post.dto.response.*;
 import com.beeveloper.beathub.post.service.PostService;
+import com.beeveloper.beathub.user.domain.Ability;
 import com.beeveloper.beathub.user.domain.User;
+import com.beeveloper.beathub.user.domain.UserInstrument;
 import com.beeveloper.beathub.user.jwts.JwtService;
+import com.beeveloper.beathub.user.service.UserInstrumentService;
 import com.beeveloper.beathub.user.service.UserServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +40,7 @@ public class PostController {
     private final UserServiceImpl userService;
     private final BandService bandService;
     private final InstrumentService instrumentService;
+    private final UserInstrumentService userInstrumentService;
 
     // 생성
     @PostMapping("/members")
@@ -55,6 +60,20 @@ public class PostController {
         }
         User author = searchUser.get();
         Instrument tag = instrumentService.findByType(inputInfo.getTag());
+
+        List<UserInstrument> instruments = author.getInstruments();
+        List<Instrument> myInstrumentList = new ArrayList<>();
+        for (UserInstrument instrument : instruments) {
+            myInstrumentList.add(instrument.getInstrument());
+        }
+        if (!myInstrumentList.contains(tag)) {
+            UserInstrument userInstrument = UserInstrument.builder()
+                    .instrument(tag)
+                    .player(author)
+                    .ability(Ability.Senior)
+                    .build();
+            userInstrumentService.save(userInstrument);
+        }
 
 
         // 새로운 dto를 생성

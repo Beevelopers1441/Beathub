@@ -21,5 +21,7 @@ public interface BandMemberService {
 
     void approve(Band band, User user);
 
-    void deny(Band band, User user);
+    List<BandMember> getApplies(List<Band> leadingBands);
+
+    void delete(BandMember findBandMember);
 }

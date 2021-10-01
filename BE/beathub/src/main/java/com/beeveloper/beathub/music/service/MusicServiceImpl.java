@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +36,11 @@ public class MusicServiceImpl implements MusicService{
 
     @Override
     public Bucket createBucket(BucketCreateDto bucketInfo, String jwtToken) {
-        User ownerUser = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        Optional<User> user = jwtService.returnUser(jwtToken);
+        if (!user.isPresent()) {
+            return null;
+        }
+        User ownerUser = user.get();
         Bucket bucket = Bucket.builder()
                 .title(bucketInfo.getTitle())
                 .BPM(bucketInfo.getBPM())
@@ -59,7 +64,11 @@ public class MusicServiceImpl implements MusicService{
 
     @Override
     public Audio createAudio(AudioCreateDto audioInfo, String jwtToken, Long bucketId) {
-        User uploader = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        Optional<User> user = jwtService.returnUser(jwtToken);
+        if (!user.isPresent()) {
+            return null;
+        }
+        User uploader = user.get();
         Bucket bucket = findBucketById(bucketId);
         Instrument instrument =  instrumentService.findByType(audioInfo.getInstrumentType());
         Audio audio = Audio.builder()
@@ -78,6 +87,7 @@ public class MusicServiceImpl implements MusicService{
         return audioRepository.findByBucket(bucket);
     }
 
+
     @Override
     public AudioSetting createAudioSetting(AudioSettingInfo audioSettingInfo, Commit commit, Audio audio) {
         AudioSetting audioSetting = AudioSetting.builder()
@@ -93,7 +103,11 @@ public class MusicServiceImpl implements MusicService{
     @Override
     @Transactional
     public Commit createCommit(CommitCreateDto commitInfo, String jwtToken, Long bucketId) {
-        User author = userService.findByEmail(jwtService.getProperties(jwtToken).get("email"));
+        Optional<User> user = jwtService.returnUser(jwtToken);
+        if (!user.isPresent()) {
+            return null;
+        }
+        User uploader = user.get();
         Bucket bucket = findBucketById(bucketId);
         Commit commit = Commit.builder()
                 .title(commitInfo.getTitle())
@@ -107,5 +121,13 @@ public class MusicServiceImpl implements MusicService{
         return commitRepository.save(commit);
     }
 
+    @Override
+    public List<Audio> findAudiosLikeKeyword(String keyword) {
+        return audioRepository.findAllByFileNameContainingIgnoreCase(keyword);
+    }
 
+    @Override
+    public List<Bucket> findBucketsLikeKeyword(String keyword) {
+        return bucketRepository.findAllByTitleContainingIgnoreCase(keyword);
+    }
 }

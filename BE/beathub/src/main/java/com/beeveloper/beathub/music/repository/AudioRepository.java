@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface AudioRepository extends JpaRepository<Audio, Long> {
     List<Audio> findByBucket(Bucket bucket);
+
+    List<Audio> findAllByFileNameContainingIgnoreCase(String keyword);
 }

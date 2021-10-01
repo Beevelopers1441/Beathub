@@ -41,8 +41,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void like(User user, Post post) {
-
-
         user.addLikePost(post);
         post.getLikeUsers().add(user);
         userRepository.save(user);
@@ -64,6 +62,11 @@ public class UserServiceImpl implements UserService {
 
     public Optional<User> findById(Long userId) {
         return userRepository.findById(userId);
+    }
+
+    @Override
+    public List<User> findUsersLikeKeyword(String name) {
+        return userRepository.findAllByNameContainingIgnoreCase(name);
     }
 
 }

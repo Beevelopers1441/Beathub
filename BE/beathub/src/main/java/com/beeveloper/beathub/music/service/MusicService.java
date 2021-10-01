@@ -20,6 +20,9 @@ public interface MusicService {
     List<Audio> findAudiosByBucket(Long bucketId);
     AudioSetting createAudioSetting(AudioSettingInfo audioSettingInfo, Commit commit, Audio audio);
     Commit createCommit(CommitCreateDto commitInfo, String jwtToken, Long bucketId);
+
+    List<Audio> findAudiosLikeKeyword(String keyword);
+    List<Bucket> findBucketsLikeKeyword(String keyword);
 //    List<Commit> findAllCommitsInBucket(Long bucketId);
 //    Commit findCommit(Long commitId);
 //    List<Audio> findAllAudios();

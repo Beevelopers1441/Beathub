@@ -120,4 +120,14 @@ public class MusicServiceImpl implements MusicService{
         }
         return commitRepository.save(commit);
     }
+
+    @Override
+    public List<Audio> findAudiosLikeKeyword(String keyword) {
+        return audioRepository.findAllByFileNameContainingIgnoreCase(keyword);
+    }
+
+    @Override
+    public List<Bucket> findBucketsLikeKeyword(String keyword) {
+        return bucketRepository.findAllByTitleContainingIgnoreCase(keyword);
+    }
 }

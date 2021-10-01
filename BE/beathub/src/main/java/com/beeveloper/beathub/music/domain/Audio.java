@@ -4,6 +4,7 @@ import com.beeveloper.beathub.instrument.domain.Instrument;
 import com.beeveloper.beathub.user.domain.User;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class Audio {
 
     @Id

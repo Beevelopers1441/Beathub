@@ -39,4 +39,6 @@ public interface BandService {
     void delete(Band band);
 
     Band update(Band band, BandInputDto inputDto);
+
+    List<Band> findBandsLikeKeyWord(String keyword);
 }

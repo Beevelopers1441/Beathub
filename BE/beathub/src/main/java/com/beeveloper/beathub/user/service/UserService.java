@@ -12,6 +12,8 @@ public interface UserService {
 
     Optional<User> findById(Long id);
 
+    List<User> findUsersLikeKeyword(String name);
+
     List<User> findAll();
 
     Optional<User> findByEmail(String email);

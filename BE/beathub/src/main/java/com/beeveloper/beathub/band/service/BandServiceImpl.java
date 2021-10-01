@@ -109,4 +109,9 @@ public class BandServiceImpl implements BandService{
         Band updateBand = band.update(inputDto);
         return bandRepository.save(updateBand);
     }
+
+    @Override
+    public List<Band> findBandsLikeKeyWord(String keyword) {
+        return bandRepository.findAllByNameContainingIgnoreCase(keyword);
+    }
 }

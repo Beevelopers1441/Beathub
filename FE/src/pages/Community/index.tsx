@@ -150,7 +150,7 @@ function Community(props: Props): React.ReactElement {
               titleRef={titleRef}
             />
             <div className="create-container">
-              <Link to="/post">
+              <Link to={`post/${teamFlag}`}>
                 <button className="create-btn">글쓰기</button>
               </Link>
             </div>

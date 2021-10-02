@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 
 // components
 import { InstrumentPicker } from 'components/Community';
@@ -17,6 +17,10 @@ import Wrapper from './styles';
 interface Props {}
 type TransitionProps = Omit<SlideProps, 'direction'>;
 
+interface ParamTypes {
+  propTeamFlag: string | undefined;
+};
+
 function TransitionUp(props: TransitionProps) {
   return <Slide {...props} direction="up" />;
 }
@@ -29,6 +33,13 @@ function PostCreate(props: Props): React.ReactElement {
   const contentRef: any = useRef();
 
   const history = useHistory();
+  const { propTeamFlag } = useParams<ParamTypes>();
+  
+  // constructor
+  useEffect(() => {
+    if (!propTeamFlag) return
+    setTeamFlag(+propTeamFlag);
+  }, [propTeamFlag]);
 
   // change teamFlag
   useEffect(() => {

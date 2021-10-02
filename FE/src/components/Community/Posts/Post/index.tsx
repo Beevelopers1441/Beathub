@@ -25,7 +25,7 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
 
   const handlePostDetail = (postId: number) => {
     const location = { 
-      pathname: `/post/${postId}`,
+      pathname: `/posts/${postId}`,
       state: { teamFlag, }
     };
     history.push(location);

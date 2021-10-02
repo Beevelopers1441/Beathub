@@ -57,7 +57,9 @@ function PostDetail(): React.ReactElement {
         const newPost = res.data;
         const newComments = newPost.comments;
         const newLikeCnt = newPost.likeUsers.length;
+        const newIsLike = newPost.likeUsers.filter((p: IPost) => p.id === userInfo.id).length === 0 ? false : true;
         setLikeCnt(newLikeCnt);
+        setIsLike(newIsLike);
         setPost(newPost);
         setComments(newComments);
       });

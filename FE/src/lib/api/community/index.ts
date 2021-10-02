@@ -1,8 +1,14 @@
 import axios from 'axios';
 
+interface IMemberPost {
+  title: string;
+  inst: string;
+  content: string;
+}
 interface IBandPost {
   title: string;
   inst: string;
+  bandName: string;
   content: string;
 }
 
@@ -17,14 +23,13 @@ const getMemberPosts = async () => {
   return response
 };
 
-const setMemberPost = async (payload: IBandPost) => {
+const setMemberPost = async (payload: IMemberPost) => {
   const { title, inst, content } = payload;
   const data = {
     title,
     tag: inst,
     content,
   }
-  console.log(data)
 
   const config: any = {
     method: 'POST',
@@ -46,16 +51,17 @@ const getBandPosts = async () => {
 };
 
 const setBandPost = async (payload: IBandPost) => {
-  const { title, inst, content } = payload;
+  const { title, inst, bandName, content } = payload;
   const data = {
     title,
     tag: inst,
+    bandName,
     content,
   }
 
   const config: any = {
     method: 'POST',
-    url: `${BASE_URL}api/posts/members`,
+    url: `${BASE_URL}api/posts/bands`,
     data,
     headers: {
       Authorization: TOKEN,

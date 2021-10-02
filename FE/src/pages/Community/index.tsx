@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 // Components
 import { Posts, LinkTab, CommunitySearch } from 'components/Community';
 
 // api
 import { getBandPosts, getMemberPosts } from 'lib/api/community';
+
+// utils
+import { setTeamFlagColor } from 'utils/community';
 
 // styles
 import { Container, Grid } from '@mui/material';
@@ -25,6 +28,7 @@ function Community(props: Props): React.ReactElement {
   const [currTag, setCurrTag] = useState('');
 
   const titleRef: any = useRef();
+  const { state } = useLocation<any>();
 
   // constructor
   useEffect(() => {
@@ -47,6 +51,15 @@ function Community(props: Props): React.ReactElement {
     setCurrTitle('');
 
   }, [teamFlag]);
+
+  // routing props
+  useEffect(() => {
+    if (!state) return
+
+    const idx = state.tFlag;
+    setTeamFlagColor(idx)
+    setTeamFlag(idx);
+  }, [state]);
   
   // current Posts filter
   useEffect(() => {
@@ -97,15 +110,7 @@ function Community(props: Props): React.ReactElement {
   }, [tabsIdx]);
 
   const handleTeamFlag = (idx: number): void => {
-    const ele0 = document.querySelector('.teamFlag-container > p:nth-child(1)');
-    const ele1 = document.querySelector('.teamFlag-container > p:nth-child(2)');
-    if (idx === 0) {
-      ele0?.setAttribute('class', 'teamFlag-active');
-      ele1?.setAttribute('class', 'teamFlag');
-    } else {
-      ele0?.setAttribute('class', 'teamFlag');
-      ele1?.setAttribute('class', 'teamFlag-active');
-    }
+    setTeamFlagColor(idx);
     setTeamFlag(idx);
   };
 

@@ -24,4 +24,16 @@ export const setSliceText = (type, text) => {
     };
   };
   return newText;
-}
+};
+
+export const setTeamFlagColor = (idx) => {
+  const ele0 = document.querySelector('.teamFlag-container > p:nth-child(1)');
+  const ele1 = document.querySelector('.teamFlag-container > p:nth-child(2)');
+  if (idx === 0) {
+    ele0?.setAttribute('class', 'teamFlag-active');
+    ele1?.setAttribute('class', 'teamFlag');
+  } else {
+    ele0?.setAttribute('class', 'teamFlag');
+    ele1?.setAttribute('class', 'teamFlag-active');
+  };
+};

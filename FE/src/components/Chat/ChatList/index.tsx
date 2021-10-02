@@ -28,13 +28,10 @@ function ChatList({ isOpen, setIsOpen }: Props): React.ReactElement {
   const { userInfo } = useSelector((state: any) => state.user);
 
   useEffect(() => {
-    console.log(db.collection('Rooms').get().then(qs => { console.log(qs) }))
-    console.log(userInfo.id)
     db.collection('Rooms').where('participants', 'array-contains', userInfo.id)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          console.log(doc)
           const participants = doc.data().participants;
           const myIdx = participants.indexOf(userInfo.id);
           participants.splice(myIdx, 1);

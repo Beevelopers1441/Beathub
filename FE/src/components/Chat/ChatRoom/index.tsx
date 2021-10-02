@@ -66,7 +66,7 @@ function ChatRoom({ currYou, setIsChatRoom }: Props): React.ReactElement {
 
   // messages
   useEffect(() => {
-    console.log(messages)
+    
   }, [messages])
 
   const handleInput = (e: any) => {

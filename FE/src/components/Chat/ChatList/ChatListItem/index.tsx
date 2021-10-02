@@ -4,7 +4,7 @@ import React from 'react';
 import { ProfileImage } from 'components/atoms'
 
 // types
-import { IChatItem } from 'types';
+import { IChatItem, IBasicUser } from 'types';
 
 // styles
 import Wrapper from './styles';
@@ -12,11 +12,14 @@ import Wrapper from './styles';
 interface Props {
   item: IChatItem;
   setIsChatRoom: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrYou: React.Dispatch<React.SetStateAction<IBasicUser | null>>;
 }
 
-function ChatListItem({ item, setIsChatRoom }: Props): React.ReactElement {
+function ChatListItem({ item, setIsChatRoom, setCurrYou }: Props): React.ReactElement {
 
   const handleChatRoom = () => {
+    const newYou = { ...item.userInfo };
+    setCurrYou(newYou);
     setIsChatRoom(true);
   };
 
@@ -24,7 +27,8 @@ function ChatListItem({ item, setIsChatRoom }: Props): React.ReactElement {
     <Wrapper onClick={handleChatRoom}>
       <div className="user-container">
         <ProfileImage
-          url={"https://cdn2.thecatapi.com/images/Zi4jfH3c6.jpg"}
+          url={item.userInfo.imageUrl}
+          className={'user-image'}
         />
         <div className="name-content-container">
           <p className="name">{item.userInfo.name}</p>
@@ -33,7 +37,7 @@ function ChatListItem({ item, setIsChatRoom }: Props): React.ReactElement {
       </div>
       <div className="chat-info-container">
         <p className="time">오후 3:57</p>
-        <p className="count">7</p>
+        {/* <p className="count">7</p> */}
       </div>
     </Wrapper>
   );

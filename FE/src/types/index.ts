@@ -28,13 +28,12 @@ export interface IPost {
   comments: IComment[];
 }
 
+// 채팅
 export interface IMessage {
   userInfo: IBasicUser;
   text: string;
   createdAt: string;
 }
-
-// 채팅
 export interface IChatItem {
   userInfo: IBasicUser;
   lastMessage: string;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 // utils
@@ -32,6 +32,10 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
     history.push(location);
   }
 
+  useEffect(() => {
+    console.log(post)
+  }, [])
+
   return (
     <Wrapper>
       <Grid container>
@@ -43,7 +47,7 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
             <Grid item xs={9}
               className="post-mainInfo-container"
             >
-              <p className="title">{setSliceText('title', post.title)}</p>
+              <p className="title">{setSliceText('title', post.title)}<span className="post-tag">{post.tag.type}</span></p>
               <p className="content">{setSliceText('content', post.content)}</p>
             </Grid>
             <Grid item xs={3}

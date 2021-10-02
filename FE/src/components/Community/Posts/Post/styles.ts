@@ -11,6 +11,7 @@ const Wrapper = styled.div`
 
   & .post-mainInfo-container {
     & .title {
+      color: white;
       font-size: 1.4rem;
       margin-bottom: 1rem;
     }
@@ -82,6 +83,17 @@ const Wrapper = styled.div`
       background-position: center center;
       background-size: cover;
     }
+  }
+  & .post-tag {
+    margin-left: 0.7rem;
+    padding: 0.1rem 0.7rem;
+    vertical-align: middle;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+    font-size: 0.9rem;
   }
 `
 

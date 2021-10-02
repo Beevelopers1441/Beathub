@@ -7,7 +7,7 @@ interface IBandPost {
 }
 
 const BASE_URL = process.env.REACT_APP_SERVER_URL;
-const TOKEN = localStorage.getItem('token');
+const TOKEN = localStorage.getItem('userToken');
 
 /* Member */
 const getMemberPosts = async () => {
@@ -24,6 +24,7 @@ const setMemberPost = async (payload: IBandPost) => {
     tag: inst,
     content,
   }
+  console.log(data)
 
   const config: any = {
     method: 'POST',

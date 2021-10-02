@@ -23,7 +23,7 @@ interface ParamTypes {
 
 function TransitionUp(props: TransitionProps) {
   return <Slide {...props} direction="up" />;
-}
+};
 
 function PostCreate(props: Props): React.ReactElement {
   const [teamFlag, setTeamFlag] = useState<number>(0);

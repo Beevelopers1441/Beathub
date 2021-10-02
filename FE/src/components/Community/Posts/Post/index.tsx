@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 // utils
 import { setDateFormat } from 'utils/time';
+import { setSimpleUsername } from 'utils/community';
 
 // component
 import { ProfileImage } from 'components/atoms';
@@ -11,7 +12,7 @@ import { ProfileImage } from 'components/atoms';
 import { IPost } from 'types';
 
 // styles
-import { Grid } from '@mui/material';
+import { Grid, Tooltip } from '@mui/material';
 import { Favorite } from '@mui/icons-material';
 import Wrapper from './styles';
 
@@ -62,7 +63,14 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
         <Grid item xs={2}
           className="user-container"
         >
-          <p className="user-name">{post.author.name}</p>
+          <Tooltip 
+            title={post.author.name}
+            arrow
+            placement="top"
+            className="name-tooltip"
+          >
+            <p className="user-name">{setSimpleUsername(post.author.name)}</p>
+          </Tooltip>
           <ProfileImage
             url={post.author.imageUrl}
             className={'user-image'} />

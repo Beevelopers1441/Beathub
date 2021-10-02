@@ -64,8 +64,12 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: end;
 
+    & .name-tooltip {
+      cursor: pointer;
+    }
     & .user-name {
-      margin-top: 0.2rem;
+      margin: 0.2rem 0;
+      height: fit-content;
       font-size: 13px;
     }
     & .user-image {

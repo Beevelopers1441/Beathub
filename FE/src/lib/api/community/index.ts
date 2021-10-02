@@ -87,12 +87,13 @@ const getBandPost = async (postId: number) => {
   return response
 };
 
+// comment
 const setComment = async (postId: number, content: string) => {
   const data = { content, };
 
   const config: any = {
     method: 'POST',
-    url: `${BASE_URL}api/posts/posts/${postId}`,
+    url: `${BASE_URL}api/posts/${postId}`,
     data,
     headers: {
       Authorization: TOKEN,

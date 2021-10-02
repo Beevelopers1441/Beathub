@@ -95,7 +95,11 @@ function PostDetail(): React.ReactElement {
   };
 
   const handleBack = () => {
-    history.goBack();
+    history.push({
+      pathname: '/community',
+    state: {
+      tFlag: state.teamFlag
+    }});
   };
 
   // need to change tmp

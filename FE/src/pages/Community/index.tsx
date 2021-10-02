@@ -63,7 +63,6 @@ function Community(props: Props): React.ReactElement {
   
   // current Posts filter
   useEffect(() => {
-    console.log('????????????????')
     if (!posts) return;
 
     let newCurrPosts: IPost[] = [...posts];

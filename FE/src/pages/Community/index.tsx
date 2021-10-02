@@ -63,9 +63,11 @@ function Community(props: Props): React.ReactElement {
   
   // current Posts filter
   useEffect(() => {
+    console.log('????????????????')
     if (!posts) return;
 
     let newCurrPosts: IPost[] = [...posts];
+    newCurrPosts.sort((a, b) => (+(new Date(b.createTime)) - +(new Date(a.createTime))));  // 최신 게시글 순 정렬
 
     // tabs index
     if (tabsIdx === 1) {  // proceeding

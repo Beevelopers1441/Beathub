@@ -110,7 +110,6 @@ function Community(props: Props): React.ReactElement {
   };
 
   /* search */
-
   // search inputs
   const handleInputs = (e: any) => {
     if (e.key === 'Enter' || e.target.id === 'search-button') {
@@ -118,6 +117,17 @@ function Community(props: Props): React.ReactElement {
       setCurrTitle(newTitleValue);
     };
   };
+
+  useEffect(() => {
+    console.log('currPosts!!!!!!!!!!!!!')
+    console.log(currPosts)
+  }, [currPosts])
+  const tmpStyle = {
+    color: 'white',
+    border: '1px solid red',
+    width: '100%',
+    height: '100px'
+  }
 
   return (
     <Wrapper>
@@ -154,7 +164,11 @@ function Community(props: Props): React.ReactElement {
                 <button className="create-btn">글쓰기</button>
               </Link>
             </div>
-            <Posts currPosts={currPosts} teamFlag={teamFlag} />
+            { currPosts ? (
+              <Posts currPosts={currPosts} teamFlag={teamFlag} />
+            ) : (
+              <div className="what" style={tmpStyle}>게시글이 없습니다.</div>
+            )}
           </Grid>
         </Grid>
       </Container>

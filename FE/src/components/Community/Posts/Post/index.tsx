@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 // utils
 import { setDateFormat } from 'utils/time';
-import { setSimpleUsername } from 'utils/community';
+import { setSimpleUsername, setSliceText } from 'utils/community';
 
 // component
 import { ProfileImage } from 'components/atoms';
@@ -43,8 +43,8 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
             <Grid item xs={9}
               className="post-mainInfo-container"
             >
-              <p className="title">{post.title}</p>
-              <p className="content">{post.content}</p>
+              <p className="title">{setSliceText('title', post.title)}</p>
+              <p className="content">{setSliceText('content', post.content)}</p>
             </Grid>
             <Grid item xs={3}
               className="post-subInfo-container"

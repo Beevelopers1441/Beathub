@@ -11,3 +11,17 @@ export const setSimpleUsername = (username) => {
   };
   return newUsername
 };
+
+export const setSliceText = (type, text) => {
+  let newText = text;
+  if (type === 'title') {
+    if (text.length > 28) {
+      newText = text.slice(0, 28) + '...';
+    };
+  } else if (type === 'content') {
+    if (text.length > 80) {
+      newText = text.slice(0, 80) + '...';
+    };
+  };
+  return newText;
+}

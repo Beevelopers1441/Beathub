@@ -28,6 +28,18 @@ export interface IPost {
   comments: IComment[];
 }
 
+export interface IMessage {
+  userInfo: IBasicUser;
+  text: string;
+  createdAt: string;
+}
+
+// 채팅
+export interface IChatItem {
+  userInfo: IBasicUser;
+  lastMessage: string;
+}
+
 export interface ProfileObj {
   email: string,
   name: string,

@@ -5,21 +5,15 @@ import com.beeveloper.beathub.band.dto.request.BandCreateDto;
 import com.beeveloper.beathub.band.dto.request.BandInputDto;
 import com.beeveloper.beathub.band.dto.ressponse.BandResDto;
 import com.beeveloper.beathub.band.service.BandService;
-import com.beeveloper.beathub.common.dto.FollowRequestDto;
 import com.beeveloper.beathub.user.domain.User;
 import com.beeveloper.beathub.user.jwts.JwtService;
 import com.beeveloper.beathub.user.service.UserServiceImpl;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import javax.websocket.server.PathParam;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

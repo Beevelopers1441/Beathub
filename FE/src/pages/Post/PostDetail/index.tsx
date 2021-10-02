@@ -3,6 +3,7 @@ import { useParams, useLocation, useHistory } from 'react-router-dom';
 
 // Component
 import { Comment, ProfileCard } from 'components/Community';
+import InstItem from 'components/atoms/InstItem';
 
 // apis
 import { getMemberPost, getBandPost, setComment } from 'lib/api/community';
@@ -83,6 +84,11 @@ function PostDetail(): React.ReactElement {
     history.goBack();
   };
 
+  useEffect(() => {
+    if (!post) return
+    console.log(post)
+  }, [post])
+
   return (
     <Wrapper>
       <Container>
@@ -111,8 +117,7 @@ function PostDetail(): React.ReactElement {
                 <p className="likes">{post.likeUsers.length}</p>
               </div>
               <div className="tag-container">
-                {/* <TagListReadOnly tags={post.tags} /> */}
-                악기 이름!!!!
+                <InstItem inst={post?.tag.type} />
               </div>
               <p className="content">{post.content}</p>
               <div className="comments-container">

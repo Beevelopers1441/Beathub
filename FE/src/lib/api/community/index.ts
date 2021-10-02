@@ -93,6 +93,30 @@ const setComment = async (postId: number, content: string) => {
     },
   }
   return await axios(config);
-}
+};
 
-export { getMemberPosts, getMemberPost, setMemberPost, getBandPosts, getBandPost, setBandPost, setComment };
+// likes
+const setLikeAPI = async (postId: number) => {
+  const config: any = {
+    method: 'POST',
+    url: `${BASE_URL}api/posts/${postId}/like`,
+    headers: {
+      Authorization: TOKEN,
+    },
+  }
+  return await axios(config);
+};
+
+const setUnlikeAPI = async (postId: number) => {
+  const config: any = {
+    method: 'POST',
+    url: `${BASE_URL}api/posts/${postId}/unlike`,
+    headers: {
+      Authorization: TOKEN,
+    },
+  }
+  return await axios(config);
+};
+
+
+export { getMemberPosts, getMemberPost, setMemberPost, getBandPosts, getBandPost, setBandPost, setComment, setLikeAPI, setUnlikeAPI };

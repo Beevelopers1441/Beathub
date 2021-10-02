@@ -31,13 +31,13 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
   useEffect(() => {
     if (!post) return
     
-    const flag = post.likeUsers.indexOf(userInfo.id);
-    if (flag === -1) {  // like 유저에 없음
+    const flag = post.likeUsers.filter((u => u.id === userInfo.id));
+    if (flag.length === 0) {  // like 유저에 없음
       setIsLike(false);
     } else { // like 유저에 있음
       setIsLike(true);
     };
-  }, [post]);
+  }, [post, userInfo.id]);
 
   const handlePostDetail = (postId: number) => {
     const location = { 

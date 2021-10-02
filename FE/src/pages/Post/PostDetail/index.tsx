@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 
 // Component
@@ -6,7 +7,7 @@ import { Comment, ProfileCard } from 'components/Community';
 import InstItem from 'components/atoms/InstItem';
 
 // apis
-import { getMemberPost, getBandPost, setComment } from 'lib/api/community';
+import { getMemberPost, getBandPost, setComment, setLikeAPI, setUnlikeAPI } from 'lib/api/community';
 import { setDateFormat } from 'utils/time';
 
 // types
@@ -25,7 +26,9 @@ function PostDetail(): React.ReactElement {
   const [post, setPost] = useState<IPost | null>(null);
   const [comments, setComments] = useState<IComment[]>([]);
   const [isLike, setIsLike] = useState<Boolean>(false);
+  const [likeCnt, setLikeCnt] = useState<number>(0);
 
+  const { userInfo } = useSelector((state: any) => state.user);
   const { postId } = useParams<ParamTypes>();
   const { state } = useLocation<any>();
   const history = useHistory();
@@ -41,6 +44,10 @@ function PostDetail(): React.ReactElement {
       getMemberPost(+postId).then(res => {
         const newPost = res.data;
         const newComments = newPost.comments;
+        const newLikeCnt = newPost.likeUsers.length;
+        const newIsLike = newPost.likeUsers.filter((p: IPost) => p.id === userInfo.id).length === 0 ? false : true;
+        setLikeCnt(newLikeCnt); 
+        setIsLike(newIsLike);
         setPost(newPost);
         setComments(newComments);
       });
@@ -49,21 +56,26 @@ function PostDetail(): React.ReactElement {
       getBandPost(+postId).then(res => {
         const newPost = res.data;
         const newComments = newPost.comments;
+        const newLikeCnt = newPost.likeUsers.length;
+        setLikeCnt(newLikeCnt);
         setPost(newPost);
         setComments(newComments);
       });
     }
-  }, [postId, state]);
+  }, [postId, state, userInfo.id]);
 
   // likes
   const handleLike = () => {
-    const newPost = JSON.parse(JSON.stringify(post));
-    if (isLike) {
-      newPost.likes -= 1;
-    } else {
-      newPost.likes += 1;
+    const _postId: number = post ? post.id : 0;
+    if (_postId === 0) return
+
+    if (isLike) {  // like 취소
+      setLikeCnt(likeCnt - 1);
+      setUnlikeAPI(_postId);
+    } else {  // like 등록
+      setLikeCnt(likeCnt + 1);
+      setLikeAPI(_postId);
     }
-    setPost(newPost);
     setIsLike(!isLike);
   };
 
@@ -84,9 +96,9 @@ function PostDetail(): React.ReactElement {
     history.goBack();
   };
 
+  // need to change tmp
   useEffect(() => {
     if (!post) return
-    console.log(post)
   }, [post])
 
   return (
@@ -114,7 +126,7 @@ function PostDetail(): React.ReactElement {
                     className="likes-icon-inactive"
                   />
                 )}
-                <p className="likes">{post.likeUsers.length}</p>
+                <p className="likes">{likeCnt}</p>
               </div>
               <div className="tag-container">
                 <InstItem inst={post?.tag.type} />

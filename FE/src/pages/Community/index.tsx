@@ -118,9 +118,9 @@ function Community(props: Props): React.ReactElement {
     };
   };
 
+  // need to change tmp
   useEffect(() => {
-    console.log('currPosts!!!!!!!!!!!!!')
-    console.log(currPosts)
+    
   }, [currPosts])
   const tmpStyle = {
     color: 'white',

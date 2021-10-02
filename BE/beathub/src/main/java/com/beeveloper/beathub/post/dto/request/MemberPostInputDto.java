@@ -14,8 +14,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class MemberPostInputDto {
 
-    @ApiModelProperty(name = "작성자", example = "홍길동")
-    private String userName;
 
     @ApiModelProperty(name = "구인글 제목", example = "제목입니다.")
     private String title;

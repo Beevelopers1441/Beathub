@@ -57,14 +57,11 @@ public class UserProfileResDto {
         // 참여하고 있는 밴드의 상태가 approved 인지 확인
         List<BandMember> participatingBands = user.getParticipatingBands();
         List<Band> approvedBands = new ArrayList<>();
-
-        for (BandMember bandMember : participatingBands) {
-            System.out.println("bandMember.getStatus().name() = " + bandMember.getStatus().name());
-            if (bandMember.getStatus().name().equals("Approved")) {
-                approvedBands.add(bandMember.getBand());
+        for (BandMember member : participatingBands) {
+            if (member.getStatus().name().equals("Approved")) {
+                approvedBands.add(member.getBand());
             }
         }
-        System.out.println("approvedBands = " + approvedBands.size());
         userProfileResDto.participatingBands = BandDto.of(approvedBands);
         userProfileResDto.commits = CommitDto.of(user.getCommits());
 

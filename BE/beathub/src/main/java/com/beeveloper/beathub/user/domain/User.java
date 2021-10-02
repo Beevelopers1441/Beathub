@@ -58,7 +58,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "band_id"))
     private List<Band> followBands = new ArrayList<Band>();
 
-    @OneToMany(mappedBy = "band")
+    @OneToMany(mappedBy = "user")
     private List<BandMember> participatingBands = new ArrayList<BandMember>();
 
     /**

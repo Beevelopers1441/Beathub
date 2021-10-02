@@ -18,7 +18,7 @@ function ProfileCard({ name, imageUrl }: Props): React.ReactElement {
       <div className="name-container">
         <p className="name">{name}</p>
       </div>
-      <ProfileImage url={imageUrl} />
+      <ProfileImage url={imageUrl} className={'user-image'} />
     </Wrapper>
   )
 }

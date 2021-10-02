@@ -63,7 +63,9 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
           className="user-container"
         >
           <p className="user-name">{post.author.name}</p>
-          <ProfileImage url={post.author.imageUrl} />
+          <ProfileImage
+            url={post.author.imageUrl}
+            className={'user-image'} />
         </Grid>
       </Grid>
       

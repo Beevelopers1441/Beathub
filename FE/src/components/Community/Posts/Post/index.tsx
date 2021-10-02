@@ -69,7 +69,7 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
                 <p className="time">{setDateFormat(post.createTime)}</p>
                 <div className="likes-container">
                   { isLike ? (
-                    <Favorite className="likes-icon"/>
+                    <Favorite className="likes-icon likes-icon-active"/>
                   ) : (
                     <FavoriteBorder className="likes-icon"/>
                   )}

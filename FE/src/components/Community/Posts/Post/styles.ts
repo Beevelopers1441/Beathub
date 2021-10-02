@@ -57,6 +57,9 @@ const Wrapper = styled.div`
           font-size: 0.9rem;
           margin-right: 0.2rem;
         }
+        & .likes-icon-active {
+          color: ${({ theme }) => theme.colors.pink };
+        }
       }
     }
   }

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 
 // component
-import AudioPlayer from 'components/Beathub/AudioPlayer';
+import MusicPlayer from 'components/Beathub/MusicPlayer';
 
 // types
 import { AudioInfo } from 'types';
@@ -124,10 +124,7 @@ function AudioListItem({ AudioInfo }: Props): React.ReactElement {
       {/* player */}
       {isPlayerOn &&
         <div>
-          <audio controls>
-              <source src={AudioInfo.fileUrl}/>
-          </audio>
-        <AudioPlayer fileUrl={AudioInfo.fileUrl}/>
+        <MusicPlayer fileUrl={AudioInfo.fileUrl}/>
         </div>
       }
       <Divider />

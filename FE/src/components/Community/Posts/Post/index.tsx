@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 // utils
@@ -13,7 +14,7 @@ import { IPost } from 'types';
 
 // styles
 import { Grid, Tooltip } from '@mui/material';
-import { Favorite } from '@mui/icons-material';
+import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import Wrapper from './styles';
 
 interface Props {
@@ -22,7 +23,21 @@ interface Props {
 }
 
 function Post({ post, teamFlag }: Props): React.ReactElement {
+  const [isLike, setIsLike] = useState<boolean>(false);
   const history = useHistory();
+  const { userInfo } = useSelector((state: any) => state.user);
+
+  // handle like
+  useEffect(() => {
+    if (!post) return
+    
+    const flag = post.likeUsers.indexOf(userInfo.id);
+    if (flag === -1) {  // like 유저에 없음
+      setIsLike(false);
+    } else { // like 유저에 있음
+      setIsLike(true);
+    };
+  }, [post]);
 
   const handlePostDetail = (postId: number) => {
     const location = { 
@@ -30,11 +45,7 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
       state: { teamFlag, }
     };
     history.push(location);
-  }
-
-  useEffect(() => {
-    console.log(post)
-  }, [])
+  };
 
   return (
     <Wrapper>
@@ -57,7 +68,11 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
               <div className="time-likes-container">
                 <p className="time">{setDateFormat(post.createTime)}</p>
                 <div className="likes-container">
-                  <Favorite className="likes-icon"/>
+                  { isLike ? (
+                    <Favorite className="likes-icon"/>
+                  ) : (
+                    <FavoriteBorder className="likes-icon"/>
+                  )}
                   <p>{post.likeUsers.length}</p>
                 </div>
               </div>

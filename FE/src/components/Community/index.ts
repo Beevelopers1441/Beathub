@@ -1,4 +1,5 @@
 import LinkTab from './LinkTab';
+import ListForHome from './ListForHome';
 import Posts from './Posts';
 import TagList from 'components/TagList';
 import CommunitySearch from './Search';
@@ -8,6 +9,7 @@ import InstrumentPicker from './InstrumentPicker';
 
 export {
   LinkTab,
+  ListForHome,
   Posts,
   TagList,
   CommunitySearch,

@@ -10,7 +10,7 @@ import { db } from 'utils/Firebase/firebaseConfig';
 import Messages from './Messages';
 
 // types
-import { IBasicUser, IMessage } from 'types';
+import { IBasicUser, IMessage, IChatItem } from 'types';
 
 // utils
 import { getCurrTime } from 'utils/time';
@@ -18,57 +18,87 @@ import { getCurrTime } from 'utils/time';
 // styles
 import { ArrowBackIosNew } from '@mui/icons-material';
 import Wrapper from './styles';
-import { userInfo } from 'os';
 
 interface Props {
-  currYou: number;
+  currYou: IBasicUser | null;
   setIsChatRoom: React.Dispatch<React.SetStateAction<boolean>>;
+  chatList: IChatItem[];
+  setChatList: React.Dispatch<React.SetStateAction<IChatItem[]>>;
 }
 
 
 
-function ChatRoom({ currYou, setIsChatRoom }: Props): React.ReactElement {
+function ChatRoom({ currYou, setIsChatRoom, chatList, setChatList }: Props): React.ReactElement {
   const [messages, setMessages] = useState<IMessage[]>([]);
-  const { userInfo } = useSelector((state: any) => state.user);
   const [currDoc, setCurrDoc] = useState('');
+  const { userInfo } = useSelector((state: any) => state.user);
 
   const chatInputRef: any = useRef();
-  // 1.사용자 회원가입 시 -> email(id/pw), id(pk), name, imageUrl
-  // room_number = '1,2'
-  // room_number = '1,3' >> 
-  
-  // 2. write
-  // messages: each message[userInfo obj(id, name, imageUrl), text]
+
+  // constructor, init participants
   useEffect(() => {
-    if (currYou === 0) return
+    return () => {
+      setIsChatRoom(false);
+    }
+  }, []);
+  
+  // get Doc ID && init participants
+  useEffect(() => {
+    if (!currYou) return
 
     // user sort
-    let userDocList = [currYou, userInfo.id];
+    let userDocList = [currYou.id, userInfo.id];
     userDocList.sort((a, b) => a - b);
     const userDoc = userDocList.join(',');
     setCurrDoc(userDoc);
 
+    const messageRef = db.collection('Rooms');
+    messageRef.doc(userDoc).set({
+      participants: firebase.firestore.FieldValue.arrayUnion(userInfo.id),
+    }, { merge: true });
+    messageRef.doc(userDoc).set({
+      participants: firebase.firestore.FieldValue.arrayUnion(currYou.id),
+    }, { merge: true });
+
   }, [currYou, userInfo.id]);
 
+  // init messages
   useEffect(() => {
     if (!currDoc) return
+    console.log('current doc is changed!!!!!!!!!!!!!!!!!!!!')
 
     // set message
-    const _db = db.collection("Rooms");
+    const _db = db.collection('Rooms');
     const docRef = _db.doc(currDoc);
     docRef.onSnapshot((doc) => {
       const docDatas = doc.data();
-      if (docDatas) {
-        setMessages([...JSON.parse(JSON.stringify(docDatas.messages))]);
+      if (docDatas && docDatas.messages) {
+        const newMessages = JSON.parse(JSON.stringify(docDatas.messages));
+        setMessages([...newMessages]);
+
+        // 첫 메시지이면 chatList에 추가
+        if (newMessages.length === 1) {
+          if (newMessages[0].userInfo.id === userInfo.id && currYou) {  // 내가 남긴 것이면
+            const newChatItem: IChatItem = {
+              userInfo: { ...currYou },
+              lastMessage: newMessages[0].text
+            };
+            const newChatList = [...chatList, newChatItem];
+            setChatList(newChatList);
+          } else {  // 상대방이 나에게 대화를 건 것이면
+            const newChatItem: IChatItem = {
+              userInfo: { ...newMessages[0].userInfo },
+              lastMessage: newMessages[0].text
+            };
+            const newChatList = [...chatList, newChatItem];
+            setChatList(newChatList);
+          };
+        }
       }
     });
   }, [currDoc]);
 
-  // messages
-  useEffect(() => {
-    
-  }, [messages])
-
+  // set message to firebase=
   const handleInput = (e: any) => {
     if (e.key === 'Enter') {
       const newText = chatInputRef?.current.value.trim();
@@ -91,7 +121,7 @@ function ChatRoom({ currYou, setIsChatRoom }: Props): React.ReactElement {
       const messageRef = db.collection('Rooms');
       messageRef.doc(currDoc).set({
         messages: firebase.firestore.FieldValue.arrayUnion(newMessage),
-        participants: firebase.firestore.FieldValue.arrayUnion(1),
+        participants: firebase.firestore.FieldValue.arrayUnion(userInfo.id),
       }, { merge: true })
         .then(() => {
           console.log('success to save in firebase')
@@ -102,9 +132,10 @@ function ChatRoom({ currYou, setIsChatRoom }: Props): React.ReactElement {
     };
   }
 
+  // click send button
   const handleSendBtn = () => {
     const _db = db.collection("Rooms");
-    const docRef = _db.doc('1,2');
+    const docRef = _db.doc(currDoc);  // need to change
     docRef.get().then((doc) => {
       if (doc.exists) {
         console.log("Document data:", doc.data());
@@ -121,10 +152,10 @@ function ChatRoom({ currYou, setIsChatRoom }: Props): React.ReactElement {
     <Wrapper>
       <div className="header-container">
         <ArrowBackIosNew onClick={() => setIsChatRoom(false)} className="back-icon" />
-        <p className="user-name">한상진</p>
+        <p className="user-name">{currYou?.name}</p>
       </div>
       <div className="content-container">
-        <Messages messages={messages} />
+        <Messages messages={messages} currYou={currYou} />
       </div>
       <div className="input-container">
         <input 

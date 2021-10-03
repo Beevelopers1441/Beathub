@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // firebase
 import { auth } from 'utils/Firebase/firebaseConfig';
 
 function FirebaseAuth(): React.ReactElement {
-  // const user = useSelector((state: any) => state.user);
+  const user = useSelector((state: any) => state.user);
 
   useEffect(() => {
-    const email = '10100sam@gmail.com'
+    if (!user.token) return
+    let newEmail = user.userInfo.name.split(' ').join('')
+    newEmail = `${newEmail}@gmail.com`
+    const email = newEmail; // need to change
     auth.createUserWithEmailAndPassword(email, email)
       .then((userCredential) => {
         // Signed in

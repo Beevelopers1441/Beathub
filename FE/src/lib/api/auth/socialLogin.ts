@@ -18,7 +18,7 @@ export async function getUserInfo(token:string) {
     
     const config:any = {
         method: 'POST',
-        url: `${BASE_URL}api/user`,
+        url: `${BASE_URL}user`,
         headers: {
             Authorization: token
         }
@@ -31,7 +31,7 @@ export async function isFirst(token:string) {
     
     const config:any = {
         method: 'GET',
-        url: `${BASE_URL}api/user/first`,
+        url: `${BASE_URL}user/first`,
         headers: {
             Authorization: token
         }

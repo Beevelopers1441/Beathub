@@ -14,7 +14,7 @@ import { setDateFormat } from 'utils/time';
 import { IPost, IComment } from 'types';
 
 // styles
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, Button } from '@mui/material';
 import { ArrowBackIosNew, Favorite, FavoriteBorder } from '@mui/icons-material';
 import Wrapper from './styles';
 
@@ -93,7 +93,8 @@ function PostDetail(): React.ReactElement {
       })
     
   };
-
+  
+  // 뒤로가기
   const handleBack = () => {
     history.push({
       pathname: '/community',
@@ -101,6 +102,11 @@ function PostDetail(): React.ReactElement {
       tFlag: state.teamFlag
     }});
   };
+
+  // 게시글 삭제
+  const handleDelete = () => {
+    console.log(postId)
+  }
 
   // need to change tmp
   useEffect(() => {
@@ -156,10 +162,20 @@ function PostDetail(): React.ReactElement {
               </div>
             </Grid>
             <Grid item xs={1}>
-              <ProfileCard
-                name={post.author.name}
-                imageUrl={post.author.imageUrl}
-              />
+              <div className="right-sidebar-container">
+                <ProfileCard
+                  name={post.author.name}
+                  imageUrl={post.author.imageUrl}
+                />
+                <Button
+                  variant="contained"
+                  color="error"
+                  className="delete-btn"
+                  onClick={handleDelete}
+                >
+                  게시글 삭제
+                </Button>
+              </div>
             </Grid>
           </Grid>
         )}

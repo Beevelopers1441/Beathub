@@ -17,7 +17,7 @@ const TOKEN = localStorage.getItem('userToken');
 
 /* Member */
 const getMemberPosts = async () => {
-  const url = `${BASE_URL}api/posts/members`;
+  const url = `${BASE_URL}posts/members`;
   const response = await axios.get(url);
   
   return response
@@ -33,7 +33,7 @@ const setMemberPost = async (payload: IMemberPost) => {
 
   const config: any = {
     method: 'POST',
-    url: `${BASE_URL}api/posts/members`,
+    url: `${BASE_URL}posts/members`,
     data,
     headers: {
       Authorization: TOKEN,
@@ -44,7 +44,7 @@ const setMemberPost = async (payload: IMemberPost) => {
 
 /* Band */
 const getBandPosts = async () => {
-  const url = `${BASE_URL}api/posts/bands`;
+  const url = `${BASE_URL}posts/bands`;
   const response = await axios.get(url);
 
   return response
@@ -61,7 +61,7 @@ const setBandPost = async (payload: IBandPost) => {
 
   const config: any = {
     method: 'POST',
-    url: `${BASE_URL}api/posts/bands`,
+    url: `${BASE_URL}posts/bands`,
     data,
     headers: {
       Authorization: TOKEN,
@@ -74,14 +74,14 @@ const setBandPost = async (payload: IBandPost) => {
 
 
 const getMemberPost = async (postId: number) => {
-  const url = `${BASE_URL}api/posts/members/${postId}`;
+  const url = `${BASE_URL}posts/members/${postId}`;
   const response = await axios.get(url);
 
   return response
 };
 
 const getBandPost = async (postId: number) => {
-  const url = `${BASE_URL}api/posts/bands/${postId}`;
+  const url = `${BASE_URL}posts/bands/${postId}`;
   const response = await axios.get(url);
 
   return response
@@ -93,7 +93,7 @@ const setComment = async (postId: number, content: string) => {
 
   const config: any = {
     method: 'POST',
-    url: `${BASE_URL}api/posts/${postId}`,
+    url: `${BASE_URL}posts/${postId}`,
     data,
     headers: {
       Authorization: TOKEN,
@@ -106,7 +106,7 @@ const setComment = async (postId: number, content: string) => {
 const setLikeAPI = async (postId: number) => {
   const config: any = {
     method: 'POST',
-    url: `${BASE_URL}api/posts/${postId}/like`,
+    url: `${BASE_URL}posts/${postId}/like`,
     headers: {
       Authorization: TOKEN,
     },
@@ -117,7 +117,7 @@ const setLikeAPI = async (postId: number) => {
 const setUnlikeAPI = async (postId: number) => {
   const config: any = {
     method: 'POST',
-    url: `${BASE_URL}api/posts/${postId}/unlike`,
+    url: `${BASE_URL}posts/${postId}/unlike`,
     headers: {
       Authorization: TOKEN,
     },
@@ -128,7 +128,7 @@ const setUnlikeAPI = async (postId: number) => {
 const getBandInfoAPI = async (bandId: number) => {
   const config: any = {
     method: 'GET',
-    url: `${BASE_URL}api/bands/${bandId}`,
+    url: `${BASE_URL}bands/${bandId}`,
     params: {
       bandId,
     },

@@ -52,6 +52,9 @@ const Wrapper = styled.div`
       appearance: none;
     }
   }
+  & .user-image {
+    margin-right: 0.5rem;
+  }
 `;
 
 export default Wrapper;

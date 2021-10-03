@@ -4,7 +4,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: end;
   background-color: ${({ theme }) => theme.colors.lightBlue };
-  width: 200%;
+  width: 220px;
   height: 5.5rem;
   margin-left: 2rem;
   padding: 0.7rem 0.7rem 0.7rem 1rem;
@@ -16,7 +16,11 @@ const Wrapper = styled.div`
     & .name {
       color: ${({ theme }) => theme.colors.darkBlue };
       margin: 0.3rem 0.4rem 0 0;
+      text-align: right;
       font-size: 1.1rem;
+    }
+    & .name-tooltip {
+      cursor: pointer;
     }
   }
 `;

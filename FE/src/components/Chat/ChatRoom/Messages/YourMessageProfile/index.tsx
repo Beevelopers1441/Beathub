@@ -14,7 +14,7 @@ interface Props {
 function YourMessageProfile({ imageUrl, username }: Props): React.ReactElement {
   return (
     <Wrapper>
-      <ProfileImage url={imageUrl} />
+      <ProfileImage url={imageUrl} className={'user-image'} />
       <div>
         <p className="user-name">{ username }</p>
       </div>

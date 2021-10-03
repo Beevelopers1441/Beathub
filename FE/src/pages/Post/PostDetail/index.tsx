@@ -1,18 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 
 // Component
 import { Comment, ProfileCard } from 'components/Community';
+import InstItem from 'components/atoms/InstItem';
 
 // apis
-import { getMemberPost, getBandPost, setComment } from 'lib/api/community';
+import { getMemberPost, getBandPost, setComment, setLikeAPI, setUnlikeAPI, getBandInfoAPI } from 'lib/api/community';
 import { setDateFormat } from 'utils/time';
 
 // types
 import { IPost, IComment } from 'types';
 
 // styles
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, Button } from '@mui/material';
 import { ArrowBackIosNew, Favorite, FavoriteBorder } from '@mui/icons-material';
 import Wrapper from './styles';
 
@@ -24,7 +26,11 @@ function PostDetail(): React.ReactElement {
   const [post, setPost] = useState<IPost | null>(null);
   const [comments, setComments] = useState<IComment[]>([]);
   const [isLike, setIsLike] = useState<Boolean>(false);
+  const [likeCnt, setLikeCnt] = useState<number>(0);
+  const [memberWriter, setMemberWriter] = useState<number | null>(null);
+  const [bandWriters, setBandWriters] = useState<number[]>([]);
 
+  const { userInfo } = useSelector((state: any) => state.user);
   const { postId } = useParams<ParamTypes>();
   const { state } = useLocation<any>();
   const history = useHistory();
@@ -40,29 +46,50 @@ function PostDetail(): React.ReactElement {
       getMemberPost(+postId).then(res => {
         const newPost = res.data;
         const newComments = newPost.comments;
+        const newLikeCnt = newPost.likeUsers.length;
+        const newIsLike = newPost.likeUsers.filter((p: IPost) => p.id === userInfo.id).length === 0 ? false : true;
+        const writer = newPost.author.id;
+        setLikeCnt(newLikeCnt); 
+        setIsLike(newIsLike);
         setPost(newPost);
         setComments(newComments);
+        setMemberWriter(writer);
       });
     } else {
       // 밴드 글
       getBandPost(+postId).then(res => {
         const newPost = res.data;
         const newComments = newPost.comments;
+        const newLikeCnt = newPost.likeUsers.length;
+        const newIsLike = newPost.likeUsers.filter((p: IPost) => p.id === userInfo.id).length === 0 ? false : true;
+        const _bandId = newPost.author.id;
+        setLikeCnt(newLikeCnt);
+        setIsLike(newIsLike);
         setPost(newPost);
         setComments(newComments);
+
+        // set band member ids
+        getBandInfoAPI(_bandId)
+          .then(res => {
+            const newBandMembers = res.data.members.map((data: any) => data.member.id);
+            setBandWriters(newBandMembers);
+          });
       });
     }
-  }, [postId, state]);
+  }, [postId, state, userInfo.id]);
 
   // likes
   const handleLike = () => {
-    const newPost = JSON.parse(JSON.stringify(post));
-    if (isLike) {
-      newPost.likes -= 1;
-    } else {
-      newPost.likes += 1;
+    const _postId: number = post ? post.id : 0;
+    if (_postId === 0) return
+
+    if (isLike) {  // like 취소
+      setLikeCnt(likeCnt - 1);
+      setUnlikeAPI(_postId);
+    } else {  // like 등록
+      setLikeCnt(likeCnt + 1);
+      setLikeAPI(_postId);
     }
-    setPost(newPost);
     setIsLike(!isLike);
   };
 
@@ -78,10 +105,25 @@ function PostDetail(): React.ReactElement {
       })
     
   };
-
+  
+  // 뒤로가기
   const handleBack = () => {
-    history.goBack();
+    history.push({
+      pathname: '/community',
+    state: {
+      tFlag: state.teamFlag
+    }});
   };
+
+  // 게시글 삭제
+  const handleDelete = () => {
+    console.log(postId)
+  }
+
+  // need to change tmp
+  useEffect(() => {
+    if (!post) return
+  }, [post])
 
   return (
     <Wrapper>
@@ -108,11 +150,10 @@ function PostDetail(): React.ReactElement {
                     className="likes-icon-inactive"
                   />
                 )}
-                <p className="likes">{post.likeUsers.length}</p>
+                <p className="likes">{likeCnt}</p>
               </div>
               <div className="tag-container">
-                {/* <TagListReadOnly tags={post.tags} /> */}
-                악기 이름!!!!
+                <InstItem inst={post?.tag.type} />
               </div>
               <p className="content">{post.content}</p>
               <div className="comments-container">
@@ -133,10 +174,22 @@ function PostDetail(): React.ReactElement {
               </div>
             </Grid>
             <Grid item xs={1}>
-              <ProfileCard
-                name={post.author.name}
-                imageUrl={post.author.imageUrl}
-              />
+              <div className="right-sidebar-container">
+                <ProfileCard
+                  name={post.author.name}
+                  imageUrl={post.author.imageUrl}
+                />
+                { ((state.teamFlag === 0 && memberWriter === userInfo.id) || (state.teamFlag === 1 && bandWriters.indexOf(userInfo.id) !== -1)) &&
+                  <Button
+                    variant="contained"
+                    color="error"
+                    className="delete-btn"
+                    onClick={handleDelete}
+                  >
+                    게시글 삭제
+                  </Button>
+                }
+              </div>
             </Grid>
           </Grid>
         )}

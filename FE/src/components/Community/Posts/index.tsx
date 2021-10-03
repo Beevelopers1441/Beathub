@@ -11,7 +11,7 @@ import Wrapper from './styles';
 
 
 interface Props {
-  currPosts: IPost[] | null;
+  currPosts: IPost[] |  null;
   teamFlag: number;
 }
 

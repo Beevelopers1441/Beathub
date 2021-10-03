@@ -98,7 +98,7 @@ function ChatRoom({ currYou, setIsChatRoom, chatList, setChatList }: Props): Rea
     });
   }, [currDoc]);
 
-  // set message to firebase
+  // set message to firebase=
   const handleInput = (e: any) => {
     if (e.key === 'Enter') {
       const newText = chatInputRef?.current.value.trim();

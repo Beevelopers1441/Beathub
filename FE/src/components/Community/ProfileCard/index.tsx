@@ -3,7 +3,11 @@ import React from 'react';
 // component
 import { ProfileImage } from 'components/atoms';
 
+// utils
+import { setSimpleUsername } from 'utils/community';
+
 // styles
+import { Tooltip } from '@mui/material';
 import Wrapper from './styles';
 
 interface Props {
@@ -16,9 +20,16 @@ function ProfileCard({ name, imageUrl }: Props): React.ReactElement {
   return (
     <Wrapper>
       <div className="name-container">
-        <p className="name">{name}</p>
+        <Tooltip 
+          title={name}
+          arrow
+          placement="top"
+          className="name-tooltip"
+        >
+          <p className="name">{setSimpleUsername(name)}</p>
+        </Tooltip>
       </div>
-      <ProfileImage url={imageUrl} />
+      <ProfileImage url={imageUrl} className={'user-image'} />
     </Wrapper>
   )
 }

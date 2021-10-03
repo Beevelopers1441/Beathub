@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, useHistory, useParams } from 'react-router-dom';
 
 // components
-import { InstrumentPicker } from 'components/Community';
+import { InstrumentPicker, BandPicker } from 'components/Community';
 
 // apis
-import { setMemberPost } from 'lib/api/community';
+import { setMemberPost, setBandPost } from 'lib/api/community';
+import { getUserProfile } from 'lib/api/userProfile';
 
 // styles
 import { Container, Snackbar } from '@mui/material';
@@ -14,21 +16,46 @@ import Wrapper from './styles';
 
 
 // types
+import { Band } from 'types';
 interface Props {}
 type TransitionProps = Omit<SlideProps, 'direction'>;
 
+interface ParamTypes {
+  propTeamFlag: string | undefined;
+};
+
 function TransitionUp(props: TransitionProps) {
   return <Slide {...props} direction="up" />;
-}
+};
 
 function PostCreate(props: Props): React.ReactElement {
   const [teamFlag, setTeamFlag] = useState<number>(0);
   const [currInst, setCurrInst] = useState<string | null>('');
+  const [bandList, setBandList] = useState<string[]>([]);
+  const [currBand, setCurrBand] = useState<string | null>('');
 
+  const { userInfo } = useSelector((state: any) => state.user);
   const titleRef: any = useRef();
   const contentRef: any = useRef();
-
+  
   const history = useHistory();
+  const { propTeamFlag } = useParams<ParamTypes>();
+  
+  // constructor
+  useEffect(() => {
+    const userId = userInfo.id;
+    getUserProfile(userId)
+      .then(res => {
+        const newBandList = res.data.leadingBands.map((band: Band) => band.name);
+        setBandList(newBandList);
+      })
+  }, []);
+
+  // teamFlag에 따른 create 양식 변경
+  useEffect(() => {
+    if (!propTeamFlag) return
+    setTeamFlag(+propTeamFlag);
+  }, [propTeamFlag]);
 
   // change teamFlag
   useEffect(() => {
@@ -47,6 +74,7 @@ function PostCreate(props: Props): React.ReactElement {
     }
   }, [teamFlag]);
 
+  // 팀, 팀원 구하는 sidebar 핸들링
   const handleTeamFlag = (teamFlag: number) => {
     setTeamFlag(teamFlag);
   };
@@ -54,20 +82,37 @@ function PostCreate(props: Props): React.ReactElement {
   // save
   const handleSavePost = () => {
     const title: string = titleRef.current.value ? titleRef.current.value : '';
+    const bandName: string = currBand ? currBand : '';
     const inst: string = currInst ? currInst : '';
     const content: string = contentRef.current?.value ? contentRef.current.value : '';
     
-    if (!title || !inst || !content) {
-      handleSnackbar(TransitionUp)();
-    } else {
-      if (teamFlag === 0) {
+    if (teamFlag === 0) {  // 개인이 팀 구하기
+      if (!title || !inst || !content) {
+        handleSnackbar(TransitionUp)();
+      } else {
         const payload = { title, inst, content };
         setMemberPost(payload)
           .then(() => {
-            history.push('/community');
+            history.push({
+              pathname: '/community',
+            state: {
+              tFlag: 0
+            }});
           });
+      }
+    } else {  // 팀이 팀원 구하기
+      if (!title || !inst || !content || !bandName) {
+        handleSnackbar(TransitionUp)();
       } else {
-
+        const payload = { title, inst, bandName, content };
+        setBandPost(payload)
+          .then(() => {
+            history.push({
+              pathname: '/community',
+            state: {
+              tFlag: 1
+            }});
+          });
       }
     }
 
@@ -109,11 +154,7 @@ function PostCreate(props: Props): React.ReactElement {
         { teamFlag === 1 ? (
           <div className="input-container">
             <p className="post-p">밴드명</p>
-            <input
-              type="text"
-              className="post-input"
-              placeholder="밴드을 입력해주세요."
-            />
+            <BandPicker width={'150px'} bandList={bandList} setCurrBand={setCurrBand} />
         </div>
         ) : (
           null
@@ -143,7 +184,7 @@ function PostCreate(props: Props): React.ReactElement {
         open={open}
         onClose={handleClose}
         TransitionComponent={transition}
-        message="제목, 내용, 악기를 모두 입력해주세요."
+        message={ teamFlag === 0 ? "제목, 내용, 악기를 모두 입력해주세요." : "제목, 내용, 악기, 밴드를 모두 입력해주세요." }
         key={transition ? transition.name : ''}
       />
     </Wrapper>

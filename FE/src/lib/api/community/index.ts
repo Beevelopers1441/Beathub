@@ -1,13 +1,19 @@
 import axios from 'axios';
 
-interface IBandPost {
+interface IMemberPost {
   title: string;
   inst: string;
   content: string;
 }
+interface IBandPost {
+  title: string;
+  inst: string;
+  bandName: string;
+  content: string;
+}
 
 const BASE_URL = process.env.REACT_APP_SERVER_URL;
-const TOKEN = localStorage.getItem('token');
+const TOKEN = localStorage.getItem('userToken');
 
 /* Member */
 const getMemberPosts = async () => {
@@ -17,7 +23,7 @@ const getMemberPosts = async () => {
   return response
 };
 
-const setMemberPost = async (payload: IBandPost) => {
+const setMemberPost = async (payload: IMemberPost) => {
   const { title, inst, content } = payload;
   const data = {
     title,
@@ -45,16 +51,17 @@ const getBandPosts = async () => {
 };
 
 const setBandPost = async (payload: IBandPost) => {
-  const { title, inst, content } = payload;
+  const { title, inst, bandName, content } = payload;
   const data = {
     title,
     tag: inst,
+    bandName,
     content,
   }
 
   const config: any = {
     method: 'POST',
-    url: `${BASE_URL}api/posts/members`,
+    url: `${BASE_URL}api/posts/bands`,
     data,
     headers: {
       Authorization: TOKEN,
@@ -80,18 +87,54 @@ const getBandPost = async (postId: number) => {
   return response
 };
 
+// comment
 const setComment = async (postId: number, content: string) => {
   const data = { content, };
 
   const config: any = {
     method: 'POST',
-    url: `${BASE_URL}api/posts/posts/${postId}`,
+    url: `${BASE_URL}api/posts/${postId}`,
     data,
     headers: {
       Authorization: TOKEN,
     },
   }
   return await axios(config);
-}
+};
 
-export { getMemberPosts, getMemberPost, setMemberPost, getBandPosts, getBandPost, setBandPost, setComment };
+// likes
+const setLikeAPI = async (postId: number) => {
+  const config: any = {
+    method: 'POST',
+    url: `${BASE_URL}api/posts/${postId}/like`,
+    headers: {
+      Authorization: TOKEN,
+    },
+  }
+  return await axios(config);
+};
+
+const setUnlikeAPI = async (postId: number) => {
+  const config: any = {
+    method: 'POST',
+    url: `${BASE_URL}api/posts/${postId}/unlike`,
+    headers: {
+      Authorization: TOKEN,
+    },
+  }
+  return await axios(config);
+};
+
+const getBandInfoAPI = async (bandId: number) => {
+  const config: any = {
+    method: 'GET',
+    url: `${BASE_URL}api/bands/${bandId}`,
+    params: {
+      bandId,
+    },
+  };
+  return await axios(config);
+};
+
+
+export { getMemberPosts, getMemberPost, setMemberPost, getBandPosts, getBandPost, setBandPost, setComment, setLikeAPI, setUnlikeAPI, getBandInfoAPI };

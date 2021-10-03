@@ -7,7 +7,7 @@ import { Comment, ProfileCard } from 'components/Community';
 import InstItem from 'components/atoms/InstItem';
 
 // apis
-import { getMemberPost, getBandPost, setComment, setLikeAPI, setUnlikeAPI } from 'lib/api/community';
+import { getMemberPost, getBandPost, setComment, setLikeAPI, setUnlikeAPI, getBandInfoAPI } from 'lib/api/community';
 import { setDateFormat } from 'utils/time';
 
 // types
@@ -27,6 +27,8 @@ function PostDetail(): React.ReactElement {
   const [comments, setComments] = useState<IComment[]>([]);
   const [isLike, setIsLike] = useState<Boolean>(false);
   const [likeCnt, setLikeCnt] = useState<number>(0);
+  const [memberWriter, setMemberWriter] = useState<number | null>(null);
+  const [bandWriters, setBandWriters] = useState<number[]>([]);
 
   const { userInfo } = useSelector((state: any) => state.user);
   const { postId } = useParams<ParamTypes>();
@@ -46,10 +48,12 @@ function PostDetail(): React.ReactElement {
         const newComments = newPost.comments;
         const newLikeCnt = newPost.likeUsers.length;
         const newIsLike = newPost.likeUsers.filter((p: IPost) => p.id === userInfo.id).length === 0 ? false : true;
+        const writer = newPost.author.id;
         setLikeCnt(newLikeCnt); 
         setIsLike(newIsLike);
         setPost(newPost);
         setComments(newComments);
+        setMemberWriter(writer);
       });
     } else {
       // 밴드 글
@@ -58,10 +62,18 @@ function PostDetail(): React.ReactElement {
         const newComments = newPost.comments;
         const newLikeCnt = newPost.likeUsers.length;
         const newIsLike = newPost.likeUsers.filter((p: IPost) => p.id === userInfo.id).length === 0 ? false : true;
+        const _bandId = newPost.author.id;
         setLikeCnt(newLikeCnt);
         setIsLike(newIsLike);
         setPost(newPost);
         setComments(newComments);
+
+        // set band member ids
+        getBandInfoAPI(_bandId)
+          .then(res => {
+            const newBandMembers = res.data.members.map((data: any) => data.member.id);
+            setBandWriters(newBandMembers);
+          });
       });
     }
   }, [postId, state, userInfo.id]);
@@ -167,14 +179,16 @@ function PostDetail(): React.ReactElement {
                   name={post.author.name}
                   imageUrl={post.author.imageUrl}
                 />
-                <Button
-                  variant="contained"
-                  color="error"
-                  className="delete-btn"
-                  onClick={handleDelete}
-                >
-                  게시글 삭제
-                </Button>
+                { ((state.teamFlag === 0 && memberWriter === userInfo.id) || (state.teamFlag === 1 && bandWriters.indexOf(userInfo.id) !== -1)) &&
+                  <Button
+                    variant="contained"
+                    color="error"
+                    className="delete-btn"
+                    onClick={handleDelete}
+                  >
+                    게시글 삭제
+                  </Button>
+                }
               </div>
             </Grid>
           </Grid>

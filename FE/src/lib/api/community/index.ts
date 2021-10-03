@@ -125,5 +125,16 @@ const setUnlikeAPI = async (postId: number) => {
   return await axios(config);
 };
 
+const getBandInfoAPI = async (bandId: number) => {
+  const config: any = {
+    method: 'GET',
+    url: `${BASE_URL}api/bands/${bandId}`,
+    params: {
+      bandId,
+    },
+  };
+  return await axios(config);
+};
 
-export { getMemberPosts, getMemberPost, setMemberPost, getBandPosts, getBandPost, setBandPost, setComment, setLikeAPI, setUnlikeAPI };
+
+export { getMemberPosts, getMemberPost, setMemberPost, getBandPosts, getBandPost, setBandPost, setComment, setLikeAPI, setUnlikeAPI, getBandInfoAPI };

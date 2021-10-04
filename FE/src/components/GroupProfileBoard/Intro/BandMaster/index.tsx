@@ -1,16 +1,9 @@
 import React from 'react';
-import ProfileImg from 'components/atoms/ProfileImage';
 
 import { Grid } from '@mui/material';
 import Wrapper from './styles';
 
-import { Leader } from 'types';
-
-interface Props {
-  master: Leader;
-}
-
-const BandMaster: React.FC<Props> = ({ master }) => {
+function Content() {
   return(
     <Wrapper>
       <Grid container className="intro-container">
@@ -19,7 +12,7 @@ const BandMaster: React.FC<Props> = ({ master }) => {
         </Grid>
         <Grid item xs={10}>
           <div>
-            <ProfileImg url={master.imageUrl} className="profile-img"></ProfileImg>
+            <img src="ss" />
           </div>
         </Grid>
       </Grid>
@@ -27,4 +20,4 @@ const BandMaster: React.FC<Props> = ({ master }) => {
   )
 }
 
-export default BandMaster;
+export default Content;

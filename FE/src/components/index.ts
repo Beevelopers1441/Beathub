@@ -6,5 +6,6 @@ import GroupProfileInfo from './GroupProfileInfo';
 import GroupProfileBoard from './GroupProfileBoard';
 import TagList from './TagList';
 import TagListReadOnly from './TagListReadOnly';
+import Chat from './Chat';
 
-export { Header, SocialAuth, UserProfileInfo, UserProfileBoard, GroupProfileInfo, GroupProfileBoard, TagList, TagListReadOnly };
+export { Header, SocialAuth, UserProfileInfo, UserProfileBoard, GroupProfileInfo, GroupProfileBoard, TagList, TagListReadOnly, Chat };

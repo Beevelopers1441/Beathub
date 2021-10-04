@@ -8,20 +8,12 @@ import Intro from '../Intro';
 
 import Wrapper from './styles';
 
-// types
-import { BandProfileInfo } from 'types';
 
-interface Props {
-  bandInfo: BandProfileInfo;
-}
-
-const Navbar: React.FC<Props> = ({ bandInfo }) => {
+function Navbar() {
 
   const location = useLocation();
 
   const [currentTab, setCurrentTab] = useState<string>("musics")
-
-  const currentUrl = `/group-profile/${bandInfo.band.id}`
 
   // 탭을 바꿔주는 부분
   useEffect(() => {
@@ -51,9 +43,9 @@ const Navbar: React.FC<Props> = ({ bandInfo }) => {
   return(
     <Wrapper>
       <div className="tab-container">
-        <div><Link to={`${currentUrl}/?tab=musics`} className="tab-title-active" id="musics">음악</Link></div>
-        <div><Link to={`${currentUrl}/?tab=feeds`} className="tab-title" id="feeds">피드</Link></div>
-        <div><Link to={`${currentUrl}/?tab=intro`} className="tab-title" id="intro">소개</Link></div>
+        <div><Link to={`/group-profile/2/?tab=musics`} className="tab-title-active" id="musics">음악</Link></div>
+        <div><Link to={`/group-profile/2/?tab=feeds`} className="tab-title" id="feeds">피드</Link></div>
+        <div><Link to={`/group-profile/2/?tab=intro`} className="tab-title" id="intro">소개</Link></div>
       </div>
       <div className="nav-divider"></div>
       <div>
@@ -62,7 +54,7 @@ const Navbar: React.FC<Props> = ({ bandInfo }) => {
           : currentTab === "feeds" ?
           <Feeds></Feeds>
           : currentTab === "intro" ?
-          <Intro bandInfo={bandInfo}></Intro>
+          <Intro></Intro>
           :
           <Musics></Musics>
         }

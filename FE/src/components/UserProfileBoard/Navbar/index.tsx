@@ -8,20 +8,12 @@ import Collections from '../Collections';
 
 import Wrapper from './styles';
 
-// types
-import { ProfileInfo } from 'types';
 
-interface Props {
-  profileInfo: ProfileInfo;
-}
-
-const Navbar: React.FC<Props> = ({ profileInfo }) => {
+function Navbar() {
 
   const location = useLocation();
 
   const [currentTab, setCurrentTab] = useState<string>("musics")
-
-  const currentUrl = `/profile/${profileInfo.id}`;
 
   // 탭을 바꿔주는 부분
   useEffect(() => {
@@ -51,9 +43,9 @@ const Navbar: React.FC<Props> = ({ profileInfo }) => {
   return(
     <Wrapper>
       <div className="tab-container">
-        <div><Link to={`${currentUrl}/?tab=musics`} className="tab-title-active" id="musics">음악</Link></div>
-        <div><Link to={`${currentUrl}/?tab=feeds`} className="tab-title" id="feeds">피드</Link></div>
-        <div><Link to={`${currentUrl}/?tab=collections`} className="tab-title" id="collections">컬렉션</Link></div>
+        <div><Link to={`/profile/2/?tab=musics`} className="tab-title-active" id="musics">음악</Link></div>
+        <div><Link to={`/profile/2/?tab=feeds`} className="tab-title" id="feeds">피드</Link></div>
+        <div><Link to={`/profile/2/?tab=collections`} className="tab-title" id="collections">컬렉션</Link></div>
       </div>
       <div className="nav-divider"></div>
       <div>

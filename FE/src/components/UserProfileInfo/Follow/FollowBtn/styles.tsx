@@ -7,7 +7,6 @@ const Wrapper = styled.div`
     background: #D99BFF;
     border-radius: 10px;
     margin-bottom: 1rem;
-    border: 1px solid #D99BFF;
     
     & .follow-btn-letter {
       /* Edit profile */

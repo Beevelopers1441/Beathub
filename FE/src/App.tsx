@@ -8,7 +8,7 @@ import { getUserInfoAction, getTokenAction, loginAction } from 'modules/user/act
 import { getUserInfo } from 'lib/api/auth/socialLogin'
 
 import { Login, Signup, UserProfile, Beathub, GroupProfile, Community, PostDetail, PostCreate} from 'pages';
-import { Chat, Header } from 'components';
+import { Header } from 'components';
 
 function App() {
   const dispatch = useDispatch();
@@ -34,7 +34,6 @@ function App() {
     <>
       <GlobalStyle />
       <BrowserRouter>
-        <Chat />
         <Header />
         <Switch>
           <Route exact path="/" component={Login} />

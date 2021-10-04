@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 // Components
@@ -8,6 +9,7 @@ import { Posts, LinkTab, CommunitySearch } from 'components/Community';
 import { getBandPosts, getMemberPosts } from 'lib/api/community';
 
 // utils
+import { openAction } from 'modules/chat/actions';
 import { setTeamFlagColor } from 'utils/community';
 
 // styles
@@ -135,8 +137,14 @@ function Community(props: Props): React.ReactElement {
     height: '100px'
   }
 
+  const dispatch = useDispatch();
+  const handleChatOpen = () => {
+    dispatch(openAction());
+  }
+
   return (
     <Wrapper>
+      <div onClick={handleChatOpen}>TEST</div>
       <Container className="community-container">
         <Grid container className="sub-container">
           <Grid item xs={2} className="teamFlag-container">

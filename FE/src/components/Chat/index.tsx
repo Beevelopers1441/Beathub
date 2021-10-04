@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { openAction } from 'modules/chat/actions';
 
 // components
 import ChatBtn from './ChatBtn';
@@ -15,31 +16,30 @@ const Wrapper = styled.div`
 `;
 
 function Chat(): React.ReactElement {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const { isLoggedIn } = useSelector((state: any) => state.user);
+  const chat = useSelector((state: any) => state.chat);
+  const dispatch = useDispatch();
 
   // constructor
   useEffect(() => {
     initFirebase();
   }, []);
-
+  
+  // open chat comp
   const handleOpen = () => {
-    setIsOpen(!isOpen);
+    dispatch(openAction());
   };
 
   return (
     <Wrapper>
       { isLoggedIn ? (
         <>
-          { isOpen ? (
+          { chat.isOpen ? (
             <FirebaseAuth />
           ) : (
             <></>
           )}
-          <ChatList 
-            isOpen={isOpen} 
-            setIsOpen={setIsOpen}
-          />
+          <ChatList />
           <div onClick={handleOpen}>
             <ChatBtn />
           </div>

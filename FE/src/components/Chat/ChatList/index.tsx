@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { openAction } from 'modules/chat/actions';
 
 // firebase
 import { db } from 'utils/Firebase/firebaseConfig';
@@ -14,18 +15,15 @@ import { IChatItem, IBasicUser } from 'types';
 // styles
 import { Cancel, Search } from '@mui/icons-material';
 import Wrapper from './styles';
-interface Props {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
-
-
-function ChatList({ isOpen, setIsOpen }: Props): React.ReactElement {
+function ChatList(): React.ReactElement {
   const [chatList, setChatList] = useState<IChatItem[]>([]);
   const [isChatRoom, setIsChatRoom] = useState<boolean>(false);
   const [currYou, setCurrYou] = useState<IBasicUser | null>(null);
   const { userInfo } = useSelector((state: any) => state.user);
+  const chat = useSelector((state: any) => state.chat);
+  
+  const dispatch = useDispatch();
 
   // init chatRoomList
   useEffect(() => {
@@ -66,7 +64,7 @@ function ChatList({ isOpen, setIsOpen }: Props): React.ReactElement {
   }, [userInfo])
 
   const handleOpen = () => {
-    setIsOpen(false);
+    dispatch(openAction());
   }
 
   // tmp function
@@ -81,7 +79,7 @@ function ChatList({ isOpen, setIsOpen }: Props): React.ReactElement {
 
   return (
     <>
-      { isOpen ? (
+      { chat.isOpen ? (
         <Wrapper>
           { isChatRoom ? (
             <ChatRoom 

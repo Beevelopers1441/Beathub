@@ -1,34 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactWaves from "@dschoon/react-waves";
 
+import Wrapper from './styles'
+
 interface Props {
-  Audio: string
+  Audio: string,
+  playing: boolean
 }
 
-function MusicWave ({ Audio }: Props) {
-
-  const [playing, setPlaying] = useState<boolean>(false)
-  // const audio = 
+function MusicWave ({ Audio, playing }: Props) {
 
   return (
-    <div className={"container example"}>
-      <div
-        className="play button"
-        onClick={() => {
-          setPlaying(!playing);
-        }}
-      >
-        {playing ? "■" : "▶"}
-      </div>
+    <Wrapper>
       <ReactWaves
         audioFile={Audio}
         className={"react-waves"}
         options={{
           barHeight: 2,
-          cursorWidth: 0,
-          height: 100,
+          cursorWidth: 1,
+          height: 30,
           hideScrollbar: true,
-          progressColor: "#EC407A",
+          progressColor: "#B01EFF",
           responsive: true,
           waveColor: "#D1D6DA",
         }}
@@ -36,7 +28,7 @@ function MusicWave ({ Audio }: Props) {
         zoom={1}
         playing={playing}
       />
-    </div>
+    </Wrapper>
   );
 }
 

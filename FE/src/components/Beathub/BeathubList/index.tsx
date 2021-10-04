@@ -12,12 +12,15 @@ interface Props {
 function BeathubList({ Audios }: Props) {
   return (
     <Wrapper>
+      <div className="audios-container">
         {Audios
         ? Audios.map((AudioItem:AudioInfo, idx:number) => (
             <BeathubItem AudioInfo={AudioItem} key={idx} />
           ))
           : <div></div>
         }
+      </div>
+        <div className="divider"></div>
     </Wrapper>
   );
 }

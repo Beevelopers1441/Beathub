@@ -7,11 +7,11 @@ const Wrapper = styled.div`
 
   & .first-row {
     display: flex;
-    margin: 1rem;
+    margin: 1rem 1rem 0 1rem;
     position: relative;
 
     & .instrument {
-
+      
     }
 
     & .track-title {
@@ -25,7 +25,6 @@ const Wrapper = styled.div`
   }
 
   & .second-row {
-    margin: 1rem;
     text-align: center;
 
     & .musicwave {
@@ -35,14 +34,19 @@ const Wrapper = styled.div`
 
   & .third-row {
     display: flex;
-    margin: 1rem;
+    margin: 0 1rem 1rem 1rem;
     position: relative;
 
     & .btns {
       display: flex;
 
-      & .btn-play{
-        
+      & .play-btn {
+        width: 16px;
+        height: 16px;
+        :hover {
+          cursor: pointer;
+          opacity: 0.5;
+        }
       }
 
       & .btn-stop {

@@ -4,6 +4,7 @@ const Wrapper = styled.div`
   display: flex;
   padding: 1.1rem 0.3rem 0.7rem 0.3rem;
   border-bottom: 0.2px solid #C3C3C3;
+  cursor: pointer;
 
   & .user-container {
     display: flex;

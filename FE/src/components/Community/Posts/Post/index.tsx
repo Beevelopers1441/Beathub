@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 // utils
 import { setDateFormat } from 'utils/time';
+import { setSimpleUsername, setSliceText } from 'utils/community';
 
 // component
 import { ProfileImage } from 'components/atoms';
@@ -11,8 +13,8 @@ import { ProfileImage } from 'components/atoms';
 import { IPost } from 'types';
 
 // styles
-import { Grid } from '@mui/material';
-import { Favorite } from '@mui/icons-material';
+import { Grid, Tooltip } from '@mui/material';
+import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import Wrapper from './styles';
 
 interface Props {
@@ -21,15 +23,29 @@ interface Props {
 }
 
 function Post({ post, teamFlag }: Props): React.ReactElement {
+  const [isLike, setIsLike] = useState<boolean>(false);
   const history = useHistory();
+  const { userInfo } = useSelector((state: any) => state.user);
+
+  // handle like
+  useEffect(() => {
+    if (!post) return
+    
+    const flag = post.likeUsers.filter((u => u.id === userInfo.id));
+    if (flag.length === 0) {  // like 유저에 없음
+      setIsLike(false);
+    } else { // like 유저에 있음
+      setIsLike(true);
+    };
+  }, [post, userInfo.id]);
 
   const handlePostDetail = (postId: number) => {
     const location = { 
-      pathname: `/post/${postId}`,
+      pathname: `/posts/${postId}`,
       state: { teamFlag, }
     };
     history.push(location);
-  }
+  };
 
   return (
     <Wrapper>
@@ -42,8 +58,8 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
             <Grid item xs={9}
               className="post-mainInfo-container"
             >
-              <p className="title">{post.title}</p>
-              <p className="content">{post.content}</p>
+              <p className="title">{setSliceText('title', post.title)}<span className="post-tag">{post.tag.type}</span></p>
+              <p className="content">{setSliceText('content', post.content)}</p>
             </Grid>
             <Grid item xs={3}
               className="post-subInfo-container"
@@ -52,7 +68,11 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
               <div className="time-likes-container">
                 <p className="time">{setDateFormat(post.createTime)}</p>
                 <div className="likes-container">
-                  <Favorite className="likes-icon"/>
+                  { isLike ? (
+                    <Favorite className="likes-icon likes-icon-active"/>
+                  ) : (
+                    <FavoriteBorder className="likes-icon"/>
+                  )}
                   <p>{post.likeUsers.length}</p>
                 </div>
               </div>
@@ -62,8 +82,17 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
         <Grid item xs={2}
           className="user-container"
         >
-          <p className="user-name">{post.author.name}</p>
-          <ProfileImage url={post.author.imageUrl} />
+          <Tooltip 
+            title={post.author.name}
+            arrow
+            placement="top"
+            className="name-tooltip"
+          >
+            <p className="user-name">{setSimpleUsername(post.author.name)}</p>
+          </Tooltip>
+          <ProfileImage
+            url={post.author.imageUrl}
+            className={'user-image'} />
         </Grid>
       </Grid>
       

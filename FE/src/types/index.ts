@@ -28,6 +28,17 @@ export interface IPost {
   comments: IComment[];
 }
 
+// 채팅
+export interface IMessage {
+  userInfo: IBasicUser;
+  text: string;
+  createdAt: string;
+}
+export interface IChatItem {
+  userInfo: IBasicUser;
+  lastMessage: string;
+}
+
 export interface ProfileObj {
   email: string,
   name: string,
@@ -80,7 +91,8 @@ export interface Band {
   id: number,
   name: string,
   imageUrl: string,
-  introduction: string
+  introduction: string,
+  createTime: Date,
 }
 
 export interface Leader {

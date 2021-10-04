@@ -45,8 +45,8 @@ function App() {
           <Route exact path="/profile/:userId" component={UserProfile} />
           <Route exact path="/Beathub" component={Beathub} />
           <Route exact path="/community" component={Community} />
-          <Route exact path="/post" component={PostCreate} />
-          <Route exact path="/post/:postId" component={PostDetail} />
+          <Route exact path="/post/:propTeamFlag" component={PostCreate} />
+          <Route exact path="/posts/:postId" component={PostDetail} />
           {/* 위 규칙을 벗어나면 루트 요청으로 리다이렉트 */}
           <Redirect path="*" to="/" />
         </Switch>

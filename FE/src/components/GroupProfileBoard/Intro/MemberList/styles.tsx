@@ -8,7 +8,6 @@ const Wrapper = styled.div`
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
-  6
 `
 
 export default Wrapper

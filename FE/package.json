@@ -19,6 +19,7 @@
     "@types/react-redux": "^7.1.18",
     "aws-sdk": "^2.996.0",
     "axios": "^0.21.4",
+    "firebase": "8.10.0",
     "http-proxy-middleware": "^2.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

@@ -3,9 +3,12 @@ import axios from 'axios';
 // types 
 import { UserInfo } from 'types';
 
+const AUTH_BASE_URL = process.env.REACT_APP_AUTH_URL;
+const BASE_URL = process.env.REACT_APP_SERVER_URL;
+
 // 로그인 정보 보내서 토큰 받기
 export const socialLogin = async (userInfo: UserInfo) => {
-    const response = await axios.post('http://localhost:8100/api/auth/login', userInfo)
+    const response = await axios.post(`${AUTH_BASE_URL}login`, userInfo)
 
     return response
 }
@@ -15,7 +18,7 @@ export async function getUserInfo(token:string) {
     
     const config:any = {
         method: 'POST',
-        url: 'http://localhost:8200/api/user',
+        url: `${BASE_URL}user`,
         headers: {
             Authorization: token
         }
@@ -28,7 +31,7 @@ export async function isFirst(token:string) {
     
     const config:any = {
         method: 'GET',
-        url: 'http://localhost:8200/api/user/first',
+        url: `${BASE_URL}user/first`,
         headers: {
             Authorization: token
         }

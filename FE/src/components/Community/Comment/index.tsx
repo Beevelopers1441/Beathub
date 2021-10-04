@@ -22,7 +22,10 @@ function Comment({ comment }: Props): React.ReactElement {
     <Wrapper>
       <Grid container>
         <Grid item xs={3} className="user-info-container">
-          <ProfileImage url={comment.author.imageUrl} />
+          <ProfileImage 
+            url={comment.author.imageUrl}
+            className={'user-image'}  
+          />
           <div className="name-time-container">
             <p className="user-name">{comment.author.name}</p>
             <p className="time">{setDateFormat(comment.createTime)}</p>

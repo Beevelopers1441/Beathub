@@ -11,7 +11,7 @@ const Intro: React.FC<IProps> = ({ intro }) => {
     <Wrapper>
       {
         intro === null || intro === ''
-        ? <div className="intro">아직 등록된 자기소개가 없습니다.</div>
+        ? <div className="secondary-letter">아직 등록된 자기소개가 없습니다.</div>
         : <div className="intro">{intro}</div>
       }
     </Wrapper>

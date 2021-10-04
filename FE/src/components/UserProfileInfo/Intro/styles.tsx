@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
+  & .secondary-letter {
+    color: #ABB0B5;
+  }
+
   & .intro {
     /* 소개글 */
     margin-top: 0.5rem;

@@ -11,7 +11,7 @@ const FollowBtn: React.FC<Props> = ({ isFollowing, onClickFollow, onClickUnfollo
 
   return(
     <Wrapper>
-      { isFollowing
+      {isFollowing
         ?
         <button className="unfollow-btn" onClick={onClickUnfollow}>
           <div className="unfollow-btn-letter">Unfollow</div>

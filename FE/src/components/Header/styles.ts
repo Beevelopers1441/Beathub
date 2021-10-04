@@ -55,6 +55,26 @@ const Wrapper = styled.div`
       }
     }
   }
+
+  & .logout-btn {
+    width: 50px;
+    height: 20px;
+    border-radius: 10px;
+    border: 1px solid #FFFFFF;
+    padding: 0.25rem;
+    margin-right: 1rem;
+
+    & .logout-btn-letter {
+      font-family: Spoqa Han Sans Neo;
+      font-style: normal;
+      font-size: 12px;
+      text-align: center;
+      color: #ABB0B5;
+      :hover {
+        color: #FFFFFF;
+      }
+    }
+  }
 `;
 
 export default Wrapper;

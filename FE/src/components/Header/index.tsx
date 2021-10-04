@@ -11,7 +11,7 @@ import HeaderSearch from './HeaderSearch';
 import { logoutAction } from 'modules/user/actions';
 
 // styles
-import { Notifications } from '@mui/icons-material';
+// import { Notifications } from '@mui/icons-material';
 import Wrapper from './styles';
 import defaultProfileImg from 'assets/constants/defaultProfileImg.png';
 

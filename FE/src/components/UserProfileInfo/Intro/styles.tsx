@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 const Wrapper = styled.div`
   & .secondary-letter {
+    margin-top: 0.5rem;
     color: #ABB0B5;
   }
 

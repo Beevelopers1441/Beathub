@@ -35,16 +35,16 @@ const Follow: React.FC<Props> = ({ id }) => {
   // 이 사람을 팔로우하고 있는지 판단
   useEffect(() => {
     followersList.forEach(follower => {
-      if (userId === follower["user"]["id"]) {
+      if (id === follower["user"]["id"]) {
         setIsFollowing(true)
       }
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId, followersList])
+  }, [])
 
   // 팔로잉, 팔로워 목록을 가져오는 함수
-  const FetchFollowList = (id: number) => {
-    getFollowList(id)
+  const FetchFollowList = (userId: number) => {
+    getFollowList(userId)
     .then(res => {
       setFollowersList(res.data.followers)
       setFollowingsList(res.data.followings)

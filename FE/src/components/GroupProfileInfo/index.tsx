@@ -5,6 +5,7 @@ import ProfileImg from './ProfileImg';
 import GroupName from './GroupName';
 import HowLong from './HowLong';
 import Follow from './Follow'
+import MembersList from './MembersList'
 import ApplyBtn from './ApplyBtn'
 // import Instruments from './Instruments';
 // import EditForm from './EditForm';
@@ -36,12 +37,13 @@ const GroupProfileInfo: React.FC<Props> = ({ bandInfo }) => {
         :
         <div>
           <GroupName groupName={bandInfo.band.name}></GroupName>
-          <HowLong createdAt={bandInfo.band.createTime}></HowLong>
+          <HowLong></HowLong>
           {/* <Instruments></Instruments>
           <EditBtn onToggleEdit={onToggleEdit}></EditBtn> */}
         </div>
       }
-      <Follow id={bandInfo.band.id}></Follow>
+      <Follow></Follow>
+      <MembersList members={bandInfo.members}></MembersList>
       <ApplyBtn></ApplyBtn>
     </div>
   )

@@ -91,8 +91,7 @@ export interface Band {
   id: number,
   name: string,
   imageUrl: string,
-  introduction: string,
-  createTime: Date,
+  introduction: string
 }
 
 export interface Leader {

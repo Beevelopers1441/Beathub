@@ -11,16 +11,6 @@ const Wrapper = styled.div`
     font-weight: bold;
     font-size: 16px;
   }
-
-  & .profile-img {
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-  }
 }
 `
 

@@ -27,8 +27,7 @@ const GroupProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
       id: 0,
       name: "",
       imageUrl: "",
-      introduction: "",
-      createTime: new Date(),
+      introduction: ""
     },
     leader: {
       id: 0,
@@ -72,7 +71,7 @@ const GroupProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
             <GroupProfileInfo bandInfo={groupInfo}></GroupProfileInfo>
           </Grid>
           <Grid item xs={9}>
-            <GroupProfileBoard bandInfo={groupInfo}></GroupProfileBoard>
+            <GroupProfileBoard></GroupProfileBoard>
           </Grid>
         </Grid>
       </Container>

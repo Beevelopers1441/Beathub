@@ -3,10 +3,17 @@ import Navbar from './Navbar';
 
 import Wrapper from './styles';
 
-function UserProfileBoard() {
+// types
+import { ProfileInfo } from 'types';
+
+interface Props {
+  profileInfo: ProfileInfo;
+}
+
+const UserProfileBoard: React.FC<Props> = ({ profileInfo }) => {
   return (
     <Wrapper>
-      <Navbar></Navbar>
+      <Navbar profileInfo={profileInfo}></Navbar>
     </Wrapper>
   )
 }

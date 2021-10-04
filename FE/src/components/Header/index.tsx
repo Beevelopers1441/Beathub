@@ -26,7 +26,6 @@ function Header(): React.ReactElement {
 
   // 현재 로그인한 유저의 아이디, 프로필 사진
   const { id, imageUrl } = useSelector((state: any) => state.user.userInfo)
-  console.log(id)
 
   return (
     <Wrapper>

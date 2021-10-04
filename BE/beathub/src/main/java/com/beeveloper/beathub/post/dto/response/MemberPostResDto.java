@@ -30,7 +30,7 @@ public class MemberPostResDto {
     private String content;
 
     @ApiModelProperty(name = "작성자", example = "한상진")
-    private UserInfoDto author;
+    private SimpleAuthorDto author;
 
     @ApiModelProperty(name="모집 여부", example = "true")
     private boolean isRecruiting;
@@ -52,7 +52,7 @@ public class MemberPostResDto {
         memberPostResDto.isRecruiting = memberPost.isRecruiting();
         memberPostResDto.createTime = memberPost.getCreateTime();
         memberPostResDto.likeUsers = UserInfoDto.ofUser(memberPost.getLikeUsers());
-        memberPostResDto.author = UserInfoDto.ofUser(memberPost.getAuthorUser());
+        memberPostResDto.author = SimpleAuthorDto.of(memberPost.getAuthorUser());
         memberPostResDto.comments = CommentResDto.of(memberPost.getComments());
         memberPostResDto.tag = TagInfoDto.of(memberPost.getTag());
         return memberPostResDto;

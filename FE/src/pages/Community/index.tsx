@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 // Components
 import { Posts, LinkTab, CommunitySearch } from 'components/Community';
 
 // api
 import { getBandPosts, getMemberPosts } from 'lib/api/community';
+
+// utils
+import { setTeamFlagColor } from 'utils/community';
 
 // styles
 import { Container, Grid } from '@mui/material';
@@ -25,6 +28,7 @@ function Community(props: Props): React.ReactElement {
   const [currTag, setCurrTag] = useState('');
 
   const titleRef: any = useRef();
+  const { state } = useLocation<any>();
 
   // constructor
   useEffect(() => {
@@ -47,12 +51,22 @@ function Community(props: Props): React.ReactElement {
     setCurrTitle('');
 
   }, [teamFlag]);
+
+  // routing props
+  useEffect(() => {
+    if (!state) return
+
+    const idx = state.tFlag;
+    setTeamFlagColor(idx)
+    setTeamFlag(idx);
+  }, [state]);
   
   // current Posts filter
   useEffect(() => {
     if (!posts) return;
 
     let newCurrPosts: IPost[] = [...posts];
+    newCurrPosts.sort((a, b) => (+(new Date(b.createTime)) - +(new Date(a.createTime))));  // 최신 게시글 순 정렬
 
     // tabs index
     if (tabsIdx === 1) {  // proceeding
@@ -97,20 +111,11 @@ function Community(props: Props): React.ReactElement {
   }, [tabsIdx]);
 
   const handleTeamFlag = (idx: number): void => {
-    const ele0 = document.querySelector('.teamFlag-container > p:nth-child(1)');
-    const ele1 = document.querySelector('.teamFlag-container > p:nth-child(2)');
-    if (idx === 0) {
-      ele0?.setAttribute('class', 'teamFlag-active');
-      ele1?.setAttribute('class', 'teamFlag');
-    } else {
-      ele0?.setAttribute('class', 'teamFlag');
-      ele1?.setAttribute('class', 'teamFlag-active');
-    }
+    setTeamFlagColor(idx);
     setTeamFlag(idx);
   };
 
   /* search */
-
   // search inputs
   const handleInputs = (e: any) => {
     if (e.key === 'Enter' || e.target.id === 'search-button') {
@@ -118,6 +123,17 @@ function Community(props: Props): React.ReactElement {
       setCurrTitle(newTitleValue);
     };
   };
+
+  // need to change tmp
+  useEffect(() => {
+    
+  }, [currPosts])
+  const tmpStyle = {
+    color: 'white',
+    border: '1px solid red',
+    width: '100%',
+    height: '100px'
+  }
 
   return (
     <Wrapper>
@@ -150,11 +166,15 @@ function Community(props: Props): React.ReactElement {
               titleRef={titleRef}
             />
             <div className="create-container">
-              <Link to="/post">
+              <Link to={`post/${teamFlag}`}>
                 <button className="create-btn">글쓰기</button>
               </Link>
             </div>
-            <Posts currPosts={currPosts} teamFlag={teamFlag} />
+            { currPosts ? (
+              <Posts currPosts={currPosts} teamFlag={teamFlag} />
+            ) : (
+              <div className="what" style={tmpStyle}>게시글이 없습니다.</div>
+            )}
           </Grid>
         </Grid>
       </Container>

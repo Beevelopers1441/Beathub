@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { closeChatRoomAction } from 'modules/chat/actions';
 
 // firebase
 import firebase from 'firebase/app';
@@ -20,8 +21,6 @@ import { ArrowBackIosNew } from '@mui/icons-material';
 import Wrapper from './styles';
 
 interface Props {
-  currYou: IBasicUser | null;
-  setIsChatRoom: React.Dispatch<React.SetStateAction<boolean>>;
   chatList: IChatItem[];
   setChatList: React.Dispatch<React.SetStateAction<IChatItem[]>>;
   roomNumbers: Set<string>;
@@ -30,26 +29,28 @@ interface Props {
 
 
 
-function ChatRoom({ currYou, setIsChatRoom, chatList, setChatList, roomNumbers, setRoomNumbers }: Props): React.ReactElement {
+function ChatRoom({ chatList, setChatList, roomNumbers, setRoomNumbers }: Props): React.ReactElement {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [currDoc, setCurrDoc] = useState('');
   const { userInfo } = useSelector((state: any) => state.user);
+  const chat = useSelector((state: any) => state.chat);
 
+  const dispatch = useDispatch();
   const chatInputRef: any = useRef();
 
   // constructor, init participants
   useEffect(() => {
     return () => {
-      setIsChatRoom(false);
+      dispatch(closeChatRoomAction());
     }
   }, []);
   
   // get Doc ID && init participants
   useEffect(() => {
-    if (!currYou) return
+    if (!chat.countpartUser) return
 
     // user sort
-    let userDocList = [currYou.id, userInfo.id];
+    let userDocList = [chat.countpartUser.id, userInfo.id];
     userDocList.sort((a, b) => a - b);
     const userDoc = userDocList.join(',');
     setCurrDoc(userDoc);
@@ -59,15 +60,14 @@ function ChatRoom({ currYou, setIsChatRoom, chatList, setChatList, roomNumbers, 
       participants: firebase.firestore.FieldValue.arrayUnion(userInfo.id),
     }, { merge: true });
     messageRef.doc(userDoc).set({
-      participants: firebase.firestore.FieldValue.arrayUnion(currYou.id),
+      participants: firebase.firestore.FieldValue.arrayUnion(chat.countpartUser.id),
     }, { merge: true });
 
-  }, [currYou, userInfo.id]);
+  }, [chat.countpartUser, userInfo.id]);
 
   // init messages
   useEffect(() => {
-    if (!currDoc || !currYou) return
-    console.log('current doc is changed!!!!!!!!!!!!!!!!!!!!')
+    if (!currDoc || !chat.countpartUser) return
 
     // set message
     const _db = db.collection('Rooms');
@@ -79,7 +79,7 @@ function ChatRoom({ currYou, setIsChatRoom, chatList, setChatList, roomNumbers, 
         setMessages([...newMessages]);
 
         // 첫 메시지이면 chatList에 추가
-        const rn = [currYou.id, userInfo.id];
+        const rn = [chat.countpartUser.id, userInfo.id];
         rn.sort((a, b) => a-b);
         const roomNumber = rn.join(',')
 
@@ -87,17 +87,19 @@ function ChatRoom({ currYou, setIsChatRoom, chatList, setChatList, roomNumbers, 
           const newRoomNumbers = new Set([...Array.from(roomNumbers), roomNumber]);
           setRoomNumbers(newRoomNumbers);
 
-          if (newMessages[0].userInfo.id === userInfo.id && currYou) {  // 내가 남긴 것이면
+          if (newMessages[0].userInfo.id === userInfo.id && chat.countpartUser) {  // 내가 남긴 것이면
             const newChatItem: IChatItem = {
-              userInfo: { ...currYou },
-              lastMessage: newMessages[0].text
+              userInfo: { ...chat.countpartUser },
+              lastMessage: newMessages[0].text,
+              lastCreateTime: newMessages[0].createdAt,
             };
             const newChatList = [...chatList, newChatItem];
             setChatList(newChatList);
           } else {  // 상대방이 나에게 대화를 건 것이면
             const newChatItem: IChatItem = {
               userInfo: { ...newMessages[0].userInfo },
-              lastMessage: newMessages[0].text
+              lastMessage: newMessages[0].text,
+              lastCreateTime: newMessages[0].createdAt,
             };
             const newChatList = [...chatList, newChatItem];
             setChatList(newChatList);
@@ -105,7 +107,7 @@ function ChatRoom({ currYou, setIsChatRoom, chatList, setChatList, roomNumbers, 
         }
       }
     });
-  }, [currDoc]);
+  }, [currDoc, chat.countpartUser]);
 
   // set message to firebase=
   const handleInput = (e: any) => {
@@ -160,11 +162,11 @@ function ChatRoom({ currYou, setIsChatRoom, chatList, setChatList, roomNumbers, 
   return (
     <Wrapper>
       <div className="header-container">
-        <ArrowBackIosNew onClick={() => setIsChatRoom(false)} className="back-icon" />
-        <p className="user-name">{currYou?.name}</p>
+        <ArrowBackIosNew onClick={() => dispatch(closeChatRoomAction())} className="back-icon" />
+        <p className="user-name">{chat.countpartUser?.name}</p>
       </div>
       <div className="content-container">
-        <Messages messages={messages} currYou={currYou} />
+        <Messages messages={messages} currYou={chat.countpartUser} />
       </div>
       <div className="input-container">
         <input 

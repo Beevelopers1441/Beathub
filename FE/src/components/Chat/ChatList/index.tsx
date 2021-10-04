@@ -13,7 +13,7 @@ import ChatRoom from '../ChatRoom'
 import ChatListItem from './ChatListItem';
 
 // types
-import { IChatItem, IBasicUser } from 'types';
+import { IChatItem } from 'types';
 
 // styles
 import { Cancel, Search } from '@mui/icons-material';
@@ -22,8 +22,6 @@ import Wrapper from './styles';
 function ChatList(): React.ReactElement {
   const [chatList, setChatList] = useState<IChatItem[]>([]);
   const [roomNumbers, setRoomNumbers] = useState<Set<string>>(new Set([]));
-  const [isChatRoom, setIsChatRoom] = useState<boolean>(false);
-  const [currYou, setCurrYou] = useState<IBasicUser | null>(null);
   const { userInfo } = useSelector((state: any) => state.user);
   const chat = useSelector((state: any) => state.chat);
   
@@ -50,7 +48,8 @@ function ChatList(): React.ReactElement {
             
             const newChat = {
               userInfo: { id: 0, imageUrl: '', name: '' },
-              lastMessage: ''
+              lastMessage: '',
+              lastCreateTime: '',
             }
             const messages = _docData.messages;
             if (messages) {
@@ -59,6 +58,7 @@ function ChatList(): React.ReactElement {
                 if (message.userInfo.id === you) {  // 상대방이 남긴 메시지가 있으면
                   newChat.userInfo = message.userInfo;
                   newChat.lastMessage = messages[messages.length-1].text;
+                  newChat.lastCreateTime = messages[messages.length-1].createdAt;
                   const newChatList = [...chatList, newChat];
                   if (newChatList) {
                     setChatList(newChatList);
@@ -78,6 +78,7 @@ function ChatList(): React.ReactElement {
                     };
                     newChat.userInfo = youInfo;
                     newChat.lastMessage = messages[messages.length-1].text;
+                    newChat.lastCreateTime = messages[messages.length-1].createdAt;
                     const newChatList = [...chatList, newChat];
                     if (newChatList) {
                       setChatList(newChatList);
@@ -98,24 +99,12 @@ function ChatList(): React.ReactElement {
     dispatch(openAction());
   }
 
-  // tmp function
-  const handleTest = (id: number) => {
-    setIsChatRoom(true);
-    setCurrYou({ 
-      id, 
-      imageUrl: 'https://lh3.googleusercontent.com/a/AATXAJyVl4NSWtw1lfe-f0WDqqMcLOQzbliU693lFFsn=s96-c',
-      name: '테스트유저'
-    });
-  }
-
   return (
     <>
       { chat.isOpen ? (
         <Wrapper>
-          { isChatRoom ? (
+          { chat.isChatRoom ? (
             <ChatRoom 
-              setIsChatRoom={setIsChatRoom}
-              currYou={currYou}
               chatList={chatList}
               setChatList={setChatList}
               roomNumbers={roomNumbers}
@@ -136,16 +125,11 @@ function ChatList(): React.ReactElement {
                   />
                 </div>
                 <div>
-                  <div>
-                    <span onClick={() => handleTest(1)}>테스트 사용자1</span>$nbsp$nbsp<span onClick={() => handleTest(3)}>테스트사용자3</span>
-                  </div>
                   {chatList.map((item, idx) => {
                     return (
                       <ChatListItem
                         item={item}
-                        setIsChatRoom={setIsChatRoom}
-                        setCurrYou={setCurrYou}
-                        key={idx}
+                        key={`chatItem-${idx}`}
                       />
                     )
                   })}

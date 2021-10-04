@@ -37,6 +37,7 @@ export interface IMessage {
 export interface IChatItem {
   userInfo: IBasicUser;
   lastMessage: string;
+  lastCreateTime: string;
 }
 
 export interface ProfileObj {

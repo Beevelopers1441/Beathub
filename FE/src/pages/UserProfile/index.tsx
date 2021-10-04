@@ -77,7 +77,7 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
             <UserProfileInfo profileInfo={profileInfo}></UserProfileInfo>
           </Grid>
           <Grid item xs={9}>
-            <UserProfileBoard></UserProfileBoard>
+            <UserProfileBoard profileInfo={profileInfo}></UserProfileBoard>
           </Grid>
         </Grid>
       </Container>

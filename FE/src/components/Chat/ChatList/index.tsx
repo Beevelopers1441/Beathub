@@ -95,6 +95,12 @@ function ChatList(): React.ReactElement {
       });
   }, [userInfo])
 
+  // sort chatList
+  useEffect(() => {
+    const newChatList = [...chatList];
+    newChatList.sort((a, b) => (+(new Date(b.lastCreateTime)) - +(new Date(a.lastCreateTime))));  // 최신 메시지 순 정렬
+  }, [chatList])
+
   const handleOpen = () => {
     dispatch(openAction());
   }

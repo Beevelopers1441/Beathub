@@ -35,11 +35,11 @@ function Chat(): React.ReactElement {
       { isLoggedIn ? (
         <>
           { chat.isOpen ? (
-            <FirebaseAuth />
+            <ChatList />
           ) : (
             <></>
           )}
-          <ChatList />
+          <FirebaseAuth />
           <div onClick={handleOpen}>
             <ChatBtn />
           </div>

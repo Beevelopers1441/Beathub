@@ -24,11 +24,13 @@ interface Props {
   setIsChatRoom: React.Dispatch<React.SetStateAction<boolean>>;
   chatList: IChatItem[];
   setChatList: React.Dispatch<React.SetStateAction<IChatItem[]>>;
+  roomNumbers: Set<string>;
+  setRoomNumbers: React.Dispatch<React.SetStateAction<Set<string>>>;
 }
 
 
 
-function ChatRoom({ currYou, setIsChatRoom, chatList, setChatList }: Props): React.ReactElement {
+function ChatRoom({ currYou, setIsChatRoom, chatList, setChatList, roomNumbers, setRoomNumbers }: Props): React.ReactElement {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [currDoc, setCurrDoc] = useState('');
   const { userInfo } = useSelector((state: any) => state.user);
@@ -64,7 +66,7 @@ function ChatRoom({ currYou, setIsChatRoom, chatList, setChatList }: Props): Rea
 
   // init messages
   useEffect(() => {
-    if (!currDoc) return
+    if (!currDoc || !currYou) return
     console.log('current doc is changed!!!!!!!!!!!!!!!!!!!!')
 
     // set message
@@ -77,7 +79,14 @@ function ChatRoom({ currYou, setIsChatRoom, chatList, setChatList }: Props): Rea
         setMessages([...newMessages]);
 
         // 첫 메시지이면 chatList에 추가
-        if (newMessages.length === 1) {
+        const rn = [currYou.id, userInfo.id];
+        rn.sort((a, b) => a-b);
+        const roomNumber = rn.join(',')
+
+        if (newMessages.length === 1 && !roomNumbers.has(roomNumber)) {
+          const newRoomNumbers = new Set([...Array.from(roomNumbers), roomNumber]);
+          setRoomNumbers(newRoomNumbers);
+
           if (newMessages[0].userInfo.id === userInfo.id && currYou) {  // 내가 남긴 것이면
             const newChatItem: IChatItem = {
               userInfo: { ...currYou },

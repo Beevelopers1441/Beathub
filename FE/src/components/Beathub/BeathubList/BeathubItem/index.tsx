@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MusicWave from './MusicWave';
 
 import Wrapper from './styles';
@@ -11,9 +11,10 @@ import stop from 'assets/svgs/beathub/stop.svg';
 
 interface Props {
   AudioInfo: AudioInfo;
+  totalPlaying: boolean,
 }
 
-function BeathubItem({ AudioInfo }: Props ) {
+function BeathubItem({ AudioInfo, totalPlaying }: Props ) {
 
   const [playing, setPlaying] = useState<boolean>(false)
 
@@ -21,7 +22,13 @@ function BeathubItem({ AudioInfo }: Props ) {
     setPlaying(!playing)
   }
 
-  console.log(AudioInfo)
+  const onClickStop = ()=> {
+    setPlaying(false)
+  }
+
+  useEffect(() => {
+    setPlaying(totalPlaying)
+  }, [totalPlaying])
 
   return (
     <Wrapper>
@@ -47,7 +54,7 @@ function BeathubItem({ AudioInfo }: Props ) {
               }
             </div>
             {/* 정지 버튼 */}
-            <div className="btn-stop">
+            <div className="btn-stop" onClick={onClickStop}>
               <img src={stop} alt="play" className="play-btn"/>
             </div>
           </div>

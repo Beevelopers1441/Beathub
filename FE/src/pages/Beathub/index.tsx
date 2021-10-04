@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 
 // component
-import { AudioList, AudioUpload, BeathubList } from 'components/Beathub';
+import { AudioList, AudioUpload, BeathubMain } from 'components/Beathub';
 
 // types
 import { AudioInfo } from 'types';
@@ -30,7 +30,7 @@ function Beathub(): ReactElement {
       <Container className="beathub-container">
         <Grid container className="sub-container">
           <Grid item xs={6}>
-            <BeathubList Audios={dummyAudios}></BeathubList>
+            <BeathubMain Audios={dummyAudios}></BeathubMain>
           </Grid>
           <Grid item xs={6}>
             <AudioUpload />

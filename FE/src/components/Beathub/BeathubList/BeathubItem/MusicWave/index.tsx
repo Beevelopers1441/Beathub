@@ -5,7 +5,7 @@ import Wrapper from './styles'
 
 interface Props {
   Audio: string,
-  playing: boolean
+  playing: boolean,
 }
 
 function MusicWave ({ Audio, playing }: Props) {
@@ -32,4 +32,4 @@ function MusicWave ({ Audio, playing }: Props) {
   );
 }
 
-export default MusicWave 
+export default MusicWave;

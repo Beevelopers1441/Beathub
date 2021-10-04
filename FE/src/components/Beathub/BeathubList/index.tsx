@@ -6,16 +6,17 @@ import Wrapper from './styles';
 import { AudioInfo } from 'types';
 
 interface Props {
-  Audios: AudioInfo[]
+  Audios: AudioInfo[],
+  totalPlaying: boolean,
 }
 
-function BeathubList({ Audios }: Props) {
+function BeathubList({ Audios, totalPlaying }: Props) {
   return (
     <Wrapper>
       <div className="audios-container">
         {Audios
         ? Audios.map((AudioItem:AudioInfo, idx:number) => (
-            <BeathubItem AudioInfo={AudioItem} key={idx} />
+            <BeathubItem AudioInfo={AudioItem} totalPlaying={totalPlaying} key={idx} />
           ))
           : <div></div>
         }

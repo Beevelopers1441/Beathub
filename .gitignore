@@ -341,4 +341,6 @@ $RECYCLE.BIN/
 # firebase key
 key/
 
+*.pid
+build/
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,java,react,node,visualstudiocode,intellij

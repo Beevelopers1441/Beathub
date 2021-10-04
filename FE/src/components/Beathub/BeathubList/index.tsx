@@ -20,7 +20,7 @@ function BeathubList({ Audios }: Props) {
           : <div></div>
         }
       </div>
-        <div className="divider"></div>
+      <div className="divider"></div>
     </Wrapper>
   );
 }

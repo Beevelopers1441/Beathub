@@ -21,6 +21,8 @@ function BeathubItem({ AudioInfo }: Props ) {
     setPlaying(!playing)
   }
 
+  console.log(AudioInfo)
+
   return (
     <Wrapper>
       <div className="item-box">

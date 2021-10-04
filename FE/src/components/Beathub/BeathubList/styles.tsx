@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   }
 
   & .audios-container {
-    height: 35rem;
+    height: 30rem;
     overflow: auto;
 
     ::-webkit-scrollbar {

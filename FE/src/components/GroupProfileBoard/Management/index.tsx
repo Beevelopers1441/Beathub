@@ -1,12 +1,12 @@
 import React from 'react';
 import Wrapper from './styles';
 
-function Feeds() {
+function Management() {
   return(
     <Wrapper>
-      피드
+      management
     </Wrapper>
   )
 }
 
-export default Feeds;
+export default Management;

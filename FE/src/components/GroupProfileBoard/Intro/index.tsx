@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Content from './Content';
 import BandMaster from './BandMaster';
 import MemberList from './MemberList';
@@ -16,7 +16,7 @@ const Intro: React.FC<Props> = ({ bandInfo }) => {
 
   return(
     <Wrapper>
-      <Content introduction={bandInfo.band.introduction}></Content>
+      <Content band={bandInfo.band}></Content>
       <BandMaster master={bandInfo.leader}></BandMaster>
       <MemberList members={bandInfo.members}></MemberList>
     </Wrapper>

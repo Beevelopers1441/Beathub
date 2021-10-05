@@ -10,12 +10,14 @@ import java.util.stream.Collectors;
 public class BandMemberDto {
 
     UserInfoDto user;
+    InstrumentDto instrument;
     BandDto band;
 
     public static BandMemberDto of(BandMember bandMember) {
         BandMemberDto dto = new BandMemberDto();
         dto.user = UserInfoDto.ofUser(bandMember.getUser());
         dto.band = BandDto.of(bandMember.getBand());
+        dto.instrument = InstrumentDto.of(bandMember.getInstrument());
         return dto;
     }
 

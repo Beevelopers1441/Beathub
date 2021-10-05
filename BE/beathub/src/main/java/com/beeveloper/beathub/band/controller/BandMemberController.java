@@ -2,13 +2,19 @@ package com.beeveloper.beathub.band.controller;
 
 import com.beeveloper.beathub.band.domain.Band;
 import com.beeveloper.beathub.band.domain.BandMember;
+import com.beeveloper.beathub.band.dto.request.BandMemberApplyDto;
 import com.beeveloper.beathub.band.dto.request.BandMemberRegisterDto;
 import com.beeveloper.beathub.band.dto.ressponse.BandMemberResDto;
 import com.beeveloper.beathub.band.service.BandMemberService;
 import com.beeveloper.beathub.band.service.BandService;
 import com.beeveloper.beathub.common.dto.BandMemberDto;
+import com.beeveloper.beathub.instrument.domain.Instrument;
+import com.beeveloper.beathub.instrument.service.InstrumentService;
+import com.beeveloper.beathub.user.domain.Ability;
 import com.beeveloper.beathub.user.domain.User;
+import com.beeveloper.beathub.user.domain.UserInstrument;
 import com.beeveloper.beathub.user.jwts.JwtService;
+import com.beeveloper.beathub.user.service.UserInstrumentService;
 import com.beeveloper.beathub.user.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -30,13 +36,16 @@ public class BandMemberController {
     private final BandService bandService;
     private final JwtService jwtService;
     private final UserService userService;
+    private final UserInstrumentService userInstrumentService;
+    private final InstrumentService instrumentService;
 
 
     @ApiOperation(value = "밴드에 가입신청하는 API입니다.")
     @PostMapping("/{bandId}")
     public ResponseEntity apply(
             @RequestHeader(value = "Authorization") String jwtToken,
-            @PathVariable(value = "bandId") Long bandId) {
+            @PathVariable(value = "bandId") Long bandId,
+            @RequestBody BandMemberApplyDto applyDto) {
 
         Optional<User> searchUser = jwtService.returnUser(jwtToken);
         if (!searchUser.isPresent()) {
@@ -51,8 +60,16 @@ public class BandMemberController {
                 return ResponseEntity.badRequest().body("이미 처리된 요청입니다!");
             }
         }
+        Instrument instrument = instrumentService.findByType(applyDto.getInstrument());
+        UserInstrument userInstrument = UserInstrument.builder()
+                .player(findUser)
+                .ability(Ability.Senior)
+                .instrument(instrument)
+                .build();
+        userInstrumentService.save(userInstrument);
 
-        BandMember apply = bandMemberService.apply(bandId, findUser);
+
+        BandMember apply = bandMemberService.apply(bandId, findUser, applyDto.getInstrument());
         return ResponseEntity.status(200).body(BandMemberResDto.of(apply));
     }
 

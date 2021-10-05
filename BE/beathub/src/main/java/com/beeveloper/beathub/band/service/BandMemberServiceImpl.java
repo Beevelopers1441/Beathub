@@ -6,17 +6,15 @@ import com.beeveloper.beathub.band.domain.Status;
 import com.beeveloper.beathub.band.dto.ressponse.BandMemberResDto;
 import com.beeveloper.beathub.band.repository.BandMemberRepository;
 import com.beeveloper.beathub.band.repository.BandRepository;
+import com.beeveloper.beathub.instrument.domain.Instrument;
+import com.beeveloper.beathub.instrument.repository.InstrumentRepository;
 import com.beeveloper.beathub.user.domain.User;
 import com.beeveloper.beathub.user.domain.UserInstrument;
 import com.beeveloper.beathub.user.repository.UserInstrumentRepository;
-import com.sun.xml.bind.v2.util.CollisionCheckStack;
-import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +25,7 @@ public class BandMemberServiceImpl implements BandMemberService {
     private final BandRepository bandRepository;
     private final UserInstrumentRepository userInstrumentRepository;
     private final BandMemberRepository bandMemberRepository;
+    private final InstrumentRepository instrumentRepository;
 
     @Override
     public List<BandMemberResDto> findMembers(String bandName) {
@@ -43,9 +42,10 @@ public class BandMemberServiceImpl implements BandMemberService {
     }
 
     @Override
-    public BandMember apply(Long bandId, User user) {
+    public BandMember apply(Long bandId, User user, String instrument) {
         Band band = bandRepository.findById(bandId).orElseThrow(RuntimeException::new);
-        UserInstrument userInstrument = userInstrumentRepository.findByPlayer(user);
+        Instrument registerInstrument = instrumentRepository.findByType(instrument);
+        UserInstrument userInstrument = userInstrumentRepository.findByPlayerAndInstrument(user, registerInstrument);
         BandMember bandMember = BandMember.builder()
                 .band(band)
                 .user(user)

@@ -29,17 +29,17 @@ function Community(props: Props): React.ReactElement {
   const [currTag, setCurrTag] = useState('');
 
   const titleRef: any = useRef();
-  const { userInfo } = useSelector((state: any) => state.user);
+  const { isLoggedIn } = useSelector((state: any) => state.user);
   const { state } = useLocation<any>();
   const history = useHistory();
 
   // redirect to login
   useEffect(() => {
-    if (!userInfo.isLoggedIn) {
+    if (!isLoggedIn) {
       const loc = { pathname: '/login' };
       history.replace(loc);
     };
-  }, [history, userInfo.isLoggedIn]);
+  }, [history, isLoggedIn]);
 
   // team flag select
   useEffect(() => {

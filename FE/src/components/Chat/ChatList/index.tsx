@@ -116,7 +116,6 @@ function ChatList(): React.ReactElement {
   const handleSearchInput = (e: any) => {
     if (e.key === 'Enter') {
       const newSearchInput = searchRef?.current.value.trim().toLowerCase();
-      console.log(newSearchInput)
       if (!newSearchInput) {  // input 값이 없으면
         setCurrChatList([...chatList]);
       } else {

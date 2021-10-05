@@ -49,6 +49,11 @@ const Wrapper = styled.div`
       color: white;
     }
   }
+  & .no-content {
+    text-align: center;
+    color: white;
+    font-weight: 700;
+  }
 `
 
 export default Wrapper

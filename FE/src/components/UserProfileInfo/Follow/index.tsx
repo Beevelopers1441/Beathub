@@ -90,7 +90,7 @@ const Follow: React.FC<Props> = ({ id }) => {
             </FollowBtn>
           </Grid>
           <Grid item xs={2}>
-            <DMBtn></DMBtn>
+            <DMBtn id={id}></DMBtn>
           </Grid>
         </Grid>
       }

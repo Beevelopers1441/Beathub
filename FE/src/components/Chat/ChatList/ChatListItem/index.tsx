@@ -1,26 +1,30 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
 // component
 import { ProfileImage } from 'components/atoms'
 
+// utils
+import { setKorTimeFormat } from 'utils/time';
+import { openChatRoomAction, setCountpartUserAction } from 'modules/chat/actions';
+
 // types
-import { IChatItem, IBasicUser } from 'types';
+import { IChatItem } from 'types';
 
 // styles
 import Wrapper from './styles';
 
 interface Props {
   item: IChatItem;
-  setIsChatRoom: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrYou: React.Dispatch<React.SetStateAction<IBasicUser | null>>;
 }
 
-function ChatListItem({ item, setIsChatRoom, setCurrYou }: Props): React.ReactElement {
+function ChatListItem({ item }: Props): React.ReactElement {
+  const dispatch = useDispatch();
 
   const handleChatRoom = () => {
     const newYou = { ...item.userInfo };
-    setCurrYou(newYou);
-    setIsChatRoom(true);
+    dispatch(setCountpartUserAction({ userInfo: newYou }));
+    dispatch(openChatRoomAction());
   };
 
   return (
@@ -36,7 +40,7 @@ function ChatListItem({ item, setIsChatRoom, setCurrYou }: Props): React.ReactEl
         </div>
       </div>
       <div className="chat-info-container">
-        <p className="time">오후 3:57</p>
+        <p className="time">{setKorTimeFormat(item.lastCreateTime)}</p>
         {/* <p className="count">7</p> */}
       </div>
     </Wrapper>

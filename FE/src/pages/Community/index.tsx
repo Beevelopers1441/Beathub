@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 // Components
@@ -8,6 +9,7 @@ import { Posts, LinkTab, CommunitySearch } from 'components/Community';
 import { getBandPosts, getMemberPosts } from 'lib/api/community';
 
 // utils
+import { forcedOpenAction, openChatRoomAction, setCountpartUserAction } from 'modules/chat/actions';
 import { setTeamFlagColor } from 'utils/community';
 
 // styles
@@ -124,19 +126,22 @@ function Community(props: Props): React.ReactElement {
     };
   };
 
-  // need to change tmp
-  useEffect(() => {
-    
-  }, [currPosts])
-  const tmpStyle = {
-    color: 'white',
-    border: '1px solid red',
-    width: '100%',
-    height: '100px'
-  }
+  // test
+  const dispatch = useDispatch();
+  const handleChatOpen = () => {
+    dispatch(forcedOpenAction());
+    dispatch(openChatRoomAction());
+    const newCountpartUser = {  // need to change
+      id: 3,
+      imageUrl: 'https://lh3.googleusercontent.com/a/AATXAJyVl4NSWtw1lfe-f0WDqqMcLOQzbliU693lFFsn=s96-c',
+      name: '선규전',
+    };
+    dispatch(setCountpartUserAction({ userInfo: newCountpartUser }));
+  };
 
   return (
     <Wrapper>
+      <div onClick={handleChatOpen}>TEST</div>
       <Container className="community-container">
         <Grid container className="sub-container">
           <Grid item xs={2} className="teamFlag-container">
@@ -173,7 +178,7 @@ function Community(props: Props): React.ReactElement {
             { currPosts ? (
               <Posts currPosts={currPosts} teamFlag={teamFlag} />
             ) : (
-              <div className="what" style={tmpStyle}>게시글이 없습니다.</div>
+              <div className="no-content">게시글이 없습니다.</div>
             )}
           </Grid>
         </Grid>

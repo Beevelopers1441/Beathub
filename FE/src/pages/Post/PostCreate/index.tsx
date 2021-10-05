@@ -46,6 +46,8 @@ function PostCreate(props: Props): React.ReactElement {
     const userId = userInfo.id;
     getUserProfile(userId)
       .then(res => {
+        console.log('!!!!!!!!!!!!!!!!!!!!!')
+        console.log(res.data)
         const newBandList = res.data.leadingBands.map((band: Band) => band.name);
         setBandList(newBandList);
       })

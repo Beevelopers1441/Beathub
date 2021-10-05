@@ -4,10 +4,11 @@ import Wrapper from './styles';
 interface IProps {
   editing: boolean,
   onToggleEdit: () => void,
-  onUpdate: () => void
+  onUpdate: () => void,
+  onCancel: () => void
 }
 
-function EditBtn({ onToggleEdit, onUpdate, editing }: IProps) {
+function EditBtn({ onToggleEdit, onUpdate, onCancel, editing }: IProps) {
 
   const onClickEdit = () => {
     onToggleEdit();
@@ -15,6 +16,7 @@ function EditBtn({ onToggleEdit, onUpdate, editing }: IProps) {
 
   const onClickCancel = () => {
     onToggleEdit();
+    onCancel();
   }
 
   const onClickSave = () => {

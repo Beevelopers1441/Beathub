@@ -80,7 +80,7 @@ public class BandMemberServiceImpl implements BandMemberService {
 
     @Override
     public List<BandMember> getApplies(List<Band> leadingBands) {
-        return bandMemberRepository.findAllByBandIn(leadingBands);
+        return bandMemberRepository.findAllByStatusAndBandIn(Status.Waiting, leadingBands);
     }
 
     @Override

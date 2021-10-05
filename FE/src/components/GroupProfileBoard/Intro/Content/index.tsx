@@ -9,6 +9,7 @@ import Wrapper from './styles';
 import { Band } from 'types';
 
 import { updateGroupProfile } from 'lib/api/groupProfile';
+
 import { refreshPageAction } from 'modules/user/actions';
 
 interface Props {
@@ -49,9 +50,14 @@ const Content: React.FC<Props> = ({ band }: Props) => {
     })
   }
 
+  const onCancel = () => {
+    SetIntro(band.introduction)
+    SetName(band.name)
+  }
+
   return(
     <Wrapper>
-      <EditBtn onToggleEdit={onToggleEdit} onUpdate={onUpdate} editing={editing}></EditBtn>
+      <EditBtn onToggleEdit={onToggleEdit} onUpdate={onUpdate} onCancel={onCancel} editing={editing}></EditBtn>
       <Grid container className="intro-container">
         <Grid item xs={2}>
           <div className="title">밴드</div>

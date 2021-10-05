@@ -8,6 +8,14 @@ const Wrapper = styled.div`
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
+  }
+
+  & .members-wrapper {
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
+  }
 `
 
 export default Wrapper

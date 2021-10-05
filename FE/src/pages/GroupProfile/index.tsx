@@ -37,9 +37,15 @@ const GroupProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
     },
     members: [
       {
-        id: 0,
-        name: "",
-        imageUrl: ""
+        member: {
+          id: 0,
+          name: "",
+          imageUrl: ""
+        },
+        type: {
+          id: 0,
+          type: ""
+        }
       }
     ],
     followers: [],

@@ -1,13 +1,13 @@
 import React from 'react';
-// import MemberItem from '../MemberItem';
+import MemberItem from './MemberItem';
 
 import { Grid } from '@mui/material';
 import Wrapper from './styles';
 
-import { Member } from 'types'
+import { BandMember } from 'types'
 
 interface Props {
-  members: Member[];
+  members: BandMember[];
 }
 
 const MemberList: React.FC<Props> = ({ members }) => {
@@ -16,9 +16,7 @@ const MemberList: React.FC<Props> = ({ members }) => {
     if (members.length > 0) {
       return members.map((member) => {
         return(
-          <div>
-            {/* <MemberItem key={member.id} member={member}></MemberItem> */}
-          </div>
+          <MemberItem key={member.member.id} member={member}></MemberItem>
         )
       })
     }
@@ -31,14 +29,9 @@ const MemberList: React.FC<Props> = ({ members }) => {
         <Grid item xs={2}>
           <div className="title">멤버</div>
         </Grid>
-        <Grid item xs={2}>
-          <div className="item-wrapper">
+        <Grid item xs={10}>
+          <div className="members-wrapper">
             {renderList()}
-          </div>
-        </Grid>
-        <Grid item xs={8}>
-          <div>
-            
           </div>
         </Grid>
       </Grid>

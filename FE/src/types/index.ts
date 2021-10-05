@@ -82,7 +82,7 @@ export interface FollowPerson {
 export interface BandProfileInfo {
   band: Band,
   leader: Leader,
-  members: Member[],
+  members: BandMember[],
   followers: {}[],
   buckets: {}[],
   posts: {}[],
@@ -116,4 +116,16 @@ export interface Member {
   id: number,
   name: string,
   imageUrl: string
+}
+
+export interface BandMember {
+  member: {
+    id: number,
+    name: string,
+    imageUrl: string
+  },
+  type: {
+    id: number,
+    type: string
+  }
 }

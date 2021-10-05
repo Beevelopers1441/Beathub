@@ -21,6 +21,12 @@ const Wrapper = styled.div`
     background-position: center center;
     background-size: cover;
   }
+
+  & .img-wrapper {
+    margin: 0.25rem 1rem 0 0;
+    width: 100px;
+    text-align: center;
+  }
 }
 `
 

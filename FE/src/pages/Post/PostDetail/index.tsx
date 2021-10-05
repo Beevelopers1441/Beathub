@@ -14,7 +14,7 @@ import { setDateFormat } from 'utils/time';
 import { IPost, IComment } from 'types';
 
 // styles
-import { Container, Grid, Button } from '@mui/material';
+import { Container, Grid, Button, Switch } from '@mui/material';
 import { ArrowBackIosNew, Favorite, FavoriteBorder } from '@mui/icons-material';
 import Wrapper from './styles';
 
@@ -24,6 +24,7 @@ interface ParamTypes {
 
 function PostDetail(): React.ReactElement {
   const [post, setPost] = useState<IPost | null>(null);
+  const [recruiting, setrecruiting] = useState<boolean>(true);
   const [comments, setComments] = useState<IComment[]>([]);
   const [isLike, setIsLike] = useState<Boolean>(false);
   const [likeCnt, setLikeCnt] = useState<number>(0);
@@ -49,11 +50,13 @@ function PostDetail(): React.ReactElement {
         const newLikeCnt = newPost.likeUsers.length;
         const newIsLike = newPost.likeUsers.filter((p: IPost) => p.id === userInfo.id).length === 0 ? false : true;
         const writer = newPost.author.id;
+        const newRecruiting = newPost.recruiting;
         setLikeCnt(newLikeCnt); 
         setIsLike(newIsLike);
         setPost(newPost);
         setComments(newComments);
         setMemberWriter(writer);
+        setrecruiting(newRecruiting);
       });
     } else {
       // 밴드 글
@@ -63,10 +66,12 @@ function PostDetail(): React.ReactElement {
         const newLikeCnt = newPost.likeUsers.length;
         const newIsLike = newPost.likeUsers.filter((p: IPost) => p.id === userInfo.id).length === 0 ? false : true;
         const _bandId = newPost.author.id;
+        const newRecruiting = newPost.recruiting;
         setLikeCnt(newLikeCnt);
         setIsLike(newIsLike);
         setPost(newPost);
         setComments(newComments);
+        setrecruiting(newRecruiting);
 
         // set band member ids
         getBandInfoAPI(_bandId)
@@ -77,6 +82,18 @@ function PostDetail(): React.ReactElement {
       });
     }
   }, [postId, state, userInfo.id]);
+
+  // recruiting effect
+  useEffect(() => {
+    const ele = document.querySelector('.MuiSwitch-root > span');
+    if (!ele) return
+
+    if (recruiting) { // 모집중
+      ele.classList.remove('Mui-checked');
+    } else { //모집 완료
+      ele.classList.add('Mui-checked');
+    }
+  }, [recruiting]);
 
   // likes
   const handleLike = () => {
@@ -119,6 +136,19 @@ function PostDetail(): React.ReactElement {
   const handleDelete = () => {
     console.log(postId)
   }
+
+  // 모집 완료 여부 toggle
+  const handleProgress = (e: any) => {
+    const ele = document.querySelector('.MuiSwitch-root > span');
+    if (!ele) return
+
+    const classList = [...Array.from(ele.classList)];
+    if (classList.indexOf('Mui-checked') !== -1) {  // 모집중
+      setrecruiting(true);
+    } else {  // 완료
+      setrecruiting(false);
+    };
+  };
 
   // need to change tmp
   useEffect(() => {
@@ -180,14 +210,25 @@ function PostDetail(): React.ReactElement {
                   imageUrl={post.author.imageUrl}
                 />
                 { ((state.teamFlag === 0 && memberWriter === userInfo.id) || (state.teamFlag === 1 && bandWriters.indexOf(userInfo.id) !== -1)) &&
-                  <Button
-                    variant="contained"
-                    color="error"
-                    className="delete-btn"
-                    onClick={handleDelete}
-                  >
-                    게시글 삭제
-                  </Button>
+                  <div className="edit-btns-container">
+                    <Button
+                      variant="contained"
+                      color="error"
+                      className="btn"
+                      onClick={handleDelete}
+                    >
+                      게시글 삭제
+                    </Button>
+                    <div className="progress-container">
+                      <Switch
+                        id="progress-switch"
+                        onClick={handleProgress}
+                        value="on" 
+                      />
+                      { recruiting ? ( <p className="progress-text">모집중</p> ) : ( <p className="progress-text">모집완료</p> ) }
+                    </div>
+                    
+                  </div>
                 }
               </div>
             </Grid>

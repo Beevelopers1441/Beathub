@@ -103,13 +103,30 @@ const Wrapper = styled.div`
   & .right-sidebar-container {
     width: 252px;
     text-align: end;
-  }
-  & .delete-btn {
-    width: max-content;
-    margin: 2rem 0 0 2rem;
-    border-radius: 12px;
-    font-size: 1rem;
-    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+
+    & .edit-btns-container {
+
+      & .progress-container {
+        margin-top: 1rem;
+      }
+      & .progress-text {
+        display: inline-block;
+        font-weight: 400;
+        min-width: 90px;
+        text-align: center;
+        padding: 0.5rem 0.7rem;
+        background-color: blue;
+        border-radius: 12px;
+        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+      }
+      & .btn {
+        width: 120px;
+        margin: 1.5rem 0 0 2rem;
+        border-radius: 12px;
+        font-size: 1rem;
+        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+      }
+    }
   }
 `
 

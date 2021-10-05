@@ -7,7 +7,7 @@ import { Comment, ProfileCard } from 'components/Community';
 import InstItem from 'components/atoms/InstItem';
 
 // apis
-import { getMemberPost, getBandPost, setComment, setLikeAPI, setUnlikeAPI, getBandInfoAPI } from 'lib/api/community';
+import { getMemberPost, getBandPost, setComment, setLikeAPI, setUnlikeAPI, getBandInfoAPI, deletePostAPI } from 'lib/api/community';
 import { setDateFormat } from 'utils/time';
 
 // types
@@ -134,8 +134,12 @@ function PostDetail(): React.ReactElement {
 
   // 게시글 삭제
   const handleDelete = () => {
-    console.log(postId)
-  }
+    deletePostAPI(+postId)
+      .then(res => {
+        console.log(res);
+        history.replace({ pathname: '/community'});
+      });
+  };
 
   // 모집 완료 여부 toggle
   const handleProgress = (e: any) => {

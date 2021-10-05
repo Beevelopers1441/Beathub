@@ -10,7 +10,7 @@ function SaveBtn({ onToggleEdit, onUpdate }: IProps) {
 
   const onClickSave = () => {
     onToggleEdit();
-    onUpdate()
+    onUpdate();
   }
 
   return(

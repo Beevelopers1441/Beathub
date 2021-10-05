@@ -65,7 +65,7 @@ const Navbar: React.FC<Props> = ({ bandInfo }) => {
           : currentTab === "intro" ?
           <Intro bandInfo={bandInfo}></Intro>
           : currentTab === "management" ?
-          <Management />
+          <Management bandInfo={bandInfo} />
           :
           <Musics></Musics>
         }

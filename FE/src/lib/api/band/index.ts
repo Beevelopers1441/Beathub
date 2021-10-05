@@ -9,6 +9,9 @@ const bandApply = async (bandId: Number) => {
   const config: any = {
     method: 'POST',
     url:`${BASE_URL}bandMember/${bandId}`,
+    params: {
+      bandId,
+    },
     headers: {
       Authorization: TOKEN,
     }
@@ -16,5 +19,61 @@ const bandApply = async (bandId: Number) => {
   return await axios(config);
 };
 
+// 밴드 정보
+const getBandInfosAPI = async (bandId: number) => {
+  const config: any = {
+    method: 'GET',
+    url:`${BASE_URL}bands/${bandId}`,
+    params: { bandId, },
+    headers: {
+      Authorization: TOKEN,
+    }
+  };
+  return await axios(config);
+}
 
-export { bandApply };
+// 밴드 가입 신청한 정보
+const getWaitingBandMembersAPI = async () => {
+  const config: any = {
+    method: 'GET',
+    url:`${BASE_URL}bandMember/apply`,
+    headers: {
+      Authorization: TOKEN,
+    }
+  };
+  return await axios(config);
+};
+
+// 밴드 가입 승인
+const approveAPI = async (bandId: number, userId: number) => {
+  const config: any = {
+    method: 'POST',
+    url:`${BASE_URL}bandMember/approve`,
+    data: {
+      bandId,
+      userId,
+    },
+    headers: {
+      Authorization: TOKEN,
+    }
+  };
+  return await axios(config);
+};
+
+const disapproveAPI = async (bandId: number, userId: number) => {
+  const config: any = {
+    method: 'POST',
+    url:`${BASE_URL}bandMember/deny`,
+    data: {
+      bandId,
+      userId,
+    },
+    headers: {
+      Authorization: TOKEN,
+    }
+  };
+  return await axios(config);
+};
+
+
+export { bandApply, getBandInfosAPI, getWaitingBandMembersAPI, approveAPI, disapproveAPI };

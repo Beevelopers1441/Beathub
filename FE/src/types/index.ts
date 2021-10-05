@@ -129,3 +129,9 @@ export interface BandMember {
     type: string
   }
 }
+
+export interface UpdateBand {
+  bandProfileImage: string,
+  introduction: string,
+  name: string,
+}

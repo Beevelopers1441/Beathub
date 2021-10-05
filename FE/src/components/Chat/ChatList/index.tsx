@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { openAction } from 'modules/chat/actions';
 
@@ -21,10 +21,13 @@ import Wrapper from './styles';
 
 function ChatList(): React.ReactElement {
   const [chatList, setChatList] = useState<IChatItem[]>([]);
+  const [currChatList, setCurrChatList] = useState<IChatItem[]>([]);
+  const [currSearchInput, setCurrSearchInput] = useState<string>('');
   const [roomNumbers, setRoomNumbers] = useState<Set<string>>(new Set([]));
+
   const { userInfo } = useSelector((state: any) => state.user);
   const chat = useSelector((state: any) => state.chat);
-  
+  const searchRef: any = useRef();
   const dispatch = useDispatch();
 
   // init chatRoomList
@@ -99,11 +102,30 @@ function ChatList(): React.ReactElement {
   useEffect(() => {
     const newChatList = [...chatList];
     newChatList.sort((a, b) => (+(new Date(b.lastCreateTime)) - +(new Date(a.lastCreateTime))));  // 최신 메시지 순 정렬
+
+    // init currChatList and init search input
+    setCurrChatList([...chatList]);
+    searchRef.current.value = '';
   }, [chatList])
 
   const handleOpen = () => {
     dispatch(openAction());
   }
+
+  // search input
+  const handleSearchInput = (e: any) => {
+    if (e.key === 'Enter') {
+      const newSearchInput = searchRef?.current.value.trim().toLowerCase();
+      console.log(newSearchInput)
+      if (!newSearchInput) {  // input 값이 없으면
+        setCurrChatList([...chatList]);
+      } else {
+        let newCurrChatList = [...chatList];
+        newCurrChatList = newCurrChatList.filter(chatList => chatList.userInfo.name.toLowerCase().indexOf(newSearchInput) !== -1);
+        setCurrChatList(newCurrChatList);
+      };
+    };
+  };
 
   return (
     <>
@@ -125,20 +147,23 @@ function ChatList(): React.ReactElement {
                 <div className="search-container">
                   <Search className="search-icon" />
                   <input
+                    ref={searchRef}
+                    onKeyPress={handleSearchInput}
                     type="text"
                     placeholder="Search"
                     className="search-input"
                   />
                 </div>
                 <div>
-                  {chatList.map((item, idx) => {
-                    return (
-                      <ChatListItem
-                        item={item}
-                        key={`chatItem-${idx}`}
-                      />
-                    )
-                  })}
+                  { currChatList.map((item, idx) => {
+                      return (
+                        <ChatListItem
+                          item={item}
+                          key={`chatItem-${idx}`}
+                        />
+                      );
+                    })
+                  }
                 </div>
               </div>
             </>

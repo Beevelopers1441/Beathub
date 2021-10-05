@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 
 import EditBtn from '../EditBtn';
 
@@ -8,12 +9,15 @@ import Wrapper from './styles';
 import { Band } from 'types';
 
 import { updateGroupProfile } from 'lib/api/groupProfile';
+import { refreshPageAction } from 'modules/user/actions';
 
 interface Props {
   band: Band;
 }
 
 const Content: React.FC<Props> = ({ band }: Props) => {
+
+  const dispatch = useDispatch();
 
   const [editing, SetEditing] = useState(false);
   const [_name, SetName] = useState(band.name);
@@ -41,6 +45,7 @@ const Content: React.FC<Props> = ({ band }: Props) => {
     updateGroupProfile(band.id, payload)
     .then(res => {
       console.log(res)
+      dispatch(refreshPageAction());
     })
   }
 

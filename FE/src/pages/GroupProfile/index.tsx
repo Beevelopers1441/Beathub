@@ -1,5 +1,6 @@
 import React, { useEffect, useState }  from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // Components
 import { GroupProfileInfo, GroupProfileBoard } from 'components';
@@ -21,6 +22,8 @@ interface MatchParam {
 
 
 const GroupProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
+
+  const refreshPage = useSelector((state: any) => state.user)
 
   const [groupInfo, setGroupInfo] = useState<BandProfileInfo>({
     band: {
@@ -68,7 +71,7 @@ const GroupProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
         posts: totalInfo.posts
       })
     })
-  }, [match.params.groupId])
+  }, [match.params.groupId, refreshPage])
 
   return(
     <Wrapper>

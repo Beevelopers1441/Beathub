@@ -1,34 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 
 import Wrapper from './styles';
 import { Grid } from '@mui/material';
 import add from 'assets/svgs/add.svg';
 
-import EditFormInstList from './EditFormInstList';
+// import EditFormInstList from './EditFormInstList';
 import SaveBtn from './SaveBtn';
 import CancelBtn from './CancelBtn';
 
-// 더미 악기 목록
-const dummyInstruments = [
-  {
-    name: "피아노",
-    skill: "上"
-  },
-  {
-    name: "드럼",
-    skill: "下"
-  },
-  {
-    name: "기타",
-    skill: "中"
-  },
-  {
-    name: "베이스",
-    skill: "上"
-  },
-]
+// types
+import { ProfileInfo } from 'types';
+
+// apis
+import { updateUserProfile } from 'lib/api/userProfile';
+
+import { refreshPageAction } from 'modules/user/actions';
+
 
 interface IProps {
+  userInfo: ProfileInfo,
   onToggleEdit: () => void
 }
 
@@ -39,7 +30,34 @@ interface IProps {
 //   }
 
 
-function EditForm({ onToggleEdit }: IProps) {
+function EditForm({ userInfo, onToggleEdit }: IProps) {
+  const dispatch = useDispatch();
+
+  const [_name, SetName] = useState(userInfo.nickname);
+  const [_intro, SetIntro] = useState(userInfo.introduction);
+  
+  const onChangeName = (e: React.FormEvent<HTMLInputElement>) => {
+    var newValue = e.currentTarget.value;
+    SetName(newValue)
+  }
+
+  const onChangeIntro = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    var newValue = e.currentTarget.value;
+    SetIntro(newValue)
+  }
+
+  const onUpdate = () => {
+    const imageUrl = userInfo.imageUrl
+    const name = _name
+    const introduction = _intro
+    const payload = { imageUrl, name, introduction }
+    updateUserProfile(userInfo.id, payload)
+    .then(res => {
+      console.log(res)
+      dispatch(refreshPageAction());
+    })
+
+  }
 
   return(
     <Wrapper>
@@ -49,7 +67,8 @@ function EditForm({ onToggleEdit }: IProps) {
         <input
           type="text"
           className="post-input"
-          placeholder="기존 아이디"
+          value={_name}
+          onChange={onChangeName}
         />
       </div>
       {/* 자기소개 수정 */}
@@ -57,8 +76,9 @@ function EditForm({ onToggleEdit }: IProps) {
         <p className="post-p">자기소개</p>
         <textarea
           className="post-input post-textarea"
-          placeholder="기존 자기소개"
+          value={_intro}
           maxLength={200}
+          onChange={onChangeIntro}
         />
       </div>
       {/* 악기 목록 수정 */}
@@ -73,7 +93,7 @@ function EditForm({ onToggleEdit }: IProps) {
       <div className="button-container">
         <Grid container direction="row">
           <Grid item xs={6}>
-            <SaveBtn onToggleEdit={onToggleEdit}></SaveBtn>
+            <SaveBtn onToggleEdit={onToggleEdit} onUpdate={onUpdate}></SaveBtn>
           </Grid>
           <Grid item xs={6}>
             <CancelBtn onToggleEdit={onToggleEdit}></CancelBtn>

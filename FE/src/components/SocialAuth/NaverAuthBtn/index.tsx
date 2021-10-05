@@ -97,7 +97,7 @@ export const NaverAuthBtn = (): React.ReactElement => {
   return (
     <NaverLogin
       clientId="jHT5HdEtOh3_p63OeyVr"
-      callbackUrl="/login"
+      callbackUrl="http://127.0.0.1:3000/login"
       render={(props) => <button className="btn-naver" onClick={props.onClick}>네이버로 로그인 하기</button>}
       onSuccess={(result) => onSuccess(result)}
       onFailure={() => console.error()}

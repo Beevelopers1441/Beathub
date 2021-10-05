@@ -61,7 +61,7 @@ export interface ProfileInfo {
   imageUrl: string,
   email: string,
   nickname: string,
-  introduction?: string,
+  introduction: string,
   instruments: Instrument[],
   participatingBands:Band[],
   followBands: Band[],
@@ -132,6 +132,12 @@ export interface BandMember {
 
 export interface UpdateBand {
   bandProfileImage: string,
+  introduction: string,
+  name: string,
+}
+
+export interface UpdateUser {
+  imageUrl: string,
   introduction: string,
   name: string,
 }

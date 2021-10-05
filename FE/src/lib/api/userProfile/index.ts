@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { UpdateUser } from 'types';
+import { UpdateInstList } from 'types';
 
 const BASE_URL = process.env.REACT_APP_SERVER_URL;
 const TOKEN = localStorage.getItem('userToken');
@@ -69,4 +70,21 @@ const updateUserProfile = async (userId: Number, payload: UpdateUser) => {
 };
 
 
-export { getUserProfile, followUser, unFollowUser, getFollowList, updateUserProfile };
+// 악기 목록 수정
+const updateInstList = async ({instruments}: UpdateInstList) => {
+
+  const data = instruments;
+
+  const config: any = {
+    method: 'PUT',
+    data,
+    url:`${BASE_URL}instrument`,
+    headers: {
+      Authorization: TOKEN,
+    },
+  }
+  return await axios(config);
+};
+
+
+export { getUserProfile, followUser, unFollowUser, getFollowList, updateUserProfile, updateInstList };

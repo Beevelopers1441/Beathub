@@ -49,7 +49,7 @@ function PostCreate(props: Props): React.ReactElement {
         const newBandList = res.data.leadingBands.map((band: Band) => band.name);
         setBandList(newBandList);
       })
-  }, []);
+  }, [userInfo.id]);
 
   // teamFlag에 따른 create 양식 변경
   useEffect(() => {

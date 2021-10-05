@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 
 // Components
 import { Posts, LinkTab, CommunitySearch } from 'components/Community';
@@ -9,7 +9,6 @@ import { Posts, LinkTab, CommunitySearch } from 'components/Community';
 import { getBandPosts, getMemberPosts } from 'lib/api/community';
 
 // utils
-import { forcedOpenAction, openChatRoomAction, setCountpartUserAction } from 'modules/chat/actions';
 import { setTeamFlagColor } from 'utils/community';
 
 // styles
@@ -30,9 +29,19 @@ function Community(props: Props): React.ReactElement {
   const [currTag, setCurrTag] = useState('');
 
   const titleRef: any = useRef();
+  const { userInfo } = useSelector((state: any) => state.user);
   const { state } = useLocation<any>();
+  const history = useHistory();
 
-  // constructor
+  // redirect to login
+  useEffect(() => {
+    if (!userInfo.isLoggedIn) {
+      const loc = { pathname: '/login' };
+      history.replace(loc);
+    };
+  }, [history, userInfo.isLoggedIn]);
+
+  // team flag select
   useEffect(() => {
     if (teamFlag === 0) {  // member post(개인이 팀 구하기)
       getMemberPosts()
@@ -126,22 +135,8 @@ function Community(props: Props): React.ReactElement {
     };
   };
 
-  // test
-  const dispatch = useDispatch();
-  const handleChatOpen = () => {
-    dispatch(forcedOpenAction());
-    dispatch(openChatRoomAction());
-    const newCountpartUser = {  // need to change
-      id: 3,
-      imageUrl: 'https://lh3.googleusercontent.com/a/AATXAJyVl4NSWtw1lfe-f0WDqqMcLOQzbliU693lFFsn=s96-c',
-      name: '선규전',
-    };
-    dispatch(setCountpartUserAction({ userInfo: newCountpartUser }));
-  };
-
   return (
     <Wrapper>
-      <div onClick={handleChatOpen}>TEST</div>
       <Container className="community-container">
         <Grid container className="sub-container">
           <Grid item xs={2} className="teamFlag-container">

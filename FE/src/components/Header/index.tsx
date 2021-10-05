@@ -49,7 +49,7 @@ function Header(): React.ReactElement {
       <div className="header-container">
         <div className="left-container">
           <div onClick={() => handleRouting('/')} className="logo-container">
-            <img src={logo} alt="logo" />
+            <img src={logo} alt="logo" className="logo" />
           </div>
           <ul>
             <li onClick={() => handleRouting('/Beathub')}>Beathub</li>

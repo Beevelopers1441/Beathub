@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { UpdateBand } from 'types';
+
 const BASE_URL = process.env.REACT_APP_SERVER_URL;
 const TOKEN = localStorage.getItem('userToken');
 
@@ -47,4 +49,25 @@ const getGroupFollowList = async (bandId: Number) => {
 };
 
 
-export { getGroupProfile, followGroup, unFollowGroup, getGroupFollowList };
+// 그룹 프로필 수정
+const updateGroupProfile = async (bandId: Number, payload: UpdateBand) => {
+
+  const data = {
+    bandProfileImage: payload.bandProfileImage,
+    introduction: payload.introduction,
+    name: payload.name,
+  }
+
+  const config: any = {
+    method: 'PUT',
+    data,
+    url:`${BASE_URL}bands/${bandId}`,
+    headers: {
+      Authorization: TOKEN,
+    },
+  }
+  return await axios(config);
+};
+
+
+export { getGroupProfile, followGroup, unFollowGroup, getGroupFollowList, updateGroupProfile };

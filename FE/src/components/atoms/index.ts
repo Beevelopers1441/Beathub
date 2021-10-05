@@ -1,3 +1,4 @@
 import ProfileImage from './ProfileImage';
+import InstItem from './InstItem';
 
-export { ProfileImage };
+export { ProfileImage, InstItem };

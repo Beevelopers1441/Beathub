@@ -2,13 +2,15 @@ import React from 'react';
 import Wrapper from './styles';
 
 interface IProps {
-  onToggleEdit: () => void
+  onToggleEdit: () => void,
+  onUpdate: () => void
 }
 
-function SaveBtn({ onToggleEdit }: IProps) {
+function SaveBtn({ onToggleEdit, onUpdate }: IProps) {
 
   const onClickSave = () => {
     onToggleEdit();
+    onUpdate()
   }
 
   return(

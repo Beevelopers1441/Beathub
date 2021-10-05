@@ -136,5 +136,21 @@ const getBandInfoAPI = async (bandId: number) => {
   return await axios(config);
 };
 
+// delete
+const deletePostAPI = async (postId: number) => {
+  const config: any = {
+    method: 'DELETE',
+    url: `${BASE_URL}posts/${postId}`,
+    params: {
+      postId,
+    },
+    headers: {
+      Authorization: TOKEN,
+    },
+  };
+  return await axios(config);
+};
 
-export { getMemberPosts, getMemberPost, setMemberPost, getBandPosts, getBandPost, setBandPost, setComment, setLikeAPI, setUnlikeAPI, getBandInfoAPI };
+
+export { getMemberPosts, getMemberPost, setMemberPost, getBandPosts, getBandPost, 
+  setBandPost, setComment, setLikeAPI, setUnlikeAPI, getBandInfoAPI, deletePostAPI };

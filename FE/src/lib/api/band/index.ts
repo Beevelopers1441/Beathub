@@ -5,12 +5,12 @@ const TOKEN = localStorage.getItem('userToken');
 
 
 // 밴드 가입신청
-const bandApply = async (bandId: Number) => {
+const bandApply = async (bandId: Number, instrument: string) => {
   const config: any = {
     method: 'POST',
     url:`${BASE_URL}bandMember/${bandId}`,
-    params: {
-      bandId,
+    data: {
+      instrument,
     },
     headers: {
       Authorization: TOKEN,
@@ -60,6 +60,7 @@ const approveAPI = async (bandId: number, userId: number) => {
   return await axios(config);
 };
 
+// 밴드 가입 거절
 const disapproveAPI = async (bandId: number, userId: number) => {
   const config: any = {
     method: 'POST',

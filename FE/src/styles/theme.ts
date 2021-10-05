@@ -16,7 +16,18 @@ const theme = {
     purple: '#7B42F6',
     violet: '#B01EFF',
     pink: '#FF6780',
-    subGrey: '#ABB0B5'
+    blue: '#3672F8',
+    teal: '#56CCF2',
+    green: '#A6E1D5',
+    teurquoise: '#14F1D9',
+    subGrey: '#ABB0B5',
+    // gredient
+    purpleViolet: 'linear-gradient(117.03deg, #7B42F6 0%, #B01EFF 100%)',
+    violetPink: 'linear-gradient(117.03deg, #B01EFF 0%, #E1467C 100%)',
+    pinkDarkGreen: 'linear-gradient(117.03deg, #E1467C 0%, #205284 100%)',
+    blueViolet: 'linear-gradient(117.03deg, #3672F8 0%, #B01EFF 100%)',
+    blueMarine: 'linear-gradient(115.74deg, #14F1D9 1.79%, #3672F8 100%)',
+    deepBlue: 'linear-gradient(93.96deg, #4F73C3 0%, #3C46A2 100%)'
   },
 
   font: {

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 
 // component
-import { AudioList, AudioUpload } from 'components/Beathub';
+import { AudioList, AudioUpload, BeathubMain } from 'components/Beathub';
 
 // types
 import { AudioInfo } from 'types';
@@ -18,46 +18,10 @@ import { type } from 'os';
 // interface Props {
 //   Audios: Audio[]
 // }
-// 더미 오디오 목록
-const dummyAudios = [
-  {
-    userInfo: {
-      imageUrl: "string",
-      name: "userA"
-    },
-    title: "RecordA",
-    instrument: "instrumentA",
-    fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
-  },
-  {
-    userInfo: {
-      imageUrl: "string",
-      name: "userB"
-    },
-    title: "RecordB",
-    instrument: "instrumentB",
-    fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
-    
-  },
-  {
-    userInfo: {
-      imageUrl: "string",
-      name: "userC"
-    },
-    title: "RecordC",
-    instrument: "instrumentC",
-    fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
-  },
-  {
-    userInfo: {
-      imageUrl: "string",
-      name: "userD"
-    },
-    title: "RecordD",
-    instrument: "instrumentD",
-    fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
-  }
-]
+
+// dummies
+import { dummyAudios } from './dump'
+
 
 function Beathub(): ReactElement {
   
@@ -65,8 +29,13 @@ function Beathub(): ReactElement {
     <Wrapper>
       <Container className="beathub-container">
         <Grid container className="sub-container">
-          <AudioUpload />
-          <AudioList Audios={dummyAudios} />
+          <Grid item xs={6}>
+            <BeathubMain Audios={dummyAudios}></BeathubMain>
+          </Grid>
+          <Grid item xs={6}>
+            <AudioUpload />
+            <AudioList Audios={dummyAudios} />
+          </Grid>
         </Grid>
       </Container>
     </Wrapper>

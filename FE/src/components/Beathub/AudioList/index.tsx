@@ -19,7 +19,7 @@ function AudioList({ Audios }: Props): React.ReactElement {
   return (
     <Wrapper>
       <Grid container>
-        <Grid item xs={3} className="audio-info-container">
+        <Grid item xs={12} className="audio-info-container">
           {Audios
           ? Audios.map((AudioItem:AudioInfo, idx:number) => (
               <AudioListItem AudioInfo={AudioItem} key={idx} />

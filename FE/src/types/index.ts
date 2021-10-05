@@ -37,6 +37,7 @@ export interface IMessage {
 export interface IChatItem {
   userInfo: IBasicUser;
   lastMessage: string;
+  lastCreateTime: string;
 }
 
 export interface ProfileObj {
@@ -91,7 +92,8 @@ export interface Band {
   id: number,
   name: string,
   imageUrl: string,
-  introduction: string
+  introduction: string,
+  createTime: Date,
 }
 
 export interface Leader {

@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { openAction } from 'modules/chat/actions';
 
 // firebase
 import { db } from 'utils/Firebase/firebaseConfig';
+
+// apis
+import { getUserProfile } from 'lib/api/userProfile';
 
 // component
 import ChatRoom from '../ChatRoom'
 import ChatListItem from './ChatListItem';
 
 // types
-import { IChatItem, IBasicUser } from 'types';
+import { IChatItem } from 'types';
 
 // styles
 import { Cancel, Search } from '@mui/icons-material';
 import Wrapper from './styles';
-interface Props {
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
-
-
-function ChatList({ isOpen, setIsOpen }: Props): React.ReactElement {
+function ChatList(): React.ReactElement {
   const [chatList, setChatList] = useState<IChatItem[]>([]);
-  const [isChatRoom, setIsChatRoom] = useState<boolean>(false);
-  const [currYou, setCurrYou] = useState<IBasicUser | null>(null);
+  const [roomNumbers, setRoomNumbers] = useState<Set<string>>(new Set([]));
   const { userInfo } = useSelector((state: any) => state.user);
+  const chat = useSelector((state: any) => state.chat);
+  
+  const dispatch = useDispatch();
 
   // init chatRoomList
   useEffect(() => {
@@ -35,29 +35,59 @@ function ChatList({ isOpen, setIsOpen }: Props): React.ReactElement {
         querySnapshot.forEach((doc) => {
           const _docData = doc.data();
           const participants = _docData.participants;
-          const myIdx = participants.indexOf(userInfo.id);
-          participants.splice(myIdx, 1);
-          const you = participants.pop();
+          participants.sort((a: number, b: number)=> a - b)
+          const roomNumber: string = participants.join(',');
 
-          
-          const newChat = {
-            userInfo: { id: 0, imageUrl: '', name: '' },
-            lastMessage: ''
-          }
-          const messages = doc.data().messages;
-          if (messages) {
-            for (const message of messages) {
-              if (message.userInfo.id === you) {
-                newChat.userInfo = message.userInfo;
-                newChat.lastMessage = messages[messages.length-1].text;
-                const newChatList = [...chatList, newChat];
-                if (newChatList) {
-                  setChatList(newChatList);
-                }
-                break;
+          if (!roomNumbers.has(roomNumber)) {
+            const newRoomNumbers = new Set([...Array.from(roomNumbers), roomNumber]);
+            setRoomNumbers(newRoomNumbers);
+
+            const myIdx = participants.indexOf(userInfo.id);
+            participants.splice(myIdx, 1);
+            const you = participants.pop();
+            
+            const newChat = {
+              userInfo: { id: 0, imageUrl: '', name: '' },
+              lastMessage: '',
+              lastCreateTime: '',
+            }
+            const messages = _docData.messages;
+            if (messages) {
+              let _flag = false;
+              for (const message of messages) {
+                if (message.userInfo.id === you) {  // 상대방이 남긴 메시지가 있으면
+                  newChat.userInfo = message.userInfo;
+                  newChat.lastMessage = messages[messages.length-1].text;
+                  newChat.lastCreateTime = messages[messages.length-1].createdAt;
+                  const newChatList = [...chatList, newChat];
+                  if (newChatList) {
+                    setChatList(newChatList);
+                  };
+                  _flag = true;
+                  break;
+                };
+
+              if (!_flag) {  // 나만 메시지를 남겼으면
+                getUserProfile(you)
+                  .then((res) => {
+                    const y = res.data;
+                    const youInfo = {
+                      id: y.id,
+                      imageUrl: y.imageUrl,
+                      name: y.name
+                    };
+                    newChat.userInfo = youInfo;
+                    newChat.lastMessage = messages[messages.length-1].text;
+                    newChat.lastCreateTime = messages[messages.length-1].createdAt;
+                    const newChatList = [...chatList, newChat];
+                    if (newChatList) {
+                      setChatList(newChatList);
+                    };
+                  });
+              };
               };
             };
-          }
+          };
         });
       })
       .catch((error) => {
@@ -65,30 +95,26 @@ function ChatList({ isOpen, setIsOpen }: Props): React.ReactElement {
       });
   }, [userInfo])
 
-  const handleOpen = () => {
-    setIsOpen(false);
-  }
+  // sort chatList
+  useEffect(() => {
+    const newChatList = [...chatList];
+    newChatList.sort((a, b) => (+(new Date(b.lastCreateTime)) - +(new Date(a.lastCreateTime))));  // 최신 메시지 순 정렬
+  }, [chatList])
 
-  // tmp function
-  const handleTest = (id: number) => {
-    setIsChatRoom(true);
-    setCurrYou({ 
-      id, 
-      imageUrl: 'https://lh3.googleusercontent.com/a/AATXAJyVl4NSWtw1lfe-f0WDqqMcLOQzbliU693lFFsn=s96-c',
-      name: '테스트유저'
-    });
+  const handleOpen = () => {
+    dispatch(openAction());
   }
 
   return (
     <>
-      { isOpen ? (
+      { chat.isOpen ? (
         <Wrapper>
-          { isChatRoom ? (
+          { chat.isChatRoom ? (
             <ChatRoom 
-              setIsChatRoom={setIsChatRoom}
-              currYou={currYou}
               chatList={chatList}
-              setChatList={setChatList} 
+              setChatList={setChatList}
+              roomNumbers={roomNumbers}
+              setRoomNumbers={setRoomNumbers}
             />
           ) : (
             <>
@@ -105,16 +131,11 @@ function ChatList({ isOpen, setIsOpen }: Props): React.ReactElement {
                   />
                 </div>
                 <div>
-                  <div>
-                    <span onClick={() => handleTest(1)}>테스트 사용자1</span>$nbsp$nbsp<span onClick={() => handleTest(3)}>테스트사용자3</span>
-                  </div>
                   {chatList.map((item, idx) => {
                     return (
                       <ChatListItem
                         item={item}
-                        setIsChatRoom={setIsChatRoom}
-                        setCurrYou={setCurrYou}
-                        key={idx}
+                        key={`chatItem-${idx}`}
                       />
                     )
                   })}

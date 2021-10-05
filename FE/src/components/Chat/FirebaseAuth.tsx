@@ -36,7 +36,7 @@ function FirebaseAuth(): React.ReactElement {
         // ..
       });
 
-  }, []);
+  }, [user]);
 
   return (
     <>

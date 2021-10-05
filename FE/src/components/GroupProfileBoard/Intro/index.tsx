@@ -5,12 +5,20 @@ import MemberList from './MemberList';
 
 import Wrapper from './styles';
 
-function Intro() {
+// types
+import { BandProfileInfo } from 'types';
+
+interface Props {
+  bandInfo: BandProfileInfo;
+}
+
+const Intro: React.FC<Props> = ({ bandInfo }) => {
+
   return(
     <Wrapper>
-      <Content></Content>
-      <BandMaster></BandMaster>
-      <MemberList></MemberList>
+      <Content introduction={bandInfo.band.introduction}></Content>
+      <BandMaster master={bandInfo.leader}></BandMaster>
+      <MemberList members={bandInfo.members}></MemberList>
     </Wrapper>
   )
 }

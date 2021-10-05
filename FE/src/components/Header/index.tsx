@@ -14,6 +14,7 @@ import { logoutAction } from 'modules/user/actions';
 // import { Notifications } from '@mui/icons-material';
 import Wrapper from './styles';
 import defaultProfileImg from 'assets/constants/defaultProfileImg.png';
+import logo from 'assets/svgs/logo.svg';
 
 function Header(): React.ReactElement {
   const history = useHistory();
@@ -48,7 +49,7 @@ function Header(): React.ReactElement {
       <div className="header-container">
         <div className="left-container">
           <div onClick={() => handleRouting('/')} className="logo-container">
-            Logo
+            <img src={logo} alt="logo" />
           </div>
           <ul>
             <li onClick={() => handleRouting('/Beathub')}>Beathub</li>

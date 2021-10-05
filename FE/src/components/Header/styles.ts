@@ -29,6 +29,7 @@ const Wrapper = styled.div`
     }
     & ul {
       display: flex;
+      align-items: center;
 
       & li {
         margin: 0 1.5rem;

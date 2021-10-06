@@ -27,17 +27,17 @@ function Beathub(): ReactElement {
   
   return (
     <Wrapper>
-      <Container className="beathub-container">
-        <Grid container className="sub-container">
-          <Grid item xs={6}>
-            <BeathubMain Audios={dummyAudios}></BeathubMain>
-          </Grid>
-          <Grid item xs={6}>
-            <AudioUpload />
+      <Container className="upload-container">
+        <AudioUpload />
+      </Container>
+        <Grid container className="beathub-container">
+          <Grid item xs={8} className="editor-container">
+            <h1>Audio Editor</h1>  
+        </Grid>
+          <Grid item xs={4} className="audio-info-container">
             <AudioList Audios={dummyAudios} />
           </Grid>
         </Grid>
-      </Container>
     </Wrapper>
 
   )

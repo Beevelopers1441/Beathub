@@ -131,7 +131,7 @@ public class BandController {
     @DeleteMapping("/{bandId}")
     public ResponseEntity delete(
             @RequestHeader(value = "Authorization") String jwtToken,
-            @PathParam(value = "bandId") Long bandId) {
+            @PathVariable(value = "bandId") Long bandId) {
 
         Optional<User> searchUser = jwtService.returnUser(jwtToken);
         Optional<Band> searchBand = bandService.findById(bandId);

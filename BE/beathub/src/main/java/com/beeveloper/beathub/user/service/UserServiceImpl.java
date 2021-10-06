@@ -42,15 +42,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void like(User user, Post post) {
         user.addLikePost(post);
-        post.getLikeUsers().add(user);
         userRepository.save(user);
-        postRepository.save(post);
     }
 
     @Override
     public void unLike(User user, Post post) {
         user.removeLikePost(post);
-        post.getLikeUsers().remove(user);
         userRepository.save(user);
     }
 

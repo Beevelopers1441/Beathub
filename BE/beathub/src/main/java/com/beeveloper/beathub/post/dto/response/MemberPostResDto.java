@@ -30,13 +30,13 @@ public class MemberPostResDto {
     private String content;
 
     @ApiModelProperty(name = "작성자", example = "한상진")
-    private UserInfoDto author;
+    private SimpleAuthorDto author;
 
     @ApiModelProperty(name="모집 여부", example = "true")
     private boolean isRecruiting;
 
     @ApiModelProperty(name="작성 시간", example = "2021-09-15")
-    private String createTime;
+    private LocalDateTime createTime;
 
     private List<CommentResDto> comments;
 
@@ -50,9 +50,9 @@ public class MemberPostResDto {
         memberPostResDto.title = memberPost.getTitle();
         memberPostResDto.content = memberPost.getContent();
         memberPostResDto.isRecruiting = memberPost.isRecruiting();
-        memberPostResDto.createTime = LocalDateTime.now().toString();
+        memberPostResDto.createTime = memberPost.getCreateTime();
         memberPostResDto.likeUsers = UserInfoDto.ofUser(memberPost.getLikeUsers());
-        memberPostResDto.author = UserInfoDto.ofUser(memberPost.getAuthorUser());
+        memberPostResDto.author = SimpleAuthorDto.of(memberPost.getAuthorUser());
         memberPostResDto.comments = CommentResDto.of(memberPost.getComments());
         memberPostResDto.tag = TagInfoDto.of(memberPost.getTag());
         return memberPostResDto;

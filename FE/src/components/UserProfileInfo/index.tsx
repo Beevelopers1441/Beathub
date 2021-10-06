@@ -33,7 +33,7 @@ const UserProfileInfo: React.FC<Props> = ({ profileInfo }) => {
       <ProfileImg imageUrl={profileInfo.imageUrl}></ProfileImg>
       {onEdit ?
         <div>
-          <EditForm onToggleEdit={onToggleEdit}></EditForm>
+          <EditForm userInfo={profileInfo} onToggleEdit={onToggleEdit}></EditForm>
         </div>
         :
         <div>

@@ -6,6 +6,7 @@ import CommunitySearch from './Search';
 import Comment from './Comment';
 import ProfileCard from './ProfileCard';
 import InstrumentPicker from './InstrumentPicker';
+import BandPicker from './BandPicker';
 
 export {
   LinkTab,
@@ -16,4 +17,5 @@ export {
   Comment,
   ProfileCard,
   InstrumentPicker,
+  BandPicker,
 };

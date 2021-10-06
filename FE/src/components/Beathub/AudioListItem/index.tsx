@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 
 // component
 import MusicPlayer from 'components/Beathub/MusicPlayer';
+import { ProfileImage } from 'components/atoms';
+import AudioPlayer from 'components/Beathub/AudioPlayer';
 
 // types
 import { AudioInfo } from 'types';

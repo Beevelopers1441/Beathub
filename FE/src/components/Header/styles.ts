@@ -26,9 +26,14 @@ const Wrapper = styled.div`
     & .logo-container {
       margin-right: 3rem;
       cursor: pointer;
+
+      & .logo {
+        width: 2rem;
+      }
     }
     & ul {
       display: flex;
+      align-items: center;
 
       & li {
         margin: 0 1.5rem;
@@ -52,6 +57,26 @@ const Wrapper = styled.div`
       & .user-image {
         width: 30px;
         height: 30px;
+      }
+    }
+  }
+
+  & .logout-btn {
+    width: 50px;
+    height: 20px;
+    border-radius: 10px;
+    border: 1px solid #FFFFFF;
+    padding: 0.25rem;
+    margin-right: 1rem;
+
+    & .logout-btn-letter {
+      font-family: Spoqa Han Sans Neo;
+      font-style: normal;
+      font-size: 12px;
+      text-align: center;
+      color: #ABB0B5;
+      :hover {
+        color: #FFFFFF;
       }
     }
   }

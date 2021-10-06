@@ -28,6 +28,18 @@ export interface IPost {
   comments: IComment[];
 }
 
+// 채팅
+export interface IMessage {
+  userInfo: IBasicUser;
+  text: string;
+  createdAt: string;
+}
+export interface IChatItem {
+  userInfo: IBasicUser;
+  lastMessage: string;
+  lastCreateTime: string;
+}
+
 export interface ProfileObj {
   email: string,
   name: string,
@@ -49,7 +61,7 @@ export interface ProfileInfo {
   imageUrl: string,
   email: string,
   nickname: string,
-  introduction?: string,
+  introduction: string,
   instruments: Instrument[],
   participatingBands:Band[],
   followBands: Band[],
@@ -70,7 +82,7 @@ export interface FollowPerson {
 export interface BandProfileInfo {
   band: Band,
   leader: Leader,
-  members: Member[],
+  members: BandMember[],
   followers: {}[],
   buckets: {}[],
   posts: {}[],
@@ -80,7 +92,8 @@ export interface Band {
   id: number,
   name: string,
   imageUrl: string,
-  introduction: string
+  introduction: string,
+  createTime: Date,
 }
 
 export interface Leader {
@@ -103,4 +116,28 @@ export interface Member {
   id: number,
   name: string,
   imageUrl: string
+}
+
+export interface BandMember {
+  member: {
+    id: number,
+    name: string,
+    imageUrl: string
+  },
+  type: {
+    id: number,
+    type: string
+  }
+}
+
+export interface UpdateBand {
+  bandProfileImage: string,
+  introduction: string,
+  name: string,
+}
+
+export interface UpdateUser {
+  imageUrl: string,
+  introduction: string,
+  name: string,
 }

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 
 // component
-import { AudioList, AudioUpload } from 'components/Beathub';
+import { AudioList, AudioUpload, BeathubMain } from 'components/Beathub';
 
 // types
 import { AudioInfo } from 'types';

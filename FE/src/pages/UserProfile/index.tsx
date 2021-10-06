@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // Components
 import { UserProfileInfo, UserProfileBoard } from 'components';
@@ -24,6 +25,8 @@ interface IProfile {
 
 const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
 
+  const refreshPage = useSelector((state: any) => state.user)
+
   // state 초기화
   // 유저 프로필 정보 탭에 필요한 정보
   const [profileInfo, setProfileInfo] = useState<IProfile["profileInfo"]>({
@@ -41,12 +44,14 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
       name: "",
       imageUrl: "",
       introduction: "",
+      createTime: new Date(),
     }],
     followBands: [{
       id: 0,
       name: "",
       imageUrl: "",
       introduction: "",
+      createTime: new Date(),
     }]
   });
   
@@ -67,7 +72,7 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
         followBands: totalInfo.followBands
       })
     })
-  }, [match.params.userId])
+  }, [match.params.userId, refreshPage])
   
   return(
     <Wrapper>
@@ -77,7 +82,7 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
             <UserProfileInfo profileInfo={profileInfo}></UserProfileInfo>
           </Grid>
           <Grid item xs={9}>
-            <UserProfileBoard></UserProfileBoard>
+            <UserProfileBoard profileInfo={profileInfo}></UserProfileBoard>
           </Grid>
         </Grid>
       </Container>

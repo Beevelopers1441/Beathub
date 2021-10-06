@@ -238,7 +238,8 @@ web_modules/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+.env.development
+.env.production
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -338,5 +339,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# firebase key
+key/
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,java,react,node,visualstudiocode,intellij

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   position: fixed;
+  z-index: 100;
   right: 3rem;
   bottom: 6rem;
   width: 300px;
@@ -11,6 +12,7 @@ const Wrapper = styled.div`
   cursor: default;
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
   color: #0B101F;
+  
 
   & .cancel-container {
     display: flex;
@@ -51,6 +53,9 @@ const Wrapper = styled.div`
       -moz-appearance: none;
       appearance: none;
     }
+  }
+  & .user-image {
+    margin-right: 0.5rem;
   }
 `;
 

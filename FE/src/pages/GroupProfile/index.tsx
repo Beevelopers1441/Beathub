@@ -1,5 +1,6 @@
 import React, { useEffect, useState }  from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // Components
 import { GroupProfileInfo, GroupProfileBoard } from 'components';
@@ -22,12 +23,15 @@ interface MatchParam {
 
 const GroupProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
 
+  const refreshPage = useSelector((state: any) => state.user)
+
   const [groupInfo, setGroupInfo] = useState<BandProfileInfo>({
     band: {
       id: 0,
       name: "",
       imageUrl: "",
-      introduction: ""
+      introduction: "",
+      createTime: new Date(),
     },
     leader: {
       id: 0,
@@ -36,9 +40,15 @@ const GroupProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
     },
     members: [
       {
-        id: 0,
-        name: "",
-        imageUrl: ""
+        member: {
+          id: 0,
+          name: "",
+          imageUrl: ""
+        },
+        type: {
+          id: 0,
+          type: ""
+        }
       }
     ],
     followers: [],
@@ -61,7 +71,7 @@ const GroupProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
         posts: totalInfo.posts
       })
     })
-  }, [match.params.groupId])
+  }, [match.params.groupId, refreshPage])
 
   return(
     <Wrapper>
@@ -71,7 +81,7 @@ const GroupProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
             <GroupProfileInfo bandInfo={groupInfo}></GroupProfileInfo>
           </Grid>
           <Grid item xs={9}>
-            <GroupProfileBoard></GroupProfileBoard>
+            <GroupProfileBoard bandInfo={groupInfo}></GroupProfileBoard>
           </Grid>
         </Grid>
       </Container>

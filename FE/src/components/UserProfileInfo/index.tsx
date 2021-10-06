@@ -46,7 +46,7 @@ const UserProfileInfo: React.FC<Props> = ({ profileInfo }) => {
         </div>
       }
       <Follow id={profileInfo.id}></Follow>
-      <BandsList participatingBands={profileInfo.participatingBands}></BandsList>
+      <BandsList profileInfo={profileInfo}></BandsList>
     </div>
   )
 }

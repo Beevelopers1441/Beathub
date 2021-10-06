@@ -1,3 +1,5 @@
+import { Number } from "aws-sdk/clients/iot";
+
 export interface IBasicUser {
   id: number;
   imageUrl: string;
@@ -103,13 +105,15 @@ export interface Leader {
 }
 
 export interface AudioInfo {
-  userInfo: {
-    imageUrl: string;
-    name: string,
+  filename: string,
+  filepath: string,
+  id: Number,
+  instrumentType: string,
+  uploader: {
+    id: number,
+    imageUrl: string,
+    name: string
   }
-  title: string;
-  instrument: string;
-  fileUrl: string;
 }
 
 export interface Member {

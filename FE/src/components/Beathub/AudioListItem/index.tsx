@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
 import MusicWave from './MusicWave';
 
 import Wrapper from './styles';
 
+// types
 import { AudioInfo } from 'types';
+
+// actions
+import { addAction } from 'modules/beathub/actions';
 
 // styles
 import {
@@ -30,11 +36,13 @@ interface Props {
 
 function AudioListItem({ AudioInfo }: Props ) {
 
+  const dispatch = useDispatch();
+
   // 재생 여부
   const [playing, setPlaying] = useState<boolean>(false)
 
   // 악기 아이콘
-  const instrument = AudioInfo.instrument
+  const instrument = AudioInfo.instrumentType
   const instrumentSrc = instrumentUrl[instrument]
 
   const onClickPlay = () => {
@@ -45,19 +53,23 @@ function AudioListItem({ AudioInfo }: Props ) {
     setPlaying(false)
   }
 
+  const onClickAdd = () => {
+    // dispatch(addAction({AudioInfo}))
+  }
+
   return (
     <Wrapper>
       <div className="item-box">
         <div className="first-row">
           <div className="instrument">
-            <Chip icon={<Avatar alt="instrument" src={instrumentSrc} sx={{ width: 20, height: 20 }}/>}  variant="outlined" color="primary" label={AudioInfo.instrument} />
+            <Chip icon={<Avatar alt="instrument" src={instrumentSrc} sx={{ width: 20, height: 20 }}/>}  variant="outlined" color="primary" label={AudioInfo.instrumentType} />
           </div>
-          <div className="track-title">{AudioInfo.title}</div>
-          <div className="nickname">{AudioInfo.userInfo.name}</div>
+          <div className="track-title">{AudioInfo.filename}</div>
+          <div className="nickname">{AudioInfo.uploader.name}</div>
         </div>
         <div className="second-row">
           <div className="musicwave">
-            <MusicWave Audio={AudioInfo.fileUrl} playing={playing}></MusicWave>
+            <MusicWave Audio={AudioInfo.filepath} playing={playing}></MusicWave>
             <div></div>
           </div>
         </div>
@@ -75,7 +87,7 @@ function AudioListItem({ AudioInfo }: Props ) {
               <img src={stop} alt="play" className="play-btn"/>
             </div>
           </div>
-          <button className="add-btn">
+          <button className="add-btn" onClick={onClickAdd}>
             <div className="add-btn-letter">Add</div>
           </button>
         </div>

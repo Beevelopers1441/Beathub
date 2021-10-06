@@ -3,40 +3,48 @@ import dumpImage from './dump.png'
 
 export const dummyAudios = [
   {
-    userInfo: {
+    filename: "기타 1번",
+    filepath: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3",
+    id: 1,
+    instrumentType: "guitar",
+    uploader: {
+      id: 1,
       imageUrl: dumpImage,
       name: "userA"
-    },
-    title: "RecordA",
-    instrument: "drum",
-    fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
+    }
   },
   {
-    userInfo: {
+    filename: "기타 2번",
+    filepath: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3",
+    id: 2,
+    instrumentType: "guitar",
+    uploader: {
+      id: 2,
       imageUrl: dumpImage,
-      name: "userB"
-    },
-    title: "RecordB",
-    instrument: "guitar",
-    fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
-    
+      name: "userA"
+    }
   },
   {
-    userInfo: {
+    filename: "드럼 1번",
+    filepath: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3",
+    id: 3,
+    instrumentType: "drum",
+    uploader: {
+      id: 3,
       imageUrl: dumpImage,
       name: "userC"
-    },
-    title: "RecordC",
-    instrument: "drum",
-    fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
+    }
   },
   {
-    userInfo: {
+    filename: "드럼 2번",
+    filepath: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3",
+    id: 4,
+    instrumentType: "drum",
+    uploader: {
+      id: 4,
       imageUrl: dumpImage,
       name: "userD"
-    },
-    title: "RecordD",
-    instrument: "drum",
-    fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
-  }
+    }
+  },
+  
 ]

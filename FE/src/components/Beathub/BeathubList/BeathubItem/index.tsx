@@ -34,13 +34,13 @@ function BeathubItem({ AudioInfo, totalPlaying }: Props ) {
     <Wrapper>
       <div className="item-box">
         <div className="first-row">
-          <div className="instrument">{AudioInfo.instrument}</div>
-          <div className="track-title">{AudioInfo.title}</div>
-          <div className="nickname">{AudioInfo.userInfo.name}</div>
+          <div className="instrument">{AudioInfo.instrumentType}</div>
+          <div className="track-title">{AudioInfo.filename}</div>
+          <div className="nickname">{AudioInfo.uploader.name}</div>
         </div>
         <div className="second-row">
           <div className="musicwave">
-            <MusicWave Audio={AudioInfo.fileUrl} playing={playing}></MusicWave>
+            <MusicWave Audio={AudioInfo.filepath} playing={playing}></MusicWave>
             <div></div>
           </div>
         </div>

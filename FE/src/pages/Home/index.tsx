@@ -15,7 +15,7 @@ import Wrapper from './styles';
 // types
 
 // dummies
-import { dummyAudios } from '../Beathub/dump'
+import { dummyAudios } from '../BeathubPage/Beathub/dump'
 
 interface Props {}
 

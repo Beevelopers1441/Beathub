@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getUserInfoAction, getTokenAction, loginAction } from 'modules/user/actions';
 import { getUserInfo } from 'lib/api/auth/socialLogin'
 
-import { Home, Login, Signup, UserProfile, Beathub, GroupProfile, Community, PostDetail, PostCreate} from 'pages';
+import { Home, Login, Signup, UserProfile, Beathub, BeathubCreate, GroupProfile, Community, PostDetail, PostCreate} from 'pages';
 import { Chat, Header } from 'components';
 
 function App() {
@@ -42,8 +42,8 @@ function App() {
           <Route exact path="/profile/:userId" component={UserProfile} />
           <Route exact path="/group-profile/:groupId" component={GroupProfile} />
           <Route exact path="/signup" component={Signup} />
-          <Route exact path="/profile/:userId" component={UserProfile} />
-          <Route exact path="/Beathub" component={Beathub} />
+          <Route exact path="/Beathub" component={BeathubCreate} />
+          <Route exact path="/Beathub/:bucketId" component={Beathub} />
           <Route exact path="/community" component={Community} />
           <Route exact path="/post/:propTeamFlag" component={PostCreate} />
           <Route exact path="/posts/:postId" component={PostDetail} />

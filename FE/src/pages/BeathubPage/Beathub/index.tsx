@@ -44,4 +44,4 @@ function Beathub(): ReactElement {
   )
 }
 
-export default Beathub
+export default Beathub;

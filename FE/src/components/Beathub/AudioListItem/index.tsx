@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import MusicWave from './MusicWave';
@@ -37,7 +37,10 @@ function AudioListItem({ AudioInfo }: Props ) {
   const dispatch = useDispatch();
 
   // 재생 여부
-  const [playing, setPlaying] = useState<boolean>(false)
+  const [playing, setPlaying] = useState<boolean>(false);
+
+  // 정지 여부
+  const [restart, setRestart] = useState<boolean>(false);
 
   // 악기 아이콘
   const instrument = AudioInfo.instrumentType
@@ -45,16 +48,19 @@ function AudioListItem({ AudioInfo }: Props ) {
 
   const onClickPlay = () => {
     setPlaying(!playing)
+    setRestart(false)
   }
 
   const onClickStop = ()=> {
     setPlaying(false)
+    setRestart(true)
   }
 
   const onClickAdd = () => {
     const audio = AudioInfo
     dispatch(addAction({audio}))
   }
+
 
   return (
     <Wrapper>
@@ -68,7 +74,7 @@ function AudioListItem({ AudioInfo }: Props ) {
         </div>
         <div className="second-row">
           <div className="musicwave">
-            <MusicWave Audio={AudioInfo.filepath} playing={playing}></MusicWave>
+            <MusicWave Audio={AudioInfo.filepath} playing={playing} restart={restart}></MusicWave>
             <div></div>
           </div>
         </div>

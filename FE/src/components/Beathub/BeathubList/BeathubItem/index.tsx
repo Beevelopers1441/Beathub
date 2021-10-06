@@ -29,21 +29,28 @@ const instrumentUrl: {[key: string]: string} = {
 interface Props {
   AudioInfo: AudioInfo;
   totalPlaying: boolean,
+  totalRestart: boolean,
   audioIdx: number
 }
 
-function BeathubItem({ AudioInfo, totalPlaying, audioIdx }: Props ) {
+function BeathubItem({ AudioInfo, totalPlaying, totalRestart, audioIdx }: Props ) {
 
   const dispatch = useDispatch();
 
+  // 재생 여부
   const [playing, setPlaying] = useState<boolean>(false)
+
+  // 정지 여부
+  const [restart, setRestart] = useState<boolean>(false);
 
   const onClickPlay = () => {
     setPlaying(!playing)
+    setRestart(false)
   }
 
   const onClickStop = ()=> {
     setPlaying(false)
+    setRestart(true)
   }
 
   const onClickDelete = () => {
@@ -52,7 +59,8 @@ function BeathubItem({ AudioInfo, totalPlaying, audioIdx }: Props ) {
 
   useEffect(() => {
     setPlaying(totalPlaying)
-  }, [totalPlaying])
+    setRestart(totalRestart)
+  }, [totalPlaying, totalRestart])
 
   // 악기 아이콘
   const instrument = AudioInfo.instrumentType
@@ -70,7 +78,7 @@ function BeathubItem({ AudioInfo, totalPlaying, audioIdx }: Props ) {
         </div>
         <div className="second-row">
           <div className="musicwave">
-            <MusicWave Audio={AudioInfo.filepath} playing={playing}></MusicWave>
+          <MusicWave Audio={AudioInfo.filepath} playing={playing} restart={restart}></MusicWave>
             <div></div>
           </div>
         </div>

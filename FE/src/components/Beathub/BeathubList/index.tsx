@@ -9,16 +9,17 @@ interface Props {
   bucketAudios: AudioInfo[],
   commitAudios: AudioInfo[],
   totalPlaying: boolean,
+  totalRestart: boolean,
 }
 
-function BeathubList({ commitAudios, bucketAudios, totalPlaying }: Props) {
+function BeathubList({ commitAudios, bucketAudios, totalPlaying, totalRestart }: Props) {
 
   // Prop으로 받은 악기 목록의 각각의 악기들을 InstrumentsItem으로 넘겨주는 함수
   const renderList = (): JSX.Element[] => {
     return commitAudios.map((AudioItem, index) => {
       const audioIdx = index
       return(
-        <BeathubItem AudioInfo={AudioItem} totalPlaying={totalPlaying} key={index} audioIdx={audioIdx}></BeathubItem>
+        <BeathubItem AudioInfo={AudioItem} totalPlaying={totalPlaying} totalRestart={totalRestart} key={index} audioIdx={audioIdx}></BeathubItem>
       )
     })
   }

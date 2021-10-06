@@ -247,7 +247,7 @@ public class PostController {
     }
 
     // 모집완료
-    @PostMapping("/{postId}")
+    @PostMapping("/changeRecruiting/{postId}")
     @ApiOperation(value = "모집완료로 바꾸는 API입니다.")
     public void changeRecruiting(
             @RequestHeader(value = "Authorization") String jwtToken,

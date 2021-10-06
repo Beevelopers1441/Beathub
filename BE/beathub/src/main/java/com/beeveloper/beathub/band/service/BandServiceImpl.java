@@ -8,6 +8,7 @@ import com.beeveloper.beathub.band.dto.ressponse.BandResDto;
 import com.beeveloper.beathub.band.repository.BandMemberRepository;
 import com.beeveloper.beathub.band.repository.BandRepository;
 import com.beeveloper.beathub.instrument.domain.Instrument;
+import com.beeveloper.beathub.instrument.repository.InstrumentRepository;
 import com.beeveloper.beathub.user.domain.User;
 import com.beeveloper.beathub.user.repository.UserInstrumentRepository;
 import com.beeveloper.beathub.user.repository.UserRepository;
@@ -26,6 +27,7 @@ public class BandServiceImpl implements BandService{
     private final BandMemberRepository bandMemberRepository;
     private final UserInstrumentRepository userInstrumentRepository;
     private final UserRepository userRepository;
+    private final InstrumentRepository instrumentRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -47,10 +49,11 @@ public class BandServiceImpl implements BandService{
      * 처음 밴드만들때
      * 리더등록하고, 리더또한 밴드멤버로 등록
      * @param bandInfo
+     * @param inputType
      * @return
      */
     @Override
-    public Band createBand(BandCreateDto bandInfo) {
+    public Band createBand(BandCreateDto bandInfo, String inputType) {
         Band band = new Band(
                 bandInfo.getName(),
                 bandInfo.getImageUrl(),
@@ -61,7 +64,7 @@ public class BandServiceImpl implements BandService{
 
         // BandMember 등록용, Leader 용
         User leader = bandInfo.getLeader();
-        Instrument instrument = userInstrumentRepository.findByPlayer(leader).getInstrument();
+        Instrument instrument = instrumentRepository.findByType(inputType);
 
         Band savedBand = bandRepository.save(band);
 

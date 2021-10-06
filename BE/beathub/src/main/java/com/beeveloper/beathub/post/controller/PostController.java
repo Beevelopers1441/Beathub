@@ -245,4 +245,25 @@ public class PostController {
 
         userService.unLike(user, post);
     }
+
+    // 모집완료
+    @PostMapping("/changeRecruiting/{postId}")
+    @ApiOperation(value = "모집완료로 바꾸는 API입니다.")
+    public void changeRecruiting(
+            @RequestHeader(value = "Authorization") String jwtToken,
+            @PathVariable(value = "postId") Long postId) {
+
+        Optional<User> user = jwtService.returnUser(jwtToken);
+        if (!user.isPresent()) {
+            return;
+        }
+        User author = user.get();
+        Post post = postService.findById(postId);
+        if (author.getId() != post.getAuthor().getId()) {
+            return;
+        }
+
+        postService.changeRecruitng(post);
+    }
+
 }

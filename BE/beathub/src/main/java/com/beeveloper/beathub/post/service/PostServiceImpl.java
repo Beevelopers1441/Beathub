@@ -127,4 +127,10 @@ public class PostServiceImpl implements PostService{
     public void delete(Post post) {
         postRepository.delete(post);
     }
+
+    @Override
+    public void changeRecruitng(Post post) {
+        Post changeRecruiting = post.changeRecruiting();
+        postRepository.save(post);
+    }
 }

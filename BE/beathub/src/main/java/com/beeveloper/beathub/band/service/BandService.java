@@ -24,9 +24,10 @@ public interface BandService {
      * 밴드 생성과 동시에 BandMember를 등록
      *
      * @param bandInfo
+     * @param instrument
      * @return
      */
-    Band createBand(BandCreateDto bandInfo);
+    Band createBand(BandCreateDto bandInfo, String instrument);
     // 밴드 정보 수정
     // 밴드 삭제
 

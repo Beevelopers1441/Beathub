@@ -21,4 +21,6 @@ public interface PostService {
     Post updatePost(Post post, PostUpdateRequestDto dto);
 
     void delete(Post post);
+
+    void changeRecruitng(Post post);
 }

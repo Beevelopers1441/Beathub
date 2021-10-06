@@ -59,7 +59,6 @@ function Header(): React.ReactElement {
           <ul>
             <li onClick={() => handleRouting('/Beathub')}>Beathub</li>
             <li onClick={() => handleRouting('/Community')}>Community</li>
-            <li>Team</li>
           </ul>
         </div>
         <div className="right-container">

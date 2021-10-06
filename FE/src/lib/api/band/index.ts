@@ -24,7 +24,6 @@ const getBandInfosAPI = async (bandId: number) => {
   const config: any = {
     method: 'GET',
     url:`${BASE_URL}bands/${bandId}`,
-    params: { bandId, },
     headers: {
       Authorization: TOKEN,
     }

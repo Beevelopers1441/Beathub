@@ -129,9 +129,6 @@ const getBandInfoAPI = async (bandId: number) => {
   const config: any = {
     method: 'GET',
     url: `${BASE_URL}bands/${bandId}`,
-    params: {
-      bandId,
-    },
   };
   return await axios(config);
 };
@@ -141,9 +138,6 @@ const deletePostAPI = async (postId: number) => {
   const config: any = {
     method: 'DELETE',
     url: `${BASE_URL}posts/${postId}`,
-    params: {
-      postId,
-    },
     headers: {
       Authorization: TOKEN,
     },

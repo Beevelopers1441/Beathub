@@ -4,6 +4,7 @@ import AudioListItem from './AudioListItem';
 import AudioUpload from './AudioUpload';
 import BeathubList from './BeathubList';
 import BeathubMain from './BeathubMain';
+import BeathubInfo from './BeathubInfo';
 
 
 export {
@@ -12,5 +13,6 @@ export {
   AudioListItem,
   AudioUpload,
   BeathubList,
-  BeathubMain
+  BeathubMain,
+  BeathubInfo
 };

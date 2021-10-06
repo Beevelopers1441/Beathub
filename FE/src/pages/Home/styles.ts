@@ -5,15 +5,24 @@ const Wrapper = styled.div`
 
   & .home-container {
     display: flex;
+  }
 
-    & .leftbar {
-      cursor: pointer;
-    }
+  & .main-container {
+    display: flex;
+    padding: 2rem;
   }
 
   & .sub-container {
-    min-width: 1140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 2rem 0 0;
+    // min-width: 1140px;
   }
+
+  // & .sub-container {
+  //   min-width: 1140px;
+  // }
 
 `
 

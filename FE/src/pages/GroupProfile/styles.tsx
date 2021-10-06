@@ -6,7 +6,6 @@ const Wrapper = styled.div`
   & .group-profile-container {
     min-width: 1140px;
   }
-  
 `
 
 export default Wrapper

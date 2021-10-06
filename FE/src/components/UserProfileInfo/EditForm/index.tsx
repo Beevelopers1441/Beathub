@@ -3,9 +3,8 @@ import { useDispatch } from 'react-redux';
 
 import Wrapper from './styles';
 import { Grid } from '@mui/material';
-import add from 'assets/svgs/add.svg';
 
-// import EditFormInstList from './EditFormInstList';
+import EditFormInstList from './EditFormInstList';
 import SaveBtn from './SaveBtn';
 import CancelBtn from './CancelBtn';
 
@@ -83,11 +82,7 @@ function EditForm({ userInfo, onToggleEdit }: IProps) {
       </div>
       {/* 악기 목록 수정 */}
       <div className="input-container">
-        <div className="add-instrument-wrapper post-p">
-          <p>연주 악기</p>
-          <img className="add-instrument-icon" src={add} alt="add" />
-        </div>
-        {/* <EditFormInstList instruments={dummyInstruments}></EditFormInstList> */}
+        <EditFormInstList instruments={userInfo.instruments}></EditFormInstList>
       </div>
       {/* 저장, 취소 버튼 */}
       <div className="button-container">

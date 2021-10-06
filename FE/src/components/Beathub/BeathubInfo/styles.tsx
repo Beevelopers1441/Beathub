@@ -4,7 +4,7 @@ const Wrapper = styled.div`
   & .container {
 
     & .title {
-      margin-left: 4rem;
+      margin-left: 2rem;
       font-family: Spoqa Han Sans Neo;
       font-style: normal;
       font-weight: bold;
@@ -12,7 +12,7 @@ const Wrapper = styled.div`
     }
 
     & .introduction {
-      margin-left: 4rem;
+      margin-left: 2rem;
       margin-top: 0.5rem;
       font-family: Spoqa Han Sans Neo;
       font-style: normal;

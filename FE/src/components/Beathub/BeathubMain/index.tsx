@@ -10,11 +10,11 @@ import { AudioInfo } from 'types';
 import { BucketInfo } from 'types';
 
 interface Props {
-  Audios: AudioInfo[],
+  commitAudios: AudioInfo[],
   bucketInfo: BucketInfo
 }
 
-function BeathubMain({ Audios, bucketInfo }: Props) {
+function BeathubMain({ commitAudios, bucketInfo }: Props) {
 
   const [ totalPlaying, setTotalPlaying ] = useState(false);
 
@@ -28,7 +28,7 @@ function BeathubMain({ Audios, bucketInfo }: Props) {
 
   return (
     <Wrapper>
-      <BeathubList Audios={bucketInfo.audios} totalPlaying={totalPlaying}></BeathubList>
+      <BeathubList commitAudios={commitAudios} bucketAudios={bucketInfo.audios} totalPlaying={totalPlaying}></BeathubList>
       <div className="btn-container">
         {totalPlaying
           ? <img src={pause} alt="pause" className="play-btn" onClick={onClickTotalPlay}/>

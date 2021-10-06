@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // component
 import { AudioList, AudioUpload, BeathubMain, BeathubInfo } from 'components/Beathub';
@@ -34,6 +35,8 @@ interface MatchParam {
 
 
 const Beathub: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
+  
+  const commitList = useSelector((state: any) => state.beathub.commitList)
 
   const [bucketInfo, setBucketInfo] = useState<BucketInfo>({
     audios: [],
@@ -63,17 +66,17 @@ const Beathub: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
   
   return (
     <Wrapper>
-      {/* <Container className="upload-container">
-        <AudioUpload />
-      </Container> */}
         <BeathubInfo bucketInfo={bucketInfo}></BeathubInfo>
         <Grid container className="beathub-container">
           <Grid item xs={8} className="editor-container">
             {/* <h1>Audio Editor</h1> */}
-            <BeathubMain Audios={dummyAudios} bucketInfo={bucketInfo}></BeathubMain>
+            <BeathubMain commitAudios={commitList} bucketInfo={bucketInfo}></BeathubMain>
           </Grid>
           <Grid item xs={4} className="audio-info-container">
             <AudioList Audios={dummyAudios} />
+            <Container className="upload-container">
+              <AudioUpload />
+            </Container>
           </Grid>
         </Grid>
     </Wrapper>

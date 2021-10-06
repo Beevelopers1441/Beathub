@@ -19,7 +19,7 @@ function HeaderSearch(): React.ReactElement {
         searchRef.current.value = '';
       } else {
         const location = { 
-          pathname: 'search',
+          pathname: '/search',
           state: { searchValue, },
         };
         history.push(location);

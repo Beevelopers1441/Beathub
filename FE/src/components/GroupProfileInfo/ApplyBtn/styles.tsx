@@ -28,6 +28,43 @@ const Wrapper = styled.div`
       text-align: center;
     }
   }
+
+  & .backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 101;
+  }
+  & .modal {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    text-align: center;
+    & p {
+      margin-bottom: 0.5rem;
+      color: #444;
+      font-weight: bold;
+    }
+  }
+  & .button-container {
+    display: flex;
+    justify-content: center;
+    & button {
+      font-weight: bold;
+      margin: 0 1rem 0 1rem;
+    }
+  }
+
+  & .instrument-list {
+    margin: 2rem 0;
+    color: #444;
+    font-weight: bold;
+  }
 `
 
 export default Wrapper

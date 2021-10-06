@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 
 // component
-import { AudioList, AudioUpload } from 'components/Beathub';
+import { AudioList, AudioUpload, BeathubMain } from 'components/Beathub';
 
 // types
 import { AudioInfo } from 'types';
@@ -18,57 +18,26 @@ import { type } from 'os';
 // interface Props {
 //   Audios: Audio[]
 // }
-// 더미 오디오 목록
-const dummyAudios = [
-  {
-    userInfo: {
-      imageUrl: "string",
-      name: "userA"
-    },
-    title: "RecordA",
-    instrument: "instrumentA",
-    fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
-  },
-  {
-    userInfo: {
-      imageUrl: "string",
-      name: "userB"
-    },
-    title: "RecordB",
-    instrument: "instrumentB",
-    fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
-    
-  },
-  {
-    userInfo: {
-      imageUrl: "string",
-      name: "userC"
-    },
-    title: "RecordC",
-    instrument: "instrumentC",
-    fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
-  },
-  {
-    userInfo: {
-      imageUrl: "string",
-      name: "userD"
-    },
-    title: "RecordD",
-    instrument: "instrumentD",
-    fileUrl: "https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/2/2_audio3.mp3"
-  }
-]
+
+// dummies
+import { dummyAudios } from './dump'
+
 
 function Beathub(): ReactElement {
   
   return (
     <Wrapper>
-      <Container className="beathub-container">
-        <Grid container className="sub-container">
-          <AudioUpload />
-          <AudioList Audios={dummyAudios} />
-        </Grid>
+      <Container className="upload-container">
+        <AudioUpload />
       </Container>
+        <Grid container className="beathub-container">
+          <Grid item xs={8} className="editor-container">
+            <h1>Audio Editor</h1>  
+        </Grid>
+          <Grid item xs={4} className="audio-info-container">
+            <AudioList Audios={dummyAudios} />
+          </Grid>
+        </Grid>
     </Wrapper>
 
   )

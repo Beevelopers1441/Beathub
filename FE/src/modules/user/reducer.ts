@@ -1,6 +1,6 @@
 import { UserAction, User } from './types';
 import { createReducer } from 'typesafe-actions';
-import { LOGIN, LOGOUT, GET_TOKEN, GET_USER_INFO } from './actions';
+import { LOGIN, LOGOUT, GET_TOKEN, GET_USER_INFO, REFRESH_PAGE } from './actions';
 import produce from 'immer'; // ...문법 대신 사용, 2개의 인자만 설정하면 객체의 불변성을 관리해줌
 
 
@@ -13,7 +13,8 @@ const initialState : User = {
     id: 0,
     name: "",
     imageUrl: ""
-  }
+  },
+  refreshPage: false,
 }
 
 // 리듀서 선언
@@ -47,6 +48,10 @@ const auth = createReducer<User, UserAction>(initialState, {
     draft.userInfo.name = action.payload.userinfo.name;
     draft.userInfo.imageUrl = action.payload.userinfo.imageUrl;
     localStorage.setItem("userInfo", JSON.stringify(action.payload.userinfo));
+  }),
+  [REFRESH_PAGE] : (state) =>
+  produce(state, draft => {
+    draft.refreshPage = !draft.refreshPage
   }),
 })
 

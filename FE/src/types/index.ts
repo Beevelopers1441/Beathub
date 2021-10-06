@@ -61,7 +61,7 @@ export interface ProfileInfo {
   imageUrl: string,
   email: string,
   nickname: string,
-  introduction?: string,
+  introduction: string,
   instruments: Instrument[],
   participatingBands:Band[],
   followBands: Band[],
@@ -82,7 +82,7 @@ export interface FollowPerson {
 export interface BandProfileInfo {
   band: Band,
   leader: Leader,
-  members: Member[],
+  members: BandMember[],
   followers: {}[],
   buckets: {}[],
   posts: {}[],
@@ -116,4 +116,28 @@ export interface Member {
   id: number,
   name: string,
   imageUrl: string
+}
+
+export interface BandMember {
+  member: {
+    id: number,
+    name: string,
+    imageUrl: string
+  },
+  type: {
+    id: number,
+    type: string
+  }
+}
+
+export interface UpdateBand {
+  bandProfileImage: string,
+  introduction: string,
+  name: string,
+}
+
+export interface UpdateUser {
+  imageUrl: string,
+  introduction: string,
+  name: string,
 }

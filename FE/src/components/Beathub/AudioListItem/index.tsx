@@ -1,82 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 // component
+import MusicPlayer from 'components/Beathub/MusicPlayer';
 import { ProfileImage } from 'components/atoms';
-import AudioPlayer  from 'components/Beathub/AudioPlayer';
+import AudioPlayer from 'components/Beathub/AudioPlayer';
 
 // types
 import { AudioInfo } from 'types';
 
+// libraries
+
+
 // styles
 import {
-  Divider,
+  Divider, Chip, Avatar, CardMedia,
   List, ListItem, ListItemButton, ListItemIcon, ListItemText,
   IconButton, Tooltip
 } from '@mui/material';
 
 import ArrowRight from '@mui/icons-material/ArrowRight';
-import Settings from '@mui/icons-material/Settings';
+import MusicNote from '@mui/icons-material/MusicNote';
 import Wrapper from './styles';
+
+// assets
+import drum from 'assets/svgs/instruments/drum-solid.svg'
+import guitar from 'assets/svgs/instruments/guitar-solid.svg'
+
+const instrumentUrl: {[key: string]: string} = {
+  "drum": drum,
+  "guitar": guitar,
+  "piano": drum,
+  "vocal": drum
+}
 
 interface Props {
   AudioInfo: AudioInfo;
 }
 
 function AudioListItem({ AudioInfo }: Props): React.ReactElement {
+
+  // 악기 아이콘
+  const instrument = AudioInfo.instrument
+  const instrumentSrc = instrumentUrl[instrument]
+  // const instrumentIcon = new Image()
+  // instrumentIcon.src = instrumentUrl[instrument]
+
   // 플레이어를 열고 닫는 변수
   const [ isPlayerOn, setIsPlayerOn ] = useState(false)
-  const [ Playing, setPlaying ] = useState(false)
-
-  const music = new Audio(AudioInfo.fileUrl)
 
   // 플레이어를 열고 닫음
   const openPlayer = () => {
     isPlayerOn
       ? setIsPlayerOn(false)
       : setIsPlayerOn(true)
-    }
-
-  const Play = () => {
-    if (music) {
-      const playPromise = music.play();
-
-      if (playPromise !== undefined) {
-        playPromise
-          .then(_ => {
-            // Automatic playback started!
-            // Show playing UI.
-            console.log("audio played auto");
-            setPlaying(true)
-          })
-          .catch(error => {
-            // Auto-play was prevented
-            // Show paused UI.
-            console.log("playback prevented");
-          });
-      }
-    }
   }
-
-  // const Pause = () => {
-  //   music.pause()
-  //   setPlaying(false)
-  // }
   
-  // 음악을 재생 또는 일시정지
-  function togglePlay() {
-    Playing
-    ? Play()
-    : music.pause()
-    setPlaying(false)
-  }
-
   return (
     <Wrapper>
-      <Divider />
-      <ListItem component="div" disablePadding>
+      <Chip icon={<Avatar alt="instrument" src={instrumentSrc} sx={{ width: 20, height: 20 }}/>}  variant="outlined" color="primary" label={AudioInfo.instrument} />
+      <ListItem component="div" className="list-item">
         <ListItemButton sx={{ height: 56 }}>
           <ListItemIcon>
-            <ProfileImage url={AudioInfo.userInfo.imageUrl} />       
+            <CardMedia
+              component="img"
+              sx={{ width: 50, height: 50 }}
+              image={AudioInfo.userInfo.imageUrl}
+              alt="audio-profile"
+            />
           </ListItemIcon>
           <ListItemText
             primary={AudioInfo.title}
@@ -128,25 +118,17 @@ function AudioListItem({ AudioInfo }: Props): React.ReactElement {
               },
             }}
           >
-            <Settings />
+            <MusicNote />
             <ArrowRight sx={{ position: 'absolute', right: 4, opacity: 0 }} />
           </IconButton>
         </Tooltip>
-        {/* player */}
-        {isPlayerOn &&
-        <div>
-          <AudioPlayer fileUrl={AudioInfo.fileUrl}/>
-          <div className="loading">
-            <div className="spinner"></div>
-          </div>
-          <div className="play-pause-btn" onClick={togglePlay}>  
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 18 24">
-              <path fill="#566574" fill-rule="evenodd" d={Playing? "M0 0h6v24H0zM12 0h6v24h-6z":"M18 12L0 24V0"} className="play-pause-icon" id="playPause"/>
-            </svg>
-          </div>
-          </div>
-        }
       </ListItem>
+      {/* player */}
+      {isPlayerOn &&
+        <div>
+        <MusicPlayer fileUrl={AudioInfo.fileUrl}/>
+        </div>
+      }
       <Divider />
     </Wrapper>
   );

@@ -42,7 +42,7 @@ const GroupProfileInfo: React.FC<Props> = ({ bandInfo }) => {
         </div>
       }
       <Follow id={bandInfo.band.id}></Follow>
-      <ApplyBtn></ApplyBtn>
+      <ApplyBtn bandId={bandInfo.band.id}></ApplyBtn>
     </div>
   )
 }

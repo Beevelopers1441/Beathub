@@ -6,7 +6,8 @@ export type UserAction = ActionType<typeof actions>
 export type User = {
   isLoggedIn: boolean,
   token: string,
-  userInfo: UserInitialInfo
+  userInfo: UserInitialInfo,
+  refreshPage: boolean,
 };
 
 export type UserInitialInfo = {

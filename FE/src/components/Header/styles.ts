@@ -26,9 +26,14 @@ const Wrapper = styled.div`
     & .logo-container {
       margin-right: 3rem;
       cursor: pointer;
+
+      & .logo {
+        width: 2rem;
+      }
     }
     & ul {
       display: flex;
+      align-items: center;
 
       & li {
         margin: 0 1.5rem;

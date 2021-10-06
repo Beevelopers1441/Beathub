@@ -16,6 +16,7 @@ function FirebaseAuth(): React.ReactElement {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        if (user) {}
         console.log('계정 생성 및 로그인 성공')
       })
       .catch((error) => {
@@ -26,6 +27,7 @@ function FirebaseAuth(): React.ReactElement {
         auth.signInWithEmailAndPassword(email, email)
           .then((userCredential) => {
             const user = userCredential.user;
+            if (user) {}
             console.log('login 성공')
             // ...
           })

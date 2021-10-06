@@ -104,16 +104,16 @@ function AudioUpload(): React.ReactElement {
       // s3에 파일 전송 후 url을 받아옴
       handleFileInput()
       // url로 audio객체 생성
-      var uploadedAudio = new Audio(fileUrl)
+      const uploadedAudio = new Audio(fileUrl)
       setAudio(uploadedAudio)
       // 업로드 후 url 받아와 audio객체까지 만들었으니 true
       setUploaded(true)
     }
   }
 
-  useEffect(() => {
-    console.log(audio)
-  }, [uploaded])
+  // useEffect(() => {
+  //   console.log(audio)
+  // }, [uploaded])
 
 
   const onClickPlay = () => {

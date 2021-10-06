@@ -13,9 +13,6 @@ import Messages from './Messages';
 // types
 import { IBasicUser, IMessage, IChatItem } from 'types';
 
-// utils
-import { getCurrTime } from 'utils/time';
-
 // styles
 import { ArrowBackIosNew } from '@mui/icons-material';
 import Wrapper from './styles';
@@ -43,7 +40,7 @@ function ChatRoom({ chatList, setChatList, roomNumbers, setRoomNumbers }: Props)
     return () => {
       dispatch(closeChatRoomAction());
     }
-  }, []);
+  }, [dispatch]);
   
   // get Doc ID && init participants
   useEffect(() => {

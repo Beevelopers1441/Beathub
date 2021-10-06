@@ -75,5 +75,23 @@ const disapproveAPI = async (bandId: number, userId: number) => {
   return await axios(config);
 };
 
+// 밴드 생성
+const createBandAPI = async (name: string, instrument: string) => {
+  const config: any = {
+    method: 'POST',
+    url:`${BASE_URL}bands`,
+    data: {
+      name,
+      instrument,
+      introduction: '',
+      bandProfileImage: ''
+    },
+    headers: {
+      Authorization: TOKEN,
+    }
+  };
+  return await axios(config);
+}
 
-export { bandApply, getBandInfosAPI, getWaitingBandMembersAPI, approveAPI, disapproveAPI };
+
+export { bandApply, getBandInfosAPI, getWaitingBandMembersAPI, approveAPI, disapproveAPI, createBandAPI };

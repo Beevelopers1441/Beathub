@@ -35,10 +35,10 @@ public class Post {
 
     // 아래 User와 Group 둘 중 하나는 빈 값이 될 수 있
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<Comment>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch=FetchType.EAGER)
     private List<User> likeUsers = new ArrayList<User>();
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -61,6 +61,11 @@ public class Post {
         this.title = title;
         this.content = content;
         this.tag = instrument;
+        return this;
+    }
+
+    public Post changeRecruiting() {
+        this.isRecruiting = !this.isRecruiting();
         return this;
     }
 

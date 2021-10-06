@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import EditBtn from '../EditBtn';
 
@@ -13,10 +13,15 @@ import { updateGroupProfile } from 'lib/api/groupProfile';
 import { refreshPageAction } from 'modules/user/actions';
 
 interface Props {
-  band: Band;
+  band: Band,
+  masterId: number,
 }
 
-const Content: React.FC<Props> = ({ band }: Props) => {
+const Content: React.FC<Props> = ({ band, masterId }: Props) => {
+
+  console.log(band)
+  
+  const id = useSelector((state: any) => state.user.userInfo.id)
 
   const dispatch = useDispatch();
 
@@ -57,7 +62,9 @@ const Content: React.FC<Props> = ({ band }: Props) => {
 
   return(
     <Wrapper>
-      <EditBtn onToggleEdit={onToggleEdit} onUpdate={onUpdate} onCancel={onCancel} editing={editing}></EditBtn>
+      {id === masterId &&
+        <EditBtn onToggleEdit={onToggleEdit} onUpdate={onUpdate} onCancel={onCancel} editing={editing}></EditBtn>
+      }
       <Grid container className="intro-container">
         <Grid item xs={2}>
           <div className="title">밴드</div>

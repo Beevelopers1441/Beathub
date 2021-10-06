@@ -47,6 +47,11 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
     history.push(location);
   };
 
+  // user profile 클릭 시 프로필 이동
+  const handleProfile = (id: number) => {
+    history.push(`/profile/${id}`);
+  };
+
   return (
     <Wrapper>
       <Grid container>
@@ -90,9 +95,15 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
           >
             <p className="user-name">{setSimpleUsername(post.author.name)}</p>
           </Tooltip>
-          <ProfileImage
-            url={post.author.imageUrl}
-            className={'user-image'} />
+          <div 
+            className="profile-image-container"
+            onClick={() => handleProfile(post.author.id)}
+          >
+            <ProfileImage
+              url={post.author.imageUrl}
+              className={'user-image'}
+            />
+          </div>
         </Grid>
       </Grid>
       

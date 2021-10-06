@@ -16,6 +16,7 @@ import com.beeveloper.beathub.post.repository.MemberPostRepository;
 import com.beeveloper.beathub.post.repository.PostRepository;
 import com.beeveloper.beathub.user.domain.User;
 import com.beeveloper.beathub.user.repository.UserRepository;
+import com.beeveloper.beathub.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,7 @@ public class PostServiceImpl implements PostService{
     private final UserRepository userRepository;
     private final BandRepository bandRepository;
     private final InstrumentRepository instrumentRepository;
+    private final UserService userService;
 
     /*
     포스트 멤버, 밴드로 분리(single table strategy)
@@ -126,5 +128,11 @@ public class PostServiceImpl implements PostService{
     @Override
     public void delete(Post post) {
         postRepository.delete(post);
+    }
+
+    @Override
+    public void changeRecruitng(Post post) {
+        Post changeRecruiting = post.changeRecruiting();
+        postRepository.save(post);
     }
 }

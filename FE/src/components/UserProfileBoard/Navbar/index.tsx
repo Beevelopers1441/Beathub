@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import qs from 'qs'; // url의 쿼리를 쉽게 추출해낼 수 있게 해주는 모듈
 
 import Musics from '../Musics';
-import Feeds from '../Feeds';
 import Collections from '../Collections';
 
 import Wrapper from './styles';
@@ -52,15 +51,12 @@ const Navbar: React.FC<Props> = ({ profileInfo }) => {
     <Wrapper>
       <div className="tab-container">
         <div><Link to={`${currentUrl}/?tab=musics`} className="tab-title-active" id="musics">음악</Link></div>
-        <div><Link to={`${currentUrl}/?tab=feeds`} className="tab-title" id="feeds">피드</Link></div>
         <div><Link to={`${currentUrl}/?tab=collections`} className="tab-title" id="collections">컬렉션</Link></div>
       </div>
       <div className="nav-divider"></div>
       <div>
         {currentTab === "musics" ?
           <Musics></Musics>
-          : currentTab === "feeds" ?
-          <Feeds></Feeds>
           : currentTab === "collections" ?
           <Collections></Collections>
           :

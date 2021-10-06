@@ -42,6 +42,11 @@ function Header(): React.ReactElement {
   const onClickLogout = () => {
     dispatch(logoutAction());
     alert('로그아웃 되었습니다.')
+    history.push('/login')
+  }
+
+  const onClickLogin = () => {
+    history.push('/login')
   }
 
   return (
@@ -72,13 +77,22 @@ function Header(): React.ReactElement {
                 <div className="logout-btn-letter" onClick={onClickLogout}>logout</div>
               </button>
               : 
-              <div></div>
+              <button className="logout-btn">
+                <div className="logout-btn-letter" onClick={onClickLogin}>login</div>
+              </button>
             }
           </div>
           <div className="profile-container">
-            <Link to={`/profile/${id}`} className="text-decoration-none text-dark">
-              <ProfileImage url={imageUrl} handleImgError={handleImgError} className="user-image"/>
-            </Link>
+          {isLoggedIn
+              ? 
+              <Link to={`/profile/${id}`} className="text-decoration-none text-dark">
+                <ProfileImage url={imageUrl} handleImgError={handleImgError} className="user-image"/>
+              </Link>
+              : 
+              <Link to={`/login`} className="text-decoration-none text-dark">
+                <ProfileImage url={imageUrl} handleImgError={handleImgError} className="user-image"/>
+              </Link>
+            }
           </div>
         </div>
       </div>

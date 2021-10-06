@@ -4,20 +4,22 @@ import { Instrument } from 'types';
 import Wrapper from './styles';
 
 interface Props {
-  instrument: Instrument;
+  instrument: Instrument,
+  idx: number,
+  deleteInst: (idx: number) => void,
 }
 
-const EditFormInstItem: React.FC<Props> = ({ instrument }) => {
+const EditFormInstItem: React.FC<Props> = ({ instrument, idx, deleteInst }) => {
 
   const onDeleteInst = () => {
-
+    deleteInst(idx)
   }
   
   return(
     <Wrapper>
       <div className="item-wrapper">
         <div className="item-letter">
-          {/* {instrument.name} {instrument.skill}  */}
+          {instrument.instrument} {instrument.ability} 
         </div>
         <div className="overlay" onClick={onDeleteInst}>
           <div>Delete</div>

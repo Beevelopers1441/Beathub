@@ -52,7 +52,7 @@ public class UserController {
     @ResponseBody
     public ResponseEntity profile(HttpServletRequest request,
                                                      HttpServletResponse response,
-                                                     @RequestParam(name = "userId") Long userId) {
+                                                     @PathVariable(name = "userId") Long userId) {
 
         Optional<User> searchUser = userService.findById(userId);
         if (!searchUser.isPresent()) {

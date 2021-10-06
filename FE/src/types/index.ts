@@ -141,3 +141,7 @@ export interface UpdateUser {
   introduction: string,
   name: string,
 }
+
+export interface UpdateInstList {
+  instruments: Instrument []
+}

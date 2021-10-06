@@ -74,7 +74,7 @@ public class BandController {
     @ApiOperation(value = "하나의 밴드를 조회합니다. 인자는 Band Id 입니다.")
     @GetMapping("/{bandId}")
     public ResponseEntity find(
-            @RequestParam(value = "bandId") Long bandId) {
+            @PathVariable(value = "bandId") Long bandId) {
 
         Optional<Band> searchBand = bandService.findById(bandId);
         if (!searchBand.isPresent()) {

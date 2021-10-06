@@ -6,6 +6,6 @@ import Community from './Community';
 import UserProfile from './UserProfile';
 import GroupProfile from './GroupProfile';
 import { PostDetail, PostCreate } from './Post';
+import Search from './Search';
 
-
-export { Home, Login, Signup, Beathub, BeathubCreate, Community, UserProfile, GroupProfile, PostDetail, PostCreate };
+export { Home, Login, Signup, Beathub, BeathubCreate, Community, UserProfile, GroupProfile, PostDetail, PostCreate, Search };

@@ -136,7 +136,6 @@ function PostDetail(): React.ReactElement {
   const handleDelete = () => {
     deletePostAPI(+postId)
       .then(res => {
-        console.log(res);
         history.replace({ pathname: '/community'});
       });
   };

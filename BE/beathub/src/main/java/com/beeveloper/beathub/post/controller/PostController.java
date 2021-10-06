@@ -24,7 +24,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -192,6 +194,7 @@ public class PostController {
     }
 
     // 삭제
+    @Transactional
     @DeleteMapping("/{postId}")
     @ApiOperation(value = "게시글 삭제")
     public void delete(
@@ -208,6 +211,18 @@ public class PostController {
         if (user.getId() != post.getAuthor().getId()) {
             return;
         }
+
+
+        List<User> likeUsers = post.getLikeUsers();
+        int size = likeUsers.size();
+        for (int i = 0; i < size; i++) {
+            User likeUser = likeUsers.get(i);
+            likeUser.removeLikePost(post);
+            size --;
+            i --;
+        }
+
+
 
         postService.delete(post);
     }

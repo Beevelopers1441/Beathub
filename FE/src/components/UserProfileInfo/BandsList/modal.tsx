@@ -69,7 +69,6 @@ const Modal = ({ showModal, setShowModal }: Props): React.ReactElement => {
 
   // 밴드 생성
   const createBand = () => {
-    console.log('밴드 생성!')
     const name = nameRef.current.value;
     if (!name || !currInst) {
       alert('밴드명과 악기를 입력해주세요.')

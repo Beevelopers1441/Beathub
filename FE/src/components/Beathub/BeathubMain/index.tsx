@@ -7,12 +7,14 @@ import pause from 'assets/svgs/beathub/pause.svg';
 import stop from 'assets/svgs/beathub/stop.svg';
 
 import { AudioInfo } from 'types';
+import { BucketInfo } from 'types';
 
 interface Props {
-  Audios: AudioInfo[]
+  Audios: AudioInfo[],
+  bucketInfo: BucketInfo
 }
 
-function BeathubMain({ Audios }: Props) {
+function BeathubMain({ Audios, bucketInfo }: Props) {
 
   const [ totalPlaying, setTotalPlaying ] = useState(false);
 
@@ -26,7 +28,7 @@ function BeathubMain({ Audios }: Props) {
 
   return (
     <Wrapper>
-      <BeathubList Audios={Audios} totalPlaying={totalPlaying}></BeathubList>
+      <BeathubList Audios={bucketInfo.audios} totalPlaying={totalPlaying}></BeathubList>
       <div className="btn-container">
         {totalPlaying
           ? <img src={pause} alt="pause" className="play-btn" onClick={onClickTotalPlay}/>

@@ -70,7 +70,7 @@ const Beathub: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
         <Grid container className="beathub-container">
           <Grid item xs={8} className="editor-container">
             {/* <h1>Audio Editor</h1> */}
-            <BeathubMain Audios={dummyAudios}></BeathubMain>
+            <BeathubMain Audios={dummyAudios} bucketInfo={bucketInfo}></BeathubMain>
           </Grid>
           <Grid item xs={4} className="audio-info-container">
             <AudioList Audios={dummyAudios} />

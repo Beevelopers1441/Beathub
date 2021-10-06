@@ -14,11 +14,14 @@ function BeathubList({ Audios, totalPlaying }: Props) {
   return (
     <Wrapper>
       <div className="audios-container">
-        {Audios
+        {Audios && Audios.length >= 1
         ? Audios.map((AudioItem:AudioInfo, idx:number) => (
             <BeathubItem AudioInfo={AudioItem} totalPlaying={totalPlaying} key={idx} />
           ))
-          : <div></div>
+          : 
+          <div className="audios-empty">
+            연주를 추가하세요!
+          </div>
         }
       </div>
       <div className="divider"></div>

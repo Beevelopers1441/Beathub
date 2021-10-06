@@ -145,3 +145,13 @@ export interface UpdateUser {
 export interface UpdateInstList {
   instruments: Instrument []
 }
+
+export interface BucketInfo {
+  audios: [],
+  bpm: number,
+  commits: [],
+  contributors: [],
+  id: number,
+  introduction: string,
+  title: string
+}

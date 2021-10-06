@@ -5,6 +5,7 @@ import React, {useState, useEffect, cloneElement} from 'react';
 // types
 
 // styles
+import Wrapper from './styles';
 
 // apis
 import { s3Auth, s3Send } from 'lib/api/beathub/s3Upload'
@@ -16,8 +17,6 @@ import axios from 'axios';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 
-interface Props {
-}
 
 function AudioUpload(): React.ReactElement {
   // S3 기본 정보
@@ -151,7 +150,8 @@ function AudioUpload(): React.ReactElement {
     // console.log(downloadAudio())
 
   return (
-    <>
+    <Wrapper>
+      {/* 파일 업로드 */}
       <input
         placeholder="타이틀을 입력하세요"
         onFocus={(e) => {
@@ -169,7 +169,7 @@ function AudioUpload(): React.ReactElement {
 
       {/* 미리 듣기 */}
       <audio controls>
-        <source src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/355309/Swing_Jazz_Drum.mp3" type="audio/mpeg" />
+        <source src="https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/1/1_audio3.mp3" type="audio/mpeg" />
       </audio>
       <p>파일주소: {fileUrl}</p>
       <p>유저정보: {userid}</p>
@@ -196,7 +196,7 @@ function AudioUpload(): React.ReactElement {
           </div>
         : <button>재생불가능</button>
       }
-    </>
+    </Wrapper>
   );
 }
 

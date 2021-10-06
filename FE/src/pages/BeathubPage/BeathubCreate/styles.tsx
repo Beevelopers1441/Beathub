@@ -2,18 +2,21 @@ import styled from 'styled-components'
 
 const Wrapper = styled.div`
   margin-top: 100px;
-  text-align: center;
+  min-width: 752px;
+
+  & .super-container {
+    max-width: 800px;
+  }
 
   & .content {
-    margin: 1rem;
-    width: 50%;
+    margin-bottom: 1rem;
   }
 
   & .container {
     margin-bottom: 2rem;
   
   & .post-input {
-    width: 50%;
+    width: 100%;
     height: auto;
     line-height: normal;
     padding: 1.2em 0.7em;
@@ -30,6 +33,11 @@ const Wrapper = styled.div`
   & .post-textarea {
     min-height: 100px;
     resize: none;
+  }
+
+  & .bottom-btn-container {
+    display: flex;
+    justify-content: end;
   }
 `
 

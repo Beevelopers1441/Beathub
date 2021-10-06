@@ -2,13 +2,12 @@ import React from 'react';
 // import { FixedSizeList} from 'react-window'
 
 // component
-import AudioListItem  from 'components/Beathub/AudioListItem';
+import AudioListItem  from '../AudioListItem';
 
 // types
 import { AudioInfo } from 'types';
 
 // styles
-import { Grid } from '@mui/material';
 import Wrapper from './styles';
 
 interface Props {
@@ -19,13 +18,7 @@ interface Props {
 function AudioList({ Audios }: Props): React.ReactElement {
   return (
     <Wrapper>
-      {/* <FixedSizeList
-        height={400}
-        width={360}
-        itemSize={46}
-        itemCount={200}
-        overscanCount={5}
-      > */}
+      <div className="audios-container">
         {Audios
         ? Audios.map((AudioItem:AudioInfo, idx:number) => (
             <AudioListItem AudioInfo={AudioItem} key={idx} />
@@ -33,7 +26,8 @@ function AudioList({ Audios }: Props): React.ReactElement {
           : <div></div>
         }
       {/* </FixedSizeList> */}
-
+      </div>
+      <div className="divider"></div>
     </Wrapper>
   );
 }

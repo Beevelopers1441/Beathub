@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getUserInfoAction, getTokenAction, loginAction } from 'modules/user/actions';
 import { getUserInfo } from 'lib/api/auth/socialLogin'
 
-import { Home, Login, Signup, UserProfile, Beathub, GroupProfile, Community, PostDetail, PostCreate} from 'pages';
+import { Home, Login, Signup, UserProfile, Beathub, GroupProfile, Community, PostDetail, PostCreate, Search } from 'pages';
 import { Chat, Header } from 'components';
 
 function App() {
@@ -47,6 +47,7 @@ function App() {
           <Route exact path="/community" component={Community} />
           <Route exact path="/post/:propTeamFlag" component={PostCreate} />
           <Route exact path="/posts/:postId" component={PostDetail} />
+          <Route exact path="/search" component={Search} />
           {/* 위 규칙을 벗어나면 루트 요청으로 리다이렉트 */}
           <Redirect path="*" to="/" />
         </Switch>

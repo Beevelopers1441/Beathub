@@ -1,4 +1,4 @@
-// import AudioController from './AudioController';
+import AudioVisualizer from './AudioVisualizer';
 import AudioList from './AudioList';
 import AudioListItem from './AudioListItem';
 import AudioUpload from './AudioUpload';
@@ -7,7 +7,7 @@ import BeathubMain from './BeathubMain';
 
 
 export {
-  // AudioController,
+  AudioVisualizer,
   AudioList,
   AudioListItem,
   AudioUpload,

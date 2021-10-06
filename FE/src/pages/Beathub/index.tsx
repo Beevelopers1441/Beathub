@@ -32,8 +32,9 @@ function Beathub(): ReactElement {
       </Container>
         <Grid container className="beathub-container">
           <Grid item xs={8} className="editor-container">
-            <h1>Audio Editor</h1>  
-        </Grid>
+            {/* <h1>Audio Editor</h1> */}
+            <BeathubMain Audios={dummyAudios}></BeathubMain>
+          </Grid>
           <Grid item xs={4} className="audio-info-container">
             <AudioList Audios={dummyAudios} />
           </Grid>

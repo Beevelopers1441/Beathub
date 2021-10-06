@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   }
 
   & .editor-container {
-    display: flex;
+    // display: flex;
     padding: 0 2rem 0 0;
     // min-width: 1140px;
   }

@@ -26,6 +26,7 @@ function EditBtn({ onToggleEdit, onUpdate, onCancel, editing }: IProps) {
 
   return(
     <Wrapper>
+      
       { !editing
       ?  
         <button className="edit-btn" onClick={onClickEdit}>

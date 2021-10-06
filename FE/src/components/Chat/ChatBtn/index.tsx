@@ -6,6 +6,7 @@ import styled from 'styled-components';
 interface Props {}
 
 const Wrapper = styled.div`
+  z-index: 101;
   position: fixed;
   right: 1.5rem;
   bottom: 1.5rem;

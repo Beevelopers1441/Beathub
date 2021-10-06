@@ -16,7 +16,7 @@ const Intro: React.FC<Props> = ({ bandInfo }) => {
 
   return(
     <Wrapper>
-      <Content band={bandInfo.band}></Content>
+      <Content band={bandInfo.band} masterId={bandInfo.leader.id}></Content>
       <BandMaster master={bandInfo.leader}></BandMaster>
       <MemberList members={bandInfo.members}></MemberList>
     </Wrapper>

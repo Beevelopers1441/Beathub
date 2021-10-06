@@ -15,4 +15,7 @@ public class BandInputDto {
 
     @ApiModelProperty(name = "밴드소개", example = "저희는 4인조밴드로 ROCK을 위주로합니다!")
     String introduction;
+
+    @ApiModelProperty(name = "리더가 연주할 악기를 정해주세요", example = "드럼")
+    String instrument;
 }

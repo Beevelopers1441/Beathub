@@ -64,7 +64,7 @@ public class BandController {
                 bandInfo.getIntroduction(),
                 leader
         );
-        Band band = bandService.createBand(dto);
+        Band band = bandService.createBand(dto, bandInfo.getInstrument());
 
         return ResponseEntity.status(201).body(BandResDto.of(band));
     }

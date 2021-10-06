@@ -64,5 +64,10 @@ public class Post {
         return this;
     }
 
+    public Post changeRecruiting() {
+        this.isRecruiting = !this.isRecruiting();
+        return this;
+    }
+
 
 }

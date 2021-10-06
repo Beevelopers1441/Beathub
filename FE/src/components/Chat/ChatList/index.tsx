@@ -22,7 +22,6 @@ import Wrapper from './styles';
 function ChatList(): React.ReactElement {
   const [chatList, setChatList] = useState<IChatItem[]>([]);
   const [currChatList, setCurrChatList] = useState<IChatItem[]>([]);
-  const [currSearchInput, setCurrSearchInput] = useState<string>('');
   const [roomNumbers, setRoomNumbers] = useState<Set<string>>(new Set([]));
 
   const { userInfo } = useSelector((state: any) => state.user);
@@ -96,7 +95,7 @@ function ChatList(): React.ReactElement {
       .catch((error) => {
         console.log("Error getting documents: ", error);
       });
-  }, [userInfo])
+  }, [userInfo.id, chatList, roomNumbers]);
 
   // sort chatList
   useEffect(() => {

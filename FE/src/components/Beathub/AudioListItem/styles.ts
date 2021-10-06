@@ -11,11 +11,13 @@ const Wrapper = styled.div`
     position: relative;
 
     & .instrument {
-      
+      position: absolute;
+      top: -0.3rem;
     }
 
     & .track-title {
-      margin-left: 1rem;
+      position: absolute;
+      left: 6rem;
     }
 
     & .nickname {

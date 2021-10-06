@@ -11,11 +11,13 @@ const Wrapper = styled.div`
     position: relative;
 
     & .instrument {
-      
+      position: absolute;
+      top: -0.3rem;
     }
 
     & .track-title {
-      margin-left: 1rem;
+      position: absolute;
+      left: 7rem;
     }
 
     & .nickname {
@@ -57,6 +59,23 @@ const Wrapper = styled.div`
     & .delete-btn {
       position: absolute;
       right: 1rem;
+      bottom: -0.3rem;
+      width: 50px;
+      height: 20px;
+      border-radius: 10px;
+      border: 1px solid #FFFFFF;
+      padding: 0.25rem;
+
+      & .delete-btn-letter {
+        font-family: Spoqa Han Sans Neo;
+        font-style: normal;
+        font-size: 12px;
+        text-align: center;
+        color: #ABB0B5;
+        :hover {
+          color: #FFFFFF;
+        }
+      }
     }
   }
 `;

@@ -1,17 +1,8 @@
 import { ActionType } from 'typesafe-actions';
+import { AudioInfo } from 'types';
 import * as actions from './actions'
 
 export type BeathubAction = ActionType<typeof actions>
-
-export interface AudioInfo {
-  userInfo: {
-    imageUrl: string;
-    name: string,
-  }
-  title: string;
-  instrument: string;
-  fileUrl: string;
-}
 
 export interface Beathub {
   commitList : AudioInfo[],

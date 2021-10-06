@@ -12,9 +12,7 @@ import { AudioInfo } from 'types';
 import { addAction } from 'modules/beathub/actions';
 
 // styles
-import {
-  Chip, Avatar
-} from '@mui/material';
+import { Chip, Avatar } from '@mui/material';
 
 // assets
 import drum from 'assets/svgs/instruments/drum-solid.svg'
@@ -54,7 +52,8 @@ function AudioListItem({ AudioInfo }: Props ) {
   }
 
   const onClickAdd = () => {
-    // dispatch(addAction({AudioInfo}))
+    const audio = AudioInfo
+    dispatch(addAction({audio}))
   }
 
   return (

@@ -1,5 +1,5 @@
 import { deprecated } from 'typesafe-actions';
-import { AudioInfo } from './types';
+import { AudioInfo } from 'types';
 
 const { createStandardAction } = deprecated;
 

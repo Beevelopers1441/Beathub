@@ -69,7 +69,7 @@ const Wrapper = styled.div`
     justify-content: end;
 
     & .name-tooltip {
-      cursor: pointer;
+      
     }
     & .user-name {
       margin: 0.2rem 0;
@@ -97,6 +97,10 @@ const Wrapper = styled.div`
     box-sizing: border-box;
     backdrop-filter: blur(10px);
     font-size: 0.9rem;
+  }
+
+  & .profile-image-container {
+    cursor: pointer;
   }
 `
 

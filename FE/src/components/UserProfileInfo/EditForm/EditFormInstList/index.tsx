@@ -52,6 +52,18 @@ const EditFormInstList: React.FC<Props> = ({ instruments }) => {
   // 저장 버튼 클릭 시
   const onClickSave = () => {
     if (instName !== "" && ability !== ""){
+      var idx = -1
+      instruments.every(instrument => { 
+        idx += 1
+        if(instName === instrument["instrument"]) {
+          instruments.splice(idx,1)
+          return false;
+        }
+        return false;
+      })
+
+      console.log('안녕', idx)
+
       instruments.push({ ability: ability,  instrument: instName })
       updateInstList({instruments})
       .then(() =>{

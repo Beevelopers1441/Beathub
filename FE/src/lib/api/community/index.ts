@@ -145,6 +145,19 @@ const deletePostAPI = async (postId: number) => {
   return await axios(config);
 };
 
+// recruiting toggle
+const toggleRecruiting = async (postId: number) => {
+  const config: any = {
+    method: 'POST',
+    url: `${BASE_URL}posts/changeRecruiting/${postId}`,
+    headers: {
+      Authorization: TOKEN,
+    },
+  };
+  return await axios(config);
+};
+
 
 export { getMemberPosts, getMemberPost, setMemberPost, getBandPosts, getBandPost, 
-  setBandPost, setComment, setLikeAPI, setUnlikeAPI, getBandInfoAPI, deletePostAPI };
+  setBandPost, setComment, setLikeAPI, setUnlikeAPI, getBandInfoAPI, deletePostAPI,
+  toggleRecruiting, };

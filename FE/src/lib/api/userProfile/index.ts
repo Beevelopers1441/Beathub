@@ -7,12 +7,8 @@ const BASE_URL = process.env.REACT_APP_SERVER_URL;
 const TOKEN = localStorage.getItem('userToken');
 
 const getUserProfile = async (userId: Number) => {
-  const url = `${BASE_URL}user/{userId}`;
-  const response = await axios.get(url, {
-    params: {
-      userId: userId
-    }
-  });
+  const url = `${BASE_URL}user/${userId}`;
+  const response = await axios.get(url);
   return response
 };
 

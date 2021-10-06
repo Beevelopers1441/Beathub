@@ -6,12 +6,8 @@ const BASE_URL = process.env.REACT_APP_SERVER_URL;
 const TOKEN = localStorage.getItem('userToken');
 
 const getGroupProfile = async (bandId: Number) => {
-  const url = `${BASE_URL}bands/{bandId}`;
-  const response = await axios.get(url, {
-    params: {
-      bandId: bandId
-    }
-  });
+  const url = `${BASE_URL}bands/${bandId}`;
+  const response = await axios.get(url);
   return response
 };
 

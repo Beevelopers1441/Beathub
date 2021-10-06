@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 // Components
-import { Posts, LinkTab, CommunitySearch } from 'components/Community';
+import { AudioList, } from 'components/Beathub';
+import { ListForHome } from 'components/Community';
 
 // api
 import { getBandPosts, getMemberPosts } from 'lib/api/community';
@@ -12,10 +13,9 @@ import { Container, Grid } from '@mui/material';
 import Wrapper from './styles';
 
 // types
-import { IPost } from 'types';
 
 // dummies
-// import { dummyAudios } from './dump'
+import { dummyAudios } from '../Beathub/dump'
 
 interface Props {}
 
@@ -23,16 +23,16 @@ function Home(props: Props): React.ReactElement {
 
   return (
     <Wrapper>
-      <Container className="home-container">
-        <Grid container className="sub-container">
-          <Grid item xs={10}>
-            <h1>HOME</h1>
-          </Grid>
-          <Grid item xs={2}>
-            <h1>HOME</h1>
-          </Grid>
+      <Grid container className="home-container">
+        <Grid item xs={8} className="main-container">
+          <h1>HOME</h1>
         </Grid>
-      </Container>
+        <Grid item xs={4} className="sub-container">
+          <AudioList Audios={dummyAudios} />
+          <hr />
+          <ListForHome />
+        </Grid>
+      </Grid>
     </Wrapper>
   );
 }

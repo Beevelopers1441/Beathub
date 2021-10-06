@@ -105,7 +105,9 @@ function ChatList(): React.ReactElement {
 
     // init currChatList and init search input
     setCurrChatList([...chatList]);
-    searchRef.current.value = '';
+    if (searchRef.current) {
+      searchRef.current.value = '';
+    };
   }, [chatList])
 
   const handleOpen = () => {

@@ -77,8 +77,6 @@ const Modal = ({ bandId, showModal, setShowModal }: Props): React.ReactElement =
     setCurrInst(value);
   };
   const handleApply = () => {
-    console.log('!!!!')
-    console.log(currInst)
     if (currInst) {
       bandApply(bandId, currInst)
         .then((res) => {

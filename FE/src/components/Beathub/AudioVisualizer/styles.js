@@ -19,7 +19,7 @@ padding-right: 10rem;
 display: flex;
 align-items: center;
   & .title {
-    padding-right: 1rem;
+    padding-right: 0.5rem;
   }
 }
 

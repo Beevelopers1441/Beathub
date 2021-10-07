@@ -59,6 +59,7 @@ const Wrapper = styled.div`
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 12px;
         background-color: #03C75A;
+        color: ${({ theme }) => theme.colors.white };
         ${({ theme }) => theme.font.bold }
       }
 
@@ -69,6 +70,7 @@ const Wrapper = styled.div`
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 12px;
         background-color: ${({ theme }) => theme.colors.white };
+        color: ${({ theme }) => theme.colors.black };
         ${({ theme }) => theme.font.bold }
       }
     }

@@ -1,12 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Rating, Box } from '@mui/material';
-import StarIcon from '@mui/icons-material/Star';
 // component
 
 // types
 
 // styles
 import Wrapper from './styles';
+import { Rating, Box } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
 
 // libraries
 import Wave from '@foobar404/wave';

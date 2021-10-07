@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   & .edit-btn {
     width: 100%;
     height: 40px;
-    background: #D99BFF;
+    background: ${({ theme }) => theme.colors.violetPink };
     border-radius: 10px;
   }
   

@@ -1,12 +1,14 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Rating, Box } from '@mui/material';
-import StarIcon from '@mui/icons-material/Star';
+import React, { useRef, useState, useEffect, useReducer } from 'react';
+
 // component
+import ColorPicker from './ColorPicker';
 
 // types
 
 // styles
 import Wrapper from './styles';
+import { Rating, Box, Button, ToggleButtonGroup, ToggleButton  } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
 
 // libraries
 import Wave from '@foobar404/wave';
@@ -23,7 +25,8 @@ function AudioVisualizer() {
   let [wave] = useState(new Wave())
   let [audioElement, setAudioElement] = useState(null)
   let [audioUrl, setAudioUrl] = useState(Home)
-  let [state, setState] = useState({ playing: false, volume: .5, time: 0, duration: 1000 })
+  let [state, dispatch] = useReducer(reducer, initState)
+  let [playingState, setPlayingState] = useState({ playing: false, volume: .5, time: 0, duration: 1000 })
   let [visual, setVisual] = useState('flower')
 
   // raiting
@@ -54,7 +57,7 @@ function AudioVisualizer() {
     // resizing
     function resizeCanvas() {
       canvas.current.width = window.innerWidth/2;
-      canvas.current.height = window.innerHeight*0.9;
+      canvas.current.height = window.innerHeight*0.5;
     }
     resizeCanvas();    ///call the first time page is loaded
 
@@ -70,17 +73,19 @@ function AudioVisualizer() {
 
     //create wave visual
     // wave.fromElement("player", "playerCanvas", { type: "bars", colors: ["silver", "white"] })
-    wave.fromElement("player", "playerCanvas", { type: visual, colors: ["silver", "white"] })
+    wave.fromElement("player", "playerCanvas", { type: state.activePreviewWave, colors: state.previewWaveColorMap[state.activePreviewWave] })
+    // colors: ["silver", "white"]
+    // colors: state.previewWaveColorMap[state.activePreviewWave]
 
     //update time tracker
-    let timeLoop = setInterval(() => {
-        handleState("time", audio.currentTime)
-    }, 500)
+    // let timeLoop = setInterval(() => {
+    //     handleState("time", audio.currentTime)
+    // }, 500)
     
-    return () => {
-        clearInterval(timeLoop)
-    }
-  }, [])
+    // return () => {
+    //     clearInterval(timeLoop)
+    // }
+  }, [state.activePreviewWave, state.previewWaveColorMap])
 
   // const options = {type:"bars"};
   // wave.fromElement("audio_element_id","canvas_id", options);
@@ -114,21 +119,21 @@ function AudioVisualizer() {
   
   // 음악을 재생 또는 일시정지
   function togglePlay() {
-    if (state.playing) {
+    if (playingState.playing) {
       Pause()
-      setState(state => {
-        console.log(state)
+      setPlayingState(playingState => {
+        console.log(playingState)
         return {
-            ...state,
+            ...playingState,
             playing: false
         }
       })
     } else {
       Play()
-      setState(state => {
-        console.log(state)
+      setPlayingState(playingState => {
+        console.log(playingState)
         return {
-            ...state,
+            ...playingState,
             playing: true
         }
       })
@@ -137,12 +142,17 @@ function AudioVisualizer() {
 
 
   function handleState(key, value) {
-      setState(state => {
+      setPlayingState(playingState => {
           return {
-              ...state,
+              ...playingState,
               [key]: value
           }
       })
+  }
+
+  // 파형 바꾸는 로직
+  const handleWaveChange = (wave) => {
+    dispatch({ type: 'UPDATE_ACTIVE_WAVE', payload: wave})
   }
 
   // function updateTime(value) {
@@ -185,7 +195,7 @@ function AudioVisualizer() {
               />
             <div className="play-pause-btn" onClick={togglePlay}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 18 24">
-                  <path fill="#566574" fillRule="evenodd" d={state.playing? "M0 0h6v24H0zM12 0h6v24h-6z":"M18 12L0 24V0"} className="play-pause-icon" id="playPause"/>
+                  <path fill="#566574" fillRule="evenodd" d={playingState.playing? "M0 0h6v24H0zM12 0h6v24h-6z":"M18 12L0 24V0"} className="play-pause-icon" id="playPause"/>
                 </svg>
             </div>
           </div>
@@ -218,8 +228,42 @@ function AudioVisualizer() {
         <h4>{artist} - {title}</h4>
       </div>
 
-      <canvas ref={canvasRef} className="playerCanvas" id="playerCanvas" width="550" height="550"></canvas>
-      <audio hidden id="player" src={audioUrl} crossOrigin="anonymous"></audio>
+      <div className="flex-wrapper">
+      {/* <ColorPicker state={state} dispatch={dispatch} /> */}
+      <div className="visualizer-wave-container">
+        <div className="flex-column-wrapper">
+        <ToggleButtonGroup size="small" >
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('bars')} size="small">bars</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('bars blocks')} size="small">bars blocks</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('cubes')} size="small">cubes</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('dualbars')} size="small">dualbars</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('dualbars blocks')} size="small">dualbars blocks</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('fireworks')} size="small">fireworks</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('flower')} size="small">Flower</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('flower blocks')} size="small">flower blocks</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('orbs')} size="small">orbs</ToggleButton>
+        </ToggleButtonGroup>
+        <ToggleButtonGroup size="small" >
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('ring')} size="small">ring</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('rings')} size="small">rings</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('round wave')} size="small">round wave</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('shine')} size="small">shine</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('shine rings')} size="small">shine rings</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('shockwave')} size="small">shockwave</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('star')} size="small">star</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('static')} size="small">static</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('stitches')} size="small">stitches</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('web')} size="small">web</ToggleButton>
+          <ToggleButton className="wave-btn" onClick={() => handleWaveChange('wave')} size="small">wave</ToggleButton>
+        </ToggleButtonGroup>
+      </div>
+      </div>
+      
+      <div className="canvas-wrapper">
+        <canvas ref={canvasRef} className="playerCanvas" id="playerCanvas" width="550" height="550"></canvas>
+        <audio hidden id="player" src={audioUrl} crossOrigin="anonymous"></audio>
+      </div>
+    </div>
     </Wrapper>
   );
 }

@@ -53,6 +53,7 @@ const BandsList: React.FC<IProps> = ({ profileInfo }) => {
           <Button
             size="small"
             variant="contained"
+            className="bands-creater"
             onClick={handleModal}
           >
             밴드생성

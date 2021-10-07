@@ -76,13 +76,11 @@ const GroupProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
   return(
     <Wrapper>
       <Container className="group-profile-container">
-        <Grid container>
-          <Grid item xs={3}>
-            <GroupProfileInfo bandInfo={groupInfo}></GroupProfileInfo>
-          </Grid>
-          <Grid item xs={9}>
-            <GroupProfileBoard bandInfo={groupInfo}></GroupProfileBoard>
-          </Grid>
+        <Grid item xs={3} className="container">
+          <GroupProfileInfo bandInfo={groupInfo}></GroupProfileInfo>
+        </Grid>
+        <Grid item xs={9} className="container">
+          <GroupProfileBoard bandInfo={groupInfo}></GroupProfileBoard>
         </Grid>
       </Container>
     </Wrapper>

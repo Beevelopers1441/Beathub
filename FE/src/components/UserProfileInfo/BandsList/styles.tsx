@@ -6,6 +6,10 @@ const Wrapper = styled.div`
   & .secondary-letter {
     color: #ABB0B5;
   }
+  
+  & .bands-creater {
+    background: ${({ theme }) => theme.colors.blueViolet }
+  }
 
   & .bands-letter-create-container {
     display: flex;
@@ -34,6 +38,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     margin-top: 0.25rem;
+    height: 10vh;
   }
 
   & .backdrop {
@@ -48,7 +53,7 @@ const Wrapper = styled.div`
   & .modal {
     max-width: 400px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 20px;
     background: #ffffff;
     border-radius: 10px;
     text-align: center;
@@ -74,7 +79,7 @@ const Wrapper = styled.div`
   }
 
   & .sub-description {
-    margin: 1rem 5rem;
+    margin: 1rem 1.5rem;
     max-width: 200px;
     color: #444;
     font-weight: 200;

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import Background5 from 'assets/svgs/Background5.svg'
 
 const Wrapper = styled.div`
-  margin-top: 6vh;
+  margin-top: 7.5vh;
   background-position: center center;
   background-image: url(${Background5});
   background-repeat : no-repeat;

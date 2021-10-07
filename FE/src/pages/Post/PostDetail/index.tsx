@@ -191,7 +191,7 @@ function PostDetail(): React.ReactElement {
             <Grid item xs={1}>
               <ArrowBackIosNew onClick={handleBack} className="back-btn" />
             </Grid>
-            <Grid item xs={10} className="content-container">
+            <Grid item xs={9} className="content-container">
               <p className="title">{post.title}</p>
               <div className="time-like-container">
                 <p className="time">{setDateFormat(post.createTime)}</p>
@@ -229,7 +229,7 @@ function PostDetail(): React.ReactElement {
                 ))}
               </div>
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs={2}>
               <div className="right-sidebar-container">
                 <ProfileCard
                   name={post.author.name}

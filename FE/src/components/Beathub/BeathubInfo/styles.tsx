@@ -24,6 +24,7 @@ const Wrapper = styled.div`
 
     & .button {
       margin-top: 1rem;
+      background-image: ${({ theme }) => theme.colors.blueViolet };
     }
   }
 `;

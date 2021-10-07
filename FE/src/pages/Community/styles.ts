@@ -1,25 +1,33 @@
 import styled from 'styled-components'
+import Background6 from 'assets/svgs/Background6.svg'
 
 const Wrapper = styled.div`
-  margin-top: 70px;
+  padding-top: 9vh;
+  height: 100vh;
+  background-position: center center;
+  background-image: url(${Background6});
+  background-repeat : no-repeat;
+  background-size : cover;
 
-  & .title-container {
+  & .community-title-container {
     justify-content: center;
     display: flex;
   }
 
-  & .title {
-    padding: 2rem;
-    width: 60%;
+  & .community-title {
+    padding: 1.5rem;
+    width: 80%;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 3.5rem;
     border: 1px solid white;
     border-radius: 10px;
-    font-weight: bold;
+    backdrop-filter: blur(50px);
   }
 
   & .community-container {
     display: flex;
+    
 
     & .leftbar {
       cursor: pointer;
@@ -29,6 +37,11 @@ const Wrapper = styled.div`
   & .sub-container {
     min-width: 1140px;
   }
+
+  & .main-container {
+    padding-bottom: 4rem;
+  }
+
 
   /* leftbar */
   & .teamFlag {
@@ -50,6 +63,7 @@ const Wrapper = styled.div`
   & .linktab-container {
     display: flex;
     border-bottom: 0.5px solid white;
+    
   }
 
   & .create-container {
@@ -60,7 +74,8 @@ const Wrapper = styled.div`
       height: 2rem;
       margin: 1rem 0;
       border-radius: 3px;
-      background-color: ${({ theme }) => theme.colors.violet };
+      border: 0.5px solid white;
+      background-image: ${({ theme }) => theme.colors.pinkDarkGreen };
       text-align: center;
       color: white;
     }

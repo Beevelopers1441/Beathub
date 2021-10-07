@@ -29,7 +29,7 @@ const Wrapper = styled.div`
 
   & .audios-empty {
     text-align: center;
-    margin-top: 200px;
+    margin: 200px 0;
     font-size: 20px;
     color: #ABB0B5;
   }

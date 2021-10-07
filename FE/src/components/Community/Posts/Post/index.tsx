@@ -7,7 +7,7 @@ import { setDateFormat } from 'utils/time';
 import { setSimpleUsername, setSliceText } from 'utils/community';
 
 // component
-import { ProfileImage } from 'components/atoms';
+import { ProfileImage, InstItem } from 'components/atoms';
 
 // types
 import { IPost } from 'types';
@@ -68,7 +68,7 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
             <Grid item xs={9}
               className="post-mainInfo-container"
             >
-              <p className="title">{setSliceText('title', post.title)}<span className="post-tag">{post.tag.type}</span></p>
+              <p className="title">{setSliceText('title', post.title)}<span className="post-tag"><InstItem inst={post.tag.type} /></span></p>
               <p className="content">{setSliceText('content', post.content)}</p>
             </Grid>
             <Grid item xs={3}

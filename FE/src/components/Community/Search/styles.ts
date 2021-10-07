@@ -12,6 +12,9 @@ const Wrapper = styled.div`
     width: 28rem;
     border: 1px solid white;
     border-radius: 5px;
+    // 배경이 뿌옇게 되도록 효과
+    border-radius: 10px;
+    backdrop-filter: blur(50px);
 
   }
   
@@ -29,6 +32,10 @@ const Wrapper = styled.div`
     -webkit-appearance: none; /* 브라우저별 기본 스타일링 제거 */
     -moz-appearance: none;
     appearance: none;
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: rgba(255, 255, 255, 0.7);
+      opacity: 1; /* Firefox */
+    }
   }
 
   
@@ -43,7 +50,8 @@ const Wrapper = styled.div`
     margin-left: 0.5rem;
     text-align: center;
     border-radius: 3px;
-    background-color: ${({ theme }) => theme.colors.violet };
+    border: 0.5px solid white;
+    background-image: ${({ theme }) => theme.colors.violetPink };
     color: white;
   }
 `;

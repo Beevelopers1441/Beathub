@@ -14,6 +14,9 @@ import { socialLogin, getUserInfo, isFirst } from 'lib/api/auth/socialLogin'
 import { useDispatch, useSelector } from 'react-redux';
 import { getTokenAction, getUserInfoAction, loginAction } from 'modules/user/actions'
 
+// styles
+import { Button } from '@mui/material'
+
 interface Props {
   token?: string;
 }
@@ -98,7 +101,7 @@ export const NaverAuthBtn = (): React.ReactElement => {
     <NaverLogin
       clientId="jHT5HdEtOh3_p63OeyVr"
       callbackUrl="http://127.0.0.1:3000/login"
-      render={(props) => <button className="btn-naver" onClick={props.onClick}>네이버로 로그인 하기</button>}
+      render={(props) => <Button className="btn-naver" onClick={props.onClick}>네이버로 로그인 하기</Button>}
       onSuccess={(result) => onSuccess(result)}
       onFailure={() => console.error()}
     />

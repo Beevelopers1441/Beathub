@@ -39,7 +39,7 @@ function BeathubInfo( {bucketInfo}: Props) {
           <div className="introduction">{bucketInfo.introduction}</div>
         </Grid>
         <Grid item xs={2}>
-          <Button variant="contained" color="secondary" className="button" onClick={onClickCommit}>
+          <Button size="large" variant="contained" className="button" onClick={onClickCommit}>
             Commit
           </Button>
         </Grid>

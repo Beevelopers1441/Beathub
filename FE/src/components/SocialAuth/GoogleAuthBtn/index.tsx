@@ -15,6 +15,9 @@ import { socialLogin, getUserInfo, isFirst } from 'lib/api/auth/socialLogin'
 import { useDispatch, useSelector } from 'react-redux';
 import { getTokenAction, getUserInfoAction, loginAction } from 'modules/user/actions'
 
+// styles
+import { Button } from '@mui/material'
+
 interface Props {
   token?: string;
 }
@@ -93,7 +96,7 @@ export const GoogleAuthBtn = (props:Props): React.ReactElement => {
       clientId="618018607779-hhtaqof2ufm6ultf5baei97pthlm7d6q.apps.googleusercontent.com"
       // 커스텀 버튼
       render={renderProps => (
-        <button className="btn-google" onClick={renderProps.onClick} disabled={renderProps.disabled}>구글로 로그인 하기</button>
+        <Button className="btn-google" onClick={renderProps.onClick} disabled={renderProps.disabled}>구글로 로그인 하기</Button>
       )}
       onSuccess={result => (onSuccess(result))}
       onFailure={result => (onFailure(result))}

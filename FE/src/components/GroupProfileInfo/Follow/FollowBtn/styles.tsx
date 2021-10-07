@@ -4,10 +4,9 @@ const Wrapper = styled.div`
   & .follow-btn {
     width: 100%;
     height: 40px;
-    background: #D99BFF;
+    background: ${({ theme }) => theme.colors.violetPink };
     border-radius: 10px;
     margin: 1rem 0 1rem 0;
-    border: 1px solid #D99BFF;
     
     & .follow-btn-letter {
       /* Edit profile */

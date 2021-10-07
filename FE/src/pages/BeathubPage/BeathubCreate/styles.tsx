@@ -65,6 +65,10 @@ const Wrapper = styled.div`
   & .bottom-btn-container {
     display: flex;
     justify-content: end;
+
+    & .bottom-btn {
+      background-image: ${({ theme }) => theme.colors.blueViolet }
+    }
   }
   
 `

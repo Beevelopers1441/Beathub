@@ -1,7 +1,7 @@
 import { useState, useReducer } from 'react'
 import { reducer, initState } from "lib/api/beathub/chageVisual"
 
-import { TwitterPicker } from 'react-color';
+// import { TwitterPicker } from 'react-color';
 
 // styles
 import Wrapper from './styles';
@@ -38,7 +38,7 @@ function ColorPicker(state, dispatch) {
   return (
     <Wrapper>
       <div className="color-picker">
-        <TwitterPicker triangle="hide" onChangeComplete={handleChange} colors={activeColorList} />
+        {/* <TwitterPicker triangle="hide" onChangeComplete={handleChange} colors={activeColorList} /> */}
       </div>
     </Wrapper>
   );

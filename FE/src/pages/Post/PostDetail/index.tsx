@@ -25,7 +25,7 @@ interface ParamTypes {
 
 function PostDetail(): React.ReactElement {
   const [post, setPost] = useState<IPost | null>(null);
-  const [recruiting, setrecruiting] = useState<boolean>(true);
+  const [recruiting, setRecruiting] = useState<boolean | null>(null);
   const [comments, setComments] = useState<IComment[]>([]);
   const [isLike, setIsLike] = useState<Boolean>(false);
   const [likeCnt, setLikeCnt] = useState<number>(0);
@@ -57,7 +57,8 @@ function PostDetail(): React.ReactElement {
         setPost(newPost);
         setComments(newComments);
         setMemberWriter(writer);
-        setrecruiting(newRecruiting);
+        setRecruiting(newRecruiting);
+        initToggleProgress(newRecruiting);
       });
     } else {
       // 밴드 글
@@ -72,7 +73,8 @@ function PostDetail(): React.ReactElement {
         setIsLike(newIsLike);
         setPost(newPost);
         setComments(newComments);
-        setrecruiting(newRecruiting);
+        setRecruiting(newRecruiting);
+        initToggleProgress(newRecruiting);
 
         // set band member ids
         getBandInfoAPI(_bandId)
@@ -86,9 +88,9 @@ function PostDetail(): React.ReactElement {
 
   // recruiting effect
   useEffect(() => {
+    if (recruiting === null) return 
     const ele = document.querySelector('.MuiSwitch-root > span');
     if (!ele) return
-
     if (recruiting) { // 모집중
       ele.classList.remove('Mui-checked');
     } else { //모집 완료
@@ -150,14 +152,27 @@ function PostDetail(): React.ReactElement {
     if (classList.indexOf('Mui-checked') !== -1) {  // 모집중
       toggleRecruiting(+postId)
         .then(() => {
-          setrecruiting(true);
+          setRecruiting(true);
         });
     } else {  // 완료
       toggleRecruiting(+postId)
         .then(() => {
-          setrecruiting(false);
+          setRecruiting(false);
         });
     };
+  };
+
+  const initToggleProgress = (flag: boolean) => {
+    setTimeout(() => {
+      const ele = document.querySelector('.MuiSwitch-root > span');
+      if (!ele) return
+  
+      if (flag) { // 모집중
+        ele.classList.remove('Mui-checked');
+      } else { //모집 완료
+        ele.classList.add('Mui-checked');
+      };
+    }, 100);
   };
 
   // need to change tmp

@@ -62,7 +62,8 @@ const Beathub: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
         title: totalInfo.title
       })
     })
-  })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   
   return (
     <Wrapper>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // component
 import { AudioList, AudioUpload, BeathubMain, BeathubInfo } from 'components/Beathub';
@@ -15,18 +15,10 @@ import Wrapper from './styles';
 import { type } from 'os';
 
 // apis
-import { getBucketInfo } from 'lib/api/beathub';
+import { getBucketInfo, getBucketAudios } from 'lib/api/beathub';
 
-// import dump from './dump.mp3'
-
-// let music: any = dump
-
-// interface Props {
-//   Audios: Audio[]
-// }
-
-// dummies
-import { dummyAudios } from './dump'
+//modules
+import { setBucketAudioAction } from 'modules/beathub/actions';
 
 
 interface MatchParam {
@@ -35,8 +27,11 @@ interface MatchParam {
 
 
 const Beathub: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
+
+  const dispatch = useDispatch();
   
   const commitList = useSelector((state: any) => state.beathub.commitList)
+  const bucketList = useSelector((state: any) => state.beathub.bucketList)
 
   const [bucketInfo, setBucketInfo] = useState<BucketInfo>({
     audios: [],
@@ -62,6 +57,12 @@ const Beathub: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
         title: totalInfo.title
       })
     })
+
+    getBucketAudios(Number(match.params.bucketId))
+    .then(res => {
+      const audioList  = res.data
+      dispatch(setBucketAudioAction({audioList}))
+    })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
@@ -74,7 +75,7 @@ const Beathub: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
             <BeathubMain commitAudios={commitList} bucketInfo={bucketInfo}></BeathubMain>
           </Grid>
           <Grid item xs={4} className="audio-info-container">
-            <AudioList Audios={dummyAudios} />
+            <AudioList Audios={bucketList} />
             <Container className="upload-container">
               <AudioUpload bucketId={bucketInfo.id}/>
             </Container>

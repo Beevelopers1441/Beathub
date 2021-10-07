@@ -40,6 +40,8 @@ public class UserProfileResDto {
 
     private List<CommitDto> commits;
 
+    private List<BucketDto> buckets;
+
 //    private List<UserInfoDto> followers;
 
 //    private List<UserInfoDto> followings;
@@ -64,6 +66,7 @@ public class UserProfileResDto {
         }
         userProfileResDto.participatingBands = BandDto.of(approvedBands);
         userProfileResDto.commits = CommitDto.of(user.getCommits());
+        userProfileResDto.buckets = BucketDto.of(user.getBuckets());
 
         return userProfileResDto;
     }

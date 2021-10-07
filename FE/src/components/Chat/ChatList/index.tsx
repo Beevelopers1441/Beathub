@@ -21,7 +21,7 @@ import Wrapper from './styles';
 
 function ChatList(): React.ReactElement {
   const [chatList, setChatList] = useState<IChatItem[]>([]);
-  const [currChatList, setCurrChatList] = useState<IChatItem[]>([]);
+  // const [currChatList, setCurrChatList] = useState<IChatItem[]>([]);
   const [roomNumbers, setRoomNumbers] = useState<Set<string>>(new Set([]));
 
   const { userInfo } = useSelector((state: any) => state.user);
@@ -95,19 +95,19 @@ function ChatList(): React.ReactElement {
       .catch((error) => {
         console.log("Error getting documents: ", error);
       });
-  }, [userInfo.id, chatList, roomNumbers]);
+  }, [userInfo.id]);
 
   // sort chatList
-  useEffect(() => {
-    const newChatList = [...chatList];
-    newChatList.sort((a, b) => (+(new Date(b.lastCreateTime)) - +(new Date(a.lastCreateTime))));  // 최신 메시지 순 정렬
+  // useEffect(() => {
+    // const newChatList = [...chatList];
+    // newChatList.sort((a, b) => (+(new Date(b.lastCreateTime)) - +(new Date(a.lastCreateTime))));  // 최신 메시지 순 정렬
 
-    // init currChatList and init search input
-    setCurrChatList([...chatList]);
-    if (searchRef.current) {
-      searchRef.current.value = '';
-    };
-  }, [chatList])
+    // // init currChatList and init search input
+    // setCurrChatList([...chatList]);
+    // if (searchRef.current) {
+    //   searchRef.current.value = '';
+    // };
+  // }, [chatList])
 
   const handleOpen = () => {
     dispatch(openAction());
@@ -118,11 +118,11 @@ function ChatList(): React.ReactElement {
     if (e.key === 'Enter') {
       const newSearchInput = searchRef?.current.value.trim().toLowerCase();
       if (!newSearchInput) {  // input 값이 없으면
-        setCurrChatList([...chatList]);
+        setChatList([...chatList]);
       } else {
         let newCurrChatList = [...chatList];
         newCurrChatList = newCurrChatList.filter(chatList => chatList.userInfo.name.toLowerCase().indexOf(newSearchInput) !== -1);
-        setCurrChatList(newCurrChatList);
+        setChatList(newCurrChatList);
       };
     };
   };
@@ -155,7 +155,7 @@ function ChatList(): React.ReactElement {
                   />
                 </div>
                 <div>
-                  { currChatList.map((item, idx) => {
+                  { chatList.map((item, idx) => {
                       return (
                         <ChatListItem
                           item={item}

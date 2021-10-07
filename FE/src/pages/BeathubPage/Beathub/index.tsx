@@ -32,6 +32,7 @@ const Beathub: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
   
   const commitList = useSelector((state: any) => state.beathub.commitList)
   const bucketList = useSelector((state: any) => state.beathub.bucketList)
+  const refreshPage = useSelector((state: any)=> state.user.refreshPage)
 
   const [bucketInfo, setBucketInfo] = useState<BucketInfo>({
     audios: [],
@@ -57,14 +58,19 @@ const Beathub: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
         title: totalInfo.title
       })
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
+
+
+  useEffect(() => {
     getBucketAudios(Number(match.params.bucketId))
     .then(res => {
       const audioList  = res.data
       dispatch(setBucketAudioAction({audioList}))
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [refreshPage])
   
   return (
     <Wrapper>

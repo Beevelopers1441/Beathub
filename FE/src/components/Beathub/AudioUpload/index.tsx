@@ -9,7 +9,11 @@ import { s3Auth, s3Send } from 'lib/api/beathub/s3Upload';
 import { createBucketAudio } from 'lib/api/beathub';
 
 // redux
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+// actions
+import { refreshPageAction } from 'modules/user/actions';
+
 
 interface Props {
   bucketId: number
@@ -17,6 +21,8 @@ interface Props {
 
 
 function AudioUpload({ bucketId }: Props): React.ReactElement {
+
+  const dispatch = useDispatch();
 
   s3Auth()
   
@@ -92,8 +98,13 @@ function AudioUpload({ bucketId }: Props): React.ReactElement {
       }
 
       // 버킷에 음악 저장
-      createBucketAudio(bucketId, payload).then(res => console.log(res))
+      createBucketAudio(bucketId, payload)
+      .then(() => {
+        dispatch(refreshPageAction())
+      })
       
+
+
       setFileUrl(res)
     });
   }

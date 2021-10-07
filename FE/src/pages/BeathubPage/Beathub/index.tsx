@@ -76,7 +76,7 @@ const Beathub: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
           <Grid item xs={4} className="audio-info-container">
             <AudioList Audios={dummyAudios} />
             <Container className="upload-container">
-              <AudioUpload />
+              <AudioUpload bucketId={bucketInfo.id}/>
             </Container>
           </Grid>
         </Grid>

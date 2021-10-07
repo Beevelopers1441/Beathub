@@ -1,33 +1,25 @@
-import React, {useState, useEffect, cloneElement} from 'react';
-
-// component
-
-// types
+import React, {useState} from 'react';
 
 // styles
 import Wrapper from './styles';
+import { FormControl, Select, MenuItem } from '@mui/material';
 
 // apis
-import { s3Auth, s3Send } from 'lib/api/beathub/s3Upload'
-
-// libraries
-import AWS from 'aws-sdk';
-import axios from 'axios';
+import { s3Auth, s3Send } from 'lib/api/beathub/s3Upload';
+import { createBucketAudio } from 'lib/api/beathub';
 
 // redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+
+interface Props {
+  bucketId: number
+}
 
 
-function AudioUpload(): React.ReactElement {
-  // S3 기본 정보
-  var albumBucketName = "beathub-bucket";
-  var bucketRegion = "ap-northeast-2";
-  
+function AudioUpload({ bucketId }: Props): React.ReactElement {
+
   s3Auth()
   
-  // 2. 기초 처리
-  const dispatch = useDispatch();
-
   // 유저정보 리덕스에서 가져오기
   const userid = useSelector((state: any) => state.user.userInfo.id);
   
@@ -48,12 +40,18 @@ function AudioUpload(): React.ReactElement {
     userInfo: {
       imageUrl: "image",
       nickname: "name",
-      // imageUrl: userInfo.imageUrl,
-      // nickname: userInfo.nickname,
     },
     title: '',
     instrument: ''
   })
+
+  // 카테고리 입력
+  const handleChangeInstName = (e: any) => {
+    setaudioInfo({
+      ...audioInfo,
+      instrument: e.target.value as string
+    })
+  }
   
   // 타이틀 입력
   const onChangeAudioTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,96 +63,85 @@ function AudioUpload(): React.ReactElement {
   
   // 업로드 파일이 바뀌면 실행되는 로직
   function processAudio(e: React.ChangeEvent<HTMLInputElement>): void {
-
     // 업로드 후 파일명을 이름으로 설정
     if (e.target.files) {
-      setaudioInfo({
-        ...audioInfo,
-        title: e.target.files[0].name
-      })
-    }
-
-    if (e.target.files) {
-      
-      let file = e.target.files[0];
-      let reader = new FileReader();
-
-      reader.onloadend = (e) => {
-        setFile(file);
-        
+      if (e.target.files[0] !== undefined){
+        setaudioInfo({
+          ...audioInfo,
+          title: e.target.files[0].name
+        })
+  
+        let file = e.target.files[0];
+        let reader = new FileReader();
+        reader.onloadend = (e) => {
+          setFile(file);
+        }
+        reader.readAsDataURL(file);
+        setChanged(true)
       }
-      
-      reader.readAsDataURL(file);
-      setChanged(true)
-    }
+      }
   }
 
   // s3에 파일 전송 후 url을 받아옴
   async function handleFileInput() {
     s3Send(userid, file).then(function (res: string) {
-      console.log(res, '이거 나와야지')
-      console.log(typeof(res))
-      setFileUrl(String(res))
+      const payload = {
+        filename: audioInfo.title,
+        filepath: res,
+        instrumentType: audioInfo.instrument
+      }
+
+      // 버킷에 음악 저장
+      createBucketAudio(bucketId, payload).then(res => console.log(res))
+      
+      setFileUrl(res)
     });
   }
-
+  
   // 저장 로직
   const onClickSave = () => {
     // 파일 input에 변경사항이 있으면
-    if (changed === true) {
-      // s3에 파일 전송 후 url을 받아옴
-      handleFileInput()
-      // url로 audio객체 생성
-      const uploadedAudio = new Audio(fileUrl)
-      setAudio(uploadedAudio)
-      // 업로드 후 url 받아와 audio객체까지 만들었으니 true
-      setUploaded(true)
-    }
-  }
-
-  // useEffect(() => {
-  //   console.log(audio)
-  // }, [uploaded])
-
-
-  const onClickPlay = () => {
-    if (audio) {
-      const playPromise = audio.play();
-
-      if (playPromise !== undefined) {
-        playPromise
-          .then(_ => {
-            // Automatic playback started!
-            // Show playing UI.
-            console.log("audio played auto");
-          })
-          .catch(error => {
-            // Auto-play was prevented
-            // Show paused UI.
-            console.log("playback prevented");
-          });
+    if (audioInfo.title && audioInfo.title !== "" && audioInfo.instrument && audioInfo.instrument !== "" ){
+      if (changed === true) {
+        // s3에 파일 전송 후 url을 받아옴
+        handleFileInput()
+        // url로 audio객체 생성
+        const uploadedAudio = new Audio(fileUrl)
+        setAudio(uploadedAudio)
+        // 업로드 후 url 받아와 audio객체까지 만들었으니 true
+        setUploaded(true)
+        setChanged(false)
+        setaudioInfo({
+          ...audioInfo,
+          title: "",
+          instrument: ""
+        })
       }
+    } else {
+      alert("정보를 입력하세요")
     }
   }
-    
-  const onClickStop = () => {
-    if (audio) {
-      audio.pause() 
-    }
+  
+  const onClickCancel = () => {
+    setChanged(false)
+    setaudioInfo({
+      ...audioInfo,
+      title: "",
+      instrument: ""
+    })
   }
-    // test: 받아오기
-    // const downloadAudio = async () => {
-    //   const response = await axios.get(fileUrl)
-
-    //   return response
-    // }
-
-    // console.log(downloadAudio())
-
+  
   return (
     <Wrapper>
+      <div className="content">음악 파일 업로드</div>
+
       {/* 파일 업로드 */}
+      <input className="input-file" type="file" name="afile" id="input-file" onChange={processAudio} />
+      <div></div>
+
+      {/* 타이틀 */}
       <input
+        className="post-input"
         placeholder="타이틀을 입력하세요"
         onFocus={(e) => {
           e.target.placeholder = '';
@@ -164,39 +151,39 @@ function AudioUpload(): React.ReactElement {
         }}
         type="text"
         // value가 null이 되지 않게 처리
-        value={audioInfo.title ? audioInfo.title : ''}
+        value={audioInfo.title}
         name="title"
         onChange={onChangeAudioTitle}
       />
 
-      {/* 미리 듣기 */}
-      <audio controls>
-        <source src="https://beathub-bucket.s3.ap-northeast-2.amazonaws.com/1/1_audio3.mp3" type="audio/mpeg" />
-      </audio>
-      <p>파일주소: {fileUrl}</p>
-      <p>유저정보: {userid}</p>
-      {/* 파일 업로드 */}
-      <label className="cbtn-sm cbtn-primary" htmlFor="input-file" >
-      </label>
-      <input type="file" id="input-file" onChange={processAudio} />
-      {/* <button onClick={removeFile}>파일삭제</button> */}
+      {/* 악기카테고리 선택 */}
+      <div className="form-container">
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 150 }} style={{ margin: 0 }}>
+          <Select
+            value={audioInfo.instrument}
+            label="instrument"
+            inputProps={{ 'aria-label': 'Without label' }}
+            onChange={handleChangeInstName}
+          > 
+            <MenuItem value=""><em>악기선택</em></MenuItem>
+            <MenuItem value="보컬" >보컬</MenuItem>
+            <MenuItem value="키보드">키보드</MenuItem>
+            <MenuItem value="일렉기타">일렉기타</MenuItem>
+            <MenuItem value="어쿠스틱기타">어쿠스틱기타</MenuItem>
+            <MenuItem value="베이스">베이스</MenuItem>
+            <MenuItem value="드럼">드럼</MenuItem>
+            <MenuItem value="기타(etc)">기타(etc)</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+
       {changed
-        ? <button onClick={onClickSave} >저장</button>
-        : <button>저장불가능</button>
-      }
-      {uploaded
-        ? <div>
-          <div className="loading">
-            <div className="spinner"></div>
-          </div>
-          <div className="play-pause-btn" onClick={onClickPlay}>  
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 18 24">
-              <path fill="#566574" fill-rule="evenodd" d="M18 12L0 24V0" className="play-pause-icon" id="playPause"/>
-            </svg>
-          </div>
-            <button onClick={onClickStop} >일시정지</button>
-          </div>
-        : <button>재생불가능</button>
+        ?
+        <div className="btn-container">
+          <button className="save-btn" onClick={onClickSave}>저장</button>
+          <button className="cancel-btn" onClick={onClickCancel}>취소</button>
+        </div>
+        : <div></div>
       }
     </Wrapper>
   );

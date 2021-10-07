@@ -2,7 +2,9 @@ import styled from 'styled-components'
 import Background5 from 'assets/svgs/Background5.svg'
 
 const Wrapper = styled.div`
-  margin-top: 100px;
+  margin-top: 70px;
+  min-width: 752px;
+
   background-position: center center;
   background-image: url(${Background5});
   background-repeat : no-repeat;
@@ -10,7 +12,6 @@ const Wrapper = styled.div`
 
   & .upload-container {
     display: flex;
-    padding: 2rem;
   }
 
   & .editor-container {

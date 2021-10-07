@@ -13,7 +13,6 @@ interface State {
   wavesurfer: any,
   pos: number,
 }
-
 export default class MusicWave extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);

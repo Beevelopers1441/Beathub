@@ -4,6 +4,7 @@ const Wrapper = styled.div`
   margin: 1rem;
   border: 1px solid white;
   border-radius: 10px;
+  backdrop-filter: blur(50px);
 
   & .first-row {
     display: flex;

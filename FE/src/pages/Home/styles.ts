@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   background-size: cover;
   overflow: hidden;
   height: 100vh;
-  padding-top: 50px;
+  padding-top: 3.2rem;
 
   & .blur {
     backdrop-filter: blur(50px);
@@ -21,12 +21,12 @@ const Wrapper = styled.div`
   & .main-container {
     display: flex;
     justify-content: center;
-    padding: 2rem;
   }
 
   & .sub-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-between;
     padding: 0 2rem 0 0;
     // min-width: 1140px;

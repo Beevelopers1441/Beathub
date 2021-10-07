@@ -5,7 +5,7 @@ padding: 1rem 1rem;
 position: relative;
 
 & .visualizer-info-container {
-  padding-top: 20px;
+  padding-top: 1rem;
   position: absolute;
 }
 & .top-container {
@@ -19,7 +19,7 @@ padding-right: 10rem;
 display: flex;
 align-items: center;
   & .title {
-    padding-right: 0.5rem;
+    padding-right: 1.5rem;
   }
 }
 

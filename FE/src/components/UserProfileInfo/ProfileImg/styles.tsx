@@ -6,8 +6,8 @@ const Wrapper = styled.div`
 
   & .user-image {
     display: inline-block;
-    width: 250px;
-    height: 250px;
+    width: 20vh;
+    height: 20vh;
     max-width: 100%;
     border-radius: 50%;
     background-repeat: no-repeat;

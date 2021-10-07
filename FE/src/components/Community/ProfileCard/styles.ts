@@ -4,7 +4,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: end;
   background-color: ${({ theme }) => theme.colors.lightBlue };
-  width: 220px;
+  width: 180px;
   height: 5.5rem;
   margin-left: 2rem;
   padding: 0.7rem 0.7rem 0.7rem 1rem;

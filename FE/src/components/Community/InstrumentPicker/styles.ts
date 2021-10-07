@@ -4,6 +4,8 @@ const Wrapper = styled.div`
   border: 1px solid white;
   border-radius: 5px;
   min-width: 187.2px;
+  // 배경이 뿌옇게 되도록 효과
+  backdrop-filter: blur(50px);
 
   & .music-icon {
     vertical-align: middle;
@@ -25,6 +27,10 @@ const Wrapper = styled.div`
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: rgba(255, 255, 255, 0.7);
+      opacity: 1; /* Firefox */
+    }
   }
 `;
 

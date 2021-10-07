@@ -1,7 +1,15 @@
 import styled from 'styled-components'
+import Background6 from 'assets/svgs/Background6.svg'
 
 const Wrapper = styled.div`
-  margin-top: 100px;
+  padding-top: 10vh;
+  height: 100vh;
+  background-position: center center;
+  background-image: url(${Background6});
+  background-repeat : no-repeat;
+  background-size : cover;
+  display: flex;
+  align-items: center;
 
   & .back-btn {
     width: 40px;
@@ -14,6 +22,9 @@ const Wrapper = styled.div`
 
   & .content-container {
     width: 100%;
+    padding: 1.5rem;
+    border-radius: 10px;
+    backdrop-filter: blur(50px);
 
     & .title {
       font-size: 1.5rem;
@@ -71,9 +82,10 @@ const Wrapper = styled.div`
           margin-left: 1rem;
           width: 7rem;
           height: 2.2rem;
-          border: none;
+          // border: none;
+          border: 1px solid rgba(255, 255, 255, 0.8);
           border-radius: 3px;
-          background-color: ${({ theme }) => theme.colors.purple };
+          background-image: ${({ theme }) => theme.colors.violetPink };
           color: white;
           text-align: center;
         }
@@ -96,11 +108,15 @@ const Wrapper = styled.div`
         -moz-appearance: none;
         appearance: none;
         resize: none;
+        font-family: Spoqa Han Sans Neo;
+        font-style: normal;
+        font-weight: normal;
       }
     }
   }
 
   & .right-sidebar-container {
+    padding-right: 2.3rem;
     width: 252px;
     text-align: end;
 
@@ -115,14 +131,14 @@ const Wrapper = styled.div`
         min-width: 90px;
         text-align: center;
         padding: 0.5rem 0.7rem;
-        background-color: blue;
+        background-image: ${({ theme }) => theme.colors.blueMarine };
         border-radius: 12px;
         box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
       }
       & .btn {
         width: 120px;
         margin: 1.5rem 0 0 2rem;
-        border-radius: 12px;
+        border-radius: 3px;
         font-size: 1rem;
         box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
       }

@@ -154,7 +154,7 @@ function Community(props: Props): React.ReactElement {
             </p>
           </Grid>
 
-          <Grid item xs={10}>
+          <Grid item xs={10} className="main-container">
             <div className="linktab-container">
               {[0, 1, 2].map(value => {
                 return (

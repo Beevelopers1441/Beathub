@@ -15,7 +15,7 @@ interface Props {
 }
 
 
-function AudioList({ Audios }: Props): React.ReactElement {
+function AudioListForHome({ Audios }: Props): React.ReactElement {
   return (
     <Wrapper>
       <div className="new-upload">New Upload</div>
@@ -32,4 +32,4 @@ function AudioList({ Audios }: Props): React.ReactElement {
   );
 }
 
-export default AudioList;
+export default AudioListForHome;

@@ -10,7 +10,9 @@ import com.beeveloper.beathub.band.repository.BandMemberRepository;
 import com.beeveloper.beathub.band.repository.BandRepository;
 import com.beeveloper.beathub.instrument.domain.Instrument;
 import com.beeveloper.beathub.instrument.repository.InstrumentRepository;
+import com.beeveloper.beathub.user.domain.Ability;
 import com.beeveloper.beathub.user.domain.User;
+import com.beeveloper.beathub.user.domain.UserInstrument;
 import com.beeveloper.beathub.user.exception.NotFoundUser;
 import com.beeveloper.beathub.user.repository.UserInstrumentRepository;
 import com.beeveloper.beathub.user.repository.UserRepository;
@@ -64,10 +66,16 @@ public class BandServiceImpl implements BandService{
                 bandInfo.getCreateTime()
         );
 
-        // BandMember 등록용, Leader 용
+        // BandMember 등록용, Leader 용, UserInstrument에도 추가
         User leader = bandInfo.getLeader();
         Instrument instrument = instrumentRepository.findByType(inputType);
 
+        UserInstrument userInstrument = UserInstrument.builder()
+                .instrument(instrument)
+                .ability(Ability.Senior)
+                .player(leader)
+                .build();
+        userInstrumentRepository.save(userInstrument);
         Band savedBand = bandRepository.save(band);
 
         BandMember bandMember = BandMember.createBandMemberForLeader(

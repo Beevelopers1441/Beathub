@@ -42,10 +42,9 @@ public class BandMemberServiceImpl implements BandMemberService {
     }
 
     @Override
-    public BandMember apply(Long bandId, User user, String instrument) {
+    public BandMember apply(Long bandId, User user, UserInstrument instrument) {
         Band band = bandRepository.findById(bandId).orElseThrow(RuntimeException::new);
-        Instrument registerInstrument = instrumentRepository.findByType(instrument);
-        UserInstrument userInstrument = userInstrumentRepository.findByPlayerAndInstrument(user, registerInstrument);
+        UserInstrument userInstrument = userInstrumentRepository.findByPlayerAndInstrument(user, instrument.getInstrument());
         BandMember bandMember = BandMember.builder()
                 .band(band)
                 .user(user)

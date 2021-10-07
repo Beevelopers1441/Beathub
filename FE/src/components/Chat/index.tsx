@@ -12,7 +12,7 @@ import { initFirebase } from 'utils/Firebase/firebaseConfig';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  display: flex;
+  display: relative;
 `;
 
 function Chat(): React.ReactElement {

@@ -27,7 +27,6 @@ function AudioListForHome({ Audios }: Props): React.ReactElement {
           : <div></div>
         }
       </div>
-      <div className="divider"></div>
     </Wrapper>
   );
 }

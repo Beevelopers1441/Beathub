@@ -2,7 +2,7 @@ import React from 'react';
 // import { FixedSizeList} from 'react-window'
 
 // component
-import AudioListItem  from '../AudioListItem';
+import AudioListItemForHome  from '../AudioListItemForHome';
 
 // types
 import { AudioInfo } from 'types';
@@ -22,7 +22,7 @@ function AudioList({ Audios }: Props): React.ReactElement {
       <div className="audios-container">
         {Audios
         ? Audios.map((AudioItem:AudioInfo, idx:number) => (
-            <AudioListItem AudioInfo={AudioItem} key={idx} />
+            <AudioListItemForHome AudioInfo={AudioItem} key={idx} />
           ))
           : <div></div>
         }

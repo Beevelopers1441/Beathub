@@ -61,16 +61,21 @@ public class BandMemberController {
             }
         }
         Instrument instrument = instrumentService.findByType(applyDto.getInstrument());
-        UserInstrument userInstrument = UserInstrument.builder()
-                .player(findUser)
-                .ability(Ability.Senior)
-                .instrument(instrument)
-                .build();
-        userInstrumentService.save(userInstrument);
-
-
-        BandMember apply = bandMemberService.apply(bandId, findUser, applyDto.getInstrument());
-        return ResponseEntity.status(200).body(BandMemberResDto.of(apply));
+        UserInstrument searchUserInstrument = userInstrumentService.findByUserAndInstrument(findUser, instrument);
+        if (searchUserInstrument == null) {
+            System.out.println("instrument.getType() = " + instrument.getType());
+            UserInstrument userInstrument = UserInstrument.builder()
+                    .player(findUser)
+                    .ability(Ability.Senior)
+                    .instrument(instrument)
+                    .build();
+            UserInstrument savedUserInstrument = userInstrumentService.save(userInstrument);
+            BandMember apply = bandMemberService.apply(bandId, findUser, savedUserInstrument);
+            return ResponseEntity.status(200).body(BandMemberResDto.of(apply));
+        } else {
+            BandMember apply = bandMemberService.apply(bandId, findUser, searchUserInstrument);
+            return ResponseEntity.status(200).body(BandMemberResDto.of(apply));
+        }
     }
 
 

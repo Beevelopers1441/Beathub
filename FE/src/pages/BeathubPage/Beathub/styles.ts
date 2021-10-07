@@ -15,12 +15,13 @@ const Wrapper = styled.div`
 
   & .editor-container {
     // display: flex;
+    height: 80px;
     padding: 0 2rem 0 0;
     // min-width: 1140px;
   }
 
   & .beathub-container {
-    border: 1px solid;
+    border-top: 1px solid;
     display: flex;
     padding: 1rem 3rem;
     min-width: 1140px;

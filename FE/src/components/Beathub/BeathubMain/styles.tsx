@@ -4,6 +4,7 @@ const Wrapper = styled.div`
   text-align: center;
   display: flex;
   flex-direction: column;
+  height: 80vh;
   
   & .container{
     max-width: 100%

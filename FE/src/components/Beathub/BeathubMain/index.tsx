@@ -34,10 +34,10 @@ function BeathubMain({ commitAudios, bucketInfo }: Props) {
 
   return (
     <Wrapper>
-        <Grid item xs={9} className="container">
+        <Grid item xs={10} className="container">
           <BeathubList commitAudios={commitAudios} bucketAudios={bucketInfo.audios} totalPlaying={totalPlaying} totalRestart={totalRestart}></BeathubList>
         </Grid>
-        <Grid item xs={3} className="container">
+        <Grid item xs={2} className="container">
           <div className="btn-container">
           {totalPlaying
             ? <img src={pause} alt="pause" className="play-btn" onClick={onClickTotalPlay}/>

@@ -67,6 +67,15 @@ export interface ProfileInfo {
   instruments: Instrument[],
   participatingBands:Band[],
   followBands: Band[],
+  buckets: Bucket[]
+}
+
+export interface Bucket {
+  id: number,
+  title: string,
+  introduction: string,
+  contributors: [],
+  bpm: number,
 }
 
 export interface Instrument {

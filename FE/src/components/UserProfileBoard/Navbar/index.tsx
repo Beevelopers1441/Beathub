@@ -9,6 +9,7 @@ import Wrapper from './styles';
 
 // types
 import { ProfileInfo } from 'types';
+import { userInfo } from 'os';
 
 interface Props {
   profileInfo: ProfileInfo;
@@ -56,11 +57,11 @@ const Navbar: React.FC<Props> = ({ profileInfo }) => {
       <div className="nav-divider"></div>
       <div>
         {currentTab === "musics" ?
-          <Musics></Musics>
+          <Musics buckets={profileInfo.buckets}></Musics>
           : currentTab === "collections" ?
           <Collections></Collections>
           :
-          <Musics></Musics>
+          <Musics buckets={profileInfo.buckets}></Musics>
         }
       </div>
       </Wrapper>

@@ -73,6 +73,8 @@ const createCommit = async (bucketId: number, payload: CommitInfo) => {
     title: title,
   }
 
+  console.log(typeof(bucketId))
+
   const config: any = {
     method: 'POST',
     url: `${BASE_URL}buckets/${bucketId}`,

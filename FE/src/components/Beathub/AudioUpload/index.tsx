@@ -92,7 +92,9 @@ function AudioUpload(): React.ReactElement {
   // s3에 파일 전송 후 url을 받아옴
   async function handleFileInput() {
     s3Send(userid, file).then(function (res: string) {
-      setFileUrl(res)
+      console.log(res, '이거 나와야지')
+      console.log(typeof(res))
+      setFileUrl(String(res))
     });
   }
 

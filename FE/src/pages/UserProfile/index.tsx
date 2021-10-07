@@ -52,6 +52,13 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
       imageUrl: "",
       introduction: "",
       createTime: new Date(),
+    }],
+    buckets: [{
+      id: 0,
+      title: "",
+      introduction: "",
+      contributors: [],
+      bpm: 0,
     }]
   });
   
@@ -69,7 +76,8 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
         introduction: totalInfo.introduction,
         instruments: totalInfo.instruments,
         participatingBands: totalInfo.participatingBands,
-        followBands: totalInfo.followBands
+        followBands: totalInfo.followBands,
+        buckets: totalInfo.buckets,
       })
     })
   }, [match.params.userId, refreshPage])

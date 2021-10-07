@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 // Components
-import { AudioList, } from 'components/Beathub';
+import { AudioList, AudioVisualizer } from 'components/Beathub';
 import { ListForHome } from 'components/Community';
 
 // api
@@ -15,7 +15,7 @@ import Wrapper from './styles';
 // types
 
 // dummies
-import { dummyAudios } from '../Beathub/dump'
+import { dummyAudios } from '../BeathubPage/Beathub/dump'
 
 interface Props {}
 
@@ -25,7 +25,7 @@ function Home(props: Props): React.ReactElement {
     <Wrapper>
       <Grid container className="home-container">
         <Grid item xs={8} className="main-container">
-          <h1>HOME</h1>
+          <AudioVisualizer/>
         </Grid>
         <Grid item xs={4} className="sub-container">
           <AudioList Audios={dummyAudios} />

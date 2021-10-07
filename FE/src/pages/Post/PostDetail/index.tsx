@@ -7,7 +7,8 @@ import { Comment, ProfileCard } from 'components/Community';
 import InstItem from 'components/atoms/InstItem';
 
 // apis
-import { getMemberPost, getBandPost, setComment, setLikeAPI, setUnlikeAPI, getBandInfoAPI, deletePostAPI } from 'lib/api/community';
+import { getMemberPost, getBandPost, setComment, setLikeAPI, 
+  setUnlikeAPI, getBandInfoAPI, deletePostAPI, toggleRecruiting } from 'lib/api/community';
 import { setDateFormat } from 'utils/time';
 
 // types
@@ -135,8 +136,7 @@ function PostDetail(): React.ReactElement {
   // 게시글 삭제
   const handleDelete = () => {
     deletePostAPI(+postId)
-      .then(res => {
-        console.log(res);
+      .then(() => {
         history.replace({ pathname: '/community'});
       });
   };
@@ -148,9 +148,15 @@ function PostDetail(): React.ReactElement {
 
     const classList = [...Array.from(ele.classList)];
     if (classList.indexOf('Mui-checked') !== -1) {  // 모집중
-      setrecruiting(true);
+      toggleRecruiting(+postId)
+        .then(() => {
+          setrecruiting(true);
+        });
     } else {  // 완료
-      setrecruiting(false);
+      toggleRecruiting(+postId)
+        .then(() => {
+          setrecruiting(false);
+        });
     };
   };
 

@@ -38,7 +38,7 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<Comment>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch=FetchType.EAGER)
     private List<User> likeUsers = new ArrayList<User>();
 
     @ManyToOne(fetch = FetchType.LAZY)

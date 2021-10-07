@@ -41,7 +41,7 @@ const Wrapper = styled.div`
   & .modal {
     max-width: 400px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 20px;
     background: #ffffff;
     border-radius: 10px;
     text-align: center;

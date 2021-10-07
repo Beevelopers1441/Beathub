@@ -85,14 +85,12 @@ const UserProfile: React.FC<RouteComponentProps<MatchParam>> = ({ match }) => {
   return(
     <Wrapper>
       <Container className="user-profile-container">
-        <Grid container>
-          <Grid item xs={3}>
+          <Grid item xs={3} className="container">
             <UserProfileInfo profileInfo={profileInfo}></UserProfileInfo>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={9} className="container">
             <UserProfileBoard profileInfo={profileInfo}></UserProfileBoard>
           </Grid>
-        </Grid>
       </Container>
     </Wrapper>
   )

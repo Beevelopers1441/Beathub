@@ -13,6 +13,7 @@ const Wrapper = styled.div`
 
   & .home-container {
     display: flex;
+    justify-content: space-around;
   }
 
   & .main-container {

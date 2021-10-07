@@ -5,6 +5,7 @@ import React, { useRef, useState, useEffect } from 'react';
 // types
 
 // styles
+import Wrapper from './styles';
 
 // libraries
 import Wave from '@foobar404/wave';
@@ -136,13 +137,16 @@ function AudioVisualizer() {
   // }
 
   return (
-    <>
+    <Wrapper>
+      <div class="visualizer-info-container">
+      <h1>Play of This Week</h1>
       <audio
         ref={audioRef}
         id="player"
         src={audioUrl}
         crossOrigin="anonymous"
         />
+      </div>
       <div className="play-pause-btn" onClick={togglePlay}>
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 18 24">
             <path fill="#566574" fillRule="evenodd" d={state.playing? "M0 0h6v24H0zM12 0h6v24h-6z":"M18 12L0 24V0"} className="play-pause-icon" id="playPause"/>
@@ -150,7 +154,7 @@ function AudioVisualizer() {
       </div>
       <canvas className="playerCanvas" id="playerCanvas" width="1000" height="800"></canvas>
       <audio hidden id="player" src={audioUrl} crossOrigin="anonymous"></audio>
-    </>
+    </Wrapper>
   );
 }
 

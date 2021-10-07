@@ -26,11 +26,10 @@ function Home(props: Props): React.ReactElement {
         <Grid item xs={1} ></Grid>       
         <Grid item xs={7} className="main-container">
           <AudioVisualizer/>
-        </Grid>
-        <Grid item xs={3} className="sub-container">
+        </Grid> 
+        <Grid item xs={4} className="sub-container">
           <AudioListForHome Audios={dummyAudios} />
-        </Grid>
-        <Grid item xs={1} ></Grid>   
+        </Grid>   
       </Grid>
     </Wrapper>
   );

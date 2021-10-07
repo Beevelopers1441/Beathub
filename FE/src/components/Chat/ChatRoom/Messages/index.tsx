@@ -42,6 +42,7 @@ function Messages({ messages, currYou }: Props): React.ReactElement {
             ) : (
               <>
                 <YourMessageProfile 
+                  userId={message.userInfo.id}
                   imageUrl={message.userInfo.imageUrl}
                   username={message.userInfo.name}
                   key={`yourProfile-${idx}`}

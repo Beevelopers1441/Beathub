@@ -21,7 +21,16 @@ const Wrapper = styled.div`
 
   & .container {
     margin-bottom: 2rem;
-  
+
+    & h2 {
+      margin-bottom: 1rem;
+    }
+    & p {
+      font-size: 1rem;
+      line-height: 1.2;
+      color: #ABB0B5;
+    }
+  }
   & .post-input {
     width: 100%;
     height: auto;
@@ -47,6 +56,7 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: end;
   }
+  
 `
 
-export default Wrapper
+export default Wrapper;

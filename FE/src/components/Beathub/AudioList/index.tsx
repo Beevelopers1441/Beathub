@@ -18,6 +18,7 @@ interface Props {
 function AudioList({ Audios }: Props): React.ReactElement {
   return (
     <Wrapper>
+      <h1>New Upload</h1>
       <div className="audios-container">
         {Audios
         ? Audios.map((AudioItem:AudioInfo, idx:number) => (
@@ -25,7 +26,6 @@ function AudioList({ Audios }: Props): React.ReactElement {
           ))
           : <div></div>
         }
-      {/* </FixedSizeList> */}
       </div>
       <div className="divider"></div>
     </Wrapper>

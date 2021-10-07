@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Background2 from 'assets/svgs/Background2.svg'
 
 // 기존파일 복붙. 수정 필요
 const Wrapper = styled.div`
@@ -6,6 +7,11 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   height:100vh;
+  background-position: center center;
+  background-image: url(${Background2});
+  background-repeat : no-repeat;
+  background-size : cover;
+  
 
   & .login-container {
     // grid

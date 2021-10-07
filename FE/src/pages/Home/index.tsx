@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 // Components
-import { AudioList, AudioVisualizer } from 'components/Beathub';
-import { ListForHome } from 'components/Community';
+import { AudioListForHome, AudioVisualizer } from 'components/Beathub';
 
 // api
 import { getBandPosts, getMemberPosts } from 'lib/api/community';
@@ -28,9 +27,7 @@ function Home(props: Props): React.ReactElement {
           <AudioVisualizer/>
         </Grid>
         <Grid item xs={4} className="sub-container">
-          <AudioList Audios={dummyAudios} />
-          <hr />
-          <ListForHome />
+          <AudioListForHome Audios={dummyAudios} />
         </Grid>
       </Grid>
     </Wrapper>

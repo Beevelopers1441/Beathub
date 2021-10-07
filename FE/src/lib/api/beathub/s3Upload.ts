@@ -22,20 +22,21 @@ export const s3Auth = async () => {
 }
 
 export const s3Send = async (userid:string, file:object) => {
+  let date = new Date().getTime();
   let fileUrl = ''
 
   // 이미지 S3에 업로드
   let albumAudiosKey = encodeURIComponent(userid) + "/";
-  let audioKey = albumAudiosKey + userid + "_audio3.mp3";
+  let audioKey = albumAudiosKey + userid + date + "_audio3.mp3";
   // AWS sdk에 포함된 함수로 파일을 업로드하는 부분
   const upload = new AWS.S3.ManagedUpload({
     params: {
       Bucket: albumBucketName,
       Key: audioKey,
       Body: file,
-      // Metadata: {
-      //   'Content-Type': 'audio'
-      // }
+      Metadata: {
+        'Content-Type': 'audio/*'
+      }
     },
   })
   const promise = upload.promise()

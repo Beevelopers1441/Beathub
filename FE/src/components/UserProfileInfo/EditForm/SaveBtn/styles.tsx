@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   & .save-btn {
     width: 90%;
     height: 40px;
-    background: #D99BFF;
+    background: ${({ theme }) => theme.colors.violetPink };
     border-radius: 10px;
   }
   

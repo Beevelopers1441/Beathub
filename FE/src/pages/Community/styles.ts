@@ -16,9 +16,10 @@ const Wrapper = styled.div`
 
   & .community-title {
     padding: 1.5rem;
-    width: 60%;
+    width: 80%;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 3.5rem;
     border: 1px solid white;
     border-radius: 10px;
     backdrop-filter: blur(50px);
@@ -35,6 +36,10 @@ const Wrapper = styled.div`
 
   & .sub-container {
     min-width: 1140px;
+  }
+
+  & .main-container {
+    padding-bottom: 4rem;
   }
 
 

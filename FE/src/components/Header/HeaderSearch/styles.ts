@@ -11,7 +11,7 @@ const Wrapper = styled.div`
     width: 100%;
     height: auto;
     line-height: normal;
-    padding: 0.8em 0.8em;
+    padding: 0.3rem 0.8rem;
     background-color: transparent;
     color: #ffffff;
     font-family: inherit;
@@ -24,7 +24,7 @@ const Wrapper = styled.div`
   }
 
   & .search-icon {
-    margin: 0.5rem 0.8rem;
+    margin: 0.3rem 0.8rem;
     font-size: 1.3rem;
   }
 `;

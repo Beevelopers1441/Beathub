@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   }
   
   & .bands-creater {
-    background-color: ${({ theme }) => theme.colors.blueViolet }
+    background: ${({ theme }) => theme.colors.blueViolet }
   }
 
   & .bands-letter-create-container {

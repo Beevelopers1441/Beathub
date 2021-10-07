@@ -18,7 +18,7 @@ interface Props {
 function AudioListForHome({ Audios }: Props): React.ReactElement {
   return (
     <Wrapper>
-      <h1>New Upload</h1>
+      <div className="new-upload">New Upload</div>
       <div className="audios-container">
         {Audios
         ? Audios.map((AudioItem:AudioInfo, idx:number) => (

@@ -4,11 +4,12 @@ const Wrapper = styled.div`
 // padding: 1rem 1rem;
 border-radius: 10px;
 border-color: rgba(255, 255, 255, 0.7);
+
 // background-color: rgba(255, 255, 255, 0.7)
 
 
   & .audios-container {
-    height: 30rem;
+    height: 52vh;
     overflow: auto;
 
     ::-webkit-scrollbar {
@@ -39,6 +40,13 @@ border-color: rgba(255, 255, 255, 0.7);
     background: #FFFFFF;
     opacity: 0.2;
     transform: matrix(1, 0, 0, -1, 0, 0);
+  }
+
+  & .audios-empty {
+    margin-left: 30%;
+    margin-top: 200px;
+    font-size: 20px;
+    color: #ABB0B5;
   }
 `;
 

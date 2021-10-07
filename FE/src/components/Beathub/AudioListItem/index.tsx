@@ -15,17 +15,26 @@ import { addAction } from 'modules/beathub/actions';
 import { Chip, Avatar } from '@mui/material';
 
 // assets
-import drum from 'assets/svgs/instruments/drum-solid.svg'
-import guitar from 'assets/svgs/instruments/guitar-solid.svg'
+import vocal from 'assets/svgs/instruments/vocal-solid.svg';
+import drum from 'assets/svgs/instruments/drum-solid.svg';
+import keyboard from 'assets/svgs/instruments/keyboard-solid.svg';
+import bass from 'assets/svgs/instruments/bass-solid.svg';
+import electricGuitar from 'assets/svgs/instruments/electric-guitar-solid.svg';
+import acousticGuitar from 'assets/svgs/instruments/acoustic-guitar-solid.svg';
+import etc from 'assets/svgs/instruments/etc-solid.svg';
+
 import play from 'assets/svgs/beathub/play.svg';
 import pause from 'assets/svgs/beathub/pause.svg';
 import stop from 'assets/svgs/beathub/stop.svg';
 
-const instrumentUrl: {[key: string]: string} = {
+const instrumentUrl: { [key: string]: string } = {
+  "vocal": vocal,
+  "keyboard": keyboard,
+  "electricGuitar": electricGuitar,
+  "acousticGuitar": acousticGuitar,
+  "bass": bass,
   "drum": drum,
-  "guitar": guitar,
-  "piano": drum,
-  "vocal": drum
+  "etc": etc,
 }
 
 interface Props {

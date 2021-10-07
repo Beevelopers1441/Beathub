@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
+  height: 100%;
+
   & .divider {
     margin: 1rem;
     height: 1px;
@@ -10,7 +12,8 @@ const Wrapper = styled.div`
   }
 
   & .audios-container {
-    height: 30rem;
+    height: 90%;
+    // height: 30rem;
     overflow: auto;
 
     & .audios-empty {

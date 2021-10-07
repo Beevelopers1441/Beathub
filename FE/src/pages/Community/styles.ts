@@ -1,7 +1,22 @@
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-  margin-top: 100px;
+  margin-top: 70px;
+
+  & .community-title-container {
+    justify-content: center;
+    display: flex;
+  }
+
+  & .community-title {
+    padding: 2rem;
+    width: 60%;
+    text-align: center;
+    margin-bottom: 2rem;
+    border: 1px solid white;
+    border-radius: 10px;
+    font-weight: bold;
+  }
 
   & .community-container {
     display: flex;
@@ -23,6 +38,7 @@ const Wrapper = styled.div`
     margin: 0 3rem 1.3rem 0;
     cursor: pointer;
   }
+
   & .teamFlag-active {
     text-align: right;
     font-size: 1.2rem;

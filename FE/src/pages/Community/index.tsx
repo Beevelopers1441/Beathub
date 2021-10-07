@@ -137,6 +137,12 @@ function Community(props: Props): React.ReactElement {
 
   return (
     <Wrapper>
+      <div className="community-title-container">
+        <div className="community-title">
+          사람들과 소통할 수 있는 공간입니다.
+          마음 맞는 사람들에게 댓글을 남겨보세요.
+        </div>
+      </div>
       <Container className="community-container">
         <Grid container className="sub-container">
           <Grid item xs={2} className="teamFlag-container">

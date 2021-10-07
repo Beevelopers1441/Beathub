@@ -122,6 +122,7 @@ function PostDetail(): React.ReactElement {
         const newComments = [...comments];
         newComments.push(newComment);
         setComments(newComments);
+        commentRef.current.value = '';
       })
     
   };

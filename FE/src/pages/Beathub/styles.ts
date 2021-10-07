@@ -1,7 +1,12 @@
 import styled from 'styled-components'
+import Background5 from 'assets/svgs/Background5.svg'
 
 const Wrapper = styled.div`
   margin-top: 100px;
+  background-position: center center;
+  background-image: url(${Background5});
+  background-repeat : no-repeat;
+  background-size : cover;
 
   & .upload-container {
     display: flex;

@@ -29,8 +29,6 @@ function Home(props: Props): React.ReactElement {
         </Grid>
         <Grid item xs={4} className="sub-container">
           <AudioList Audios={dummyAudios} />
-          <hr />
-          <ListForHome />
         </Grid>
       </Grid>
     </Wrapper>

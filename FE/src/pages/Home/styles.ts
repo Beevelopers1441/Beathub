@@ -1,7 +1,15 @@
 import styled from 'styled-components'
+import Background4 from 'assets/svgs/Background4.svg'
 
 const Wrapper = styled.div`
-  margin-top: 100px;
+  padding-top: 100px;
+  background-position: center center;
+  background-image: url(${Background4});
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  & .blur {
+    backdrop-filter: blur(50px);
 
   & .home-container {
     display: flex;

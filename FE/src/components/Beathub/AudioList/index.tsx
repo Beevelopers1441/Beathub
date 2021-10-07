@@ -19,6 +19,7 @@ interface Props {
 function AudioList({ Audios }: Props): React.ReactElement {
   return (
     <Wrapper>
+      <h1>New Upload</h1>
       {/* <FixedSizeList
         height={400}
         width={360}
@@ -26,12 +27,14 @@ function AudioList({ Audios }: Props): React.ReactElement {
         itemCount={200}
         overscanCount={5}
       > */}
+      <div className="audios-container">
         {Audios
         ? Audios.map((AudioItem:AudioInfo, idx:number) => (
             <AudioListItem AudioInfo={AudioItem} key={idx} />
           ))
           : <div></div>
         }
+      </div>
       {/* </FixedSizeList> */}
 
     </Wrapper>

@@ -9,6 +9,7 @@ import React, { useRef, useState, useEffect } from 'react';
 // libraries
 import Wave from '@foobar404/wave';
 import dump from '../AudioUpload/dump.mp3'
+import { reducer, initState } from "lib/api/beathub/chageVisual"
 
 function AudioVisualizer() {
   let [wave] = useState(new Wave())

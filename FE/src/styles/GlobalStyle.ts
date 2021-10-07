@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
     color: #ffffff;
     font-family: 'Spoqa Han Sans Neo', 'sans-serif';
     // #0A1929
-    background-color: #212C4F;
+    background-color: #000000;
   }
   
   button {

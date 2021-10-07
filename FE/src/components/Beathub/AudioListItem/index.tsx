@@ -55,8 +55,9 @@ function AudioListItem({ AudioInfo }: Props): React.ReactElement {
   }
   
   return (
-    <Wrapper>
-      <Chip icon={<Avatar alt="instrument" src={instrumentSrc} sx={{ width: 20, height: 20 }}/>}  variant="outlined" color="primary" label={AudioInfo.instrument} />
+    <Wrapper className="blur">
+      <Chip className="instrument-chip" icon={<Avatar alt="instrument" src={instrumentSrc} sx={{ width: 20, height: 20 }}/>}  variant="outlined" label={AudioInfo.instrument} />
+      {/* default" | "primary" | "secondary" | "error" | "info" | "success" | "warning" | undefined */}
       <ListItem component="div" className="list-item">
         <ListItemButton sx={{ height: 56 }}>
           <ListItemIcon>
@@ -70,7 +71,7 @@ function AudioListItem({ AudioInfo }: Props): React.ReactElement {
           <ListItemText
             primary={AudioInfo.title}
             primaryTypographyProps={{
-              color: 'primary',
+              color: '#7B42F6',
               fontWeight: 'medium',
               variant: 'body2',
             }}
@@ -79,7 +80,7 @@ function AudioListItem({ AudioInfo }: Props): React.ReactElement {
           <ListItemText
             primary={AudioInfo.userInfo.name}
             primaryTypographyProps={{
-              color: 'primary',
+              color: '#7B42F6',
               fontWeight: 'medium',
               variant: 'body2',
             }}
@@ -92,7 +93,7 @@ function AudioListItem({ AudioInfo }: Props): React.ReactElement {
             size="large"
             sx={{
               '& svg': {
-                color: 'rgba(255,255,255,0.8)',
+                color: 'rgba(123, 66, 246)',
                 transition: '0.2s',
                 transform: 'translateX(0) rotate(0)',
               },

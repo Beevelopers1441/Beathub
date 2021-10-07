@@ -39,7 +39,7 @@ const Wrapper = styled.div`
       border-radius: 14px;
       border: 1px solid rgba(255, 255, 255, 0.15);
       transition: .5s ease;
-      background-color: #212C4F;
+      background-color: ${({ theme }) => theme.colors.black }
       display: flex;
       align-items: center;
       justify-content: center;

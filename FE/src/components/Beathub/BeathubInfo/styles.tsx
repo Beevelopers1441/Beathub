@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   & .container {
+    padding-top: 1rem;
 
     & .title {
       margin-left: 2rem;

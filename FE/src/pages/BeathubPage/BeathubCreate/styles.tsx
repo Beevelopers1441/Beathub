@@ -1,11 +1,18 @@
 import styled from 'styled-components'
+import Background5 from 'assets/svgs/Background5.svg'
 
 const Wrapper = styled.div`
-  margin-top: 100px;
+  margin-top: 6vh;
   min-width: 752px;
+  height: 93vh;
+  background-position: center center;
+  background-image: url(${Background5});
+  background-repeat : no-repeat;
+  background-size : cover;
 
   & .super-container {
     max-width: 800px;
+    padding-top: 100px
   }
 
   & .content {
@@ -28,6 +35,7 @@ const Wrapper = styled.div`
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    backdrop-filter: blur(50px);
   }
 
   & .post-textarea {

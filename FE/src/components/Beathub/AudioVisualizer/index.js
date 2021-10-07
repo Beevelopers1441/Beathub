@@ -46,10 +46,19 @@ function AudioVisualizer() {
 
 
   const audioRef = useRef(null);
-
-
+  const canvasRef = useRef(null);
+  // const canvas = canvasRef.current
+  const canvas = canvasRef
 
   useEffect(() => {
+    // resizing
+    function resizeCanvas() {
+      canvas.current.width = window.innerWidth/2;
+      canvas.current.height = window.innerHeight*0.9;
+    }
+    resizeCanvas();    ///call the first time page is loaded
+
+
     setArtist('Choi-ye-geun Band')
     setTitle('BBIBBI (original song. 아이유 - BBIBBI)')
 
@@ -167,7 +176,7 @@ function AudioVisualizer() {
       <div className="visualizer-info-container">
         <div className="top-container">
           <div className="title-container">
-            <h1 className="title">Play of This Week</h1>
+            <h1 className="title">Play of <br/> This Week</h1>
             <audio
               ref={audioRef}
               id="player"
@@ -209,7 +218,7 @@ function AudioVisualizer() {
         <h4>{artist} - {title}</h4>
       </div>
 
-      <canvas className="playerCanvas" id="playerCanvas" width="550" height="550"></canvas>
+      <canvas ref={canvasRef} className="playerCanvas" id="playerCanvas" width="550" height="550"></canvas>
       <audio hidden id="player" src={audioUrl} crossOrigin="anonymous"></audio>
     </Wrapper>
   );

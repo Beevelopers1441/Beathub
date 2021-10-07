@@ -102,17 +102,19 @@ const getBucketAudios = async (bucketId: number) => {
 
 
 // 버킷 오디오 생성
-const createBucketAudio = async (payload: AudioInfo) => {
+const createBucketAudio = async (bucketId: number, payload: AudioInfo) => {
   const { filename, filepath, instrumentType } = payload;
   const data = {
     filename: filename,
     filepath: filepath,
-    title: instrumentType,
+    instrumentType: instrumentType,
   }
 
+  console.log(data)
+  
   const config: any = {
     method: 'POST',
-    url: `${BASE_URL}buckets`,
+    url: `${BASE_URL}buckets/${bucketId}/audios`,
     data,
     headers: {
       Authorization: TOKEN,

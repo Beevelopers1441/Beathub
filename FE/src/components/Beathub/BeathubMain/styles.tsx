@@ -2,9 +2,14 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  
+  & .container{
+    max-width: 100%
+  }
 
   & .btn-container {
-  
 
     & .play-btn {
       margin: 1rem;

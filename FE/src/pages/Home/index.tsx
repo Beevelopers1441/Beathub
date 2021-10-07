@@ -24,12 +24,13 @@ function Home(props: Props): React.ReactElement {
     <Wrapper>
       <Grid container className="home-container">
         <Grid item xs={1} ></Grid>       
-        <Grid item xs={7} className="main-container">
+        <Grid item xs={6} className="main-container">
           <AudioVisualizer/>
         </Grid> 
         <Grid item xs={4} className="sub-container">
           <AudioListForHome Audios={dummyAudios} />
-        </Grid>   
+        </Grid>
+        <Grid item xs={1} ></Grid>    
       </Grid>
     </Wrapper>
   );

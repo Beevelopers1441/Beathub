@@ -33,6 +33,9 @@ export const s3Send = async (userid:string, file:object) => {
       Bucket: albumBucketName,
       Key: audioKey,
       Body: file,
+      // Metadata: {
+      //   'Content-Type': 'audio'
+      // }
     },
   })
   const promise = upload.promise()

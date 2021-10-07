@@ -5,6 +5,7 @@ import com.beeveloper.beathub.post.repository.PostRepository;
 import com.beeveloper.beathub.user.domain.User;
 import com.beeveloper.beathub.user.domain.dto.request.UpdateUserRequestDto;
 import com.beeveloper.beathub.user.domain.dto.request.UserSaveRequestDto;
+import com.beeveloper.beathub.user.exception.NotFoundUser;
 import com.beeveloper.beathub.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -57,8 +58,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(updateUser);
     }
 
-    public Optional<User> findById(Long userId) {
-        return userRepository.findById(userId);
+    public User findById(Long userId) {
+        return userRepository.findById(userId).orElseThrow(NotFoundUser::new);
     }
 
     @Override

@@ -19,11 +19,11 @@ function AudioList({ Audios }: Props): React.ReactElement {
   return (
     <Wrapper>
       <div className="audios-container">
-        {Audios
+        {Audios && Audios.length >= 1
         ? Audios.map((AudioItem:AudioInfo, idx:number) => (
             <AudioListItem AudioInfo={AudioItem} key={idx} />
           ))
-          : <div></div>
+          : <div className="audios-empty">음악 파일이 없습니다.</div>
         }
       </div>
       <div className="divider"></div>

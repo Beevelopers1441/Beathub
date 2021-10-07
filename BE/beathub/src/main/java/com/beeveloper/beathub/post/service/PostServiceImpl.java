@@ -10,6 +10,7 @@ import com.beeveloper.beathub.post.domain.Comment;
 import com.beeveloper.beathub.post.domain.MemberPost;
 import com.beeveloper.beathub.post.domain.Post;
 import com.beeveloper.beathub.post.dto.request.*;
+import com.beeveloper.beathub.post.exception.NotFoundPost;
 import com.beeveloper.beathub.post.repository.BandPostRepository;
 import com.beeveloper.beathub.post.repository.CommentRepository;
 import com.beeveloper.beathub.post.repository.MemberPostRepository;
@@ -85,36 +86,31 @@ public class PostServiceImpl implements PostService{
      */
     @Override
     public Post findById(Long postId) {
-        return postRepository.findById(postId).orElseThrow(RuntimeException::new);
+        return postRepository.findById(postId).orElseThrow(NotFoundPost::new);
     }
 
     @Override
     public MemberPost findMemberPost(Long postId) {
-        return memberPostRepository.findById(postId).orElseThrow(RuntimeException::new);
+        return memberPostRepository.findById(postId).orElseThrow(NotFoundPost::new);
     }
 
     @Override
     public BandPost findBandPost(Long postId) {
-        Optional<BandPost> byId = bandPostRepository.findById(postId);
-        return bandPostRepository.findById(postId).orElseThrow(RuntimeException::new);
+        return bandPostRepository.findById(postId).orElseThrow(NotFoundPost::new);
     }
 
     @Override
     public Comment createComment(Long userId, Long postId, CommentCreateDto commentInfo) {
-        Optional<Post> post = postRepository.findById(postId);
+        Post post = postRepository.findById(postId).orElseThrow(NotFoundPost::new);
         Optional<User> author = userRepository.findById(userId);
-        if (!post.isPresent() || !author.isPresent()) {
-            return null;
-        }
-        Post getPost = post.get();
         Comment comment = new Comment().builder()
-                .post(getPost)
+                .post(post)
                 .content(commentInfo.getContent())
                 .createTime(LocalDateTime.now())
                 .author(author.get())
                 .build();
         Comment savedComment = commentRepository.save(comment);
-        getPost.addComments(savedComment);
+        post.addComments(savedComment);
         return savedComment;
     }
 

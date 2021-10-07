@@ -8,6 +8,7 @@ import com.beeveloper.beathub.music.domain.Bucket;
 import com.beeveloper.beathub.music.domain.Commit;
 import com.beeveloper.beathub.music.dto.request.*;
 import com.beeveloper.beathub.music.dto.response.AudioSettingResDto;
+import com.beeveloper.beathub.music.exception.NotFoundBucket;
 import com.beeveloper.beathub.music.repository.AudioRepository;
 import com.beeveloper.beathub.music.repository.AudioSettingRepository;
 import com.beeveloper.beathub.music.repository.BucketRepository;
@@ -58,7 +59,7 @@ public class MusicServiceImpl implements MusicService{
 
     @Override
     public Bucket findBucketById(Long bucketId) {
-        Bucket bucket = bucketRepository.findById(bucketId).orElseThrow(NullPointerException::new);
+        Bucket bucket = bucketRepository.findById(bucketId).orElseThrow(NotFoundBucket::new);
         return bucket;
     }
 

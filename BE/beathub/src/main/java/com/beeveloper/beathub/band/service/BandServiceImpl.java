@@ -5,11 +5,13 @@ import com.beeveloper.beathub.band.domain.BandMember;
 import com.beeveloper.beathub.band.dto.request.BandCreateDto;
 import com.beeveloper.beathub.band.dto.request.BandInputDto;
 import com.beeveloper.beathub.band.dto.ressponse.BandResDto;
+import com.beeveloper.beathub.band.exception.NotFoundBand;
 import com.beeveloper.beathub.band.repository.BandMemberRepository;
 import com.beeveloper.beathub.band.repository.BandRepository;
 import com.beeveloper.beathub.instrument.domain.Instrument;
 import com.beeveloper.beathub.instrument.repository.InstrumentRepository;
 import com.beeveloper.beathub.user.domain.User;
+import com.beeveloper.beathub.user.exception.NotFoundUser;
 import com.beeveloper.beathub.user.repository.UserInstrumentRepository;
 import com.beeveloper.beathub.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +33,8 @@ public class BandServiceImpl implements BandService{
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Band> findById(Long bandId) {
-        return bandRepository.findById(bandId);
+    public Band findById(Long bandId) {
+        return bandRepository.findById(bandId).orElseThrow(NotFoundBand::new);
     }
 
     @Override
@@ -90,15 +92,15 @@ public class BandServiceImpl implements BandService{
 
     @Override
     public void follow(Long userId, Long bandId) {
-        User user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
-        Band band = bandRepository.findById(bandId).orElseThrow(RuntimeException::new);
+        User user = userRepository.findById(userId).orElseThrow(NotFoundUser::new);
+        Band band = findById(bandId);
         user.addFollowingBand(band);
     }
 
     @Override
     public void unfollow(Long userId, Long bandId) {
-        User user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
-        Band band = bandRepository.findById(bandId).orElseThrow(RuntimeException::new);
+        User user = userRepository.findById(userId).orElseThrow(NotFoundUser::new);
+        Band band = findById(bandId);
         user.removeFollowingBand(band);
     }
 

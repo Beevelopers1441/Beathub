@@ -54,11 +54,8 @@ public class UserController {
                                                      HttpServletResponse response,
                                                      @PathVariable(name = "userId") Long userId) {
 
-        Optional<User> searchUser = userService.findById(userId);
-        if (!searchUser.isPresent()) {
-            return ResponseEntity.badRequest().body("존재하지 않는 회원입니다");
-        }
-        User user = searchUser.get();
+        User searchUser = userService.findById(userId);
+        User user = searchUser;
         return ResponseEntity.status(200).body(UserProfileResDto.of(user));
     }
 
@@ -116,12 +113,9 @@ public class UserController {
             @RequestBody @ApiParam(value = "개인 프로필 수정 정보", required = true) UpdateUserRequestDto requestDto) {
 
         Optional<User> user = jwtService.returnUser(jwtToken);
-        Optional<User> searchUser = userService.findById(userId);
+        User searchUser = userService.findById(userId);
         if (!user.isPresent()) {
             return ResponseEntity.badRequest().body("로그인을 해주시기 바랍니다");
-        }
-        if (!searchUser.isPresent()) {
-            return ResponseEntity.badRequest().body("존재하지 않는 회원입니다");
         }
 
         User requestUser = user.get();

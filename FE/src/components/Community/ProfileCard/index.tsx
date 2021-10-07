@@ -7,6 +7,7 @@ import { ProfileImage } from 'components/atoms';
 import { setSimpleUsername } from 'utils/community';
 
 // styles
+import defaultProfileImg from 'assets/constants/defaultProfileImg.png';
 import { Tooltip } from '@mui/material';
 import Wrapper from './styles';
 
@@ -29,7 +30,7 @@ function ProfileCard({ name, imageUrl }: Props): React.ReactElement {
           <p className="name">{setSimpleUsername(name)}</p>
         </Tooltip>
       </div>
-      <ProfileImage url={imageUrl} className={'user-image'} />
+      <ProfileImage url={imageUrl ? imageUrl : defaultProfileImg} className={'user-image'} />
     </Wrapper>
   )
 }

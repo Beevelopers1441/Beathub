@@ -79,11 +79,7 @@ public class BandMemberController {
     public ResponseEntity getWaitingMembers(
             @PathVariable(value = "bandId") Long bandId) {
 
-        Optional<Band> searchBand = bandService.findById(bandId);
-
-        if (!searchBand.isPresent()) {
-            return ResponseEntity.badRequest().body("존재하지 않는 밴드입니다.");
-        }
+        Band searchBand = bandService.findById(bandId);
 
         List<BandMember> watingMember = bandMemberService.findWatingMember(bandId);
 
@@ -101,14 +97,11 @@ public class BandMemberController {
         // 예외 처리, 존재 유무 확인 후, 리더의 Id와 요청한 사람의 Id 가 동일한지 확인
         Optional<User> leader = jwtService.returnUser(jwtToken);
 
-        Optional<User> requestUser = userService.findById(dto.getUserId());
-        Optional<Band> searchBand = bandService.findById(dto.getBandId());
-        if (!leader.isPresent() || !requestUser.isPresent() || !searchBand.isPresent()) {
-            return;
-        }
+        User requestUser = userService.findById(dto.getUserId());
+        Band searchBand = bandService.findById(dto.getBandId());
         User leaderUser = leader.get();
-        User user = requestUser.get();
-        Band band = searchBand.get();
+        User user = requestUser;
+        Band band = searchBand;
 
         if (leaderUser.getId() != band.getLeader().getId()) {
             return;
@@ -127,14 +120,14 @@ public class BandMemberController {
         // 예외 처리, 존재 유무 확인 후, 리더의 Id와 요청한 사람의 Id 가 동일한지 확인
         Optional<User> leader = jwtService.returnUser(jwtToken);
 
-        Optional<User> requestUser = userService.findById(dto.getUserId());
-        Optional<Band> searchBand = bandService.findById(dto.getBandId());
-        if (!leader.isPresent() || !requestUser.isPresent() || !searchBand.isPresent()) {
+        User requestUser = userService.findById(dto.getUserId());
+        Band searchBand = bandService.findById(dto.getBandId());
+        if (!leader.isPresent()) {
             return ResponseEntity.badRequest().build();
         }
         User leaderUser = leader.get();
-        User user = requestUser.get();
-        Band band = searchBand.get();
+        User user = requestUser;
+        Band band = searchBand;
 
         if (!leaderUser.getId().equals(band.getLeader().getId())) {
             return ResponseEntity.status(403).body("권한이 없는 사용자입니다");

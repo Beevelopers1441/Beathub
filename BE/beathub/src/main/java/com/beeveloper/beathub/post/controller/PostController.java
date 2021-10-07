@@ -221,9 +221,6 @@ public class PostController {
             size --;
             i --;
         }
-
-
-
         postService.delete(post);
     }
 

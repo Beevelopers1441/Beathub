@@ -49,7 +49,11 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
 
   // user profile 클릭 시 프로필 이동
   const handleProfile = (id: number) => {
-    history.push(`/profile/${id}`);
+    if (teamFlag === 0) {
+      history.push(`/profile/${id}`);
+    } else {
+      history.push(`/group-profile/${id}`);
+    };
   };
 
   return (

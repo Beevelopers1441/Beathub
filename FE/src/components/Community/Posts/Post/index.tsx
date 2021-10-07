@@ -13,6 +13,7 @@ import { ProfileImage } from 'components/atoms';
 import { IPost } from 'types';
 
 // styles
+import defaultProfileImg from 'assets/constants/defaultProfileImg.png';
 import { Grid, Tooltip } from '@mui/material';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import Wrapper from './styles';
@@ -104,7 +105,7 @@ function Post({ post, teamFlag }: Props): React.ReactElement {
             onClick={() => handleProfile(post.author.id)}
           >
             <ProfileImage
-              url={post.author.imageUrl}
+              url={post.author.imageUrl ? post.author.imageUrl : defaultProfileImg}
               className={'user-image'}
             />
           </div>

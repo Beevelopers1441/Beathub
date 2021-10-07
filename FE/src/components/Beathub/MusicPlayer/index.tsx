@@ -28,42 +28,60 @@ function MusicPlayer({ fileUrl }: Props): React.ReactElement {
           },
         },
         loopIcon: {
-          color: '#7B42F6',
+          color: '#000000',
           '&.selected': {
-            color: '#9569f5'
+            color: '#0921a9'
           },
           '&:hover': {
-            color: '#a883f7'
+            color: '#7986cb'
           },
           [theme.breakpoints.down('sm')]: {
             display: 'none'
           }
         },
-        playIcon: {
-          color: '#f50057',
+        downloadLink: {
+          color: '#000000',
           '&:hover': {
-            color: '#ff4081'
+            color: '#7B42F6'
+          }
+        },
+        playIcon: {
+          color: '#000000',
+          '&:hover': {
+            color: '#7B42F6'
+          }
+        },
+        pauseIcon: {
+          color: '#000000',
+          '&:hover': {
+            color: '#7B42F6'
           }
         },
         volumeIcon: {
-          color: 'rgba(20, 241, 217, 0.54)'
+          color: '#000000',
+          '&:hover': {
+            color: '#FF6780'
+          }
         },
         volumeSlider: {
-          color: 'black'
+          color: '#14F1D9'
         },
         progressTime: {
           color: 'rgba(0, 0, 0, 0.54)'
         },
         mainSlider: {
-          color: '#7B42F6',
+          color: '#000000',
           '& .MuiSlider-rail': {
-            color: '#a883f7'
+            color: '#7986cb'
           },
           '& .MuiSlider-track': {
-            color: '#a883f7'
+            color: '#7B42F6'
           },
           '& .MuiSlider-thumb': {
-            color: '#a883f7'
+            color: '#000000',
+            '&:hover': {
+              color: '#56CCF2'
+            },
           }
         }
       }
@@ -73,7 +91,7 @@ function MusicPlayer({ fileUrl }: Props): React.ReactElement {
   return (
     <Wrapper>
       <ThemeProvider theme={playerTheme}>
-        <AudioPlayer src={fileUrl} useStyles={useStyles}/>
+        <AudioPlayer src={fileUrl} useStyles={useStyles} download={true} spacing={2} autoplay={true}/>
       </ThemeProvider>
     </Wrapper>
   );

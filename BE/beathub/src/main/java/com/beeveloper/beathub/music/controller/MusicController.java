@@ -76,39 +76,5 @@ public class MusicController {
         Commit commit = musicService.createCommit(commitCreateDto, jwtToken, bucketId);
         return ResponseEntity.status(201).body(CommitResDto.of(commit));
     }
-//
-//
-//    // 버킷의 커밋 조회
-//    @GetMapping("/buckets/{bucketId}")
-//    public ResponseEntity<List<BucketResDto>> readAllBuckets(@PathVariable Long bucketId) {
-//        List<Bucket> buckets = musicService.findAllBuckets();
-//        return ResponseEntity.status(200).body();
-//    }
-//
-//
-//    // 음원 조회
-//
-//    // 오디오 세팅 생성
-//    @PostMapping("/commits/{commitId}/audios/{audioId}")
-//    public ResponseEntity<AudioSettingResDto> createAudioSetting(
-//            @RequestBody AudioSettingCreateDto audioSettingInfo, @PathVariable Long commitId, @PathVariable Long audioId) {
-//        AudioSetting audioSetting = musicService.createAudioSetting(audioSettingInfo, commitId, audioId);
-//        return ResponseEntity.status(201).body();
-//    }
 
-    // 버킷 생성 ("/buckets")
-
-    // 버킷 조회
-
-    // 커밋 생성 ("/buckets")
-
-    // 커밋 조회
-
-    // 음원 생성 ("/buckets/{bucketId}/audios")
-
-    // 음원 조회
-
-    // 오디오 세팅 생성 ("/")
-
-    // 오디오 세팅 조회: 커밋 -> 오디오 세팅들
 }

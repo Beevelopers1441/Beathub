@@ -4,6 +4,11 @@ const Wrapper = styled.div`
   width: 100%;
   border-top: 0.5px solid #ABB0B5;
   padding: 1.5rem;
+  :hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 5px;
+  }
 
   & .mainInfo-box {
     cursor: pointer;

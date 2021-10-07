@@ -15,6 +15,16 @@ const Wrapper = styled.div`
     padding-top: 100px
   }
 
+  & .title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  & .sub-title {
+    margin-top: 0.5rem;
+  }
+  
   & .content {
     margin-bottom: 1rem;
   }

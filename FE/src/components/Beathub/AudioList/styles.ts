@@ -40,6 +40,13 @@ border-color: rgba(255, 255, 255, 0.7);
     opacity: 0.2;
     transform: matrix(1, 0, 0, -1, 0, 0);
   }
+
+  & .audios-empty {
+    margin-left: 30%;
+    margin-top: 200px;
+    font-size: 20px;
+    color: #ABB0B5;
+  }
 `;
 
 export default Wrapper;

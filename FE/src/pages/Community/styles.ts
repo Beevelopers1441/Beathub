@@ -3,12 +3,12 @@ import styled from 'styled-components'
 const Wrapper = styled.div`
   margin-top: 70px;
 
-  & .title-container {
+  & .community-title-container {
     justify-content: center;
     display: flex;
   }
 
-  & .title {
+  & .community-title {
     padding: 2rem;
     width: 60%;
     text-align: center;

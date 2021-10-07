@@ -47,7 +47,9 @@ function BeathubCreate(): ReactElement {
     <Wrapper>
       <Container className="super-container">
         <div className="container">
-          <h2>합주 시작하기</h2>
+          <h2>나의 Bucket 만들기</h2>
+          <p>Bucket은 자신의 연주를 담을 수 있는 공간입니다.</p>
+          <p>음악파일 생성은 Bucket을 만든 후에 가능합니다.</p>
         </div>
         <div className="container">
           <div className="content">제목</div>

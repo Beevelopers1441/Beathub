@@ -8,6 +8,7 @@ const Wrapper = styled.div`
     width: 30px;
     height: 30px;
     margin-left: 0.3rem;
+    cursor: pointer;
   }
 
   & .user-name {

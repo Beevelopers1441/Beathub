@@ -10,17 +10,15 @@ function FirebaseAuth(): React.ReactElement {
   useEffect(() => {
     if (!user.token) return
     let newEmail = user.userInfo.name.split(' ').join('')
-    newEmail = `${newEmail}@gmail.com`
+    newEmail = `${newEmail}@beathub.com`
     const email = newEmail; // need to change
     auth.createUserWithEmailAndPassword(email, email)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         if (user) {}
-        console.log('계정 생성 및 로그인 성공')
       })
       .catch((error) => {
-        console.log('이미 존재하는 이메일')
         console.log(error);
 
         // login
@@ -28,7 +26,6 @@ function FirebaseAuth(): React.ReactElement {
           .then((userCredential) => {
             const user = userCredential.user;
             if (user) {}
-            console.log('login 성공')
             // ...
           })
           .catch((error) => {

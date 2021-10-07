@@ -18,9 +18,6 @@ interface Props {
 }
 
 const Content: React.FC<Props> = ({ band, masterId }: Props) => {
-
-  console.log(band)
-  
   const id = useSelector((state: any) => state.user.userInfo.id)
 
   const dispatch = useDispatch();
@@ -49,8 +46,7 @@ const Content: React.FC<Props> = ({ band, masterId }: Props) => {
     const introduction = _intro
     const payload = { bandProfileImage, name, introduction };
     updateGroupProfile(band.id, payload)
-    .then(res => {
-      console.log(res)
+    .then(() => {
       dispatch(refreshPageAction());
     })
   }

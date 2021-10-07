@@ -7,7 +7,8 @@ import { Comment, ProfileCard } from 'components/Community';
 import InstItem from 'components/atoms/InstItem';
 
 // apis
-import { getMemberPost, getBandPost, setComment, setLikeAPI, setUnlikeAPI, getBandInfoAPI, deletePostAPI } from 'lib/api/community';
+import { getMemberPost, getBandPost, setComment, setLikeAPI, 
+  setUnlikeAPI, getBandInfoAPI, deletePostAPI, toggleRecruiting } from 'lib/api/community';
 import { setDateFormat } from 'utils/time';
 
 // types
@@ -24,7 +25,7 @@ interface ParamTypes {
 
 function PostDetail(): React.ReactElement {
   const [post, setPost] = useState<IPost | null>(null);
-  const [recruiting, setrecruiting] = useState<boolean>(true);
+  const [recruiting, setRecruiting] = useState<boolean | null>(null);
   const [comments, setComments] = useState<IComment[]>([]);
   const [isLike, setIsLike] = useState<Boolean>(false);
   const [likeCnt, setLikeCnt] = useState<number>(0);
@@ -56,7 +57,8 @@ function PostDetail(): React.ReactElement {
         setPost(newPost);
         setComments(newComments);
         setMemberWriter(writer);
-        setrecruiting(newRecruiting);
+        setRecruiting(newRecruiting);
+        initToggleProgress(newRecruiting);
       });
     } else {
       // 밴드 글
@@ -71,7 +73,8 @@ function PostDetail(): React.ReactElement {
         setIsLike(newIsLike);
         setPost(newPost);
         setComments(newComments);
-        setrecruiting(newRecruiting);
+        setRecruiting(newRecruiting);
+        initToggleProgress(newRecruiting);
 
         // set band member ids
         getBandInfoAPI(_bandId)
@@ -85,9 +88,9 @@ function PostDetail(): React.ReactElement {
 
   // recruiting effect
   useEffect(() => {
+    if (recruiting === null) return 
     const ele = document.querySelector('.MuiSwitch-root > span');
     if (!ele) return
-
     if (recruiting) { // 모집중
       ele.classList.remove('Mui-checked');
     } else { //모집 완료
@@ -135,8 +138,7 @@ function PostDetail(): React.ReactElement {
   // 게시글 삭제
   const handleDelete = () => {
     deletePostAPI(+postId)
-      .then(res => {
-        console.log(res);
+      .then(() => {
         history.replace({ pathname: '/community'});
       });
   };
@@ -148,10 +150,29 @@ function PostDetail(): React.ReactElement {
 
     const classList = [...Array.from(ele.classList)];
     if (classList.indexOf('Mui-checked') !== -1) {  // 모집중
-      setrecruiting(true);
+      toggleRecruiting(+postId)
+        .then(() => {
+          setRecruiting(true);
+        });
     } else {  // 완료
-      setrecruiting(false);
+      toggleRecruiting(+postId)
+        .then(() => {
+          setRecruiting(false);
+        });
     };
+  };
+
+  const initToggleProgress = (flag: boolean) => {
+    setTimeout(() => {
+      const ele = document.querySelector('.MuiSwitch-root > span');
+      if (!ele) return
+  
+      if (flag) { // 모집중
+        ele.classList.remove('Mui-checked');
+      } else { //모집 완료
+        ele.classList.add('Mui-checked');
+      };
+    }, 100);
   };
 
   // need to change tmp

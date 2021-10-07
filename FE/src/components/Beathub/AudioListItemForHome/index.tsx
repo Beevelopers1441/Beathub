@@ -63,6 +63,80 @@ function AudioListItem({ AudioInfo }: Props ) {
 
 
   return (
+<<<<<<< HEAD
+    <Wrapper className="blur">
+      <Chip className="instrument-chip" icon={<Avatar alt="instrument" src={instrumentSrc} sx={{ width: 20, height: 20 }}/>}  variant="outlined" label={AudioInfo.instrument} />
+      {/* default" | "primary" | "secondary" | "error" | "info" | "success" | "warning" | undefined */}
+      <ListItem component="div" className="list-item">
+        <ListItemButton sx={{ height: 56 }}>
+          <ListItemIcon>
+            <CardMedia
+              component="img"
+              sx={{ width: 50, height: 50 }}
+              image={AudioInfo.userInfo.imageUrl}
+              alt="audio-profile"
+            />
+          </ListItemIcon>
+          <ListItemText
+            primary={AudioInfo.title}
+            primaryTypographyProps={{
+              color: '#7B42F6',
+              fontWeight: 'medium',
+              variant: 'body2',
+            }}
+            secondary={AudioInfo.title}
+          />
+          <ListItemText
+            primary={AudioInfo.userInfo.name}
+            primaryTypographyProps={{
+              color: '#7B42F6',
+              fontWeight: 'medium',
+              variant: 'body2',
+            }}
+            secondary={AudioInfo.instrument}
+          />
+        </ListItemButton>
+        <Tooltip title="Open Player">
+          <IconButton
+            onClick={openPlayer}
+            size="large"
+            sx={{
+              '& svg': {
+                color: 'rgba(123, 66, 246)',
+                transition: '0.2s',
+                transform: 'translateX(0) rotate(0)',
+              },
+              '&:hover, &:focus': {
+                bgcolor: 'unset',
+                '& svg:first-of-type': {
+                  transform: 'translateX(-4px) rotate(-20deg)',
+                },
+                '& svg:last-of-type': {
+                  right: 0,
+                  opacity: 1,
+                },
+              },
+              '&:after': {
+                content: '""',
+                position: 'absolute',
+                height: '80%',
+                display: 'block',
+                left: 0,
+                width: '1px',
+                bgcolor: 'divider',
+              },
+            }}
+          >
+            <MusicNote />
+            <ArrowRight sx={{ position: 'absolute', right: 4, opacity: 0 }} />
+          </IconButton>
+        </Tooltip>
+      </ListItem>
+      {/* player */}
+      {isPlayerOn &&
+        <div>
+        <MusicPlayer fileUrl={AudioInfo.fileUrl}/>
+=======
     <Wrapper>
       <div className="item-box">
         <div className="first-row">
@@ -95,6 +169,7 @@ function AudioListItem({ AudioInfo }: Props ) {
           <button className="add-btn" onClick={onClickAdd}>
             <div className="add-btn-letter">Add</div>
           </button>
+>>>>>>> ef56107410c0b49c6b4996b52a5cb44d970b3647
         </div>
       </div>
     </Wrapper>

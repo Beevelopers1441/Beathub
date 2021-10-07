@@ -13,6 +13,12 @@ const Wrapper = styled.div`
     height: 30rem;
     overflow: auto;
 
+    & .audios-empty {
+      margin-top: 200px;
+      font-size: 20px;
+      color: #ABB0B5;
+    }
+
     ::-webkit-scrollbar {
       width: 10px;
     }

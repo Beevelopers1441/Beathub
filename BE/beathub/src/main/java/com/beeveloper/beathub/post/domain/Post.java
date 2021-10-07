@@ -35,7 +35,7 @@ public class Post {
 
     // 아래 User와 Group 둘 중 하나는 빈 값이 될 수 있
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<Comment>();
 
     @ManyToMany(fetch=FetchType.EAGER)

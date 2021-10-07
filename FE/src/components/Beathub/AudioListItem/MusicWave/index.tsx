@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import ReactWaves from "@dschoon/react-waves";
 
 import Wrapper from './styles'

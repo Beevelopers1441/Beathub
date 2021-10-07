@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   background-size: cover;
   overflow: hidden;
   height: 100vh;
-  padding-top: 3.2rem;
+  padding-top: 5.15rem;
 
   & .blur {
     backdrop-filter: blur(50px);

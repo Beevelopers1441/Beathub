@@ -39,7 +39,7 @@ function FirebaseAuth(): React.ReactElement {
 
   return (
     <>
-      firebase auth
+      {/* firebase auth */}
     </>
   );
 };

@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-padding: 1rem 1rem 0 1rem;
+height: 85vh;
+display:flex;
+flex-direction: column;
+justify-content: center;
+padding: 0 1rem;
 border-radius: 10px;
 border-color: rgba(255, 255, 255, 0.7);
 // background-color: rgba(255, 255, 255, 0.7)

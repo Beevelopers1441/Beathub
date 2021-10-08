@@ -6,7 +6,7 @@ import { GoogleAuthBtn } from './GoogleAuthBtn/index';
 const SocialAuth: FC = () => {
   return (
     <>
-    <NaverAuthBtn></NaverAuthBtn>
+    {/* <NaverAuthBtn></NaverAuthBtn> */}
     <GoogleAuthBtn></GoogleAuthBtn>
     </>
   );

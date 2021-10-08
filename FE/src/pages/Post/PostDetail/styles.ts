@@ -2,8 +2,7 @@ import styled from 'styled-components'
 import Background6 from 'assets/svgs/Background6.svg'
 
 const Wrapper = styled.div`
-  padding-top: 10vh;
-  height: 100vh;
+  padding-top: 100px;
   background-position: center center;
   background-image: url(${Background6});
   background-repeat : no-repeat;

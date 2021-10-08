@@ -1,6 +1,9 @@
 import React from 'react';
 import Wrapper from './styles';
 
+// styles
+import { Button } from '@mui/material';
+
 interface IProps {
   editing: boolean,
   onToggleEdit: () => void,
@@ -29,17 +32,17 @@ function EditBtn({ onToggleEdit, onUpdate, onCancel, editing }: IProps) {
       
       { !editing
       ?  
-        <button className="edit-btn" onClick={onClickEdit}>
+        <Button className="edit-btn" onClick={onClickEdit}>
           <div className="edit-btn-letter">Edit</div>
-        </button>
+        </Button>
       :
         <div>
-          <button className="edit-btn" onClick={onClickSave}>
+          <Button className="edit-btn" onClick={onClickSave}>
             <div className="edit-btn-letter">Save</div>
-          </button>
-          <button className="cancel-btn" onClick={onClickCancel}>
+          </Button>
+          <Button className="cancel-btn" onClick={onClickCancel}>
             <div className="cancel-btn-letter">Cancel</div>
-          </button>
+          </Button>
         </div>
       }
 

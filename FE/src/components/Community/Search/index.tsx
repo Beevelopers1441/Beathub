@@ -5,6 +5,7 @@ import InstrumentPicker from '../InstrumentPicker';
 
 // styles
 import { Search } from '@mui/icons-material';
+import {  Button } from '@mui/material';
 import Wrapper from './styles';
 
 interface Props {
@@ -33,13 +34,13 @@ function CommunitySearch({
         ></input>
       </div>
       <InstrumentPicker width={'20rem'} setCurrInst={setCurrTag} />
-      <button
+      <Button
         id="search-button"
         className="search-button"
         onClick={handleInputs}
       >
         검색
-      </button>
+      </Button>
     </Wrapper>
   );
 }

@@ -22,6 +22,8 @@
 
 
 
+
+
 ## :file_folder: Tech Stack
 
 - **:art: Front-End**
@@ -61,14 +63,42 @@
 
 ## Database Model
 
-
+![](./assets/img/beathub_erd.png)
 
 
 
 ## Service
 
-~~gif에 설명~~
+> gif에 설명
+
+### 메인 페이지
 
 
+
+### 소셜 로그인
+
+
+
+### Beathub
+
+
+
+
+
+### 커뮤니티
+
+- 글 작성
+
+- 밴드 가입
+- 채팅
+
+
+
+### 프로필
+
+- 개인 프로필
+- 그룹 프로필
+
+- 검색
 
 

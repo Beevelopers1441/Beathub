@@ -10,8 +10,6 @@
 
 ## :information_desk_person: Introduction
 
----
-
 - 기간 
 
   - 21.08.30 - 21.10.08 ( 6 weeks )
@@ -34,15 +32,11 @@
 
 ## 🕋 Project Architecture
 
----
-
 ![](./assets/img/beathub_sa.png)
 
 
 
 ## 📚 Tech Stack
-
----
 
 - **:art: Front-End**
 
@@ -82,16 +76,12 @@
 
 ## :newspaper: Database Model
 
----
-
 ![](./assets/img/beathub_erd.png)
 
 
 
 
 ## 🎧 Service
-
----
 
 ### 메인 페이지
 

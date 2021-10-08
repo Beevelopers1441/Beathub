@@ -4,7 +4,7 @@
 
 # Beathub
 
-<img src="./assets/img/beathub_logo.png" style="zoom: 25%;" />
+<img src="./assets/img/beathub_logo.png" style="width: 200px" />
 
 > 프론트엔드 : [김지윤](), [서민수](), [전선규](https://github.com/sungyujeon)
 >

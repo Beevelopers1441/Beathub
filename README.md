@@ -1,26 +1,36 @@
-<b>Readme 작성중</b>
-
-
-
 # Beathub
 
-<img src="./assets/img/beathub_logo.png" style="zoom: 25%;" />
+<img src="./assets/img/beathub_logo.png" style="width: 200px" />
 
 > 프론트엔드 : [김지윤](), [서민수](), [전선규](https://github.com/sungyujeon)
 >
-> 백엔드 : [류영석](), [한상진]()
+> 백엔드 : [류영석](), [한상진](https://github.com/SangjinH)
 
 ## :information_desk_person: Introduction
 
 - 기간 
+
+  - 21.08.30 - 21.10.08 ( 6 weeks )
+
 - 목적
+
+  - 같이 소통하고, 나만의 음악 파일을 만들 수 있는 서비스를 구현했습니다.
+
 - 내용
+
+  - 나의 음악 `연주파일을 공유`하고, 다른 사람의 음악 파일에 맞춰 내가 연주하며
+
+    `온라인으로도 합주`할 수 있는 경험을 제공하고자 하였고, 
+
+    또한, 팀을 구할 수 있는 `커뮤니티를 구성해`,
+
+    음악에 대한 `열정을 이어갈 수 있도록` 서비스를 만들었습니다.
 
 
 
 ## Project Architecture
 
-
+![](./assets/img/beathub_sa.png)
 
 
 
@@ -69,13 +79,21 @@
 
 ## Service
 
-> gif에 설명
-
 ### 메인 페이지
+
+![](./assets/svgs/mainPage.gif)
+
+메인 페이지 입니다. 왼쪽부분에는 이 달의 음악이 추천으로 뜨고 오른쪽 부분에는 최근 업로드된 오디오 목록이 있습니다.
 
 
 
 ### 소셜 로그인
+
+![](./assets/svgs/socialLogin.gif)
+
+- 구글 로그인
+
+해당 버튼을 누르게 되면 OAuth2와 연동되어 자동으로 저희 서비스에 회원 가입할 수 있습니다.
 
 
 
@@ -97,10 +115,15 @@
 
 ### 커뮤니티
 
+![](./assets/svgs/community1.gif)
+
+![](./assets/svgs/community2.gif)
+
 - 글 작성
 
-- 밴드 가입
-- 채팅
+- 밴드 가입 & 채팅
+
+  ![](./assets/svgs/chat.gif)
 
 
 
@@ -147,6 +170,6 @@
     밴드를 가입하기 위해서 밴드 가입 신청을 할 수 있습니다. 밴드 마스터는 밴드원 관리 탭에서 신청목록을 조회하고 수락 및 거절을 할 수 있습니다.
 
   - 팔로우/ DM
-
+  
     밴드 프로필 페이지에서 팔로우 및 팔로우 취소를 신청할 수 있고, 채팅을 시작할 수 있습니다. 이 경우에는 밴드 마스터에게 메세지가 보내집니다.
 

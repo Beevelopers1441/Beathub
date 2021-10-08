@@ -1,7 +1,3 @@
-<b>Readme 작성중</b>
-
-
-
 # Beathub
 
 <img src="./assets/img/beathub_logo.png" style="width: 200px" />
@@ -34,7 +30,7 @@
 
 ## Project Architecture
 
-
+![](./assets/img/beathub_sa.png)
 
 
 

@@ -79,15 +79,17 @@
 
 ## Service
 
-> gif에 설명
-
 ### 메인 페이지
+
+![](./assets/svgs/mainPage.gif)
 
 메인 페이지 입니다. 왼쪽부분에는 이 달의 음악이 추천으로 뜨고 오른쪽 부분에는 최근 업로드된 오디오 목록이 있습니다.
 
 
 
 ### 소셜 로그인
+
+![](./assets/svgs/socialLogin.gif)
 
 - 구글 로그인
 
@@ -103,10 +105,15 @@
 
 ### 커뮤니티
 
+![](./assets/svgs/community1.gif)
+
+![](./assets/svgs/community2.gif)
+
 - 글 작성
 
-- 밴드 가입
-- 채팅
+- 밴드 가입 & 채팅
+
+  ![](./assets/svgs/chat.gif)
 
 
 

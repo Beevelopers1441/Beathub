@@ -6,7 +6,11 @@
 >
 > 백엔드 : [류영석](), [한상진](https://github.com/SangjinH)
 
+---
+
 ## :information_desk_person: Introduction
+
+---
 
 - 기간 
 
@@ -28,13 +32,17 @@
 
 
 
-## Project Architecture
+## :hammer: Project Architecture
+
+---
 
 ![](./assets/img/beathub_sa.png)
 
 
 
 ## :file_folder: Tech Stack
+
+---
 
 - **:art: Front-End**
 
@@ -71,13 +79,17 @@
 
     
 
-## Database Model
+## :newspaper: Database Model
+
+---
 
 ![](./assets/img/beathub_erd.png)
 
 
 
-## Service
+## :mag_right: Service
+
+---
 
 ### 메인 페이지
 
@@ -97,7 +109,7 @@
 
 
 
-### Beathub
+### :musical_score: ​Beathub
 
 ![](./assets/svgs/beathub1.gif)
 
@@ -117,21 +129,25 @@
 
 
 
-### 커뮤니티
+### :couple: ​커뮤니티
 
 ![](./assets/svgs/community1.gif)
 
+- 글 작성
+
 ![](./assets/svgs/community2.gif)
 
-- 글 작성
+
 
 - 밴드 가입 & 채팅
 
+  
+  
   ![](./assets/svgs/chat.gif)
 
 
 
-### 프로필
+### :page_facing_up: ​프로필
 
 - #### 개인 프로필
 
@@ -157,7 +173,10 @@
 
     밴드 목록 옆의 밴드생성 버튼을 클릭해서 새로운 밴드를 만들 수 있습니다. 생성 시 자신이 맡을 파트를 자신의 연주 악기 목록 중에서 선택합니다.
 
-  #### 밴드 프로필
+
+
+
+- ### 밴드 프로필
 
   ![](./assets/svgs/groupProfile.gif)
 

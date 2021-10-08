@@ -2,9 +2,9 @@
 
 <img src="./assets/img/beathub_logo.png" style="width: 200px" />
 
-> 프론트엔드 : [김지윤](), [서민수](), [전선규](https://github.com/sungyujeon)
+> 프론트엔드 : [김지윤](https://github.com/Helia-17), [서민수](https://github.com/tjatn304905), [전선규](https://github.com/sungyujeon)
 >
-> 백엔드 : [류영석](), [한상진](https://github.com/SangjinH)
+> 백엔드 : [류영석](https://github.com/rhyuys115), [한상진](https://github.com/SangjinH)
 
 ## :information_desk_person: Introduction
 
@@ -28,25 +28,25 @@
 
 
 
-## Project Architecture
+## 🕋 Project Architecture
 
 ![](./assets/img/beathub_sa.png)
 
 
 
-## :file_folder: Tech Stack
+## 📚 Tech Stack
 
 - **:art: Front-End**
 
   - Language
-    - <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> ~~typescript 추가~~
+    - <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> ![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 
   - Framework / Library
     - <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"><img src="https://img.shields.io/badge/redux-6f43b5?style=for-the-badge&logo=redux&logoColor=white"><img src="https://img.shields.io/badge/styled components-d56ead?style=for-the-badge&logo=styled components&logoColor=white">
   - Design
     - <img src="https://img.shields.io/badge/material ui-1976d2?style=for-the-badge&logo=material ui&logoColor=white"> 
   - open API
-    - <img src="https://img.shields.io/badge/kakao-fae100?style=for-the-badge&logo=kakao&logoColor=3b1e1e">  >> ~~구글로 수정~~
+    - <img src="https://aleen42.github.io/badges/src/google_plus.svg">  >> 
 
 - :computer:  __Back-End__
 
@@ -63,21 +63,21 @@
 
   - DevOps
 
-    - AWS, Jenkins ~~아이콘~~
+    - <img src="https://img.shields.io/badge/Amazon AWS-{232F3E}?style=for-the-badge&logo=amazonaws&logoColor=white"><img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white">
 
   - Database
 
-    - <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=black"> ~~firebase~~ 
+    - <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=black"> <img src="https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black">
 
     
 
-## Database Model
+## 📂 Database Model
 
 ![](./assets/img/beathub_erd.png)
 
 
 
-## Service
+## 🎧 Service
 
 ### 메인 페이지
 
@@ -125,11 +125,13 @@
 
 - 글 작성
 
+  - 밴드가 팀원을 구하거나 개인이 밴드 팀을 구할 때 커뮤니티에 글을 남겨 홍보할 수 있습니다. 각각의 글에서 구인의 진행 상황을 체크할 수 있고, 댓글을 남길 수 있습니다. 글 목록 페이지에서는 제목이나 해당하는 악기를 선택해 검색할 수 있습니다.
+
 - 밴드 가입 & 채팅
 
   ![](./assets/svgs/chat.gif)
-
-
+  
+  - 밴드 가입을 위해 밴드장에게 DM을 보낼 수 있습니다. 개인별 채팅 기능을 제공하여 밴드에 가입하기 전에 서로의 정보를 교환할 수 있습니다.
 
 ### 프로필
 
@@ -157,7 +159,7 @@
 
     밴드 목록 옆의 밴드생성 버튼을 클릭해서 새로운 밴드를 만들 수 있습니다. 생성 시 자신이 맡을 파트를 자신의 연주 악기 목록 중에서 선택합니다.
 
-  #### 밴드 프로필
+- #### 밴드 프로필
 
   ![](./assets/svgs/groupProfile.gif)
 
@@ -180,4 +182,3 @@
   - 팔로우/ DM
 
     밴드 프로필 페이지에서 팔로우 및 팔로우 취소를 신청할 수 있고, 채팅을 시작할 수 있습니다. 이 경우에는 밴드 마스터에게 메세지가 보내집니다.
-

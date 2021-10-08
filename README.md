@@ -151,6 +151,8 @@
   
   - 밴드 가입을 위해 밴드장에게 DM을 보낼 수 있습니다. 개인별 채팅 기능을 제공하여 밴드에 가입하기 전에 서로의 정보를 교환할 수 있습니다.
 
+
+
 ### :page_facing_up: ​프로필
 
 - #### 개인 프로필
@@ -179,9 +181,9 @@
 
 
 
-- #### 밴드 프로필
+#### 밴드 프로필
 
-  ![](./assets/svgs/groupProfile.gif)
+​                                                    <img src="./assets/svgs/groupProfile.gif" style="zoom: 80%;" />
 
   - 프로필 조회
 

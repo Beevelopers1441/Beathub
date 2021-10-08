@@ -12,7 +12,7 @@ import { getBandPosts, getMemberPosts } from 'lib/api/community';
 import { setTeamFlagColor } from 'utils/community';
 
 // styles
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, Button } from '@mui/material';
 import Wrapper from './styles';
 
 // types
@@ -173,7 +173,7 @@ function Community(props: Props): React.ReactElement {
             />
             <div className="create-container">
               <Link to={`post/${teamFlag}`}>
-                <button className="create-btn">글쓰기</button>
+                <Button className="create-btn">글쓰기</Button>
               </Link>
             </div>
             { currPosts ? (

@@ -10,7 +10,7 @@ import { setMemberPost, setBandPost } from 'lib/api/community';
 import { getUserProfile } from 'lib/api/userProfile';
 
 // styles
-import { Container, Snackbar } from '@mui/material';
+import { Container, Snackbar, Button } from '@mui/material';
 import Slide, { SlideProps } from '@mui/material/Slide';
 import Wrapper from './styles';
 
@@ -173,11 +173,11 @@ function PostCreate(props: Props): React.ReactElement {
         </div>
         <div className="bottom-btn-container">
           <Link to="/community">
-            <button className="btn-cancel">취소</button>
+            <Button className="btn-cancel">취소</Button>
           </Link>
-          <button onClick={handleSavePost} className="btn">
+          <Button onClick={handleSavePost} className="btn">
             저장
-          </button>
+          </Button>
         </div>
       </Container>
       <Snackbar
